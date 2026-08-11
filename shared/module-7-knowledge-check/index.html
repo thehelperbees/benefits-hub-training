@@ -1,0 +1,1752 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../gate.js" data-home="../../index.html"></script>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benefits Hub — Knowledge Check | The Helper Bees</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#003322; --green-soft:#0B4A36;
+    --cream:#FCF7EE; --cream-dim:#F5EEE0;
+    --yellow:#FFD646; --lime:#E6EC82; --teal:#82D2CA;
+    --peach:#FDA761; --pink:#FEB3D3; --rasp:#CC4983;
+    --sand:#E3D7BB; --ink:#0F2E23;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;overflow-x:hidden;background:var(--green);font-family:'Manrope',system-ui,-apple-system,Arial,sans-serif;color:var(--ink);}
+  #app{max-width:1080px;margin:0 auto;height:100vh;display:flex;flex-direction:column;padding:22px 22px 26px;width:100%;box-sizing:border-box;}
+
+  /* ---------- top chrome ---------- */
+  .top{display:flex;align-items:center;gap:16px;padding:2px 4px 14px;flex:none;}
+  .brand{display:flex;align-items:center;gap:9px;white-space:nowrap;}
+  .brand svg{width:20px;height:20px;flex:none;}
+  .brand span{color:var(--cream);font-weight:800;font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;}
+  .track{flex:1;display:flex;align-items:center;gap:10px;}
+  .prog{flex:1;height:6px;background:rgba(252,247,238,.16);border-radius:6px;overflow:hidden;}
+  .prog>i{display:block;height:100%;width:0;background:var(--yellow);border-radius:6px;transition:width .35s ease;}
+  .stepnum{font-size:12px;font-weight:700;color:var(--cream);opacity:.55;white-space:nowrap;letter-spacing:.2px;}
+  .home-link{display:inline-flex;align-items:center;gap:6px;color:var(--cream);opacity:.72;font-size:12.5px;font-weight:700;text-decoration:none;white-space:nowrap;padding:6px 10px;border-radius:8px;flex:none;transition:opacity .15s ease,background .15s ease;}
+  .home-link:hover{opacity:1;background:rgba(252,247,238,.08);}
+  .home-link svg{width:13px;height:13px;flex:none;}
+
+  /* ---------- stage ---------- */
+  .stage{flex:1;min-height:0;background:var(--cream);border-radius:22px;overflow:hidden;position:relative;box-shadow:0 20px 50px -20px rgba(0,0,0,.45);}
+  .ix{position:absolute;inset:0;overflow-y:auto;padding:38px 64px;box-sizing:border-box;}
+  .center{display:flex;flex-direction:column;}
+  .ix.center>*:first-child{margin-top:auto;}
+  .ix.center>*:last-child{margin-bottom:auto;}
+  .wrap{max-width:620px;width:100%;}
+  .wrap.wide{max-width:760px;width:100%;}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--rasp);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;margin-bottom:16px;}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--rasp);}
+  h1.hl{font-size:38px;font-weight:800;line-height:1.12;letter-spacing:-.5px;margin:0 0 14px;color:var(--green);}
+  .sub{font-size:17.5px;line-height:1.55;color:#3C5A4D;margin:0 0 6px;max-width:56ch;}
+
+  /* ---------- cover ---------- */
+  .cover-badge{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:var(--cream);border-radius:999px;padding:8px 16px 8px 10px;font-size:13px;font-weight:800;letter-spacing:.3px;margin-bottom:26px;}
+  .cover-badge svg{width:16px;height:16px;}
+  .cover-meta{display:flex;gap:22px;margin-top:28px;flex-wrap:wrap;}
+  .cover-meta div{display:flex;flex-direction:column;gap:2px;}
+  .cover-meta b{font-size:13px;color:var(--green);font-weight:800;}
+  .cover-meta span{font-size:12.5px;color:#5c7568;}
+
+  /* ---------- note banner / draft tag ---------- */
+  .notebanner{background:var(--cream-dim);border:1.5px dashed var(--sand);border-radius:12px;padding:14px 16px;font-size:13.5px;color:#5c7568;line-height:1.5;margin-top:22px;max-width:56ch;}
+  .notebanner b{color:var(--rasp);}
+  .draft-tag{display:inline-flex;align-items:center;gap:6px;background:var(--peach);color:#5c3200;font-weight:800;font-size:11px;letter-spacing:.3px;text-transform:uppercase;border-radius:20px;padding:5px 12px;margin-bottom:14px;}
+
+  /* ---------- name capture ---------- */
+  .namebox{margin-top:24px;}
+  .namebox input{width:100%;max-width:380px;font-family:inherit;font-size:17px;font-weight:700;color:var(--green);border:2px solid var(--sand);border-radius:12px;padding:14px 16px;background:#fff;}
+  .namebox input:focus{outline:none;border-color:var(--teal);}
+  .namebox label{display:block;font-size:13px;font-weight:800;color:var(--green);margin-bottom:8px;letter-spacing:.2px;}
+  .namehint{font-size:12.5px;color:#8a7a55;margin-top:8px;font-style:italic;}
+
+  /* ---------- how-it-works steps (scenario screen) ---------- */
+  .howsteps{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap;}
+  .howsteps .hs{flex:1;min-width:150px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:16px 16px;}
+  .howsteps .hs .hn{width:26px;height:26px;border-radius:50%;background:var(--green);color:var(--yellow);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+  .howsteps .hs b{display:block;font-size:14px;color:var(--green);margin-bottom:3px;}
+  .howsteps .hs span{font-size:12.5px;color:#5c7568;line-height:1.4;}
+
+  /* ---------- walkthrough task card ---------- */
+  .activity-card{background:var(--green);color:var(--cream);border-radius:14px;padding:20px 22px;margin:8px 0 12px;}
+  .activity-card .lbl{font-size:11px;font-weight:800;color:var(--yellow);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;}
+  .task-steps{list-style:none;margin:0;padding:0;counter-reset:task;}
+  .task-steps li{counter-increment:task;display:flex;gap:11px;font-size:14.5px;line-height:1.5;margin:9px 0;color:var(--cream);}
+  .task-steps li::before{content:counter(task);flex:none;width:20px;height:20px;border-radius:50%;background:var(--yellow);color:var(--green);font-weight:800;font-size:11.5px;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .task-steps li b{color:var(--yellow);}
+
+  /* ---------- check-in (ungraded, walkthrough) ---------- */
+  .checkin-prompt{font-size:17px;font-weight:700;color:var(--green);margin-bottom:16px;line-height:1.45;}
+  .confirm-box label{display:block;font-size:13px;font-weight:800;color:var(--green);margin-bottom:8px;}
+  .confirm-box input{width:100%;font-family:inherit;font-size:15.5px;font-weight:600;color:var(--ink);border:1.5px solid var(--sand);border-radius:12px;padding:12px 14px;background:#fff;margin-bottom:12px;max-width:420px;}
+  .confirm-box input:focus{outline:none;border-color:var(--teal);}
+  .checkbtn{background:var(--yellow);border:none;color:var(--green);font-family:inherit;font-weight:800;font-size:14.5px;border-radius:12px;padding:12px 20px;cursor:pointer;}
+  .checkbtn:hover{filter:brightness(0.96);}
+  .checkin-reveal{background:#EAF6E9;border:1.5px solid #8FCB86;border-radius:12px;padding:15px 16px;font-size:14.5px;color:#256b1c;line-height:1.55;margin-top:6px;}
+  .checkin-reveal b{display:block;margin-bottom:3px;}
+
+  /* ---------- referral story (scenario walkthrough — reuses Module 4/5's recreated UI) ---------- */
+  .story-sub{font-size:15.5px;line-height:1.5;color:#3C5A4D;margin:0 0 14px;max-width:60ch;}
+  .browser.wide{max-width:760px;}
+  .browser .body.pm-body{line-height:normal;}
+  .pm{padding:16px 20px;font-size:13.5px;color:#1a1a1a;}
+  .pm-topbar{display:flex;align-items:center;justify-content:space-between;background:var(--green);margin:-16px -20px 14px;padding:11px 20px;}
+  .pm-topbar .pm-logo{display:flex;align-items:center;gap:8px;color:var(--lime);font-weight:800;font-size:14px;letter-spacing:.3px;}
+  .pm-topbar .pm-logo svg{width:20px;height:20px;}
+  .pm-topbar .pm-icons{display:flex;align-items:center;gap:14px;}
+  .pm-topbar .pm-icons svg{width:20px;height:20px;color:var(--lime);}
+  .pm-backrow{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+  .pm-back-circle{width:30px;height:30px;border-radius:50%;border:1.5px solid #ddd;display:flex;align-items:center;justify-content:center;flex:none;}
+  .pm-back-circle svg{width:14px;height:14px;color:#555;}
+  .pm-h1{font-size:16px;font-weight:800;color:#1a1a1a;margin:0 0 2px;}
+  .pm-sub{font-size:11.5px;color:#8a8a8a;margin:0;}
+  .pm-section-title{font-size:13px;font-weight:800;margin:10px 0 6px;color:#1a1a1a;}
+
+  .pm-fieldblock{margin-bottom:8px;}
+  .pm-fieldblock-label{display:block;font-size:9.5px;color:#999;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+  .pm-fieldtrigger{display:inline-flex;align-items:center;gap:9px;background:none;border:none;padding:4px 6px;margin-left:-6px;cursor:pointer;font:inherit;border-radius:8px;}
+  .pm-fieldtrigger:hover{background:var(--cream-dim);}
+  .pm-fieldtrigger b{font-size:11.5px;color:#1a1a1a;}
+  .pm-reveal-chev{flex:none;transition:transform .15s;color:var(--green);}
+  .pm-reveal-pill{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;background:var(--yellow);color:var(--green);padding:5px 9px;border-radius:999px;flex:none;white-space:nowrap;}
+  .pm-reveal-pill.done{background:#E9F3EC;color:#1E7A46;}
+  .pm-badge-status{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:9.5px;font-weight:800;white-space:nowrap;background:#E9F3EC;color:#1E7A46;}
+  .pm-badge-status i{width:6px;height:6px;border-radius:50%;background:#1E7A46;display:block;}
+  .pm-badge-status.amber{background:#FBEEDC;color:#B8860B;}
+  .pm-badge-status.amber i{background:#B8860B;}
+  .pm-badge-status.neutral{background:var(--cream-dim);color:#6b7d72;}
+  .pm-badge-status.neutral i{background:#6b7d72;}
+
+  .pm-revealpanel{margin-top:6px;padding:9px 13px;background:var(--cream-dim);border-left:4px solid var(--rasp);border-radius:0 10px 10px 0;}
+  .pm-revealpanel h6{margin:0 0 6px;font-size:11.5px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.4px;}
+  .pm-glossary table{width:100%;border-collapse:collapse;font-size:10px;}
+  .pm-glossary th{text-align:left;padding:2px 6px;color:#999;font-size:9px;text-transform:uppercase;}
+  .pm-glossary td{padding:3.5px 6px;border-top:1px solid #F1F1F1;color:#333;vertical-align:top;line-height:1.25;}
+  .pm-glossary td:first-child{font-weight:800;white-space:nowrap;color:#1a1a1a;}
+
+  .pm-dl{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-size:11px;margin-bottom:8px;}
+  .pm-dl div{display:flex;flex-direction:column;gap:2px;}
+  .pm-dl span{color:#999;font-size:9px;text-transform:uppercase;font-weight:700;}
+  .pm-dl b{color:#1a1a1a;font-size:11.5px;}
+
+  .pm-providerpanel{max-width:460px;}
+  .pm-provider-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;font-size:11px;}
+  .pm-provider-grid div{display:flex;flex-direction:column;gap:2px;}
+  .pm-provider-grid span{color:#999;font-size:9px;text-transform:uppercase;font-weight:700;}
+  .pm-provider-grid b{color:#1a1a1a;font-size:11.5px;}
+  .pm-provider-locked{display:flex;align-items:center;gap:8px;font-size:12px;color:#999;font-style:italic;}
+
+  .pm-notespanel{background:#F7F3EA;border-radius:10px;padding:12px 14px;font-size:11px;margin-top:10px;}
+  .pm-notespanel h6{margin:0 0 8px;font-size:11px;font-weight:800;color:#1a1a1a;}
+  .pm-noteitem{border-top:1px solid #E3D7BB;padding-top:8px;margin-top:8px;}
+  .pm-noteitem:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+  .pm-noteitem b{display:block;font-size:11px;}
+  .pm-noteitem span{color:#999;font-size:9.5px;}
+  .pm-noteempty{color:#999;font-size:11px;}
+
+  .pm-actionrow{display:flex;gap:10px;margin-top:10px;position:relative;}
+  .pm-btn-blue{background:#1D5FBF;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-weight:800;font-size:11.5px;cursor:pointer;font-family:inherit;position:relative;display:inline-flex;align-items:center;gap:10px;}
+  .pm-btn-blue .pm-reveal-pill.done{background:rgba(255,255,255,.4);color:#fff;}
+
+  .pm-toast{display:flex;align-items:center;gap:10px;background:var(--green);color:#fff;border-radius:9px;padding:11px 14px;margin-top:12px;font-size:12px;font-weight:700;}
+  .pm-toast svg{width:16px;height:16px;color:var(--lime);flex:none;}
+
+  .pm-modal-overlay{position:fixed;inset:0;background:rgba(80,80,80,.55);display:flex;align-items:flex-start;justify-content:center;z-index:50;overflow-y:auto;padding:40px 20px;}
+  .pm-modal-overlay .pm-modal{margin:auto;}
+  .pm-modal{background:#fff;border-radius:14px;padding:26px 30px;text-align:left;max-width:360px;width:100%;box-shadow:0 20px 40px -10px rgba(0,0,0,.3);}
+  .pm-modal h5{font-size:15px;font-weight:800;color:#1a1a1a;margin:0 0 18px;}
+  .pm-modal-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;}
+  .pm-notemodal-field{margin-bottom:14px;position:relative;}
+  .pm-notemodal-field label{display:block;font-size:9.5px;color:#999;font-weight:700;text-transform:uppercase;margin-bottom:5px;}
+  .pm-notemodal-field textarea{width:100%;min-height:80px;border:1.5px solid #ddd;border-radius:8px;padding:10px 12px;font-family:inherit;font-size:12px;resize:none;color:#333;}
+  .pm-notemodal-field textarea:focus{outline:none;border-color:var(--rasp);}
+  .pm-field .box{border:1.5px solid #ddd;border-radius:8px;padding:9px 11px;font-size:11.5px;color:#333;background:#fff;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:inherit;}
+  .pm-field .box.placeholder{color:#aaa;}
+  .pm-field .box:hover{border-color:var(--rasp);}
+  /* Deliberately NOT position:absolute — this used to float over the page
+     positioned against the nearest positioned ancestor, which for the
+     service-selection dropdown was a grid row nested inside `.browser`'s
+     overflow:hidden, so the list rendered but was clipped/invisible. Kept as
+     a normal in-flow block instead (matches every other reveal/panel in this
+     file), so it always has room and can never be clipped. */
+  .pm-dropdown{margin-top:4px;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 8px 20px -6px rgba(0,0,0,.2);overflow:hidden;max-height:220px;overflow-y:auto;}
+  .pm-dropdown div{padding:9px 12px;font-size:11.5px;color:#333;cursor:pointer;}
+  .pm-dropdown div:hover{background:#F5EEE0;}
+  .pm-modal-cancel{background:transparent;border:none;color:#5c7568;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;padding:9px 6px;}
+  .pm-modal-submit{background:var(--yellow);color:var(--green);border:none;border-radius:8px;padding:9px 18px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;}
+
+  .pm-encbox{display:flex;gap:16px;background:#F7F3EA;border-radius:10px;padding:12px 14px;margin:10px 0;}
+  .pm-encbox div{display:flex;flex-direction:column;gap:2px;}
+  .pm-encbox b{font-size:16px;}
+  .pm-encbox span{font-size:9px;color:#999;text-transform:uppercase;font-weight:700;}
+
+  .pm-tilegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 4px;max-width:460px;}
+  .pm-tile{background:#fff;border:1.5px solid #eee;border-radius:9px;padding:12px 6px;text-align:center;font-size:9.5px;font-weight:700;color:#333;cursor:pointer;position:relative;transition:.15s;font-family:inherit;}
+  .pm-tile svg{width:22px;height:22px;margin:0 auto 6px;display:block;color:#333;}
+  .pm-tile.active{background:var(--lime);border-color:#1a1a1a;}
+  .pm-hint-wrong{font-size:11px;color:#9c3a1f;font-weight:700;margin-top:6px;}
+  .pm-note-static{font-size:11.5px;color:#5c7568;margin-top:6px;font-style:italic;line-height:1.4;}
+  .pm-locked-phone{color:#999;font-style:italic;font-weight:700;font-size:11.5px;}
+  /* service-selection layout, matching Creating and Submitting a Referral's real pattern
+     (the .box/.dropdown styling itself is shared with the Add Note type picker above) */
+  .pm-fieldrow{display:grid;grid-template-columns:1fr 1.6fr;gap:10px;max-width:440px;}
+  .pm-field{display:flex;flex-direction:column;gap:4px;}
+  .pm-field label{font-size:9.5px;color:#999;font-weight:700;text-transform:uppercase;}
+  /* Service Tasks (install-service encounter confirmation), matching Understanding
+     Benefits, Balances, Referrals, and Notes's real pattern */
+  .pm-tasklist{margin-top:0;}
+  .pm-tasklist h5{font-size:11.5px;font-weight:800;margin:0 0 8px;color:#1a1a1a;}
+  .pm-taskgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .pm-taskitem{display:flex;align-items:flex-start;gap:8px;}
+  .pm-taskitem svg{width:16px;height:16px;color:#3C8B3C;flex:none;margin-top:1px;}
+  .pm-taskitem-body{display:flex;flex-direction:column;gap:2px;}
+  .pm-taskitem-body b{font-size:11px;color:#1a1a1a;}
+  .pm-taskitem-body span{font-size:9.5px;color:#999;}
+  .pm-req-badge{background:#FBEEDC;color:#B8860B;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:6px;text-transform:uppercase;}
+  .pm-authblock{background:#fff;border-radius:10px;padding:14px 16px;margin-top:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+  .pm-authblock h4{font-size:13px;font-weight:800;margin:0 0 10px;line-height:1.35;}
+  .pm-authrow{display:flex;gap:18px;font-size:11px;flex-wrap:wrap;align-items:flex-end;}
+  .pm-authrow div{display:flex;flex-direction:column;gap:2px;}
+  .pm-authrow b{font-size:12px;color:#1a1a1a;}
+  .pm-authrow span{color:#999;font-size:9.5px;text-transform:uppercase;font-weight:700;}
+  .pm-btn-dark{background:var(--green);color:var(--lime);border:none;border-radius:8px;padding:9px 16px;font-weight:800;font-size:11.5px;cursor:pointer;font-family:inherit;margin-left:auto;position:relative;}
+  .pm-btn-dark:hover{background:var(--green-soft);}
+  .pm-qty{display:flex;align-items:center;gap:8px;}
+  .pm-qty button{width:26px;height:26px;border-radius:6px;border:1.5px solid #ddd;background:#fff;font-size:15px;cursor:pointer;line-height:1;}
+  .pm-qty input{width:56px;text-align:center;border:1.5px solid #ddd;border-radius:6px;padding:5px;font-size:12px;font-family:inherit;}
+  .pm-btn-checkout{background:var(--green);color:var(--lime);border:none;border-radius:20px;padding:8px 18px;font-weight:800;font-size:11px;cursor:pointer;font-family:inherit;position:relative;}
+  .pm-btn-checkout:hover{background:var(--green-soft);}
+  .pm-btn-checkout[disabled]{opacity:.4;cursor:default;}
+  .pm-btn-outline{background:#fff;border:1.5px solid #ddd;border-radius:20px;padding:8px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .pm-btn-outline.danger{color:#C0392B;border-color:#f0c4c4;}
+
+  .pm-svcdetail{background:#fff;border:1.5px solid #eee;border-radius:10px;padding:12px 14px;margin-top:10px;}
+  .pm-svcdetail h5{margin:0 0 8px;font-size:12.5px;font-weight:800;color:#1a1a1a;}
+  /* checkout — matching Creating and Submitting a Referral's real cart/address/summary */
+  .pm-summarytable{width:100%;border-collapse:collapse;font-size:11px;margin-top:10px;}
+  .pm-summarytable th{background:#F1F1F1;text-align:left;padding:6px 8px;font-weight:800;color:#333;}
+  .pm-summarytable td{padding:7px 8px;color:#333;}
+  .pm-summarytable .trash{color:#C0392B;}
+  .pm-addr-card{background:#F7F3EA;border-radius:8px;padding:10px 12px;margin-top:8px;font-size:11px;color:#333;}
+  .pm-addr-card h5{font-size:11px;font-weight:800;margin:0 0 4px;color:#1a1a1a;}
+  .pm-addr-card p{margin:0;font-size:11px;color:#555;line-height:1.4;}
+  .pm-bottomrow{display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:10px;}
+  .pm-bottomrow .pm-total-label{font-weight:800;font-size:12.5px;color:#1a1a1a;}
+  .pm-btnrow{display:flex;gap:8px;flex-wrap:wrap;}
+
+  @keyframes hotpulse{
+    0%,100%{box-shadow:0 0 0 4px rgba(204,73,131,.22);}
+    50%{box-shadow:0 0 0 9px rgba(204,73,131,.06);}
+  }
+  .pm-hot{animation:hotpulse 1.6s ease-in-out infinite;border-color:var(--rasp) !important;}
+  .pm-hot-tag{position:absolute;top:-25px;left:50%;transform:translateX(-50%);background:var(--rasp);color:#fff;font-size:9.5px;font-weight:800;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 4px 10px -4px rgba(0,0,0,.4);pointer-events:none;z-index:6;}
+  .pm-hot-tag:after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--rasp);}
+  .pm-focus-ring{box-shadow:0 0 0 3px rgba(204,73,131,.3);border-radius:10px;}
+
+  /* ---------- real screenshot step (search for the member) ---------- */
+  .shot-wrap{position:relative;line-height:0;}
+  .shot-img{display:block;width:100%;height:auto;transition:opacity .18s ease;}
+  .shot-hitbox{position:absolute;border:2.5px solid var(--rasp);border-radius:9px;background:rgba(204,73,131,.07);cursor:pointer;padding:0;}
+  .shot-caption{display:flex;align-items:flex-start;gap:8px;margin-top:12px;font-size:13px;color:#5c7568;font-weight:700;line-height:1.4;}
+  .shot-caption svg{width:14px;height:14px;flex:none;color:var(--rasp);margin-top:1px;}
+  .shot-inputoverlay{position:absolute;}
+  .shot-inputoverlay input{width:100%;height:100%;border:2px solid #ccc;border-radius:999px;padding:0 18px;font-family:inherit;font-size:15px;font-weight:700;color:#1a1a1a;background:#fff;box-sizing:border-box;position:relative;}
+  .shot-inputoverlay input:focus{outline:none;border-color:var(--rasp);}
+  .shot-inputoverlay input.right{border-color:#2f9e44;background:#EAF6E9;color:#256b1c;}
+  .shot-inputoverlay input.wrongans{border-color:#e0575c;background:#FDEDEA;color:#9c3a1f;}
+  .shot-actionrow{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap;}
+  .shot-searchbtn{background:var(--green);color:var(--lime);border:none;border-radius:10px;padding:11px 20px;font-weight:800;font-size:13.5px;cursor:pointer;font-family:inherit;position:relative;}
+  .shot-searchbtn:hover{background:var(--green-soft);}
+  .shot-searchbtn[disabled]{opacity:.4;cursor:default;}
+  .shot-tip{display:flex;align-items:flex-start;gap:8px;margin-top:10px;font-size:12.5px;color:#8a7a55;font-style:italic;line-height:1.4;}
+
+  /* ---------- quiz: multiple choice ---------- */
+  .q{font-size:19px;font-weight:800;margin-bottom:14px;color:var(--green);line-height:1.35;}
+  .opt{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:13px 16px;margin:9px 0;font-size:15px;color:var(--ink);cursor:pointer;font-family:inherit;font-weight:600;transition:.15s;}
+  .opt .ltr{flex:none;width:22px;height:22px;border-radius:50%;background:var(--cream-dim);color:var(--green);font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;}
+  .opt:hover:not(:disabled){border-color:var(--teal);}
+  .opt:disabled{cursor:default;}
+  .opt.correct{background:#EAF6E9;border-color:#8FCB86;}
+  .opt.correct .ltr{background:#8FCB86;color:#fff;}
+  .opt.wrong{opacity:.4;}
+  .answer{background:var(--cream-dim);border:1.5px solid var(--sand);border-radius:12px;padding:16px 18px;font-size:14.5px;margin-top:14px;line-height:1.55;color:#3C5A4D;}
+  .answer b{color:var(--rasp);}
+
+  /* ---------- quiz: fill in the blank ---------- */
+  .blankbox input{width:100%;max-width:420px;font-family:inherit;font-size:16px;font-weight:700;color:var(--ink);border:1.5px solid var(--sand);border-radius:12px;padding:13px 16px;background:#fff;margin:6px 0 14px;}
+  .blankbox input:focus{outline:none;border-color:var(--teal);}
+  .blankbox input:disabled{background:var(--cream-dim);}
+  .blankbox input.right{border-color:#8FCB86;background:#EAF6E9;color:#256b1c;}
+  .blankbox input.wrongans{border-color:#F0B6A4;background:#FDEDEA;color:#9c3a1f;}
+  .submitbtn{background:var(--yellow);border:none;color:var(--green);font-family:inherit;font-weight:800;font-size:14.5px;border-radius:12px;padding:12px 20px;cursor:pointer;}
+  .submitbtn:hover{filter:brightness(0.96);}
+  .submitbtn[disabled]{opacity:.4;cursor:default;}
+
+  /* ---------- quiz: screen-recreation visuals (look-at-this-and-identify questions) ---------- */
+  .qv-card{background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:16px 18px;margin-bottom:18px;max-width:520px;box-shadow:0 6px 16px -10px rgba(0,50,34,.2);}
+  .qv-card.qv-center{text-align:center;}
+  .qv-card.qv-narrow{max-width:320px;}
+  .qv-label{display:block;font-size:9.5px;color:#999;font-weight:700;text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px;}
+  .qv-tile-title{font-size:13.5px;font-weight:800;color:var(--green);margin-bottom:10px;}
+  .qv-dl{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;font-size:11.5px;}
+  .qv-dl div{display:flex;flex-direction:column;gap:2px;}
+  .qv-dl span{color:#999;font-size:9px;text-transform:uppercase;font-weight:700;}
+  .qv-dl b{color:#1a1a1a;font-size:13px;}
+  .qv-dl-row{display:flex;align-items:center;gap:18px;margin-bottom:8px;flex-wrap:wrap;}
+  .qv-dl-row div{display:flex;flex-direction:column;gap:2px;}
+  .qv-dl-row span{color:#999;font-size:9px;text-transform:uppercase;font-weight:700;}
+  .qv-dl-row b{color:#1a1a1a;font-size:13px;}
+  .qv-note{font-size:12.5px;color:#3C5A4D;font-style:italic;margin:8px 0 0;}
+  .qv-addr{font-size:13.5px;color:#1a1a1a;line-height:1.5;margin:0;font-weight:600;}
+
+  .qv-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:10.5px;font-weight:800;white-space:nowrap;}
+  .qv-badge:before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .qv-badge-green{background:#E9F3EC;color:#1E7A46;}
+  .qv-badge-amber{background:#FBEEDC;color:#B8860B;}
+  .qv-badge-neutral{background:var(--cream-dim);color:#6b7d72;}
+
+  .qv-cmprow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #F1F1F1;font-size:12px;}
+  .qv-cmprow:first-child{border-top:none;padding-top:0;}
+  .qv-locked{color:#999;font-style:italic;}
+  .qv-unlocked{color:#1a1a1a;font-weight:700;}
+
+  .qv-codebox{display:flex;gap:8px;margin:4px 0 12px;}
+  .qv-codedigit{width:34px;height:40px;border:1.5px solid var(--sand);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#bbb;background:#F7F3EA;}
+  .qv-expired{display:inline-flex;align-items:center;gap:6px;background:#FDEDEA;color:#9c3a1f;border:1.5px solid #F0B6A4;font-size:11px;font-weight:800;padding:5px 10px;border-radius:20px;}
+
+  .qv-searchtabs{display:flex;gap:8px;margin-bottom:14px;}
+  .qv-tab{font-size:11.5px;font-weight:800;color:#8a8a8a;background:var(--cream-dim);border-radius:8px;padding:8px 14px;}
+  .qv-tab.qv-tab-active{background:var(--green);color:var(--lime);}
+
+  .qv-qtyrow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0;font-size:12px;font-weight:700;color:#1a1a1a;}
+  .qv-qty{display:flex;align-items:center;gap:8px;}
+  .qv-qty button{width:26px;height:26px;border-radius:50%;border:1.5px solid #ddd;background:#fff;color:#999;font-weight:800;}
+  .qv-qty input{width:64px;text-align:center;border:1.5px solid #ddd;border-radius:8px;padding:6px 4px;font-family:inherit;font-weight:800;font-size:12.5px;color:#1a1a1a;background:#fff;}
+
+  .qv-encbox{display:flex;gap:20px;}
+  .qv-encbox div{display:flex;flex-direction:column;gap:2px;}
+  .qv-encbox b{font-size:20px;color:var(--green);}
+  .qv-encbox span{font-size:9px;color:#999;text-transform:uppercase;font-weight:700;}
+
+  .qv-exgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .qv-exitem{background:var(--cream-dim);border:1.5px solid var(--sand);border-radius:10px;padding:10px 12px;font-size:12px;font-weight:700;color:var(--green);}
+
+  .qv-doneicon{width:46px;height:46px;border-radius:50%;background:#EAF6E9;border:2px solid #8FCB86;color:#256b1c;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:22px;font-weight:800;}
+  .qv-sub{font-size:13px;color:#5c7568;margin:2px 0 0;font-weight:700;}
+
+  /* ---------- quiz: click-the-screen (hotspot) ---------- */
+  .browser{border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:520px;width:100%;}
+  .browser .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--cream-dim);border-bottom:1px solid var(--sand);}
+  .browser .dots{display:flex;gap:5px;flex:none;}
+  .browser .dots i{width:8px;height:8px;border-radius:50%;background:#D8CDB0;display:block;}
+  .browser .url{flex:1;min-width:0;background:#fff;border:1px solid var(--sand);border-radius:8px;padding:6px 12px;font-size:12.5px;color:#5c7568;font-weight:700;display:flex;align-items:center;gap:7px;overflow:hidden;}
+  .browser .url span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .browser .url svg{width:11px;height:11px;flex:none;opacity:.6;}
+  .browser .body{position:relative;line-height:0;}
+  .browser .body img{display:block;width:100%;height:auto;cursor:crosshair;}
+  .hotspot-hitbox{position:absolute;inset:0;}
+  .hotspot-correct{position:absolute;border:2.5px solid #2f9e44;border-radius:9px;background:rgba(47,158,68,.12);pointer-events:none;}
+  .hotspot-miss{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--rasp);border:2px solid #fff;box-shadow:0 0 0 3px rgba(204,73,131,.25);pointer-events:none;}
+  .hotspot-hint{font-size:12.5px;color:#8a7a55;margin-top:12px;font-style:italic;}
+
+  /* ---------- results ---------- */
+  .scorebig{font-size:56px;font-weight:800;color:var(--green);margin:6px 0 4px;}
+  .resultbanner{border-radius:14px;padding:18px 20px;margin-top:18px;font-size:15px;line-height:1.55;font-weight:700;}
+  .resultbanner.pass{background:#EAF6E9;color:#256b1c;border:1.5px solid #8FCB86;}
+  .resultbanner.fail{background:#FDEDEA;color:#9c3a1f;border:1.5px solid #F0B6A4;}
+
+  /* ---------- certificate preview (on-screen) ---------- */
+  .certpreview{background:#fff;border:2px solid var(--green);border-radius:16px;padding:36px 40px;margin-top:8px;text-align:center;font-family:'Karla',Arial,sans-serif;}
+  .certpreview .certeyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rasp);margin-bottom:10px;}
+  .certpreview h2{font-size:26px;font-weight:800;color:var(--green);margin:0 0 18px;}
+  .certpreview .certname{font-size:30px;font-weight:800;color:var(--green);margin:14px 0;border-bottom:2px solid var(--lime);display:inline-block;padding:0 8px 6px;}
+  .certpreview p{font-size:14.5px;color:#3C5A4D;margin:6px 0;line-height:1.5;}
+  .cert-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px;}
+  .cert-btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:var(--green);font-weight:800;font-size:15px;border:none;border-radius:12px;padding:14px 22px;cursor:pointer;font-family:inherit;letter-spacing:.2px;}
+  .cert-btn:hover{filter:brightness(0.96);}
+  .cert-btn svg{width:16px;height:16px;}
+  .cert-link{display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--green);border:1.5px solid var(--green);font-weight:800;font-size:15px;border-radius:12px;padding:14px 22px;text-decoration:none;font-family:inherit;}
+  .printhint{font-size:12.5px;color:#8a7a55;margin-top:14px;font-style:italic;}
+
+  /* ---------- bottom nav ---------- */
+  .bot{display:flex;align-items:center;gap:12px;padding:14px 4px 2px;flex:none;}
+  button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
+  .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
+  .back[disabled]{opacity:.25;cursor:default;}
+  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next[disabled]{opacity:.35;cursor:default;}
+
+  /* ---------- start overlay ---------- */
+  #startOverlay{position:fixed;inset:0;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:100;text-align:center;padding:24px;}
+  #startOverlay svg{width:40px;height:40px;}
+  .so-brand{color:var(--cream);font-weight:800;font-size:13px;letter-spacing:1.6px;text-transform:uppercase;opacity:.75;}
+  #startOverlay h1{color:var(--cream);font-size:32px;font-weight:800;margin:2px 0 0;letter-spacing:-.5px;}
+  #startOverlay p{color:#B9CFC3;font-size:15.5px;margin:0 0 10px;max-width:40ch;}
+  #startBtn{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);color:var(--green);font-family:inherit;font-weight:800;font-size:16px;border:none;border-radius:14px;padding:16px 28px;cursor:pointer;letter-spacing:.2px;}
+  #startBtn svg{width:18px;height:18px;}
+  #startBtn:hover{filter:brightness(0.97);}
+  #startOverlay.hide{display:none;}
+
+  /* ---------- print-only certificate sheet ---------- */
+  #certSheet{display:none;}
+  @media print{
+    #startOverlay, #app{display:none!important;}
+    #certSheet{display:block!important;}
+    body{background:#fff!important;}
+  }
+  #certSheet{
+    font-family:'Karla',Arial,sans-serif;
+    width:100%;
+    padding:60px 70px;
+    box-sizing:border-box;
+    background:#fff;
+    border:14px solid #003322;
+    outline:2px solid #E6EC82;
+    outline-offset:-30px;
+    text-align:center;
+  }
+  #certSheet .cs-eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#003322;margin-bottom:18px;}
+  #certSheet h1{font-size:36px;font-weight:800;color:#000;margin:0 0 30px;letter-spacing:-.01em;}
+  #certSheet .cs-sub{font-size:15px;color:#2c2c2c;margin:0 0 6px;}
+  #certSheet .cs-name{font-size:32px;font-weight:800;color:#003322;margin:16px 0 28px;border-bottom:2px solid #E6EC82;display:inline-block;padding:0 14px 10px;}
+  #certSheet .cs-desc{font-size:15px;color:#2c2c2c;line-height:1.6;max-width:60ch;margin:0 auto 34px;}
+  #certSheet .cs-footrow{display:flex;justify-content:space-between;margin-top:50px;padding-top:16px;border-top:1px solid #e7ddc7;}
+  #certSheet .cs-footrow div{text-align:left;font-size:12.5px;color:#4a4636;}
+  #certSheet .cs-footrow b{display:block;font-size:14px;color:#003322;margin-bottom:2px;}
+
+  @media(max-width:640px){
+    .ix{padding:32px 22px;} h1.hl{font-size:27px;}
+    .cover-meta{flex-direction:column;gap:10px;}
+    .howsteps{flex-direction:column;}
+    #app{padding:16px 14px 20px;}
+    .certpreview{padding:26px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="startOverlay">
+  <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+  <div class="so-brand">The Helper Bees</div>
+  <h1>Knowledge Check</h1>
+  <p>One real scenario, a short knowledge check, and your certificate of completion.</p>
+  <button id="startBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Start</button>
+</div>
+
+<div id="app">
+  <div class="top">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+      <span>The Helper Bees</span>
+    </div>
+    <div class="track">
+      <span class="prog"><i id="bar"></i></span>
+      <span class="stepnum" id="stepnum"></span>
+    </div>
+    <a class="home-link" href="../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
+  </div>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="bot">
+    <button class="nav back" id="back">Back</button>
+    <button class="nav next" id="next">Next</button>
+  </div>
+</div>
+
+<!-- Print-only certificate, kept in sync via updateCertSheet() -->
+<div id="certSheet">
+  <div class="cs-eyebrow">The Helper Bees &middot; Partner Training</div>
+  <h1>Certificate of Completion</h1>
+  <p class="cs-sub">This certifies that</p>
+  <div class="cs-name" id="csName">&nbsp;</div>
+  <p class="cs-desc">has successfully completed the Benefits Hub Partner Training, including all training modules and the final knowledge check.</p>
+  <div class="cs-footrow">
+    <div><b id="csDate">&nbsp;</b>Date completed</div>
+    <div><b>The Helper Bees</b>Training Team</div>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   CONTENT NOTE (updated 2026-07-30, later same day):
+   - Quiz covers four of the five completed modules: Finding and
+     Reviewing a Member, Creating and Submitting a Referral,
+     Understanding Benefits, Balances, Referrals, and Notes, and
+     Managing Common Exceptions and Escalations. Signing In isn't
+     quizzed anymore — Tiffany asked to drop the verification-code
+     question along with the Advanced Search question, feeling both
+     were too basic to be worth a slot.
+   - 8 questions total: 1 on Finding Your Member (benefit tile
+     balance), 2 on Creating and Submitting a Referral (quantity,
+     service address), 3 on Understanding Benefits, Balances,
+     Referrals, and Notes (status/escalation, provider contact info,
+     remaining balance), 2 on Managing Common Exceptions and
+     Escalations (grievance vs. support ticket, next step after a
+     ticket). Order is mixed rather than grouped module-by-module.
+   - Every question shows a small recreated Benefits Hub screen (a
+     status badge, a benefit tile's balance numbers, a ticket
+     confirmation, etc. — see `quizVisual()`) and asks the learner to
+     read/interpret it, rather than answering a text-only recall
+     question. Question 4 (status-action visual) is the flagship
+     example of this — it shows an "Unable to Contact" status and
+     asks the learner to identify what's going on and the right next
+     step, without naming the status in the question text itself (the
+     learner has to read the badge in the visual to know it) — draws
+     on both the status glossary (module 5) and the escalation
+     guidance (module 6) at once, rather than testing either in
+     isolation.
+   - The scenario walkthrough (rebuilt 2026-07-30, later same day) no
+     longer depends on a real test/practice member at all — Tiffany
+     asked to rebuild it as a fully in-module recreation reusing the
+     same referral-card system built for Understanding Benefits,
+     Balances, Referrals, and Notes (same member, "Helper Test" /
+     Member #12345678912, same referral, "Bathroom grab bar with
+     install service" under Home Modification). This resolves what
+     used to be a standing gap — there's no more "[Test Member —
+     placeholder]" content anywhere in this file, and nothing here
+     needs real member data filled in later. See `story` state object
+     and `STORY_RENDERERS` below, and [[project_knowledge_check_module]]
+     for the full design rationale.
+   - Updated again 2026-07-31: Tiffany felt the submit chapter had cut
+     corners (no quantity, no checkout) and that both the scenario and
+     quiz showed too little of the screen at once. `renderChapterSubmit`
+     now includes a real quantity stepper (starts at 0, +/- like Module
+     4's actual mechanics) and a full Add to Cart -> Cart/Address ->
+     Checkout -> Confirm flow. The 4 status chapters (new/assigned/
+     unable/completed) now always show the FULL card — status, provider,
+     notes, and encounter sections all visible at once, with only the
+     current chapter's new piece interactive and everything already
+     established shown settled/read-only below it — instead of one
+     isolated field per screen. `quizVisual()` was rebuilt the same way:
+     every question now shows a fuller mini-screen (full referral card,
+     full benefit-tile grid, full cart/checkout, full ticket
+     confirmation) instead of a small isolated snippet, so the learner
+     has to locate the relevant info within a busier, more realistic
+     screen — not just read it off a fragment handed to them.
+   - Same update also fixed a content bug: the submit chapter and
+     Question 2 previously showed "Quantity: 1300.00" — conflating
+     Quantity (the number of units of THIS service, which is 1 for a
+     one-time grab bar install at 450.00 points each) with Plan
+     Allowance (1300.00 — the whole Home Modification benefit
+     category's annual point budget, a separate figure). Question 2 is
+     reworded to test that distinction directly instead of repeating
+     the error.
+   - No mention of any specific partner anywhere in this file, by
+     design — this module is meant to be reusable across partners.
+
+   STRUCTURE:
+   1. Cover + name capture
+   2. One continuous in-module scenario, 5 chapters, each a `t:'story'`
+      screen driven by `STORY_RENDERERS`: submit (find the member —
+      real screenshot from Finding and Reviewing a Member, search.png,
+      typed Member ID — then submit the referral), then four status
+      changes over several calls (New -> Assigned to Provider ->
+      Unable to Contact -> Completed). This is practice, not scored
+      — Next is gated per chapter on the required click(s) (tap
+      Advanced Search, view the status, view the provider, submit a
+      note, view the encounter), not on answering correctly.
+   3. One consolidated knowledge check quiz covering every module —
+      all multiple choice, correct answer position varied so it's
+      never always option A. This IS scored — 70% needed to pass,
+      unlimited retakes, and passing unlocks the certificate.
+
+   Pass rule: correct answers >= 70% of total quiz questions,
+   rounded up (Math.ceil). Computed from however many screens have
+   graded:true below, so it recalculates automatically if questions
+   are ever added or removed. At the current 8 questions, this is
+   6 of 8.
+   ================================================================ */
+
+var SCREENS = [
+
+  { t:'cover' },
+
+  { t:'name' },
+
+  { t:'scenario',
+    eyebrow:'Put it all together',
+    h:'A referral, start to finish',
+    sub:"A member calls in asking for help with a Home Modification benefit — they'd like a grab bar installed in their shower. Let's follow that one referral through its whole lifecycle, right here, the same way you'd see it play out over several calls in real life.",
+    steps:[
+      {n:1, b:'Find the member, then submit', s:'Search for them, then walk through adding the referral, right here in the module.'},
+      {n:2, b:'Follow it over time', s:"The member calls back a few times as the status changes — you'll check it and respond each time."},
+      {n:3, b:'Finish with a quiz', s:"Once the story's done, one full knowledge check covers everything — that's what unlocks your certificate."}
+    ]},
+
+  { t:'story', chapter:'submit', stepLabel:'Scenario 1 of 5',
+    eyebrow:'Find the member, then submit',
+    h:'Get the referral moving',
+    sub:"Search using Member #12345678912 to pull up Helper Test's profile, then choose the right benefit, the right service for the grab bar install, set the quantity, add it to your cart, and check out."},
+
+  { t:'story', chapter:'new', stepLabel:'Scenario 2 of 5',
+    eyebrow:'Right after submitting',
+    h:'Check the status',
+    sub:"Here's the referral you just submitted — take a look at the status."},
+
+  { t:'story', chapter:'assigned', stepLabel:'Scenario 3 of 5', needsProvider:true,
+    eyebrow:'A few days later',
+    h:'The member calls to check on it',
+    sub:"The status has changed to Assigned to Provider — check the provider field."},
+
+  { t:'story', chapter:'unable', stepLabel:'Scenario 4 of 5', needsNote:true,
+    eyebrow:'Later',
+    h:'The member calls again',
+    sub:"The status has changed again, and the member says they still haven't heard from the provider but still want the service. This referral is stalled — check the provider's contact info, try to help get them back in touch with the member for scheduling, and log a note documenting what you did."},
+
+  { t:'story', chapter:'completed', stepLabel:'Scenario 5 of 5', needsEnc:true,
+    eyebrow:'Following up',
+    h:'Confirm the service was completed',
+    sub:"After some back-and-forth, here's how the referral wrapped up. The provider's contact info is now visible since they accepted — take a look, then check the encounter for the provider's own confirmation the install was completed."},
+
+  { t:'transition',
+    h:"Nice work — that's a full referral, start to finish",
+    sub:"You just followed one referral the whole way through: found the member, submitted the referral — setting the quantity and checking out along the way — watched its status change over several calls, knew when it was and wasn't okay to share provider contact info, logged a note to help move a stalled referral forward, and confirmed how it wrapped up. Now let's do one complete knowledge check covering everything you've learned. Pass it, and your certificate is next."},
+
+  { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 1 of 8',
+    eyebrow:'Finding and Reviewing a Member', visual:'tile-balance',
+    q:"Looking at this member's benefit tile, how much of their allowance is still available to use?",
+    opts:[
+      {label:"0.00", correct:false},
+      {label:"450.00", correct:false},
+      {label:"Can't tell from this tile", correct:false},
+      {label:"1300.00", correct:true}
+    ],
+    explain:"Remaining shows what's left to use — here the full 1300.00 allowance hasn't been touched yet, since Used and Pending are both 0.00."},
+
+  { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 2 of 8',
+    eyebrow:'Creating and Submitting a Referral', visual:'quantity',
+    q:"This is a one-time grab bar install, not an ongoing annual benefit. Looking at the screen above, what does the Quantity actually represent here — and how does it relate to the Plan Allowance?",
+    opts:[
+      {label:"Quantity (1) is the number of units of this specific service — separate from Plan Allowance (1300.00), which is the whole benefit category's yearly budget.", correct:true},
+      {label:"Quantity should always be set to match the Plan Allowance, so it should be 1300, not 1.", correct:false},
+      {label:"Quantity and Plan Allowance are two names for the same number.", correct:false},
+      {label:"Quantity determines the Plan Allowance for every other benefit in the category.", correct:false}
+    ],
+    explain:"Quantity is how many units of this specific service you're requesting — 1 grab bar install, at 450.00 points each. Plan Allowance (1300.00) is a different figure entirely: the whole Home Modification category's total yearly budget. The \"select the full allowance up front\" guidance applies to ongoing, hours- or visit-based benefits — for a one-time service like this, quantity is just the number of units actually needed."},
+
+  { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 3 of 8',
+    eyebrow:'Creating and Submitting a Referral', visual:'address',
+    q:"Before you complete checkout on this referral, what should you double-check here — and why does it matter?",
+    opts:[
+      {label:"The service address — it determines which provider the referral routes to.", correct:true},
+      {label:"The member's date of birth — checkout won't proceed without re-confirming it.", correct:false},
+      {label:"How many items are in a different member's cart.", correct:false},
+      {label:"The benefit tile's color — tiles must be highlighted green to check out.", correct:false}
+    ],
+    explain:"Always confirm the service address before checking out — it's what determines which provider services that zip code."},
+
+  { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 4 of 8',
+    eyebrow:'Understanding Benefits, Balances, Referrals, and Notes', visual:'status-action',
+    q:"The member just called to check on the status of this service. Looking at the referral above, what's going on, and what's the right next step?",
+    opts:[
+      {label:"The referral is closed for good — nothing more to do.", correct:false},
+      {label:"Automatically submit a brand new referral for the same service.", correct:false},
+      {label:"The provider hasn't been able to reach the member — add a note about the callback and follow up with the provider, escalating with a support ticket if it still doesn't move.", correct:true},
+      {label:"Wait for the provider to try contacting the member a fourth time on their own.", correct:false}
+    ],
+    explain:"The status shows Unable to Contact, which means the provider couldn't reach the member after 3 attempts — it doesn't mean the request is dead. Since the member is reachable again and still wants the service, document it with a note and re-engage the provider; if that still doesn't resolve it, that's exactly the kind of issue to escalate with a Member Support ticket."},
+
+  { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 5 of 8',
+    eyebrow:'Understanding Benefits, Balances, Referrals, and Notes', visual:'provider-compare',
+    q:"Looking at these two referrals, which one's provider contact info can you share with the member?",
+    opts:[
+      {label:"Both", correct:false},
+      {label:"Neither", correct:false},
+      {label:"Only the Assigned to Provider one", correct:false},
+      {label:"Only the Accepted by Provider one", correct:true}
+    ],
+    explain:"A provider's contact info only becomes visible once they've accepted the referral. Assigned to Provider just means someone's been alerted and has 3 days to respond — there's nothing to share yet."},
+
+  { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 6 of 8',
+    eyebrow:'Understanding Benefits, Balances, Referrals, and Notes', visual:'balance-box',
+    q:"Based on the numbers shown, how many units of this referral's allowance are left?",
+    opts:[
+      {label:"0", correct:false},
+      {label:"1", correct:true},
+      {label:"2", correct:false},
+      {label:"Can't tell from this screen", correct:false}
+    ],
+    explain:"Remaining shows what's left before a new referral or authorization is needed — here it's 1, since Allowed is 1 and Used is 0 so far."},
+
+  { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 7 of 8',
+    eyebrow:'Managing Common Exceptions and Escalations', visual:'exception-cards',
+    q:"A member says their provider was rude and dismissive during a visit, and they want to complain. Is this the same kind of issue as the examples above?",
+    opts:[
+      {label:"No — this is dissatisfaction with service, which gets filed as a Grievance instead.", correct:true},
+      {label:"Yes — file it as a Member Support ticket, same as these.", correct:false},
+      {label:"No — this should be ignored, it will resolve itself.", correct:false},
+      {label:"Yes — but escalate directly to SCAN leadership and skip the ticket entirely.", correct:false}
+    ],
+    explain:"The examples above are service exceptions — things not working as expected. A complaint about how a member was treated is dissatisfaction, which gets filed as a Grievance instead of a Member Support ticket."},
+
+  { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 8 of 8',
+    eyebrow:'Managing Common Exceptions and Escalations', visual:'ticket-confirm',
+    q:"You just got this confirmation with your ticket number. What's the very next step?",
+    opts:[
+      {label:"Nothing else needed — the system notifies your Account Coordinator automatically.", correct:false},
+      {label:"Submit a duplicate ticket as a backup, in case the first one gets lost.", correct:false},
+      {label:"Email your Account Coordinator with the ticket number so they know to help escalate it.", correct:true},
+      {label:"Call the member back to give them the ticket number.", correct:false}
+    ],
+    explain:"Once you have your ticket number, send a quick email to your Account Coordinator letting them know you'd like to escalate it — that's what gets it moving."},
+
+  { t:'results' },
+
+  { t:'certificate' }
+];
+
+/* ================= ENGINE ================= */
+var i=0, learnerName='', quizAnswered={}, blankState={};
+var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
+    back=document.getElementById('back'), next=document.getElementById('next'),
+    stepnum=document.getElementById('stepnum');
+var L=['A','B','C','D','E'];
+
+var gradedIdx=[];
+for(var k=0;k<SCREENS.length;k++){ if(SCREENS[k].graded) gradedIdx.push(k); }
+
+function el(tag,cls){var e=document.createElement(tag); if(cls)e.className=cls; return e;}
+
+/* ================= REFERRAL STORY (scenario walkthrough) =================
+   Reuses the same recreated Benefits Hub card system built for the
+   Understanding Benefits, Balances, Referrals, and Notes module — same
+   member, same referral, same visual language — so the learner walks one
+   referral through its full lifecycle (submit -> New -> Assigned to
+   Provider -> Unable to Contact -> Completed) right here, without needing
+   a live test member. */
+var ICON_ACCOUNT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>';
+var ICON_BACK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>';
+var ICON_CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>';
+var ICON_STORE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9M3 9v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V9M3 9h18M8 13a2 2 0 0 1-4 0M12 13a2 2 0 0 1-4 0M16 13a2 2 0 0 1-4 0M20 13a2 2 0 0 1-4 0"/></svg>';
+var LOGO_SVG='<svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="currentColor" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>';
+
+function storyTopbar(){
+  return '<div class="pm-topbar"><div class="pm-logo">'+LOGO_SVG+'<span>THE HELPER BEES</span></div>'+
+    '<div class="pm-icons">'+ICON_ACCOUNT+'</div></div>';
+}
+function storyBackrow(title, sub){
+  return '<div class="pm-backrow"><div class="pm-back-circle">'+ICON_BACK+'</div>'+
+    '<div><div class="pm-h1">'+title+'</div><div class="pm-sub">'+sub+'</div></div></div>';
+}
+function storyUrlBar(url){
+  return '<div class="bar"><div class="dots"><i></i><i></i><i></i></div>'+
+    '<div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>'+url+'</span></div></div>';
+}
+function storyHotTag(text){ return '<span class="pm-hot-tag">'+text+'</span>'; }
+
+var STORY_NOTE_TYPES = [
+  "Visit Scheduled Within 1 Week","Visit Scheduled Within 2 Weeks","Visit Scheduled Within 1 Month",
+  "Member Outreach in Progress (Contact Attempts)","Member Declined Services","Unable to Contact Member",
+  "Unable to Staff","Provider Outreach - Sent Email","Provider Outreach - Left Message",
+  "Provider Outreach - Sent Text","Member Request to Delay Services","Status Change","General","Escalation"
+];
+
+var STORY_STATUS_GLOSSARY = [
+  ["New", "Referral has been created and is awaiting approval."],
+  ["Approved", "The system recognizes the referral but it hasn't been assigned to a local provider yet."],
+  ["Assigned to Provider", "A provider was found in the service area and alerted (they have 3 days to respond)."],
+  ["Accepted by Provider", "The provider has accepted — contact info can be shared with the member."],
+  ["Unable to Contact", "The provider couldn't reach the member after 3 attempts."],
+  ["Member Declined Services", "The member declined the provider that reached out."],
+  ["Completed", "All rate types have been invoiced and billed for the service."],
+  ["Closed", "The service was refunded and the referral is now inactive."]
+];
+
+var story = {}; // all transient state for the scenario, keyed by chapter/field name
+
+function storyGlossaryHtml(){
+  return '<div class="pm-revealpanel"><h6>Status reference</h6><div class="pm-glossary"><table><tr><th>Status</th><th>What it means</th></tr>'+
+    STORY_STATUS_GLOSSARY.map(function(row){ return '<tr><td>'+row[0]+'</td><td>'+row[1]+'</td></tr>'; }).join('')+
+    '</table></div></div>';
+}
+
+/* one shared status field, driven by the chapter's badge text/class + whatever
+   extra blocks (provider/notes/encounter) that chapter needs below it */
+function renderStoryCard(vwrap, chapter, opts){
+  opts = opts || {};
+  var viewedKey = 'statusViewed_'+chapter, visibleKey='statusVisible_'+chapter;
+  var statusVisible = !!story[visibleKey];
+  var statusViewed = !!story[viewedKey];
+  var badgeClass = opts.badgeClass || '';
+  var statusHtml;
+
+  if(opts.statusStatic){
+    /* nothing to click here — status is just shown, optionally with a short
+       static note. Mark it "viewed" automatically so gating logic never blocks
+       on it. */
+    story[viewedKey] = true;
+    statusHtml = '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Status</span>'+
+      '<span class="pm-badge-status'+(badgeClass?' '+badgeClass:'')+'"><i></i>'+opts.statusLabel+'</span>'+
+      (opts.statusNote ? '<div class="pm-note-static">'+opts.statusNote+'</div>' : '')+
+      '</div>';
+  } else {
+    var hotStatus = !statusViewed;
+    statusHtml = '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Status</span>'+
+      '<button class="pm-fieldtrigger'+(hotStatus?' pm-hot':'')+'" id="storyStatusBadge" style="position:relative;">'+
+      '<span class="pm-badge-status'+(badgeClass?' '+badgeClass:'')+'"><i></i>'+opts.statusLabel+'</span>'+
+      '<span class="pm-reveal-pill'+(statusViewed?' done':'')+'">'+(statusViewed?'Viewed':'Select to reveal')+'</span>'+
+      (hotStatus?storyHotTag('Click to reveal'):'')+
+      '</button>' + (statusVisible?storyGlossaryHtml():'') + '</div>';
+  }
+
+  var inner = storyTopbar() + storyBackrow('Helper Test','Member #: 12345678912') +
+    '<div class="pm-section-title" style="margin-top:0;">Service Details (Ref ID 3)</div>'+
+    statusHtml + (opts.extraHtml||'');
+
+  var wrapDiv = el('div','browser wide');
+  wrapDiv.style.position='relative';
+  wrapDiv.innerHTML = storyUrlBar('yourcompany.benefitshub.com/member/12345678912') + '<div class="body pm-body"><div class="pm">'+inner+'</div></div>' + (opts.modalHtml||'');
+  vwrap.innerHTML=''; vwrap.appendChild(wrapDiv);
+
+  if(!opts.statusStatic){
+    var statusBadge = vwrap.querySelector('#storyStatusBadge');
+    if(statusBadge){
+      statusBadge.onclick=function(){
+        story[viewedKey]=true;
+        story[visibleKey]=!story[visibleKey];
+        render();
+      };
+    }
+  }
+  return wrapDiv;
+}
+
+/* settled (read-only, already-established) section blocks — used to keep
+   the FULL card visible across every chapter, not just the one piece that's
+   new this screen. Each chapter's genuinely new/interactive piece is still
+   built inline in that chapter's own render function. */
+function storyProviderNone(){
+  return '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Service Provider</span><div class="pm-provider-locked">Not yet assigned.</div></div>';
+}
+/* Same field set Module 5 uses for its real (accepted) provider panel —
+   Company Name, DBA, Contact Name, Email, Phone #, City, State — but with
+   Phone # withheld, since the provider hasn't accepted yet at this point in
+   the story. */
+function storyProviderLockedFields(){
+  return '<div class="pm-providerpanel"><div class="pm-provider-grid">'+
+    '<div><span>Company Name</span><b>Test Provider</b></div>'+
+    '<div><span>DBA</span><b>&ndash;</b></div>'+
+    '<div><span>Contact Name</span><b>Provider Support</b></div>'+
+    '<div><span>Email</span><b>support@testprovider.com</b></div>'+
+    '<div><span>Phone #</span><span class="pm-locked-phone">Not visible yet</span></div>'+
+    '<div><span>City</span><b>Austin</b></div>'+
+    '<div><span>State</span><b>TX</b></div>'+
+    '</div>'+
+    '<div class="pm-note-static">The phone number only becomes visible once a provider has accepted the referral.</div>'+
+    '</div>';
+}
+function storyProviderLockedSettled(){
+  return '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Service Provider</span><b style="font-size:11.5px;display:block;margin-bottom:4px;">Test Provider</b>'+
+    '<div class="pm-revealpanel"><h6>Provider details</h6>'+storyProviderLockedFields()+'</div></div>';
+}
+function storyProviderUnlockedSettled(){
+  return '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Service Provider</span>'+
+    '<div class="pm-providerpanel"><div class="pm-provider-grid">'+
+    '<div><span>Company Name</span><b>Test Provider</b></div>'+
+    '<div><span>DBA</span><b>&ndash;</b></div>'+
+    '<div><span>Contact Name</span><b>Provider Support</b></div>'+
+    '<div><span>Email</span><b>support@testprovider.com</b></div>'+
+    '<div><span>Phone #</span><b>555-201-4488</b></div>'+
+    '<div><span>City</span><b>Austin</b></div>'+
+    '<div><span>State</span><b>TX</b></div>'+
+    '</div></div></div>';
+}
+function storyNotesEmpty(){
+  return '<div class="pm-notespanel"><h6>Notes</h6><div class="pm-noteempty">No notes yet.</div></div>';
+}
+function storyNotesSettled(){
+  var noteType = story.noteType || 'General', noteText = story.noteText || '';
+  return '<div class="pm-notespanel"><h6>Notes</h6><div class="pm-noteitem"><b>'+noteType+'</b><span>Earlier this call</span><div style="margin-top:4px;">'+noteText+'</div></div></div>';
+}
+function storyEncounterNone(){
+  return '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Encounter</span><div class="pm-provider-locked">No encounters yet.</div></div>';
+}
+
+function allStoryGated(chapter){
+  var s=SCREENS[i];
+  if(!story['statusViewed_'+chapter]) return false;
+  if(s.needsProvider && !story.providerAttempted) return false;
+  if(s.needsProvider && story.shareChoice===undefined) return false;
+  if(s.needsNote && !story.noteDone) return false;
+  if(s.needsEnc && !story.encViewed) return false;
+  return true;
+}
+
+function renderChapterNew(vwrap){
+  var extra = storyProviderNone() + storyNotesEmpty() + storyEncounterNone();
+  renderStoryCard(vwrap, 'new', {
+    statusLabel:'New', badgeClass:'neutral', statusStatic:true,
+    statusNote:"This is the expected status for a referral that was just submitted.",
+    extraHtml: extra
+  });
+  next.disabled = !allStoryGated('new');
+}
+
+function renderChapterAssigned(vwrap){
+  var providerViewed = !!story.providerAttempted;
+  var hotProvider = !providerViewed;
+  var providerHtml = '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Service Provider</span>'+
+    '<button class="pm-fieldtrigger'+(hotProvider?' pm-hot':'')+'" id="storyProviderBtn" style="position:relative;">'+
+    '<b>Test Provider</b>'+
+    '<span class="pm-reveal-pill'+(providerViewed?' done':'')+'">'+(providerViewed?'Viewed':'Select to reveal')+'</span>'+
+    (hotProvider?storyHotTag('Click to reveal'):'')+
+    '</button>'+
+    (providerViewed ? '<div class="pm-revealpanel pm-focus-ring" style="position:relative;"><h6>Provider details</h6>'+storyProviderLockedFields()+'</div>' : '')+
+    '</div>';
+
+  var extra = providerHtml + storyNotesEmpty() + storyEncounterNone();
+  /* Status meaning (assigned but not yet accepted) is meant to be covered by
+     narration once this module has an audio script — kept off-screen here
+     rather than duplicated in a click-to-reveal table. See the project memory
+     note: module 7 doesn't have an audio-playback system yet, unlike modules
+     1/2/4/5/6, so this is a placeholder for that future narration. */
+  renderStoryCard(vwrap, 'assigned', { statusLabel:'Assigned to Provider', badgeClass:'amber', statusStatic:true, extraHtml: extra });
+
+  var providerBtn = vwrap.querySelector('#storyProviderBtn');
+  if(providerBtn){ providerBtn.onclick=function(){ story.providerAttempted=true; render(); }; }
+
+  // self-check, rendered below the card in its own wrap so it survives renderStoryCard's innerHTML reset
+  if(story.providerAttempted){
+    var qBox = el('div','wrap wide'); qBox.style.marginTop='14px';
+    var answered = story.shareChoice!==undefined;
+    var qHtml = '<div class="q" style="font-size:15.5px;">The member is asking for the provider\'s phone number so they can follow up directly. What do you do?</div>';
+    var optsArr = [
+      {key:'share', label:'Share the phone number — it\'s on the referral.', correct:false},
+      {key:'wait', label:'Not yet — the phone number isn\'t visible until the provider accepts.', correct:true}
+    ];
+    optsArr.forEach(function(o,idx){
+      var cls='opt';
+      if(answered) cls += (o.correct?' correct':(story.shareChoice===o.key?' wrong':''));
+      qHtml += '<button type="button" class="'+cls+'" data-key="'+o.key+'" '+(answered?'disabled':'')+'><span class="ltr">'+L[idx]+'</span><span>'+o.label+'</span></button>';
+    });
+    if(answered){
+      qHtml += '<div class="answer"><b>'+(story.shareChoice==='wait'?'Right. ':'Not quite. ')+'</b>The company name, contact name, and email are already on file, but the phone number only becomes visible once the provider accepts — until then, there\'s no number to share with the member. Let them know the provider has been alerted and has a few days to respond.</div>';
+    }
+    qBox.innerHTML = qHtml;
+    vwrap.parentNode.appendChild(qBox);
+    if(!answered){
+      qBox.querySelectorAll('.opt').forEach(function(btn){
+        btn.onclick=function(){ story.shareChoice=btn.getAttribute('data-key'); render(); };
+      });
+    }
+  }
+
+  next.disabled = !allStoryGated('assigned');
+}
+
+function renderChapterUnable(vwrap){
+  var modalOpen = !!story.noteModalOpen, dropdownOpen=!!story.noteDropdownOpen;
+  var noteType = story.noteType, noteText = story.noteText||'', noteDone=!!story.noteDone;
+
+  var typeBoxHtml;
+  if(noteType){
+    typeBoxHtml = '<div class="pm-notemodal-field"><label>Note Type *</label><div class="box">'+noteType+'</div></div>';
+  } else {
+    typeBoxHtml = '<div class="pm-notemodal-field"><label>Note Type *</label><div class="box placeholder" style="position:relative;border-color:var(--rasp);" id="storyTypeBox">Note Type <span>▾</span></div>'+
+      (dropdownOpen ? '<div class="pm-dropdown" id="storyTypeDropdown">'+STORY_NOTE_TYPES.map(function(opt){
+        return '<div data-opt="'+opt+'">'+opt+'</div>';
+      }).join('')+'</div>' : '')+
+      '</div>';
+  }
+  var textBoxHtml = '';
+  if(noteType && !noteDone){
+    textBoxHtml = '<div class="pm-notemodal-field"><label>Note *</label>'+
+      '<textarea id="storyNoteText" placeholder="Type your note…" style="'+(!noteText?'border-color:var(--rasp);':'')+'">'+noteText+'</textarea></div>';
+  }
+  var hotSubmit = noteType && !noteDone && !!noteText.trim();
+  var submitBtnHtml = '<button class="pm-modal-submit'+(hotSubmit?' pm-hot':'')+'" id="storySubmitNote" style="position:relative;" '+(noteText.trim()?'':'disabled')+'>ADD NOTE'+(hotSubmit?storyHotTag('Click to submit'):'')+'</button>';
+
+  var modalHtml = '';
+  if(modalOpen && !noteDone){
+    modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><h5>Add Note to Referral</h5>'+
+      typeBoxHtml + textBoxHtml +
+      '<div class="pm-modal-btns"><button class="pm-modal-cancel" id="storyModalCancel">CANCEL</button>'+submitBtnHtml+'</div>'+
+      '</div></div>';
+  }
+
+  var toastHtml = noteDone ? '<div class="pm-toast">'+ICON_CHECK+'<span>Note added to referral</span></div>' : '';
+  var notesInner = noteDone
+    ? '<h6>Notes</h6><div class="pm-noteitem"><b>'+noteType+'</b><span>Just now</span><div style="margin-top:4px;">'+noteText+'</div></div>'
+    : '<h6>Notes</h6><div class="pm-noteempty">No notes yet.</div>';
+  var hotAddBtn = !noteDone && !modalOpen && story['statusViewed_unable'];
+  var addBtnHtml = noteDone
+    ? '<button class="pm-btn-blue" disabled style="opacity:.5;">+ ADD NOTE <span class="pm-reveal-pill done">Note added</span></button>'
+    : '<button class="pm-btn-blue'+(hotAddBtn?' pm-hot':'')+'" id="storyAddNoteBtn" style="position:relative;">+ ADD NOTE <span class="pm-reveal-pill">Select to open</span>'+(hotAddBtn?storyHotTag('Click to add a note'):'')+'</button>';
+
+  var notesBlockHtml = '<div class="pm-actionrow">'+addBtnHtml+'</div>'+toastHtml+'<div class="pm-notespanel">'+notesInner+'</div>';
+  /* Provider is shown UNLOCKED (phone visible) here, not locked — Unable to
+     Contact means the provider already accepted and made 3 attempts to reach
+     the member, so their contact info would already have been shared. */
+  var extraHtml = storyProviderUnlockedSettled() + notesBlockHtml + storyEncounterNone();
+
+  /* Status meaning (3 unsuccessful provider contact attempts) and the "this
+     referral is stalled, action is needed" judgment are meant to come from
+     the learner reading the situation themselves (or from narration once
+     this module has an audio script — see the note on the assigned chapter
+     above) rather than a click-to-reveal table. */
+  var wrapDiv = renderStoryCard(vwrap, 'unable', { statusLabel:'Unable to Contact', badgeClass:'amber', statusStatic:true, extraHtml: extraHtml, modalHtml: modalHtml });
+
+  var addBtn = vwrap.querySelector('#storyAddNoteBtn');
+  if(addBtn){ addBtn.onclick=function(){ story.noteModalOpen=true; render(); }; }
+  var cancelBtn = vwrap.querySelector('#storyModalCancel');
+  if(cancelBtn){ cancelBtn.onclick=function(){ story.noteModalOpen=false; render(); }; }
+  var typeBox = vwrap.querySelector('#storyTypeBox');
+  if(typeBox){ typeBox.onclick=function(){ story.noteDropdownOpen=true; render(); }; }
+  vwrap.querySelectorAll('#storyTypeDropdown div').forEach(function(opt){
+    opt.onclick=function(){ story.noteType=opt.getAttribute('data-opt'); story.noteDropdownOpen=false; render(); };
+  });
+  var textArea = vwrap.querySelector('#storyNoteText');
+  if(textArea){
+    /* Deliberately does NOT call render() on every keystroke — doing so
+       destroyed/rebuilt the whole card (including this textarea) on every
+       character typed, which broke normal typing (only one letter would
+       register at a time). Instead, update state and the submit button's
+       hot/disabled look directly via the DOM, leaving the textarea itself
+       untouched while the learner types. */
+    textArea.oninput=function(){
+      story.noteText = textArea.value;
+      var hasText = !!textArea.value.trim();
+      textArea.style.borderColor = hasText ? '' : 'var(--rasp)';
+      var submitBtn = vwrap.querySelector('#storySubmitNote');
+      if(submitBtn){
+        submitBtn.disabled = !hasText;
+        submitBtn.classList.toggle('pm-hot', hasText);
+        var existingTag = submitBtn.querySelector('.pm-hot-tag');
+        if(hasText && !existingTag){
+          var tag = document.createElement('span');
+          tag.className='pm-hot-tag';
+          tag.textContent='Click to submit';
+          submitBtn.appendChild(tag);
+        } else if(!hasText && existingTag){
+          existingTag.remove();
+        }
+      }
+    };
+  }
+  var submitBtn = vwrap.querySelector('#storySubmitNote');
+  if(submitBtn){ submitBtn.onclick=function(){ story.noteDone=true; story.noteModalOpen=false; render(); }; }
+
+  next.disabled = !allStoryGated('unable');
+}
+
+function renderChapterCompleted(vwrap){
+  var encVisible = !!story.encVisible, encViewed=!!story.encViewed;
+  var hotEnc = !encViewed;
+  var encPanel = encVisible ? '<div class="pm-revealpanel"><h6>Encounter details</h6><div class="pm-dl">'+
+    '<div><span>Provider Contacted</span><b>8/1/2026</b></div>'+
+    '<div><span>Response</span><b>Confirmed, will schedule</b></div>'+
+    '<div><span>Service Scheduled</span><b>8/4/2026</b></div>'+
+    '<div><span>Service Completed</span><b>8/4/2026</b></div>'+
+    '</div>'+
+    /* Same Service Tasks fields Understanding Benefits, Balances, Referrals,
+       and Notes shows for this exact install service's completed encounter —
+       this is the provider's own confirmation the work was done, not just a
+       date on the referral. */
+    '<div class="pm-tasklist" style="margin-top:10px;"><h5>Service tasks confirmed</h5>'+
+    '<div class="pm-taskgrid">'+
+    '<div class="pm-taskitem">'+ICON_CHECK+'<div class="pm-taskitem-body"><b>Installation Completed<span class="pm-req-badge">Required</span></b><span>Confirmation: Yes</span></div></div>'+
+    '<div class="pm-taskitem">'+ICON_CHECK+'<div class="pm-taskitem-body"><b>Provider Invoice Number<span class="pm-req-badge">Required</span></b><span>Confirmation: INV-58821</span></div></div>'+
+    '<div class="pm-taskitem">'+ICON_CHECK+'<div class="pm-taskitem-body"><b>Total Points Billed<span class="pm-req-badge">Required</span></b><span>Confirmation: 450.00</span></div></div>'+
+    '</div></div>'+
+    '</div>' : '';
+  var encHtml = '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Encounter</span>'+
+    '<button class="pm-fieldtrigger'+(hotEnc?' pm-hot':'')+'" id="storyEncBtn" style="position:relative;">'+
+    '<b>View encounter details</b>'+
+    '<span class="pm-reveal-pill'+(encViewed?' done':'')+'">'+(encViewed?'Viewed':'Select to reveal')+'</span>'+
+    (hotEnc?storyHotTag('Click to reveal'):'')+
+    '</button>' + encPanel + '</div>';
+
+  var extra = storyProviderUnlockedSettled() + storyNotesSettled() + encHtml;
+  /* Last of the 4 status chapters to drop the click-to-reveal glossary table
+     — see the same statusStatic treatment on new/assigned/unable above. */
+  renderStoryCard(vwrap, 'completed', { statusLabel:'Completed', statusStatic:true, extraHtml: extra });
+
+  var encBtn = vwrap.querySelector('#storyEncBtn');
+  if(encBtn){ encBtn.onclick=function(){ story.encViewed=true; story.encVisible=!story.encVisible; render(); }; }
+
+  next.disabled = !allStoryGated('completed');
+}
+
+/* ---------- "search for the member" — real screenshot reused from
+   Finding and Reviewing a Member, with a real typed Member ID input
+   overlaid on the Member Number box (coordinates measured against the
+   real search.png asset). Advanced Search is now a passive on-screen
+   note rather than a required click, since the learner already has the
+   member's ID for this call. ---------- */
+/* Renders just the "find the member" step. Doesn't touch next.disabled itself
+   — the caller (renderChapterSubmit) controls that, since finding the member
+   is now a precursor within the same combined screen rather than its own
+   gated chapter. Returns whether the member has been correctly found. */
+function renderMemberSearchStep(vwrap){
+  var typed = story.memberIdTyped || '';
+  var checked = !!story.memberIdChecked;
+  var normTyped = typed.replace(/[^0-9]/g,'');
+  var correct = checked && normTyped==='12345678912';
+
+  var inputCls = checked ? (correct?'right':'wrongans') : '';
+  var wrapDiv = el('div','browser wide');
+  wrapDiv.innerHTML = storyUrlBar('yourcompany.benefitshub.com/search') +
+    '<div class="body"><div class="shot-wrap">'+
+      '<img src="assets/img/search.png" alt="" class="shot-img">'+
+      '<div class="shot-inputoverlay" style="left:34%;top:67.6%;width:50.5%;height:9.2%;">'+
+        '<input type="text" id="searchMemberIdInput" placeholder="Member Number" value="'+typed+'" class="'+inputCls+'" '+(checked?'disabled':'')+'>'+
+      '</div>'+
+    '</div></div>';
+  vwrap.innerHTML=''; vwrap.appendChild(wrapDiv);
+
+  var actionRow = el('div','shot-actionrow');
+  if(checked && !correct){
+    actionRow.innerHTML = '<button type="button" class="shot-searchbtn" id="searchRetryBtn">Try Again</button>';
+  } else if(!checked){
+    actionRow.innerHTML = '<button type="button" class="shot-searchbtn" id="searchGoBtn" disabled>Search</button>';
+  }
+  wrapDiv.appendChild(actionRow);
+
+  var cap = el('div','shot-caption');
+  if(checked && correct){
+    cap.innerHTML = ICON_CHECK+'<span>Found it — that\'s Helper Test\'s profile.</span>';
+  } else if(checked && !correct){
+    cap.innerHTML = ICON_CHECK+'<span>That doesn\'t match — search for Member #12345678912 instead.</span>';
+  } else {
+    cap.innerHTML = ICON_CHECK+'<span>Search for Member #12345678912 to pull up Helper Test\'s profile.</span>';
+  }
+  wrapDiv.appendChild(cap);
+
+  var tip = el('div','shot-tip');
+  tip.innerHTML = '<span>Tip: No member number handy? Advanced Search lets you look someone up by name and date of birth instead.</span>';
+  wrapDiv.appendChild(tip);
+
+  var input = vwrap.querySelector('#searchMemberIdInput');
+  if(input && !checked){
+    input.oninput=function(){
+      story.memberIdTyped = input.value;
+      var goBtn = vwrap.querySelector('#searchGoBtn');
+      if(goBtn) goBtn.disabled = !input.value.trim();
+    };
+  }
+  var goBtn = vwrap.querySelector('#searchGoBtn');
+  if(goBtn){
+    goBtn.disabled = !typed.trim();
+    goBtn.onclick=function(){ story.memberIdChecked=true; render(); };
+  }
+  var retryBtn = vwrap.querySelector('#searchRetryBtn');
+  if(retryBtn){ retryBtn.onclick=function(){ story.memberIdChecked=false; render(); }; }
+
+  return correct;
+}
+
+/* ---------- "submit a referral" — full version: choose the right benefit tile
+   (among distractors) -> Add Referral -> choose the right service (among
+   distractors) -> Authorizations + quantity stepper (matching Module 4's real
+   +/- mechanics) -> Add to Cart -> Cart + Service Address -> Checkout -> Confirm.
+   Quantity (units of THIS service) is deliberately kept separate from Plan
+   Allowance (the benefit category's whole yearly budget) — see the content-note
+   above SCREENS for the bug this replaced. ---------- */
+var SUBMIT_TILES = [
+  {key:'homemod', label:'Home Modification, Bathroom Safety, Air Quality, Pest Control', correct:true},
+  {key:'personalcare', label:'Personal Care', correct:false},
+  {key:'meals', label:'Meals', correct:false}
+];
+/* Same real service list Creating and Submitting a Referral uses for this
+   benefit category — "Bathroom grab bar with install service" is correct. */
+var SUBMIT_SERVICES = [
+  {key:'grabbar', label:'Bathroom grab bar with install service', correct:true},
+  {key:'safetyassess', label:'In-Home Safety Assessment', correct:false},
+  {key:'toiletseat', label:'Raised Toilet Seat/Install', correct:false},
+  {key:'faucet', label:'Lever Handle Faucet/Install', correct:false},
+  {key:'ac', label:'Portable Air Conditioner & installation', correct:false},
+  {key:'showerseat', label:'Folding Shower Seat & Installation', correct:false},
+  {key:'handheld', label:'Handheld Shower/Install', correct:false}
+];
+
+function renderChapterSubmit(vwrap){
+  var normTyped = (story.memberIdTyped||'').replace(/[^0-9]/g,'');
+  var memberFound = !!story.memberIdChecked && normTyped==='12345678912';
+  if(!memberFound){
+    renderMemberSearchStep(vwrap);
+    next.disabled = true;
+    return;
+  }
+
+  var tileSelected = !!story.tileSelected;
+  var referralOpened = !!story.referralOpened;
+  var serviceSelected = !!story.serviceSelected;
+  var qty = story.qty || 0;
+  var addedToCart = !!story.addedToCart;
+  var checkingOut = !!story.checkingOut;
+  var submitted = !!story.submitted;
+  var totalPoints = qty*450;
+
+  var tileHtml = '<div class="pm-section-title" style="margin-top:0;">Benefits</div>'+
+    '<div class="pm-tilegrid">'+
+    SUBMIT_TILES.map(function(t){
+      var isActive = tileSelected && t.correct;
+      var isHot = !tileSelected;
+      return '<button type="button" class="pm-tile'+(isActive?' active':'')+(isHot?' pm-hot':'')+'" data-tilekey="'+t.key+'" style="position:relative;">'+ICON_STORE+'<div>'+t.label+'</div></button>';
+    }).join('')+
+    '</div>'+
+    (story.tileMiss && !tileSelected ? '<div class="pm-hint-wrong">Not quite — for a grab bar install, that\'s under Home Modification.</div>' : '');
+
+  var authHtml = '', svcListHtml = '', svcDetailHtml = '', cartHtml = '';
+
+  if(tileSelected){
+    var addReferralHot = !referralOpened;
+    authHtml = '<div class="pm-authblock"><h4>Authorizations for Home Modification, Bathroom Safety, Air Quality, Pest Control</h4>'+
+      '<div class="pm-authrow">'+
+      '<div><span>Plan Allowance</span><b>1300.00</b></div>'+
+      '<div><span>Used</span><b>0.00</b></div>'+
+      '<div><span>Pending</span><b>0.00</b></div>'+
+      '<div><span>Remaining</span><b>1300.00</b></div>'+
+      (referralOpened ? '' : '<button class="pm-btn-dark'+(addReferralHot?' pm-hot':'')+'" id="storyAddReferralBtn" style="position:relative;">Add Referral'+(addReferralHot?storyHotTag('Click to start'):'')+'</button>')+
+      '</div></div>';
+  }
+
+  if(referralOpened && !serviceSelected){
+    var svcDropdownOpen = !!story.serviceDropdownOpen;
+    var searchBoxHtml = '<div class="box placeholder'+(!svcDropdownOpen?' pm-hot':'')+'" style="position:relative;" id="storyServiceBox">'+(svcDropdownOpen?'Type to search&hellip;':'Search For Services')+' <span>&#9662;</span>'+(!svcDropdownOpen?storyHotTag('Click to search'):'')+'</div>';
+    var svcDropdownHtml = '';
+    if(svcDropdownOpen){
+      svcDropdownHtml = '<div class="pm-dropdown" id="storyServiceDropdown">'+SUBMIT_SERVICES.map(function(s){
+        return '<div data-svckey="'+s.key+'">'+s.label+'</div>';
+      }).join('')+'</div>';
+    }
+    svcListHtml = '<div class="pm-section-title">Available Services for Helper Test in 94102</div>'+
+      '<div class="pm-fieldrow">'+
+      '<div class="pm-field"><label>Service Category</label><div class="box">Home &amp; Bathroom &hellip;</div></div>'+
+      '<div class="pm-field"><label>Search For Services</label>'+searchBoxHtml+svcDropdownHtml+'</div>'+
+      '</div>'+
+      (story.serviceMiss ? '<div class="pm-hint-wrong">Not quite — the member called about a grab bar install, not that service.</div>' : '');
+  }
+
+  if(serviceSelected){
+    var qtyHot = qty<1 && !addedToCart;
+    var addToCartHot = qty>=1 && !addedToCart;
+    svcDetailHtml = '<div class="pm-svcdetail"><h5>Bathroom grab bar with install service</h5>'+
+      '<div class="pm-dl"><div><span>Service ID</span><b>258718</b></div><div><span>Points per Unit</span><b>450.00</b></div>'+
+      '<div><span>Status</span><b>Active</b></div><div><span>Description</span><b>In-home evaluation and installation</b></div></div>'+
+      (addedToCart ?
+        '<div style="margin-top:10px;font-size:11px;color:#1E7A46;font-weight:800;">&#10003; Added to cart — Quantity: '+qty+'</div>'
+        :
+        '<div style="margin-top:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">'+
+        '<div class="pm-qty" style="position:relative;">'+
+          '<button type="button" id="storyQtyMinus" '+(qty<1?'disabled':'')+'>&minus;</button>'+
+          '<input readonly value="'+qty+'">'+
+          '<button type="button" id="storyQtyPlus" class="'+(qtyHot?'pm-hot':'')+'" style="position:relative;">+'+(qtyHot?storyHotTag('Click to add 1'):'')+'</button>'+
+        '</div>'+
+        '<div style="font-size:11px;color:#999;font-weight:700;">Total Points: <b style="color:#1a1a1a;">'+totalPoints.toFixed(2)+'</b></div>'+
+        '</div>'+
+        '<div style="margin-top:10px;"><button class="pm-btn-dark'+(addToCartHot?' pm-hot':'')+'" id="storyAddToCartBtn" style="margin-left:0;position:relative;" '+(qty<1?'disabled':'')+'>Add to Cart'+(addToCartHot?storyHotTag('Click to add'):'')+'</button></div>'
+      )+
+      '</div>';
+  }
+
+  if(addedToCart){
+    var checkoutHot = !checkingOut && !submitted;
+    cartHtml = '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
+      '<tr><td>Bathroom grab bar with install service</td><td>'+qty+'</td><td>450.00</td><td>'+totalPoints.toFixed(2)+'</td><td class="trash">&#128465;</td></tr>'+
+      '</table>'+
+      '<div class="pm-addr-card"><h5>Service Address</h5><p>123 Bee Hive Avenue<br>San Francisco, CA 94102</p></div>'+
+      '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: '+totalPoints.toFixed(2)+'</div>'+
+      '<div class="pm-btnrow"><button type="button" class="pm-btn-outline danger" id="storyClearCartBtn">Clear Cart</button>'+
+      '<button type="button" class="pm-btn-outline" id="storyContinueShoppingBtn">Continue Shopping</button>'+
+      (submitted ? '' : '<button type="button" class="pm-btn-checkout'+(checkoutHot?' pm-hot':'')+'" id="storyCheckoutBtn" style="position:relative;">Checkout'+(checkoutHot?storyHotTag('Click to check out'):'')+'</button>')+
+      '</div></div>';
+  }
+
+  var modalHtml = '';
+  if(checkingOut){
+    if(!submitted){
+      modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><h5>Confirm referrals?</h5>'+
+        '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="storyConfirmSubmit">Confirm'+storyHotTag('Click to confirm')+'</button>'+
+        '<button class="pm-btn-outline" id="storyCloseModal">Close</button></div>'+
+        '</div></div>';
+    } else {
+      modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><h5>Thank you. Your referral has been submitted.</h5>'+
+        '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="storyContinueAfterSubmit">Continue'+storyHotTag('Click to continue')+'</button></div>'+
+        '</div></div>';
+    }
+  }
+
+  var inner = storyTopbar() + storyBackrow('Helper Test','Member #: 12345678912') + tileHtml + authHtml + svcListHtml + svcDetailHtml + cartHtml;
+  var wrapDiv = el('div','browser wide');
+  wrapDiv.style.position='relative';
+  wrapDiv.innerHTML = storyUrlBar('yourcompany.benefitshub.com/member/12345678912') + '<div class="body pm-body"><div class="pm">'+inner+'</div></div>' + modalHtml;
+  vwrap.innerHTML=''; vwrap.appendChild(wrapDiv);
+
+  vwrap.querySelectorAll('[data-tilekey]').forEach(function(btn){
+    if(tileSelected) return;
+    btn.onclick=function(){
+      var key = btn.getAttribute('data-tilekey');
+      if(key==='homemod'){ story.tileSelected=true; story.tileMiss=null; }
+      else { story.tileMiss=key; }
+      render();
+    };
+  });
+  var addReferralBtn = vwrap.querySelector('#storyAddReferralBtn');
+  if(addReferralBtn){ addReferralBtn.onclick=function(){ story.referralOpened=true; render(); }; }
+  var serviceBox = vwrap.querySelector('#storyServiceBox');
+  if(serviceBox){ serviceBox.onclick=function(){ story.serviceDropdownOpen=true; render(); }; }
+  vwrap.querySelectorAll('#storyServiceDropdown div').forEach(function(opt){
+    opt.onclick=function(){
+      var key = opt.getAttribute('data-svckey');
+      story.serviceDropdownOpen=false;
+      if(key==='grabbar'){ story.serviceSelected=true; story.serviceMiss=null; }
+      else { story.serviceMiss=key; }
+      render();
+    };
+  });
+  var qtyPlus = vwrap.querySelector('#storyQtyPlus');
+  if(qtyPlus){ qtyPlus.onclick=function(){ story.qty=(story.qty||0)+1; render(); }; }
+  var qtyMinus = vwrap.querySelector('#storyQtyMinus');
+  if(qtyMinus){ qtyMinus.onclick=function(){ story.qty=Math.max(0,(story.qty||0)-1); render(); }; }
+  var addToCartBtn = vwrap.querySelector('#storyAddToCartBtn');
+  if(addToCartBtn){ addToCartBtn.onclick=function(){ if((story.qty||0)>=1){ story.addedToCart=true; render(); } }; }
+  var clearCartBtn = vwrap.querySelector('#storyClearCartBtn');
+  if(clearCartBtn){ clearCartBtn.onclick=function(){ story.addedToCart=false; story.qty=0; render(); }; }
+  var checkoutBtn = vwrap.querySelector('#storyCheckoutBtn');
+  if(checkoutBtn){ checkoutBtn.onclick=function(){ story.checkingOut=true; render(); }; }
+  var closeModalBtn = vwrap.querySelector('#storyCloseModal');
+  if(closeModalBtn){ closeModalBtn.onclick=function(){ story.checkingOut=false; render(); }; }
+  var confirmSubmit = vwrap.querySelector('#storyConfirmSubmit');
+  if(confirmSubmit){ confirmSubmit.onclick=function(){ story.submitted=true; render(); }; }
+  var continueAfterSubmit = vwrap.querySelector('#storyContinueAfterSubmit');
+  if(continueAfterSubmit){ continueAfterSubmit.onclick=function(){ story.checkingOut=false; render(); }; }
+
+  next.disabled = !submitted;
+}
+
+var STORY_RENDERERS = {
+  submit: renderChapterSubmit,
+  'new': renderChapterNew,
+  assigned: renderChapterAssigned,
+  unable: renderChapterUnable,
+  completed: renderChapterCompleted
+};
+
+/* ---------- quiz question visuals — full recreated Benefits Hub screens (same
+   pm-* visual language as the scenario) the learner has to read/scan before
+   answering, instead of a small isolated fact handed to them. Every key wraps
+   its content in a browser chrome so the learner has to locate the relevant
+   field within a busier, more realistic screen. Content here is fixed/
+   hardcoded rather than reading from live `story` state (e.g. notes text),
+   since the quiz must show consistent content regardless of what a learner
+   typed during the scenario. ---------- */
+function quizFixedNoteBlock(){
+  return '<div class="pm-notespanel"><h6>Notes</h6><div class="pm-noteitem"><b>Unable to Contact Member</b><span>Earlier this call</span>'+
+    '<div style="margin-top:4px;">Member called to check status; provider hasn\'t connected with them yet. Logging note to help reconnect.</div></div></div>';
+}
+function quizReferralCardWrap(inner){
+  return '<div class="browser wide" style="margin-bottom:18px;">'+storyUrlBar('yourcompany.benefitshub.com/member/12345678912')+
+    '<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('Helper Test','Member #: 12345678912')+
+    '<div class="pm-section-title" style="margin-top:0;">Service Details (Ref ID 3)</div>'+inner+'</div></div></div>';
+}
+
+function quizVisual(key){
+  if(key==='tile-balance'){
+    var inner = '<div class="pm-section-title" style="margin-top:0;">Benefits</div>'+
+      '<div class="pm-tilegrid">'+
+      '<div class="pm-tile active">'+ICON_STORE+'<div>Home Modification, Bathroom Safety, Air Quality, Pest Control</div></div>'+
+      '<div class="pm-tile">'+ICON_STORE+'<div>Personal Care</div></div>'+
+      '<div class="pm-tile">'+ICON_STORE+'<div>Meals</div></div>'+
+      '</div>'+
+      '<div class="pm-authblock pm-focus-ring"><h4>Authorizations for Home Modification, Bathroom Safety, Air Quality, Pest Control</h4>'+
+      '<div class="pm-authrow">'+
+      '<div><span>Plan Allowance</span><b>1300.00</b></div>'+
+      '<div><span>Used</span><b>0.00</b></div>'+
+      '<div><span>Pending</span><b>0.00</b></div>'+
+      '<div><span>Remaining</span><b>1300.00</b></div>'+
+      '</div></div>';
+    return '<div class="browser wide" style="margin-bottom:18px;">'+storyUrlBar('yourcompany.benefitshub.com/member/12345678912')+
+      '<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('Helper Test','Member #: 12345678912')+inner+'</div></div></div>';
+  }
+  if(key==='quantity'){
+    var inner = '<div class="pm-authblock"><h4>Authorizations for Home Modification, Bathroom Safety, Air Quality, Pest Control</h4>'+
+      '<div class="pm-authrow"><div><span>Plan Allowance</span><b>1300.00</b></div><div><span>Remaining</span><b>1300.00</b></div></div></div>'+
+      '<div class="pm-svcdetail pm-focus-ring"><h5>Bathroom grab bar with install service</h5>'+
+      '<div class="pm-dl"><div><span>Service ID</span><b>258718</b></div><div><span>Points per Unit</span><b>450.00</b></div></div>'+
+      '<div style="margin-top:8px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">'+
+      '<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:9.5px;color:#999;text-transform:uppercase;font-weight:700;">Quantity</span>'+
+      '<div class="pm-qty"><button disabled>&minus;</button><input readonly value="1"><button disabled>+</button></div></div>'+
+      '<div style="font-size:11px;color:#999;font-weight:700;">Total Points: <b style="color:#1a1a1a;">450.00</b></div>'+
+      '</div></div>';
+    return '<div class="browser wide" style="margin-bottom:18px;">'+storyUrlBar('yourcompany.benefitshub.com/member/12345678912')+
+      '<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('Helper Test','Member #: 12345678912')+inner+'</div></div></div>';
+  }
+  if(key==='address'){
+    var inner = '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
+      '<tr><td>Bathroom grab bar with install service</td><td>1</td><td>450.00</td><td>450.00</td><td class="trash">&#128465;</td></tr>'+
+      '</table>'+
+      '<div class="pm-addr-card pm-focus-ring"><h5>Service Address</h5><p>123 Bee Hive Avenue<br>San Francisco, CA 94102</p></div>'+
+      '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: 450.00</div>'+
+      '<div class="pm-btnrow"><button class="pm-btn-outline danger" disabled>Clear Cart</button><button class="pm-btn-outline" disabled>Continue Shopping</button><button class="pm-btn-checkout" disabled>Checkout</button></div></div>';
+    return '<div class="browser wide" style="margin-bottom:18px;">'+storyUrlBar('yourcompany.benefitshub.com/member/12345678912')+
+      '<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('Helper Test','Member #: 12345678912')+inner+'</div></div></div>';
+  }
+  if(key==='status-action'){
+    var inner = '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Status</span>'+
+      '<span class="pm-badge-status amber"><i></i>Unable to Contact</span></div>'+
+      storyProviderLockedSettled() + storyNotesEmpty() + storyEncounterNone();
+    return quizReferralCardWrap(inner);
+  }
+  if(key==='provider-compare'){
+    var cardA = '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Status</span><span class="pm-badge-status neutral"><i></i>Assigned to Provider</span></div>'+storyProviderLockedSettled();
+    var cardB = '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Status</span><span class="pm-badge-status"><i></i>Accepted by Provider</span></div>'+storyProviderUnlockedSettled();
+    return '<div style="display:flex;flex-direction:column;gap:14px;margin-bottom:18px;">'+
+      '<div class="browser wide">'+storyUrlBar('yourcompany.benefitshub.com/member/98765432100')+'<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('Member A','Member #: 98765432100')+'<div class="pm-section-title" style="margin-top:0;">Service Details (Ref ID 7)</div>'+cardA+'</div></div></div>'+
+      '<div class="browser wide">'+storyUrlBar('yourcompany.benefitshub.com/member/98765432101')+'<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('Member B','Member #: 98765432101')+'<div class="pm-section-title" style="margin-top:0;">Service Details (Ref ID 9)</div>'+cardB+'</div></div></div>'+
+      '</div>';
+  }
+  if(key==='balance-box'){
+    var encPanelQ6 = '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Encounter</span><b style="font-size:11.5px;display:block;margin-bottom:4px;">View encounter details</b>'+
+      '<div class="pm-revealpanel pm-focus-ring"><h6>Encounter details</h6>'+
+      '<div class="pm-dl"><div><span>Allowed</span><b>1</b></div><div><span>Used</span><b>0</b></div><div><span>Remaining</span><b>1</b></div></div>'+
+      '<div class="pm-dl" style="margin-top:6px;"><div><span>Provider Contacted</span><b>8/1/2026</b></div><div><span>Response</span><b>Confirmed, will schedule</b></div></div>'+
+      '</div></div>';
+    var inner = '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Status</span><span class="pm-badge-status"><i></i>Completed</span></div>'+
+      storyProviderUnlockedSettled() + quizFixedNoteBlock() + encPanelQ6;
+    return quizReferralCardWrap(inner);
+  }
+  if(key==='exception-cards'){
+    var inner = '<div class="pm-section-title" style="margin-top:0;">New Member Support Ticket</div>'+
+      '<div class="pm-dl"><div><span>Member</span><b>Helper Test</b></div><div><span>Category</span><b>Service Exception</b></div></div>'+
+      '<div class="pm-svcdetail"><h5>Common examples of Service Exceptions</h5>'+
+      '<div class="qv-exgrid">'+
+      '<div class="qv-exitem">Meals not delivered</div>'+
+      '<div class="qv-exitem">Purse (benefit card) not loaded</div>'+
+      '<div class="qv-exitem">Member unable to use their benefit</div>'+
+      '<div class="qv-exitem">System issues</div>'+
+      '</div></div>';
+    return '<div class="browser wide" style="margin-bottom:18px;">'+storyUrlBar('yourcompany.benefitshub.com/support/new-ticket')+
+      '<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('New Ticket','Member #: 12345678912')+inner+'</div></div></div>';
+  }
+  if(key==='ticket-confirm'){
+    var inner = '<div class="pm-section-title" style="margin-top:0;">Ticket Submitted</div>'+
+      '<div class="pm-dl">'+
+      '<div><span>Ticket #</span><b>12345</b></div>'+
+      '<div><span>Category</span><b>Service Exception</b></div>'+
+      '<div><span>Member</span><b>Helper Test</b></div>'+
+      '<div><span>Submitted By</span><b>You</b></div>'+
+      '</div>'+
+      '<div class="pm-toast" style="margin-top:12px;">'+ICON_CHECK+'<span>Your ticket has been submitted for review.</span></div>';
+    return '<div class="browser wide" style="margin-bottom:18px;">'+storyUrlBar('yourcompany.benefitshub.com/support/ticket/12345')+
+      '<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('Ticket Confirmation','Member #: 12345678912')+inner+'</div></div></div>';
+  }
+  return '';
+}
+
+function defaultNext(){ if(i<SCREENS.length-1){ i++; render(); } }
+
+function quizStats(){
+  var total=gradedIdx.length, correct=0;
+  for(var x=0;x<gradedIdx.length;x++){ if(quizAnswered[gradedIdx[x]]===true) correct++; }
+  var need=Math.ceil(total*0.7);
+  return {total:total, correct:correct, need:need, passed: correct>=need};
+}
+
+function resetQuiz(){
+  for(var x=0;x<gradedIdx.length;x++){ delete quizAnswered[gradedIdx[x]]; delete blankState[gradedIdx[x]]; }
+  i=gradedIdx[0];
+}
+
+function updateCertSheet(){
+  var nameEl=document.getElementById('csName'), dateEl=document.getElementById('csDate');
+  if(nameEl) nameEl.textContent = learnerName || '';
+  if(dateEl){
+    var d=new Date();
+    var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    dateEl.textContent = months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
+  }
+}
+
+function selectOpt(qIndex, optIndex){
+  if(quizAnswered[qIndex]!==undefined) return;
+  var s=SCREENS[qIndex];
+  quizAnswered[qIndex] = !!s.opts[optIndex].correct;
+  render();
+}
+
+function matchAnswer(input, answers){
+  var norm=(input||'').trim().toLowerCase();
+  if(!norm) return false;
+  for(var a=0;a<answers.length;a++){
+    var ans=answers[a].toLowerCase();
+    if(norm.indexOf(ans)!==-1 || ans.indexOf(norm)!==-1) return true;
+  }
+  return false;
+}
+
+function render(){
+  var s=SCREENS[i]; stage.innerHTML='';
+  bar.style.width = Math.round(i/(SCREENS.length-1)*100)+'%';
+  stepnum.textContent = s.stepLabel || '';
+  back.disabled = (i===0);
+  next.onclick = defaultNext;
+  next.textContent = 'Next';
+  next.disabled = false;
+
+  if(s.t==='cover'){
+    var d=el('div','ix center');
+    d.innerHTML =
+      '<div class="wrap">'+
+      '<div class="cover-badge"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FCF7EE" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FCF7EE"/></svg>Benefits Hub</div>'+
+      '<h1 class="hl">You\'ve completed the training</h1>'+
+      '<p class="sub">Great work making it through every module. Now let\'s put it all together: one referral, followed from submission through completion, then a short knowledge check.</p>'+
+      '<div class="cover-meta"><div><b>1 full scenario</b><span>a referral\'s complete lifecycle</span></div><div><b>8-question quiz</b><span>70% to pass, unlimited retakes</span></div></div>'+
+      '</div>';
+    stage.appendChild(d);
+  }
+
+  else if(s.t==='name'){
+    var d0=el('div','ix center');
+    d0.innerHTML =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>Before we begin</div>'+
+      '<h1 class="hl">What\'s your name?</h1>'+
+      '<p class="sub">We\'ll add this to your certificate of completion once you pass the knowledge check.</p>'+
+      '<div class="namebox">'+
+      '<label for="nameInput">Full name</label>'+
+      '<input type="text" id="nameInput" placeholder="Jane Doe" autocomplete="name">'+
+      '<div class="namehint">This stays in your browser for this session only — it isn\'t sent anywhere.</div>'+
+      '</div>'+
+      '</div>';
+    stage.appendChild(d0);
+    var input=document.getElementById('nameInput');
+    input.value = learnerName;
+    next.disabled = !learnerName.trim();
+    input.oninput=function(){ learnerName=input.value; updateCertSheet(); next.disabled=!learnerName.trim(); };
+    setTimeout(function(){ input.focus(); }, 50);
+  }
+
+  else if(s.t==='scenario'){
+    var d1=el('div','ix');
+    var wrap=el('div','wrap wide');
+    var html='<div class="eyebrow"><span class="dot"></span>'+s.eyebrow+'</div>';
+    html += '<h1 class="hl">'+s.h+'</h1><p class="sub">'+s.sub+'</p>';
+    html += '<div class="howsteps">';
+    for(var hs=0; hs<s.steps.length; hs++){
+      var st=s.steps[hs];
+      html += '<div class="hs"><div class="hn">'+st.n+'</div><b>'+st.b+'</b><span>'+st.s+'</span></div>';
+    }
+    html += '</div>';
+    wrap.innerHTML = html;
+    d1.appendChild(wrap);
+    stage.appendChild(d1);
+  }
+
+  else if(s.t==='story'){
+    var d2=el('div','ix');
+    var wrap2b=el('div','wrap wide');
+    var html2b='<div class="eyebrow"><span class="dot"></span>'+s.eyebrow+'</div>';
+    html2b += '<h1 class="hl">'+s.h+'</h1><p class="story-sub">'+s.sub+'</p>';
+    wrap2b.innerHTML = html2b;
+    d2.appendChild(wrap2b);
+
+    var vwrap2 = el('div','wrap wide'); vwrap2.style.marginTop='6px';
+    d2.appendChild(vwrap2);
+    stage.appendChild(d2);
+
+    STORY_RENDERERS[s.chapter](vwrap2);
+  }
+
+  else if(s.t==='transition'){
+    var d3b=el('div','ix center');
+    d3b.innerHTML =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>Scenario complete</div>'+
+      '<h1 class="hl">'+s.h+'</h1>'+
+      '<p class="sub">'+s.sub+'</p>'+
+      '</div>';
+    stage.appendChild(d3b);
+  }
+
+  else if(s.t==='quiz'){
+    var d5=el('div','ix');
+    var wrap4=el('div','wrap wide');
+    var html4='<div class="eyebrow"><span class="dot"></span>'+s.eyebrow+'</div>';
+    if(s.placeholder) html4 += '<div class="draft-tag">Placeholder</div><br>';
+    if(s.visual) html4 += quizVisual(s.visual);
+    html4 += '<div class="q">'+s.q+'</div>';
+    wrap4.innerHTML = html4;
+
+    if(s.qtype==='mc'){
+      var answered = quizAnswered[i]!==undefined;
+      for(var o=0;o<s.opts.length;o++){
+        (function(o){
+          var opt=s.opts[o];
+          var btn=el('button','opt');
+          btn.type='button';
+          btn.innerHTML='<span class="ltr">'+L[o]+'</span><span>'+opt.label+'</span>';
+          if(answered){
+            btn.disabled=true;
+            if(opt.correct) btn.classList.add('correct');
+            else btn.classList.add('wrong');
+          } else {
+            btn.onclick=function(){ selectOpt(i,o); };
+          }
+          wrap4.appendChild(btn);
+        })(o);
+      }
+      if(answered && s.explain){
+        var ans=el('div','answer');
+        ans.innerHTML='<b>'+(quizAnswered[i]?'Correct. ':'Not quite. ')+'</b>'+s.explain;
+        wrap4.appendChild(ans);
+      }
+      next.disabled = !answered;
+    }
+
+    else if(s.qtype==='fillblank'){
+      var answered2 = quizAnswered[i]!==undefined;
+      if(!blankState[i]) blankState[i]='';
+      var bbox=el('div','blankbox');
+      var binp=el('input'); binp.type='text'; binp.placeholder='Type your answer';
+      binp.value=blankState[i];
+      if(answered2){
+        binp.disabled=true;
+        binp.classList.add(quizAnswered[i] ? 'right' : 'wrongans');
+      } else {
+        binp.oninput=function(){ blankState[i]=binp.value; };
+      }
+      bbox.appendChild(binp);
+      bbox.appendChild(el('br'));
+      if(!answered2){
+        var subBtn=el('button','submitbtn'); subBtn.textContent='Submit answer';
+        subBtn.onclick=function(){
+          quizAnswered[i] = matchAnswer(blankState[i], s.answers);
+          render();
+        };
+        bbox.appendChild(subBtn);
+      }
+      wrap4.appendChild(bbox);
+      if(answered2 && s.explain){
+        var ans2=el('div','answer');
+        ans2.innerHTML='<b>'+(quizAnswered[i]?'Correct. ':'Not quite — correct answer: "'+s.answers[0]+'". ')+'</b>'+s.explain;
+        wrap4.appendChild(ans2);
+      }
+      next.disabled = !answered2;
+    }
+
+    else if(s.qtype==='hotspot'){
+      var answered3 = quizAnswered[i]!==undefined;
+      var browser=el('div','browser');
+      var bar2=el('div','bar');
+      bar2.innerHTML='<div class="dots"><i></i><i></i><i></i></div><div class="url">'+s.url+'</div>';
+      browser.appendChild(bar2);
+      var body=el('div','body');
+      var img=el('img'); img.src=s.img; img.alt='';
+      body.appendChild(img);
+      var h=s.hotspot;
+      if(answered3){
+        var cbox2=el('div','hotspot-correct');
+        cbox2.style.left=h.left+'%'; cbox2.style.top=h.top+'%'; cbox2.style.width=h.width+'%'; cbox2.style.height=h.height+'%';
+        body.appendChild(cbox2);
+        if(!quizAnswered[i] && s._missAt){
+          var missdot=el('div','hotspot-miss');
+          missdot.style.left=s._missAt.x+'%'; missdot.style.top=s._missAt.y+'%';
+          body.appendChild(missdot);
+        }
+      } else {
+        img.onclick=function(e){
+          var rect=img.getBoundingClientRect();
+          var xPct=(e.clientX-rect.left)/rect.width*100;
+          var yPct=(e.clientY-rect.top)/rect.height*100;
+          var hit = xPct>=h.left && xPct<=(h.left+h.width) && yPct>=h.top && yPct<=(h.top+h.height);
+          if(!hit) s._missAt = {x:xPct, y:yPct};
+          quizAnswered[i]=hit;
+          render();
+        };
+      }
+      browser.appendChild(body);
+      wrap4.appendChild(browser);
+      if(!answered3){
+        var hint=el('div','hotspot-hint'); hint.textContent='Click directly on the screen above.';
+        wrap4.appendChild(hint);
+      }
+      if(answered3 && s.explain){
+        var ans3=el('div','answer');
+        ans3.innerHTML='<b>'+(quizAnswered[i]?'Correct. ':'Not quite — the green box shows the right spot. ')+'</b>'+s.explain;
+        wrap4.appendChild(ans3);
+      }
+      next.disabled = !answered3;
+    }
+
+    d5.appendChild(wrap4);
+    stage.appendChild(d5);
+  }
+
+  else if(s.t==='results'){
+    var stats=quizStats();
+    var d6=el('div','ix center');
+    var html5 =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>Your results</div>'+
+      '<h1 class="hl">'+(stats.passed ? 'Nice work!' : 'Almost there')+'</h1>'+
+      '<div class="scorebig">'+stats.correct+' / '+stats.total+'</div>'+
+      '<p class="sub">questions correct</p>';
+    if(stats.passed){
+      html5 += '<div class="resultbanner pass">You passed — you needed '+stats.need+' of '+stats.total+' correct (70%). Continue to view and save your certificate of completion.</div>';
+    } else {
+      html5 += '<div class="resultbanner fail">You need at least '+stats.need+' of '+stats.total+' correct (70%) to pass. Review and try again — there\'s no limit on attempts.</div>';
+    }
+    html5 += '</div>';
+    d6.innerHTML = html5;
+    stage.appendChild(d6);
+
+    if(stats.passed){
+      next.textContent='View Certificate';
+      next.disabled=false;
+      next.onclick=defaultNext;
+    } else {
+      next.textContent='Retry Quiz';
+      next.disabled=false;
+      next.onclick=function(){ resetQuiz(); render(); };
+    }
+  }
+
+  else if(s.t==='certificate'){
+    updateCertSheet();
+    var d7=el('div','ix center');
+    d7.innerHTML =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>All set</div>'+
+      '<h1 class="hl">Congratulations'+(learnerName? ', '+learnerName.split(' ')[0] : '')+'!</h1>'+
+      '<p class="sub">You\'ve completed the Benefits Hub Partner Training. Save or print your certificate below.</p>'+
+      '<div class="certpreview">'+
+        '<div class="certeyebrow">The Helper Bees &middot; Partner Training</div>'+
+        '<h2>Certificate of Completion</h2>'+
+        '<p>This certifies that</p>'+
+        '<div class="certname">'+(learnerName || 'Your Name')+'</div>'+
+        '<p>has successfully completed the Benefits Hub Partner Training.</p>'+
+        '<div class="cert-actions">'+
+          '<button class="cert-btn" id="printCertBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Print / Save as PDF</button>'+
+          '<a class="cert-link" href="library.html">Go to Resource Library</a>'+
+        '</div>'+
+        '<div class="printhint">Clicking Print opens your browser\'s print dialog — choose "Save as PDF" as the destination to download it instead of printing.</div>'+
+      '</div>'+
+      '</div>';
+    stage.appendChild(d7);
+    document.getElementById('printCertBtn').onclick=function(){ updateCertSheet(); window.print(); };
+    next.disabled=true;
+    next.textContent='Finish';
+  }
+}
+
+next.onclick=function(){ defaultNext(); };
+back.onclick=function(){ if(i>0){ i--; render(); } };
+
+document.getElementById('startBtn').onclick=function(){
+  document.getElementById('startOverlay').classList.add('hide');
+  render();
+};
+</script>
+</body>
+</html>

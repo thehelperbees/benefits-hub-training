@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../gate.js" data-home="../../index.html"></script>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benefits Hub — Finding and Reviewing a Member | The Helper Bees</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#003322; --green-soft:#0B4A36;
+    --cream:#FCF7EE; --cream-dim:#F5EEE0;
+    --yellow:#FFD646; --lime:#E6EC82; --teal:#82D2CA;
+    --peach:#FDA761; --pink:#FEB3D3; --rasp:#CC4983;
+    --sand:#E3D7BB; --ink:#0F2E23;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;overflow-x:hidden;background:var(--green);font-family:'Manrope',system-ui,-apple-system,Arial,sans-serif;color:var(--ink);}
+  #app{max-width:1080px;margin:0 auto;height:100vh;display:flex;flex-direction:column;padding:22px 22px 26px;width:100%;box-sizing:border-box;}
+
+  /* ---------- top chrome ---------- */
+  .top{display:flex;align-items:center;gap:16px;padding:2px 4px 10px;flex:none;}
+  .brand{display:flex;align-items:center;gap:9px;white-space:nowrap;}
+  .brand svg{width:20px;height:20px;flex:none;}
+  .brand span{color:var(--cream);font-weight:800;font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;}
+  .track{flex:1;display:flex;align-items:center;gap:10px;}
+  .prog{flex:1;height:6px;background:rgba(252,247,238,.16);border-radius:6px;overflow:hidden;}
+  .prog>i{display:block;height:100%;width:0;background:var(--yellow);border-radius:6px;transition:width .35s ease;}
+  .stepnum{font-size:12px;font-weight:700;color:var(--cream);opacity:.55;white-space:nowrap;letter-spacing:.2px;}
+  .home-link{display:inline-flex;align-items:center;gap:6px;color:var(--cream);opacity:.72;font-size:12.5px;font-weight:700;text-decoration:none;white-space:nowrap;padding:6px 10px;border-radius:8px;flex:none;transition:opacity .15s ease,background .15s ease;}
+  .home-link:hover{opacity:1;background:rgba(252,247,238,.08);}
+  .home-link svg{width:13px;height:13px;flex:none;}
+
+  /* ---------- stage ---------- */
+  .stage{flex:1;min-height:0;background:var(--cream);border-radius:22px;overflow:hidden;position:relative;box-shadow:0 20px 50px -20px rgba(0,0,0,.45);}
+  .ix{position:absolute;inset:0;overflow-y:auto;padding:26px 64px;box-sizing:border-box;}
+  .center{display:flex;flex-direction:column;}
+  .ix.center>*:first-child{margin-top:auto;}
+  .ix.center>*:last-child{margin-bottom:auto;}
+  .wrap{max-width:620px;width:100%;}
+  .wrap.wide{max-width:760px;width:100%;}
+  .browser{width:100%;}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--rasp);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;margin-bottom:16px;}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--rasp);}
+  h1.hl{font-size:36px;font-weight:800;line-height:1.12;letter-spacing:-.5px;margin:0 0 8px;color:var(--green);}
+  .sub{font-size:16.5px;line-height:1.42;color:#3C5A4D;margin:0 0 4px;max-width:54ch;}
+  .kicker{font-size:15px;font-weight:700;color:var(--green);margin:0 0 4px;}
+
+  /* ---------- cover ---------- */
+  .cover-badge{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:var(--cream);border-radius:999px;padding:8px 16px 8px 10px;font-size:13px;font-weight:800;letter-spacing:.3px;margin-bottom:26px;}
+  .cover-badge svg{width:16px;height:16px;}
+  .cover-meta{display:flex;gap:22px;margin-top:28px;}
+  .cover-meta div{display:flex;flex-direction:column;gap:2px;}
+  .cover-meta b{font-size:13px;color:var(--green);font-weight:800;}
+  .cover-meta span{font-size:12.5px;color:#5c7568;}
+
+  /* ---------- browser mock ---------- */
+  .browser{border:1.5px solid var(--sand);border-radius:14px;overflow:visible;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:520px;width:100%;}
+  .browser.wide{max-width:760px;}
+  .browser .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--cream-dim);border-bottom:1px solid var(--sand);border-radius:12.5px 12.5px 0 0;}
+  .browser .dots{display:flex;gap:5px;flex:none;}
+  .browser .dots i{width:8px;height:8px;border-radius:50%;background:#D8CDB0;display:block;}
+  .browser .url{flex:1;min-width:0;background:#fff;border:1px solid var(--sand);border-radius:8px;padding:6px 12px;font-size:12.5px;color:#5c7568;font-weight:700;display:flex;align-items:center;gap:7px;overflow:hidden;}
+  .browser .url span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .browser .url svg{width:11px;height:11px;flex:none;opacity:.6;}
+  .browser .body{background:var(--cream-dim);position:relative;}
+  .browser .body img{display:block;width:100%;height:auto;border-radius:0 0 12.5px 12.5px;}
+  .hotspot-btn{position:absolute;border:2.5px solid var(--rasp);border-radius:9px;background:rgba(204,73,131,.07);cursor:pointer;padding:0;animation:hotpulse 1.8s ease-in-out infinite;}
+  .hotspot-btn:hover{background:rgba(204,73,131,.14);}
+  @keyframes hotpulse{
+    0%,100%{box-shadow:0 0 0 5px rgba(204,73,131,.16);}
+    50%{box-shadow:0 0 0 10px rgba(204,73,131,.05);}
+  }
+  .hotspot-tag{position:absolute;background:var(--rasp);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.2px;border-radius:7px;padding:5px 10px;white-space:nowrap;pointer-events:none;box-shadow:0 6px 14px -6px rgba(0,0,0,.35);}
+  .hotspot-tag.clickable{cursor:pointer;pointer-events:auto;}
+  .shot-img{transition:opacity .18s ease;}
+
+  .capnote{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px;color:#5c7568;font-weight:700;}
+  .capnote svg{width:14px;height:14px;flex:none;color:var(--rasp);}
+
+  /* ---------- tile switcher (Module 3 specific) ---------- */
+  .tile-hit{position:absolute;border:2px dashed transparent;border-radius:12px;cursor:pointer;transition:.15s;}
+  .tile-hit:hover{border-color:var(--rasp);background:rgba(204,73,131,.07);}
+  .expand-btn{position:absolute;top:12px;right:12px;background:var(--green);color:var(--cream);border:none;border-radius:9px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 14px -6px rgba(0,0,0,.4);z-index:5;}
+  .expand-btn svg{width:16px;height:16px;}
+  .expand-btn:hover{background:var(--green-soft);}
+
+  /* ---------- zoom lightbox (Module 3 specific) ---------- */
+  .zoomOverlay{position:fixed;inset:0;background:rgba(0,51,34,.75);display:none;align-items:center;justify-content:center;z-index:200;padding:24px;}
+  .zoomOverlay.show{display:flex;}
+  .zoomBox{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);width:min(680px,92vw);}
+  .zoomBox .zbody{display:flex;align-items:center;justify-content:center;padding:22px;height:300px;max-height:60vh;box-sizing:border-box;}
+  .zoomBox .zbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--cream-dim);border-bottom:1px solid var(--sand);}
+  .zoomBox .zbar span{font-weight:800;color:var(--green);font-size:14px;}
+  .zoomClose{background:none;border:none;cursor:pointer;color:var(--green);font-size:22px;line-height:1;padding:4px 10px;font-family:inherit;}
+  .zoomBox img{display:block;width:auto;height:auto;max-width:100%;max-height:100%;}
+
+  /* ---------- bottom nav ---------- */
+  .bot{display:flex;align-items:center;gap:12px;padding:10px 4px 2px;flex:none;}
+  button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
+  .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
+  .back[disabled]{opacity:.25;cursor:default;}
+  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next[disabled]{opacity:.35;cursor:default;}
+  .cta-btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:var(--green);font-weight:800;font-size:15px;text-decoration:none;border-radius:12px;padding:14px 22px;margin-top:22px;letter-spacing:.2px;}
+  .cta-btn svg{width:16px;height:16px;flex:none;}
+  .cta-btn:hover{filter:brightness(0.96);}
+  .cta-note{font-size:12px;color:#8a7a55;font-weight:700;margin-top:10px;font-style:italic;}
+
+  /* ---------- confirm buttons (Yes/No) ---------- */
+  .confirm-prompt{font-size:17px;font-weight:700;color:var(--green);margin:26px 0 14px;}
+  .confirm-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .confirm-btn{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:13px 20px;font-family:inherit;font-weight:800;font-size:14.5px;color:var(--ink);cursor:pointer;transition:.15s;}
+  .confirm-btn:hover{border-color:var(--teal);}
+  .confirm-btn svg{width:16px;height:16px;flex:none;}
+  .confirm-btn.picked-yes{border-color:#8FCB86;background:#EAF6E9;color:#256b1c;}
+  .confirm-btn.picked-no{border-color:#F0B6A4;background:#FDEDEA;color:#9c3a1f;}
+  .confirm-reveal{border-radius:14px;padding:18px 20px;margin-top:16px;font-size:15px;line-height:1.55;}
+  .confirm-reveal.good{background:#EAF6E9;color:#256b1c;border:1.5px solid #8FCB86;}
+  .confirm-reveal.warn{background:#FDEDEA;color:#9c3a1f;border:1.5px solid #F0B6A4;}
+  .confirm-reveal b{display:block;margin-bottom:4px;}
+  .confirm-reveal .cta-btn{margin-top:4px;}
+  .confirm-reveal .cta-note{color:#9c3a1f;opacity:.75;}
+
+  /* ---------- typed-answer check ---------- */
+  .answerbox{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .answerbox input{flex:1;min-width:180px;border:1.5px solid var(--sand);border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;color:var(--ink);background:#fff;}
+  .answerbox input:focus{outline:none;border-color:var(--teal);}
+  .answerbox input.right{border-color:#8FCB86;background:#EAF6E9;}
+  .answerbox input.wrongans{border-color:#F0B6A4;background:#FDEDEA;}
+  .checkbtn{background:var(--green);color:var(--cream);border:none;border-radius:10px;padding:12px 20px;font-family:inherit;font-weight:800;font-size:14px;cursor:pointer;}
+  .checkbtn:hover{background:var(--green-soft);}
+  .answer-feedback{border-radius:14px;padding:16px 18px;margin-top:14px;font-size:15px;line-height:1.5;}
+  .answer-feedback.right{background:#EAF6E9;color:#256b1c;border:1.5px solid #8FCB86;}
+  .answer-feedback.wrongans{background:#FDEDEA;color:#9c3a1f;border:1.5px solid #F0B6A4;}
+  .answer-feedback b{display:block;margin-bottom:4px;}
+
+  /* ---------- multiple choice ---------- */
+  .mcq-opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:14px 18px;margin-top:10px;font-family:inherit;font-weight:700;font-size:15px;color:var(--ink);cursor:pointer;transition:.15s;}
+  .mcq-opt:hover:not(:disabled){border-color:var(--teal);}
+  .mcq-opt:disabled{cursor:default;}
+  .mcq-opt.correct{border-color:#8FCB86;background:#EAF6E9;color:#256b1c;}
+  .mcq-opt.wrong{border-color:#F0B6A4;background:#FDEDEA;color:#9c3a1f;}
+
+  /* ---------- start overlay ---------- */
+  #startOverlay{position:fixed;inset:0;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:100;text-align:center;padding:24px;}
+  #startOverlay svg{width:40px;height:40px;}
+  .so-brand{color:var(--cream);font-weight:800;font-size:13px;letter-spacing:1.6px;text-transform:uppercase;opacity:.75;}
+  #startOverlay h1{color:var(--cream);font-size:32px;font-weight:800;margin:2px 0 0;letter-spacing:-.5px;}
+  #startOverlay p{color:#B9CFC3;font-size:15.5px;margin:0 0 10px;max-width:40ch;}
+  #startBtn{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);color:var(--green);font-family:inherit;font-weight:800;font-size:16px;border:none;border-radius:14px;padding:16px 28px;cursor:pointer;letter-spacing:.2px;}
+  #startBtn svg{width:18px;height:18px;}
+  #startBtn:hover{filter:brightness(0.97);}
+  #startOverlay.hide{display:none;}
+  .audiobtn{background:transparent;border:1.5px solid rgba(252,247,238,.3);color:var(--cream);border-radius:12px;padding:12px 18px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;min-width:168px;display:inline-flex;align-items:center;gap:8px;justify-content:center;}
+  .audiobtn svg{width:14px;height:14px;flex:none;}
+  .audiobtn[hidden]{display:none;}
+
+  @media(max-width:640px){
+    .ix{padding:32px 22px;} h1.hl{font-size:27px;} .dm-grid{grid-template-columns:1fr;}
+    .cover-meta{flex-direction:column;gap:10px;}
+    .browser .body{padding:18px 16px;}
+    .hotspot-tag{font-size:10px;padding:3px 7px;border-radius:5px;}
+    #app{padding:16px 14px 20px;}
+  }
+</style>
+</head>
+<body>
+<div id="startOverlay">
+  <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+  <div class="so-brand">The Helper Bees</div>
+  <h1>Benefits Hub: Finding and Reviewing a Member</h1>
+  <p>A short, narrated walkthrough — click below to begin with sound.</p>
+  <button id="startBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Start module</button>
+</div>
+<div id="app">
+  <div class="top">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+      <span>The Helper Bees</span>
+    </div>
+    <div class="track">
+      <span class="prog"><i id="bar"></i></span>
+      <span class="stepnum" id="stepnum"></span>
+    </div>
+    <a class="home-link" href="../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
+  </div>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="bot">
+    <button class="nav back" id="back">Back</button>
+    <button class="audiobtn" id="audioToggle" hidden></button>
+    <button class="nav next" id="next">Next</button>
+  </div>
+  <audio id="au"></audio>
+</div>
+
+<script>
+/* ================= CONTENT ================= */
+
+var SCREENS = [
+
+  { t:'cover', au:'cover.mp3' },
+
+  { t:'step', n:1, of:3,
+    kicker:"Step 1",
+    h:"Search for your member",
+    sub:"Let's find your member. You can search by member number for the fastest results, or use Advanced Search to look someone up by name and date of birth if you don't have their number handy.",
+    visual:'shot', img:'assets/img/search.png', url:'yourcompany.benefitshub.com/search', vhCap:26, imgAspect:0.4384,
+    zooms:[
+      {key:'advsearch', img:'assets/img/advanced-search.png', label:'Advanced Search', left:72, top:80, width:13, height:5, tagLeft:72, tagTop:73.5, zoomAu:'screen1_advsearch.mp3'}
+    ],
+    caption:"Tap Advanced Search above to see the expanded form.",
+    requireZoom:'advsearch',
+    au:'screen1.mp3' },
+
+  { t:'step', n:2, of:3,
+    kicker:"Step 2",
+    h:"The member landing page",
+    sub:"Here's your member's landing page. The Overview panel holds their key details, and Recent Activity on the right keeps you posted on what's changed. Click into either one for a closer look.",
+    visual:'shot', img:'assets/img/landing_top.png', url:'yourcompany.benefitshub.com/member/12345678912', wide:true, vhCap:31, imgAspect:0.4466,
+    zooms:[
+      {key:'overview', img:'assets/img/overview_zoom.png', label:'Overview', left:0.88, top:31.3, width:73.3, height:32.0, tagLeft:0.88, tagTop:28.0, zoomAu:'screen2_overview.mp3'},
+      {key:'recent', img:'assets/img/recent_zoom.png', label:'Recent Activity', left:76.0, top:31.2, width:23.3, height:32.3, tagLeft:76.0, tagTop:28.0, zoomAu:'screen2_recent.mp3'}
+    ],
+    caption:"Tap Overview or Recent Activity above to see them enlarged.",
+    requireZooms:['overview','recent'],
+    au:'screen2.mp3' },
+
+  { t:'step', n:3, of:3,
+    kicker:"Step 3",
+    h:"Benefit tiles & authorizations",
+    sub:"Below Overview, you'll see the member's Benefit tiles — showing what benefits this member is eligible for. Click between tiles to compare authorization details for each one.",
+    visual:'tiles',
+    url:'yourcompany.benefitshub.com/member/12345678912', vhCap:31, imgAspect:0.5918,
+    tiles:[
+      {key:'home', img:'assets/img/benefit_home.png', label:'At Home Care', left:0.8, top:63, width:18.9, height:15},
+      {key:'respite', img:'assets/img/benefit_respite.png', label:'Respite Care', left:20.6, top:63, width:18.9, height:15},
+      {key:'assessments', img:'assets/img/benefit_assessments.png', label:'Assessments', left:40.3, top:63, width:18.9, height:15},
+      {key:'homemod', img:'assets/img/benefit_homemod.png', label:'Home Modification, Bathroom Safety, Air Quality, Pest Control', left:60, top:63, width:18.9, height:15}
+    ],
+    caption:"Tap any tile above to switch, or use the enlarge button to see it up close.",
+    au:'screen3.mp3' },
+
+  { t:'bookmarkcheck', au:'practice_bookmark.mp3', auYes:'practice_bookmark_yes.mp3', auNo:'practice_bookmark_no.mp3',
+    signinUrl:'https://[CLIENT].benefitshub.com/signin' },
+
+  { t:'findmember', au:'practice_search.mp3', auYes:'practice_search_yes.mp3', auNo:'practice_search_no.mp3' },
+
+  { t:'verifymember', au:'practice_verify.mp3',
+    opts:[
+      {label:'7/13/2026', correct:false},
+      {label:'12/31/2026', correct:true},
+      {label:'8/7/1959', correct:false},
+      {label:'12/31/2025', correct:false}
+    ],
+    explain:"This Home Modification benefit expires 12/31/2026 — that's the Expires field on the tile, separate from the Effective date (7/13/2026)." },
+
+  { t:'outro', au:'outro.mp3' }
+];
+
+/* ================= ENGINE ================= */
+var i=0, answered={};
+var memberIdState = {typed:'', checked:false};
+var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
+    back=document.getElementById('back'), next=document.getElementById('next'),
+    stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
+    audioToggle=document.getElementById('audioToggle');
+var AUDIO_DIR='assets/audio/';
+
+function play(src){
+  if(!src){ audioToggle.hidden=true; return; }
+  au.src=AUDIO_DIR+src; audioToggle.hidden=false;
+  au.play().catch(function(){ updateAudioBtn(); });
+  updateAudioBtn();
+}
+function stopAu(){ try{au.pause();}catch(e){} au.removeAttribute('src'); audioToggle.hidden=true; }
+
+var ICON_PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+var ICON_PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+
+function updateAudioBtn(){
+  audioToggle.innerHTML = au.paused
+    ? ICON_PLAY+'<span>Play narration</span>'
+    : ICON_PAUSE+'<span>Pause narration</span>';
+}
+au.addEventListener('play', updateAudioBtn);
+au.addEventListener('pause', updateAudioBtn);
+au.addEventListener('ended', updateAudioBtn);
+
+audioToggle.onclick=function(){
+  if(au.paused){
+    if(au.ended){ au.currentTime=0; }
+    au.play().catch(function(){});
+  } else {
+    au.pause();
+  }
+};
+
+function el(tag,cls){var e=document.createElement(tag); if(cls)e.className=cls; return e;}
+
+function urlBar(url){
+  return '<div class="bar"><div class="dots"><i></i><i></i><i></i></div>'+
+    '<div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>'+url+'</span></div></div>';
+}
+
+function visual(s){
+  var b=el('div', s.wide ? 'browser wide' : 'browser');
+  if(s.vhCap && s.imgAspect){ b.style.maxWidth = 'min(' + (s.wide?760:520) + 'px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
+  b.innerHTML = urlBar(s.url) + '<div class="body"><img src="'+s.img+'" alt="" class="shot-img">'+
+    (s.wide ? '<button type="button" class="expand-btn" aria-label="Enlarge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>' : '')+
+    '</div>';
+  if(s.wide){
+    var expandBtn = b.querySelector('.expand-btn');
+    expandBtn.onclick=function(){ openZoom(s.img, s.h||''); };
+  }
+  if(s.zooms){
+    var body = b.querySelector('.body');
+    s.zooms.forEach(function(z){
+      var hbtn=el('button','hotspot-btn');
+      hbtn.type='button';
+      hbtn.setAttribute('aria-label', z.label);
+      hbtn.style.left=z.left+'%'; hbtn.style.top=z.top+'%'; hbtn.style.width=z.width+'%'; hbtn.style.height=z.height+'%';
+      var tag=el('div','hotspot-tag clickable');
+      tag.textContent=z.label;
+      tag.style.left=z.tagLeft+'%'; tag.style.top=z.tagTop+'%';
+      var onClick=function(){
+        openZoom(z.img, z.label);
+        answered[z.key]=true;
+        if(s.requireZoom===z.key){ next.disabled=false; }
+        if(s.requireZooms){ next.disabled = !s.requireZooms.every(function(k){ return !!answered[k]; }); }
+        if(z.zoomAu){ play(z.zoomAu); }
+      };
+      hbtn.onclick=onClick; tag.onclick=onClick;
+      body.appendChild(hbtn);
+      body.appendChild(tag);
+    });
+  }
+  return b;
+}
+
+var zoomOverlayEl;
+function ensureZoomOverlay(){
+  if(zoomOverlayEl) return zoomOverlayEl;
+  var ov=el('div','zoomOverlay'); ov.id='zoomOverlay';
+  ov.innerHTML='<div class="zoomBox"><div class="zbar"><span id="zoomLabel"></span><button class="zoomClose" id="zoomClose" type="button">&times;</button></div><div class="zbody"><img id="zoomImg" src="" alt=""></div></div>';
+  document.body.appendChild(ov);
+  ov.addEventListener('click', function(e){ if(e.target===ov) closeZoom(); });
+  ov.querySelector('#zoomClose').addEventListener('click', closeZoom);
+  zoomOverlayEl=ov;
+  return ov;
+}
+function openZoom(src, label){
+  var ov=ensureZoomOverlay();
+  ov.querySelector('#zoomImg').src=src;
+  ov.querySelector('#zoomLabel').textContent=label;
+  ov.classList.add('show');
+}
+function closeZoom(){
+  var ov=document.getElementById('zoomOverlay');
+  if(ov) ov.classList.remove('show');
+  stopAu();
+}
+
+function tilesVisual(s){
+  var b=el('div','browser wide');
+  if(s.vhCap && s.imgAspect){ b.style.maxWidth = 'min(760px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
+  var activeKey = answered['tile3'] || s.tiles[0].key;
+  var activeTile = s.tiles.filter(function(t){ return t.key===activeKey; })[0] || s.tiles[0];
+  b.innerHTML = urlBar(s.url) + '<div class="body"><img src="'+activeTile.img+'" alt="" class="shot-img" id="tileImg">'+
+    '<button type="button" class="expand-btn" id="tileExpandBtn" aria-label="Enlarge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button></div>';
+  var body = b.querySelector('.body');
+  var expandBtn = b.querySelector('#tileExpandBtn');
+  function setExpandTarget(t){
+    expandBtn.onclick=function(){ openZoom(t.img, t.label || t.key); };
+  }
+  setExpandTarget(activeTile);
+  s.tiles.forEach(function(t){
+    var hit = el('div','tile-hit');
+    hit.style.left=t.left+'%'; hit.style.top=t.top+'%'; hit.style.width=t.width+'%'; hit.style.height=t.height+'%';
+    hit.onclick=function(){
+      answered['tile3']=t.key;
+      document.getElementById('tileImg').style.opacity='0';
+      setTimeout(function(){
+        var img = document.getElementById('tileImg');
+        if(img){ img.src=t.img; img.style.opacity='1'; }
+      }, 140);
+      setExpandTarget(t);
+    };
+    body.appendChild(hit);
+  });
+  return b;
+}
+
+function render(){
+  var s=SCREENS[i]; stage.innerHTML=''; stopAu(); closeZoom();
+  bar.style.width = Math.round(i/(SCREENS.length-1)*100)+'%';
+  stepnum.textContent = (s.t==='step') ? ('Step '+s.n+' of '+s.of) : '';
+  back.disabled = (i===0);
+  next.textContent = (i===SCREENS.length-1) ? 'Finish' : 'Next';
+  next.disabled = false;
+
+  if(s.t==='cover'){
+    var d=el('div','ix center');
+    d.innerHTML =
+      '<div class="wrap">'+
+      '<div class="cover-badge"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FCF7EE" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FCF7EE"/></svg>Benefits Hub</div>'+
+      '<h1 class="hl">Finding and Reviewing a Member</h1>'+
+      '<p class="sub">Now that you know how to sign in, let\'s find your way to a member\'s account. You\'ll learn how to search, read the member landing page, and view benefit details — then put it into practice with a real search of your own.</p>'+
+      '<div class="cover-meta"><div><b>~12 minutes</b><span>self-paced</span></div></div>'+
+      '</div>';
+    stage.appendChild(d);
+    play(s.au);
+  }
+
+  else if(s.t==='step'){
+    if(s.requireZoom){ next.disabled = !answered[s.requireZoom]; }
+    if(s.requireZooms){ next.disabled = !s.requireZooms.every(function(k){ return !!answered[k]; }); }
+    var d2=el('div','ix center');
+    d2.innerHTML =
+      '<div class="wrap wide">'+
+      '<div class="eyebrow"><span class="dot"></span>'+s.kicker+'</div>'+
+      '<h1 class="hl">'+s.h+'</h1>'+
+      '<p class="sub">'+s.sub+'</p>'+
+      '</div>';
+    var vwrap=el('div','wrap wide'); vwrap.style.marginTop='10px';
+
+    if(s.visual==='tiles'){
+      vwrap.appendChild(tilesVisual(s));
+    } else {
+      vwrap.appendChild(visual(s));
+    }
+    if(s.caption){
+      var cap=el('div','capnote');
+      cap.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>'+s.caption+'</span>';
+      vwrap.appendChild(cap);
+    }
+
+    d2.appendChild(vwrap);
+    stage.appendChild(d2);
+    play(s.au);
+  }
+
+  else if(s.t==='bookmarkcheck'){
+    var dbm=el('div','ix center');
+    var bmPicked = answered['bookmarkcheck'];
+    var htmlBm =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>Put it into practice</div>'+
+      '<h1 class="hl">Time to put this into practice</h1>'+
+      '<p class="sub">Head back to the bookmark you created in the sign-in module, and sign in to the real Benefits Hub portal.</p>'+
+      '<div class="confirm-prompt">Were you able to find your bookmark?</div>'+
+      '<div class="confirm-row">'+
+        '<button type="button" class="confirm-btn'+(bmPicked==='yes'?' picked-yes':'')+'" id="bmYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Yes, I found it</button>'+
+        '<button type="button" class="confirm-btn'+(bmPicked==='no'?' picked-no':'')+'" id="bmNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>No, I didn\'t find it</button>'+
+      '</div>'+
+      (bmPicked==='yes' ? '<div class="confirm-reveal good"><b>Nice.</b>Go ahead and sign in now if you haven\'t already, then come back and continue when you\'re ready.</div>' : '')+
+      (bmPicked==='no' ? ('<div class="confirm-reveal warn"><b>No problem.</b>Use the link below to get to the sign-in page, and once you\'re in, go ahead and bookmark it now so it\'s easy to find next time.<br><br>'+
+        '<a class="cta-btn" href="'+s.signinUrl+'" target="_blank" rel="noopener">Go to Benefits Hub sign-in<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
+        '<p class="cta-note">Link placeholder — swap in the client-specific Benefits Hub URL before sending.</p></div>') : '')+
+      '</div>';
+    dbm.innerHTML = htmlBm;
+    stage.appendChild(dbm);
+
+    var bmYesBtn=document.getElementById('bmYes'), bmNoBtn=document.getElementById('bmNo');
+    if(bmYesBtn) bmYesBtn.onclick=function(){ answered['bookmarkcheck']='yes'; render(); play(s.auYes); };
+    if(bmNoBtn) bmNoBtn.onclick=function(){ answered['bookmarkcheck']='no'; render(); play(s.auNo); };
+
+    next.disabled = !bmPicked;
+    if(!bmPicked) play(s.au);
+  }
+
+  else if(s.t==='findmember'){
+    var dfm=el('div','ix center');
+    var fmPicked = answered['findmember_found'];
+    var htmlFm =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>Your turn</div>'+
+      '<h1 class="hl">Find a member</h1>'+
+      '<p class="sub">A member calls in, but they don\'t have their member number handy. Use Advanced Search to look them up by name and date of birth instead — search for <b>Helper Bee Test</b>, born <b>August 7th, 1959</b>.</p>'+
+      '<div class="confirm-prompt">Were you able to find them?</div>'+
+      '<div class="confirm-row">'+
+        '<button type="button" class="confirm-btn'+(fmPicked==='yes'?' picked-yes':'')+'" id="fmYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Yes, I found them</button>'+
+        '<button type="button" class="confirm-btn'+(fmPicked==='no'?' picked-no':'')+'" id="fmNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>No, I couldn\'t find them</button>'+
+      '</div>'+
+      (fmPicked==='no' ? '<div class="confirm-reveal warn"><b>No problem.</b>Double check you\'re using Advanced Search (not the Member # box), and enter the date of birth as 08/07/1959. Give it another try, then come back and select &ldquo;Yes&rdquo; once you\'ve found them.</div>' : '')+
+      (fmPicked==='yes' ? '<div class="confirm-reveal good" id="fmGoodBox"><b>Nice work!</b>Now let\'s confirm you\'ve got the right member — what Member ID do you see listed for them?</div>' : '')+
+      '</div>';
+    dfm.innerHTML = htmlFm;
+    stage.appendChild(dfm);
+
+    if(fmPicked==='yes'){
+      var idWrap = document.getElementById('fmGoodBox');
+      var abox = el('div','answerbox');
+      var idInput = el('input'); idInput.type='text'; idInput.id='memberIdInput'; idInput.placeholder='Member ID';
+      idInput.value = memberIdState.typed;
+      abox.appendChild(idInput);
+      if(!memberIdState.checked){
+        var checkBtn = el('button','checkbtn'); checkBtn.type='button'; checkBtn.textContent='Check answer';
+        checkBtn.onclick=function(){ memberIdState.typed=idInput.value; memberIdState.checked=true; render(); };
+        abox.appendChild(checkBtn);
+      } else {
+        idInput.disabled = true;
+      }
+      idInput.oninput=function(){ memberIdState.typed=idInput.value; };
+      idWrap.parentNode.insertBefore(abox, idWrap.nextSibling);
+
+      if(memberIdState.checked){
+        var normTyped = memberIdState.typed.replace(/[^0-9]/g,'');
+        var isRight = (normTyped === '12345678912');
+        idInput.classList.add(isRight ? 'right' : 'wrongans');
+        var fb = el('div', 'answer-feedback ' + (isRight ? 'right' : 'wrongans'));
+        fb.innerHTML = isRight
+          ? '<b>That\'s right!</b>12345678912 is the Member ID for this test member.'
+          : '<b>Not quite.</b>The Member ID is 12345678912 — you\'ll find it listed directly below the member\'s name at the top of their profile.';
+        abox.parentNode.insertBefore(fb, abox.nextSibling);
+      }
+    }
+
+    var fmYesBtn=document.getElementById('fmYes'), fmNoBtn=document.getElementById('fmNo');
+    if(fmYesBtn) fmYesBtn.onclick=function(){ answered['findmember_found']='yes'; render(); play(s.auYes); };
+    if(fmNoBtn) fmNoBtn.onclick=function(){ answered['findmember_found']='no'; render(); play(s.auNo); };
+
+    next.disabled = !(fmPicked==='no' || (fmPicked==='yes' && memberIdState.checked));
+    if(!fmPicked) play(s.au);
+  }
+
+  else if(s.t==='verifymember'){
+    var dvm=el('div','ix center');
+    var vmPicked = answered['verifymember'];
+    var htmlVm =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>One more check</div>'+
+      '<h1 class="hl">Verify member benefit details</h1>'+
+      '<p class="sub">Take a look at the member\'s Home Modification benefit tile.</p>'+
+      '<div class="confirm-prompt">What is the correct expiration date for this benefit?</div>'+
+      '</div>';
+    dvm.innerHTML = htmlVm;
+    var vwrap2 = dvm.querySelector('.wrap');
+    s.opts.forEach(function(opt, oi){
+      var obtn = el('button','mcq-opt');
+      obtn.type='button';
+      obtn.textContent = opt.label;
+      if(vmPicked!==undefined){
+        obtn.disabled = true;
+        if(opt.correct) obtn.classList.add('correct');
+        else if(oi===vmPicked) obtn.classList.add('wrong');
+      } else {
+        obtn.onclick=function(){ answered['verifymember']=oi; render(); };
+      }
+      vwrap2.appendChild(obtn);
+    });
+    if(vmPicked!==undefined){
+      var vfb = el('div','answer-feedback ' + (s.opts[vmPicked].correct ? 'right':'wrongans'));
+      vfb.innerHTML = '<b>'+(s.opts[vmPicked].correct?'Correct!':'Not quite.')+'</b>'+s.explain;
+      vwrap2.appendChild(vfb);
+    }
+    stage.appendChild(dvm);
+    next.disabled = (vmPicked===undefined);
+    if(vmPicked===undefined) play(s.au);
+  }
+
+  else if(s.t==='outro'){
+    var d3=el('div','ix center');
+    d3.innerHTML =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>All set</div>'+
+      '<h1 class="hl">You\'re ready to find your members!</h1>'+
+      '<p class="sub">Keep this module on hand — you\'re welcome to come back anytime you need a refresher on searching, the landing page, or benefit details. Once you\'re ready, continue on to the next module.</p>'+
+      '</div>';
+    stage.appendChild(d3);
+    next.disabled = false;
+    play(s.au);
+  }
+}
+
+next.onclick=function(){ if(i<SCREENS.length-1){ i++; render(); } else { window.location.href='../Begin-Training.html'; } };
+back.onclick=function(){ if(i>0){ i--; render(); } };
+
+document.getElementById('startBtn').onclick=function(){
+  document.getElementById('startOverlay').classList.add('hide');
+  render();
+};
+</script>
+</body>
+</html>

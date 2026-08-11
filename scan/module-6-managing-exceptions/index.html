@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../gate.js" data-home="../../index.html"></script>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benefits Hub — Managing Common Exceptions and Escalations | The Helper Bees</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#003322; --green-soft:#0B4A36;
+    --cream:#FCF7EE; --cream-dim:#F5EEE0;
+    --yellow:#FFD646; --lime:#E6EC82; --teal:#82D2CA;
+    --peach:#FDA761; --pink:#FEB3D3; --rasp:#CC4983;
+    --sand:#E3D7BB; --ink:#0F2E23;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;overflow-x:hidden;background:var(--green);font-family:'Manrope',system-ui,-apple-system,Arial,sans-serif;color:var(--ink);}
+  #app{max-width:1080px;margin:0 auto;height:100vh;display:flex;flex-direction:column;padding:22px 22px 26px;width:100%;box-sizing:border-box;}
+
+  /* ---------- top chrome ---------- */
+  .top{display:flex;align-items:center;gap:16px;padding:2px 4px 14px;flex:none;}
+  .brand{display:flex;align-items:center;gap:9px;white-space:nowrap;}
+  .brand svg{width:20px;height:20px;flex:none;}
+  .brand span{color:var(--cream);font-weight:800;font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;}
+  .track{flex:1;display:flex;align-items:center;gap:10px;}
+  .prog{flex:1;height:6px;background:rgba(252,247,238,.16);border-radius:6px;overflow:hidden;}
+  .prog>i{display:block;height:100%;width:0;background:var(--yellow);border-radius:6px;transition:width .35s ease;}
+  .stepnum{font-size:12px;font-weight:700;color:var(--cream);opacity:.55;white-space:nowrap;letter-spacing:.2px;}
+  .home-link{display:inline-flex;align-items:center;gap:6px;color:var(--cream);opacity:.72;font-size:12.5px;font-weight:700;text-decoration:none;white-space:nowrap;padding:6px 10px;border-radius:8px;flex:none;transition:opacity .15s ease,background .15s ease;}
+  .home-link:hover{opacity:1;background:rgba(252,247,238,.08);}
+  .home-link svg{width:13px;height:13px;flex:none;}
+
+  /* ---------- stage ---------- */
+  .stage{flex:1;min-height:0;background:var(--cream);border-radius:22px;overflow:hidden;position:relative;box-shadow:0 20px 50px -20px rgba(0,0,0,.45);}
+  .ix{position:absolute;inset:0;overflow-y:auto;padding:38px 64px;box-sizing:border-box;}
+  .center{display:flex;flex-direction:column;}
+  .ix.center>*:first-child{margin-top:auto;}
+  .ix.center>*:last-child{margin-bottom:auto;}
+  .wrap{max-width:620px;width:100%;}
+  .wrap.wide{max-width:760px;width:100%;}
+  .browser{width:100%;}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--rasp);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;margin-bottom:16px;}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--rasp);}
+  h1.hl{font-size:38px;font-weight:800;line-height:1.12;letter-spacing:-.5px;margin:0 0 14px;color:var(--green);}
+  .sub{font-size:17.5px;line-height:1.55;color:#3C5A4D;margin:0 0 6px;max-width:52ch;}
+  .kicker{font-size:15px;font-weight:700;color:var(--green);margin:0 0 4px;}
+
+  /* ---------- cover ---------- */
+  .cover-badge{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:var(--cream);border-radius:999px;padding:8px 16px 8px 10px;font-size:13px;font-weight:800;letter-spacing:.3px;margin-bottom:26px;}
+  .cover-badge svg{width:16px;height:16px;}
+  .cover-meta{display:flex;gap:22px;margin-top:28px;}
+  .cover-meta div{display:flex;flex-direction:column;gap:2px;}
+  .cover-meta b{font-size:13px;color:var(--green);font-weight:800;}
+  .cover-meta span{font-size:12.5px;color:#5c7568;}
+
+  /* ---------- browser mock ---------- */
+  .browser{border:1.5px solid var(--sand);border-radius:14px;overflow:visible;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:520px;width:100%;}
+  .browser.compact{max-width:520px;}
+  .browser.wide{max-width:760px;}
+  .field-label{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;color:var(--rasp);letter-spacing:.3px;text-transform:uppercase;margin-bottom:10px;}
+  .field-label svg{width:13px;height:13px;flex:none;}
+  .browser .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--cream-dim);border-bottom:1px solid var(--sand);border-radius:12.5px 12.5px 0 0;}
+  .browser .dots{display:flex;gap:5px;flex:none;}
+  .browser .dots i{width:8px;height:8px;border-radius:50%;background:#D8CDB0;display:block;}
+  .browser .url{flex:1;min-width:0;background:#fff;border:1px solid var(--sand);border-radius:8px;padding:6px 12px;font-size:12.5px;color:#5c7568;font-weight:700;display:flex;align-items:center;gap:7px;overflow:hidden;}
+  .browser .url span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .browser .url svg{width:11px;height:11px;flex:none;opacity:.6;}
+  .browser .body{background:var(--cream-dim);position:relative;}
+  .browser .body img{display:block;width:100%;height:auto;border-radius:0 0 12.5px 12.5px;}
+  .hotspot-btn{position:absolute;border:2.5px solid var(--rasp);border-radius:9px;background:rgba(204,73,131,.07);cursor:pointer;padding:0;animation:hotpulse 1.8s ease-in-out infinite;}
+  .hotspot-btn:hover{background:rgba(204,73,131,.14);}
+  @keyframes hotpulse{
+    0%,100%{box-shadow:0 0 0 5px rgba(204,73,131,.16);}
+    50%{box-shadow:0 0 0 10px rgba(204,73,131,.05);}
+  }
+  .hotspot-tag{position:absolute;background:var(--rasp);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.2px;border-radius:7px;padding:5px 10px;white-space:nowrap;pointer-events:none;box-shadow:0 6px 14px -6px rgba(0,0,0,.35);}
+  .hotspot-tag.clickable{cursor:pointer;pointer-events:auto;}
+  .shot-img{transition:opacity .18s ease;}
+
+  .emailcard{border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:520px;width:100%;}
+  .emailcard .bar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--cream-dim);border-bottom:1px solid var(--sand);font-size:11.5px;font-weight:800;color:#5c7568;letter-spacing:.3px;text-transform:uppercase;}
+  .emailcard img{display:block;width:100%;height:auto;}
+
+  /* ---------- recreated email compose mock (Step 9 — no real screenshot yet) ---------- */
+  .emailcompose{padding:0 0 4px;}
+  .ec-field{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--sand);font-size:13px;}
+  .ec-field span.lbl{flex:none;width:56px;color:#8a8a8a;font-weight:700;font-size:12px;}
+  .ec-field span.val{color:#1a1a1a;font-weight:600;}
+  .ec-field span.placeholder{color:var(--rasp);font-style:italic;font-weight:700;}
+  .ec-body{padding:16px;font-size:13.5px;line-height:1.6;color:#333;min-height:120px;}
+  .ec-body p{margin:0 0 12px;}
+  .ec-body .ec-ph{color:var(--rasp);font-style:italic;font-weight:700;}
+  .ec-sig{margin-top:4px;padding-top:10px;border-top:1px solid var(--sand);}
+  .ec-sig p{margin:0 0 2px;font-size:12.5px;color:#555;}
+  .ec-sendrow{display:flex;justify-content:flex-end;padding:12px 16px;}
+  .ec-sendbtn{background:#1D5FBF;color:#fff;border:none;border-radius:8px;padding:9px 20px;font-family:inherit;font-weight:800;font-size:13px;}
+
+  /* ---------- concept card grid (Step 1) ---------- */
+  .example-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:620px;}
+  .example-card{display:flex;align-items:flex-start;gap:12px;background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:16px 18px;box-shadow:0 6px 16px -10px rgba(0,50,34,.2);}
+  .example-card .ic{flex:none;width:34px;height:34px;border-radius:10px;background:var(--cream-dim);display:flex;align-items:center;justify-content:center;color:var(--rasp);}
+  .example-card .ic svg{width:18px;height:18px;}
+  .example-card b{display:block;font-size:14.5px;color:var(--green);}
+  @media(max-width:640px){ .example-grid{grid-template-columns:1fr;} }
+
+  /* ---------- troubleshoot-before-you-escalate category cards ---------- */
+  .ts-stack{display:flex;flex-direction:column;gap:14px;width:100%;max-width:660px;}
+  .ts-card{background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:18px 22px;box-shadow:0 6px 16px -10px rgba(0,50,34,.2);}
+  .ts-card h4{margin:0 0 10px;font-size:14.5px;color:var(--rasp);font-weight:800;letter-spacing:.2px;}
+  .ts-card ul{margin:0;padding-left:19px;}
+  .ts-card li{font-size:13.5px;color:#3C5A4D;line-height:1.55;margin-bottom:7px;}
+  .ts-card li:last-child{margin-bottom:0;}
+
+  /* ---------- outro closing thank-you note ---------- */
+  .outro-thanks{display:flex;align-items:center;gap:12px;margin-top:26px;padding:16px 20px;background:var(--cream-dim);border:1.5px solid var(--sand);border-radius:14px;font-size:15px;font-weight:700;color:var(--green);max-width:560px;}
+  .outro-thanks svg{flex:none;width:24px;height:24px;color:var(--rasp);}
+
+  .capnote{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:#5c7568;font-weight:700;}
+  .capnote svg{width:14px;height:14px;flex:none;color:var(--rasp);}
+
+  /* ---------- interactive form fill (real fillable recreation) ---------- */
+  .rf-body{padding:20px 22px 22px;}
+  .rf-progress{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+  .rf-progress-track{flex:1;height:7px;background:#fff;border:1px solid var(--sand);border-radius:6px;overflow:hidden;display:block;}
+  .rf-progress-track>i{display:block;height:100%;width:0;background:var(--rasp);border-radius:6px;transition:width .2s ease;}
+  .rf-progress-text{font-size:12.5px;font-weight:800;color:var(--green);white-space:nowrap;}
+  .rf-field{margin-bottom:20px;}
+  .rf-label{font-weight:800;font-size:14px;color:#1f2d27;margin-bottom:3px;}
+  .rf-label .req{color:var(--rasp);margin-left:2px;}
+  .rf-label .opt{font-weight:600;color:#8a8a8a;font-size:12px;text-transform:none;letter-spacing:0;margin-left:6px;}
+  .rf-input,.rf-select,.rf-textarea{width:100%;border:1.5px solid var(--sand);border-radius:9px;padding:11px 13px;font-family:inherit;font-size:14px;color:#1a1a1a;background:#fff;margin-top:6px;}
+  .rf-input:focus,.rf-select:focus,.rf-textarea:focus{outline:2px solid var(--teal);outline-offset:1px;}
+  .rf-textarea{min-height:84px;resize:vertical;}
+  .rf-filedrop{margin-top:6px;border:1.5px dashed var(--sand);border-radius:9px;padding:16px;text-align:center;font-size:13px;color:#8a8a8a;background:#fff;}
+  .rf-hint{display:flex;align-items:flex-start;gap:7px;margin-top:8px;font-size:12.5px;color:var(--rasp);font-weight:700;line-height:1.4;}
+  .rf-hint svg{flex:none;width:14px;height:14px;margin-top:1px;}
+  .rf-routing{margin:8px 0 0 21px;padding:0;list-style:none;}
+  .rf-routing li{margin-bottom:8px;}
+  .rf-routing li:last-child{margin-bottom:0;}
+  .rf-routing .rr-topic{font-size:12px;color:#5c7568;font-weight:700;line-height:1.4;}
+  .rf-routing .rr-dest{font-size:12px;color:var(--green);font-weight:800;line-height:1.4;margin-top:1px;}
+  .rf-submitbtn{background:var(--green);color:#fff;border:none;border-radius:11px;padding:13px 24px;font-family:inherit;font-weight:800;font-size:14.5px;cursor:pointer;margin-top:6px;}
+  .rf-submitbtn:disabled{opacity:.35;cursor:default;}
+  .rf-confirm{display:flex;align-items:flex-start;gap:10px;background:#EAF6E9;border:1.5px solid #8FCB86;border-radius:12px;padding:14px 16px;margin-top:16px;font-size:14px;color:#256b1c;line-height:1.5;}
+  .rf-confirm svg{flex:none;width:18px;height:18px;margin-top:1px;}
+  .rf-confirm b{display:block;margin-bottom:2px;}
+
+  /* ---------- compact confirmation view (replaces form after submit) ---------- */
+  .rf-donebadge{width:56px;height:56px;border-radius:50%;background:#EAF6E9;border:2px solid #8FCB86;color:#256b1c;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+  .rf-donebadge svg{width:28px;height:28px;}
+  .rf-othercta{background:var(--cream-dim);border:1.5px solid var(--sand);border-radius:14px;padding:20px 22px;margin-top:22px;max-width:560px;}
+  .rf-othercta p{margin:0 0 4px;font-size:15px;line-height:1.5;color:#3C5A4D;}
+  .rf-othercta .cta-btn{margin-top:14px;}
+
+  /* ---------- knowledge check ---------- */
+  .scenario-card{background:var(--green);color:var(--cream);border-radius:14px;padding:20px 22px;margin-bottom:22px;}
+  .scenario-card .lbl{font-size:11px;font-weight:800;color:var(--yellow);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;}
+  .scenario-card p{margin:0;font-size:16px;line-height:1.5;}
+  .q{font-size:17px;font-weight:800;margin-bottom:16px;color:var(--green);}
+  .opt{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:13px 16px;margin:9px 0;font-size:15px;color:var(--ink);cursor:pointer;font-family:inherit;font-weight:600;transition:.15s;}
+  .opt .ltr{flex:none;width:22px;height:22px;border-radius:50%;background:var(--cream-dim);color:var(--green);font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;}
+  .opt:hover:not(:disabled){border-color:var(--teal);}
+  .opt:disabled{cursor:default;}
+  .opt.correct{background:#EAF6E9;border-color:#8FCB86;}
+  .opt.correct .ltr{background:#8FCB86;color:#fff;}
+  .opt.wrong{opacity:.4;}
+  .answer{background:var(--cream-dim);border:1.5px solid var(--sand);border-radius:12px;padding:16px 18px;font-size:14.5px;margin-top:14px;line-height:1.55;color:#3C5A4D;}
+  .answer b{color:var(--rasp);}
+
+  /* ---------- bottom nav ---------- */
+  .bot{display:flex;align-items:center;gap:12px;padding:14px 4px 2px;flex:none;}
+  button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
+  .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
+  .back[disabled]{opacity:.25;cursor:default;}
+  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next[disabled]{opacity:.35;cursor:default;}
+  .cta-btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:var(--green);font-weight:800;font-size:15px;text-decoration:none;border-radius:12px;padding:14px 22px;margin-top:22px;letter-spacing:.2px;}
+  .cta-btn svg{width:16px;height:16px;flex:none;}
+  .cta-btn:hover{filter:brightness(0.96);}
+  .cta-note{font-size:12px;color:#8a7a55;font-weight:700;margin-top:10px;font-style:italic;}
+
+  /* ---------- try-it-yourself confirmation ---------- */
+  .confirm-prompt{font-size:17px;font-weight:700;color:var(--green);margin:26px 0 14px;}
+  .confirm-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .confirm-btn{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:13px 20px;font-family:inherit;font-weight:800;font-size:14.5px;color:var(--ink);cursor:pointer;transition:.15s;}
+  .confirm-btn:hover:not(:disabled){border-color:var(--teal);}
+  .confirm-btn:disabled{cursor:default;opacity:.45;}
+  .confirm-btn svg{width:16px;height:16px;flex:none;}
+  .confirm-btn.picked-yes{border-color:#8FCB86;background:#EAF6E9;color:#256b1c;opacity:1;}
+  .confirm-btn.picked-no{border-color:#F0B6A4;background:#FDEDEA;color:#9c3a1f;opacity:1;}
+  .confirm-reveal{border-radius:14px;padding:18px 20px;margin-top:16px;font-size:15px;line-height:1.55;}
+  .confirm-reveal.good{background:#EAF6E9;color:#256b1c;border:1.5px solid #8FCB86;}
+  .confirm-reveal.warn{background:#FDEDEA;color:#9c3a1f;border:1.5px solid #F0B6A4;}
+  .confirm-reveal b{display:block;margin-bottom:4px;}
+
+  /* ---------- start overlay ---------- */
+  #startOverlay{position:fixed;inset:0;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:100;text-align:center;padding:24px;}
+  #startOverlay svg{width:40px;height:40px;}
+  .so-brand{color:var(--cream);font-weight:800;font-size:13px;letter-spacing:1.6px;text-transform:uppercase;opacity:.75;}
+  #startOverlay h1{color:var(--cream);font-size:32px;font-weight:800;margin:2px 0 0;letter-spacing:-.5px;}
+  #startOverlay p{color:#B9CFC3;font-size:15.5px;margin:0 0 10px;max-width:40ch;}
+  #startBtn{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);color:var(--green);font-family:inherit;font-weight:800;font-size:16px;border:none;border-radius:14px;padding:16px 28px;cursor:pointer;letter-spacing:.2px;}
+  #startBtn svg{width:18px;height:18px;}
+  #startBtn:hover{filter:brightness(0.97);}
+  #startOverlay.hide{display:none;}
+  .audiobtn{background:transparent;border:1.5px solid rgba(252,247,238,.3);color:var(--cream);border-radius:12px;padding:12px 18px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;min-width:168px;display:inline-flex;align-items:center;gap:8px;justify-content:center;}
+  .audiobtn svg{width:14px;height:14px;flex:none;}
+  .audiobtn[hidden]{display:none;}
+
+  @media(max-width:640px){
+    .ix{padding:32px 22px;} h1.hl{font-size:27px;} .dm-grid{grid-template-columns:1fr;}
+    .cover-meta{flex-direction:column;gap:10px;}
+    .browser .body{padding:18px 16px;}
+    .hotspot-tag{font-size:10px;padding:3px 7px;border-radius:5px;}
+    #app{padding:16px 14px 20px;}
+  }
+</style>
+</head>
+<body>
+<div id="startOverlay">
+  <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+  <div class="so-brand">The Helper Bees</div>
+  <h1>Benefits Hub: Managing Common Exceptions and Escalations</h1>
+  <p>A short, narrated walkthrough — click below to begin with sound.</p>
+  <button id="startBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Start module</button>
+</div>
+<div id="app">
+  <div class="top">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+      <span>The Helper Bees</span>
+    </div>
+    <div class="track">
+      <span class="prog"><i id="bar"></i></span>
+      <span class="stepnum" id="stepnum"></span>
+    </div>
+    <a class="home-link" href="../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
+  </div>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="bot">
+    <button class="nav back" id="back">Back</button>
+    <button class="audiobtn" id="audioToggle" hidden></button>
+    <button class="nav next" id="next">Next</button>
+  </div>
+  <audio id="au"></audio>
+</div>
+
+<script>
+/* ================= CONTENT ================= */
+var ICON_MEAL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v7a4 4 0 0 0 4 4v7M7 3v7M11 3v7M18 3c-2 1-3 3-3 6s1 4 3 5v7"/></svg>';
+var ICON_CARD='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>';
+var ICON_BLOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4.9 4.9l14.2 14.2"/></svg>';
+var ICON_SYS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>';
+
+var EXCEPTION_EXAMPLES = [
+  {icon:ICON_MEAL, label:'Meals not delivered'},
+  {icon:ICON_CARD, label:"Purse (benefit card) not loaded"},
+  {icon:ICON_BLOCK, label:"Member unable to use their benefit"},
+  {icon:ICON_SYS, label:'System issues'}
+];
+
+var ZD_URL = 'scan-thb.zendesk.com/hc/en-us/requests/new';
+
+var COVER_STEP = { t:'cover', au:'01_cover.mp3' };
+
+var RECOGNIZE_STEP = { t:'step',
+  h:"Recognize when to escalate",
+  sub:"If you've checked all that and you're still stuck, here's how to tell what actually needs escalating. A service exception like the ones below gets filed as a support ticket, which is what you'll walk through first. A member complaint or dissatisfaction gets filed as a grievance instead, which you'll get to practice right after.",
+  visual:'examplegrid',
+  au:'02_recognize.mp3' };
+
+var TROUBLESHOOT_CATEGORIES = [
+  { title:"Verify and search", items:[
+      "Confirm the member's identity — name, address, and date of birth.",
+      "Confirm the benefit type and program first. Home Modification and In-Home Support/LTSS.",
+      "Check all referrals — not just the first result."
+  ]},
+  { title:"Read before you escalate", items:[
+      "Read the referral narrative and notes, including the authorization details, provider updates, or the next step.",
+      "For LTSS, confirm whether a referral is truly inactive or just displayed in monthly segments. Look for &ldquo;monthly ongoing&rdquo; in the narrative before requesting a new one.",
+      "Compare the requested service, hours, visit limit, effective date, and provider against the current authorization."
+  ]},
+  { title:"Give it time", items:[
+      "If an authorization was just created or updated, allow at least 24 hours before treating it as a system issue."
+  ]},
+  { title:"If you still need to escalate", items:[
+      "Choose the issue type based on the action needed, not just the topic mentioned — that's what routes it to the right team.",
+      "Include: member name and ID, benefit and service type, current info vs. requested change, and the effective or appointment date.",
+      "Add provider or agency information when relevant, plus what troubleshooting you've already done and the outcome.",
+      "Attach a screenshot or supporting documentation when relevant, and describe the requested resolution clearly."
+  ]}
+];
+
+var TROUBLESHOOT_STEP = { t:'step',
+  h:"Troubleshoot before you escalate",
+  sub:"A lot of tickets can be avoided by checking a few things first. Walk through these before deciding an issue actually needs a support ticket.",
+  visual:'troubleshoot',
+  au:'02b_troubleshoot.mp3' };
+
+var BRANCH_STEP = { t:'step',
+  h:"You'll start with the Member Support Form",
+  sub:"We'll walk through the Member Support Form first, since it covers the most common exceptions — meals, purses, benefit access, and system issues. Once you've submitted it, you'll get a chance to try the Grievance Submission too.",
+  visual:'shot', img:'assets/img/ticket-new.png', url:ZD_URL, wide:true, vhCap:46, imgAspect:0.3298,
+  caption:"This example uses the SCAN support form — swap in the correct partner Zendesk URL before sending.",
+  au:'03_branch.mp3' };
+
+var SUPPORT_FORM_STEP = { t:'formfill',
+  formKey:'support',
+  h:"Fill out the Member Support Form",
+  sub:"Every field here feeds directly into how fast your Account Coordinator can act. Fill it out like you would for a real exception — you'll need to complete every required field before you can submit.",
+  url:ZD_URL,
+  au:'04a_support_formfill.mp3',
+  auConfirm:'04b_support_confirm.mp3',
+  fields:[
+    { key:'email', label:'Your email address', type:'text', required:true, placeholder:'',
+      hint:"You'll get the ticket confirmation and any follow-up questions here." },
+    { key:'membername', label:'Member Name', type:'text', required:true, placeholder:'Member Name',
+      hint:"Use the exact name on file — a mismatch is one of the most common reasons a ticket bounces back." },
+    { key:'memberid', label:'Member ID', type:'text', required:true, placeholder:'Please provide the Member ID',
+      hint:"The fastest way for your Account Coordinator to pull up the right account. Double-check it." },
+    { key:'dob', label:"Member's Date of Birth", type:'text', required:true, placeholder:'Please format as MM/DD/YYYY',
+      hint:"Confirms everyone is looking at the same member as the Member ID." },
+    { key:'issuetype', label:'Issue Type', type:'select', required:true,
+      options:['I need help logging in','I have a question about my order/service','Need a refund','Account creation/deletion','Provider: change request/report a provider issue','Member Authorizations/Referral Questions','Report system issue/outage','2 hour show up fee','Cancel Service','Parking request','Other'],
+      hint:"Match the action needed, not just the topic:",
+      hintRouting:[
+        {label:'Referral, authorization, hours, or dates', dest:'Member Authorizations/Referral Questions'},
+        {label:'Provider, agency, or assignment', dest:'Provider: change request/report a provider issue'},
+        {label:'Stopping a service', dest:'Cancel Service'},
+        {label:'Access, visibility, or system behavior', dest:'Report system issue/outage'}
+      ] },
+    { key:'service', label:'Which service are you inquiring about?', type:'select', required:true,
+      options:['Travel Escort','Home Modifications','Personal Care','Respite Care','In-Home Safety Assessment'],
+      hint:"Match this to the benefit tied to the exception — for example, Personal Care for a missed meal delivery — so it lands with the right specialist." },
+    { key:'submittedby', label:'Ticket Submitted By', type:'select', required:true,
+      options:['Member','Case Manager','Leadership'],
+      hint:"Lets your Account Coordinator know who to expect follow-up from — the member, you as case manager, or leadership." },
+    { key:'subject', label:'Subject', type:'text', required:true, placeholder:'',
+      hint:"Keep it short and specific, like &ldquo;Meals not delivered 7/29&rdquo;." },
+    { key:'comments', label:'Additional comments', type:'textarea', required:true, placeholder:'Please include additional comments here.',
+      hint:"This matters most for a fast resolution. Include what happened, when, and what you've already tried." },
+    { key:'attachments', label:'Attachments', type:'file', required:false,
+      hint:"Optional, but a screenshot or a message from the member can help your Account Coordinator resolve it without needing to ask for more detail." }
+  ]
+};
+
+var GRIEVANCE_FORM_STEP = { t:'formfill',
+  formKey:'grievance',
+  h:"Fill out the Grievance Submission",
+  sub:"Every field here feeds directly into how fast your Account Coordinator can act. Fill it out like you would for a real complaint — you'll need to complete every required field before you can submit.",
+  url:ZD_URL,
+  au:'05a_grievance_formfill.mp3',
+  auConfirm:'05b_grievance_confirm.mp3',
+  fields:[
+    { key:'g_email', label:'Your email address', type:'text', required:true, placeholder:'',
+      hint:"You'll get the ticket confirmation and any follow-up questions here." },
+    { key:'g_subject', label:'Subject', type:'text', required:true, placeholder:'',
+      hint:"Keep it short and specific, so your Account Coordinator knows what the grievance is about." },
+    { key:'g_membername', label:'Member Name', type:'text', required:true, placeholder:'Member Name',
+      hint:"Use the exact name on file — a mismatch is one of the most common reasons a ticket bounces back." },
+    { key:'g_memberid', label:'Member ID', type:'text', required:true, placeholder:'Please provide the Member ID',
+      hint:"The fastest way for your Account Coordinator to pull up the right account. Double-check it." },
+    { key:'g_phone', label:"Member's Phone Number", type:'text', required:false, placeholder:'Please format as: 123-456-7890.',
+      hint:"Optional, but gives your Account Coordinator a fast way to reach the member directly." },
+    { key:'g_summary', label:'Grievance Summary', type:'textarea', required:true, placeholder:'',
+      hint:"This is the heart of the ticket. Include what the member is dissatisfied with, relevant dates, and any prior communication." },
+    { key:'g_action', label:'Action/Response Needed', type:'textarea', required:true, placeholder:'',
+      hint:"Let your Account Coordinator know what outcome the member is looking for." },
+    { key:'g_comments', label:'Additional comments', type:'textarea', required:true, placeholder:'Please include additional comments here.',
+      hint:"Anything relevant that didn't fit above — extra context, related tickets, or helpful detail." },
+    { key:'g_attachments', label:'Attachments', type:'file', required:false,
+      hint:"Optional, but a screenshot or a message from the member can help your Account Coordinator resolve it without needing to ask for more detail." }
+  ]
+};
+
+var EMAILCOORD_STEP = { t:'step',
+  h:"Email your Account Coordinator",
+  sub:"Once you have your ticket number, send a quick email to your Account Coordinator letting them know you'd like to escalate it.",
+  visual:'emailmock',
+  emailTo:'[ACCOUNT COORDINATOR EMAIL]',
+  emailSubject:'Escalation — Support Ticket #12345',
+  emailBody:"<p>Hello,</p>"+
+    "<p>I've submitted support ticket #12345 to help escalate this issue. [Briefly describe what's happening and any pattern you're seeing.]</p>"+
+    "<p>Please review and let us know the next steps or an expected timeline.</p>"+
+    "<p>Thank you!</p>"+
+    "<div class=\"ec-sig\">"+
+      "<p>[Your Name]</p>"+
+      "<p>[Your Title]</p>"+
+      "<p>[Your Organization]</p>"+
+      "<p>C: [Your Phone Number]</p>"+
+      "<p>E: [Your Email]</p>"+
+    "</div>",
+  caption:"Email address and signature details are placeholders — swap in your own contact info and the Account Coordinator's real address for this partner.",
+  au:'06_email_coordinator.mp3' };
+
+var TIP_STEP = { t:'tip',
+  scenario:"A member calls to say their meals weren't delivered today.",
+  prompt:"What's the right move?",
+  reveal:"Log a support ticket for the missed delivery, then email your Account Coordinator with the ticket number so they can help escalate it — the same two steps you'd use for a purse-loading issue, a benefit access problem, or a system outage.",
+  au:'07a_tip_prompt.mp3', auReveal:'07b_tip_reveal.mp3' };
+
+var TRYIT_STEP = { t:'tryit', au:'08_tryit.mp3',
+  zdUrl:'https://scan-thb.zendesk.com/hc/en-us/requests/new' };
+
+var OUTRO_STEP = { t:'outro', au:'09_outro.mp3' };
+
+var chosenPath = null; // 'support' | 'grievance'
+var formState = {};     // field key -> current value (persists while navigating)
+var formSubmitted = {}; // formKey -> bool (has this form's Submit been clicked)
+
+function assembleScreens(path){
+  var formStep = (path==='grievance') ? GRIEVANCE_FORM_STEP : SUPPORT_FORM_STEP;
+  var arr = [COVER_STEP, TROUBLESHOOT_STEP, RECOGNIZE_STEP, BRANCH_STEP, formStep, EMAILCOORD_STEP, TIP_STEP, TRYIT_STEP, OUTRO_STEP];
+  var stepEntries = arr.filter(function(s){ return s.t==='step' || s.t==='formfill'; });
+  stepEntries.forEach(function(s,idx){ s.n = idx+1; s.of = stepEntries.length; });
+  return arr;
+}
+
+var SCREENS = assembleScreens(null);
+
+/* ================= ENGINE ================= */
+var i=0, answered={};
+var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
+    back=document.getElementById('back'), next=document.getElementById('next'),
+    stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
+    audioToggle=document.getElementById('audioToggle');
+var AUDIO_DIR='assets/audio/';
+
+function play(src){
+  if(!src){ audioToggle.hidden=true; return; }
+  au.src=AUDIO_DIR+src; audioToggle.hidden=false;
+  au.play().catch(function(){ updateAudioBtn(); });
+  updateAudioBtn();
+}
+function stopAu(){ try{au.pause();}catch(e){} au.removeAttribute('src'); audioToggle.hidden=true; }
+
+var ICON_PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+var ICON_PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+
+function updateAudioBtn(){
+  audioToggle.innerHTML = au.paused
+    ? ICON_PLAY+'<span>Play narration</span>'
+    : ICON_PAUSE+'<span>Pause narration</span>';
+}
+au.addEventListener('play', updateAudioBtn);
+au.addEventListener('pause', updateAudioBtn);
+au.addEventListener('ended', updateAudioBtn);
+
+audioToggle.onclick=function(){
+  if(au.paused){
+    if(au.ended){ au.currentTime=0; }
+    au.play().catch(function(){});
+  } else {
+    au.pause();
+  }
+};
+
+function el(tag,cls){var e=document.createElement(tag); if(cls)e.className=cls; return e;}
+
+function urlBar(url){
+  return '<div class="bar"><div class="dots"><i></i><i></i><i></i></div>'+
+    '<div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>'+url+'</span></div></div>';
+}
+
+function visual(s, opts){
+  opts = opts || {};
+  if(s.visual==='shot'){
+    var b=el('div','browser'+(s.compact?' compact':'')+(s.wide?' wide':''));
+    var capPx = s.wide ? 760 : 520;
+    if(s.vhCap && s.imgAspect){ b.style.maxWidth = 'min('+capPx+'px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
+    var showAlt = opts.showAlt;
+    var imgSrc = (showAlt && s.img2) ? s.img2 : s.img;
+    b.innerHTML = urlBar(s.url) + '<div class="body"><img src="'+imgSrc+'" alt="" class="shot-img"></div>';
+    if(s.hotspot && !showAlt){
+      var h=s.hotspot;
+      var body=b.querySelector('.body');
+      var hbtn=el('button','hotspot-btn');
+      hbtn.type='button';
+      hbtn.setAttribute('aria-label', h.tag);
+      hbtn.style.left=h.left+'%'; hbtn.style.top=h.top+'%'; hbtn.style.width=h.width+'%'; hbtn.style.height=h.height+'%';
+      body.appendChild(hbtn);
+      var tag=el('div','hotspot-tag'+(opts.onClick?' clickable':''));
+      tag.textContent=h.tag;
+      tag.style.left=h.tagLeft+'%'; tag.style.top=h.tagTop+'%';
+      body.appendChild(tag);
+      if(opts.onClick){ hbtn.onclick=opts.onClick; tag.onclick=opts.onClick; }
+    }
+    return b;
+  }
+  if(s.visual==='email'){
+    var b2=el('div','emailcard');
+    if(s.vhCap && s.imgAspect){ b2.style.maxWidth = 'min(520px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
+    b2.innerHTML = '<div class="bar">Your inbox</div><img src="'+s.img+'" alt="">';
+    return b2;
+  }
+  if(s.visual==='emailmock'){
+    var b3=el('div','emailcard');
+    b3.style.maxWidth='560px';
+    b3.innerHTML =
+      '<div class="bar">New message</div>'+
+      '<div class="emailcompose">'+
+        '<div class="ec-field"><span class="lbl">To</span><span class="val placeholder">'+s.emailTo+'</span></div>'+
+        '<div class="ec-field"><span class="lbl">Subject</span><span class="val">'+s.emailSubject+'</span></div>'+
+        '<div class="ec-body">'+s.emailBody.replace(/\[([^\]]+)\]/g, '<span class="ec-ph">[$1]</span>')+'</div>'+
+        '<div class="ec-sendrow"><button class="ec-sendbtn" type="button" disabled>Send</button></div>'+
+      '</div>';
+    return b3;
+  }
+  if(s.visual==='examplegrid'){
+    var b4=el('div','example-grid');
+    b4.innerHTML = EXCEPTION_EXAMPLES.map(function(ex){
+      return '<div class="example-card"><div class="ic">'+ex.icon+'</div><b>'+ex.label+'</b></div>';
+    }).join('');
+    return b4;
+  }
+  if(s.visual==='troubleshoot'){
+    var b5=el('div','ts-stack');
+    b5.innerHTML = TROUBLESHOOT_CATEGORIES.map(function(cat){
+      return '<div class="ts-card"><h4>'+cat.title+'</h4><ul>'+
+        cat.items.map(function(item){ return '<li>'+item+'</li>'; }).join('')+
+        '</ul></div>';
+    }).join('');
+    return b5;
+  }
+}
+
+function expandStep(s, vwrap){
+  if(answered[i]) return;
+  answered[i] = true;
+  var img = vwrap.querySelector('.shot-img');
+  var hbtn = vwrap.querySelector('.hotspot-btn');
+  var tag = vwrap.querySelector('.hotspot-tag');
+  if(hbtn) hbtn.remove();
+  if(tag) tag.remove();
+  if(img){
+    img.style.opacity='0';
+    setTimeout(function(){
+      img.src = s.img2;
+      img.style.opacity='1';
+    }, 180);
+  }
+  var cap = vwrap.querySelector('.capnote');
+  if(cap) cap.style.display='flex';
+  next.disabled=false;
+}
+
+function render(){
+  var s=SCREENS[i]; stage.innerHTML=''; stopAu();
+  bar.style.width = Math.round(i/(SCREENS.length-1)*100)+'%';
+  stepnum.textContent = (s.t==='step'||s.t==='formfill') ? ('Step '+s.n+' of '+s.of) : '';
+  back.disabled = (i===0);
+  next.textContent = (i===SCREENS.length-1) ? 'Finish' : 'Next';
+  next.disabled = false;
+
+  if(s.t==='cover'){
+    var d=el('div','ix center');
+    d.innerHTML =
+      '<div class="wrap">'+
+      '<div class="cover-badge"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FCF7EE" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FCF7EE"/></svg>Benefits Hub</div>'+
+      '<h1 class="hl">Managing Common Exceptions and Escalations</h1>'+
+      '<p class="sub">Not every issue can be resolved inside Benefits Hub. In the next few minutes, you\'ll learn how to recognize when to escalate, choose between a support ticket and a grievance, and loop in your Account Coordinator so it gets picked up quickly.</p>'+
+      '<div class="cover-meta"><div><b>~4 minutes</b><span>self-paced</span></div></div>'+
+      '</div>';
+    stage.appendChild(d);
+    play(s.au);
+  }
+
+  else if(s.t==='step'){
+    var d2=el('div','ix center');
+    d2.innerHTML =
+      '<div class="wrap wide">'+
+      '<div class="eyebrow"><span class="dot"></span>Step '+s.n+'</div>'+
+      '<h1 class="hl">'+s.h+'</h1>'+
+      '<p class="sub">'+s.sub+'</p>'+
+      '</div>';
+    var vwrap=el('div','wrap wide'); vwrap.style.marginTop='14px';
+
+    if(s.hotspot && s.img2){
+      var expanded = !!answered[i];
+      vwrap.appendChild(visual(s, {
+        showAlt: expanded,
+        onClick: function(){ expandStep(s, vwrap); }
+      }));
+      if(s.caption){
+        var cap=el('div','capnote'); cap.style.display = expanded ? 'flex' : 'none';
+        cap.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>'+s.caption+'</span>';
+        vwrap.appendChild(cap);
+      }
+      next.disabled = !expanded;
+    } else {
+      vwrap.appendChild(visual(s));
+      if(s.caption){
+        var cap=el('div','capnote');
+        cap.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>'+s.caption+'</span>';
+        vwrap.appendChild(cap);
+      }
+    }
+
+    d2.appendChild(vwrap);
+    stage.appendChild(d2);
+    play(s.au);
+  }
+
+  else if(s.t==='formfill'){
+    var dF=el('div','ix'+(formSubmitted[s.formKey]?' center':''));
+    var wrapF=el('div','wrap wide');
+
+    if(formSubmitted[s.formKey]){
+      // ---- compact confirmation view (replaces the form entirely — no scrolling needed) ----
+      var otherKey = (s.formKey==='support') ? 'grievance' : 'support';
+      var otherLabel = (otherKey==='support') ? 'Member Support Form' : 'Grievance Submission';
+      var thisLabel = (s.formKey==='support') ? 'Member Support Form' : 'Grievance Submission';
+      var otherDone = !!formSubmitted[otherKey];
+
+      wrapF.innerHTML =
+        '<div class="eyebrow"><span class="dot"></span>Step '+s.n+'</div>'+
+        '<div class="rf-donebadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg></div>'+
+        '<h1 class="hl">Ticket submitted</h1>'+
+        '<p class="sub">Your '+thisLabel+' is in. You\'ll get a ticket number like <b>#12345</b> — you\'ll need that for the next step, emailing your Account Coordinator.</p>';
+
+      if(!otherDone){
+        var ctaWrap=el('div','rf-othercta');
+        ctaWrap.innerHTML =
+          '<p>Since both forms live in this module, it\'s worth seeing how the <b>'+otherLabel+'</b> works too — it only takes a minute.</p>';
+        var ctaBtn=el('button','cta-btn'); ctaBtn.type='button';
+        ctaBtn.innerHTML='Try the '+otherLabel+'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+        ctaBtn.onclick=function(){
+          chosenPath = otherKey;
+          SCREENS = assembleScreens(chosenPath);
+          render();
+        };
+        ctaWrap.appendChild(ctaBtn);
+        wrapF.appendChild(ctaWrap);
+      } else {
+        var doneNote=el('p','sub');
+        doneNote.style.marginTop='4px';
+        doneNote.innerHTML='You\'ve now walked through both forms — hit Next when you\'re ready to continue.';
+        wrapF.appendChild(doneNote);
+      }
+
+      dF.appendChild(wrapF);
+      stage.appendChild(dF);
+      next.disabled = false;
+      play(s.auConfirm);
+      return;
+    }
+
+    // ---- fillable form (pre-submit) ----
+    wrapF.innerHTML =
+      '<div class="eyebrow"><span class="dot"></span>Step '+s.n+'</div>'+
+      '<h1 class="hl">'+s.h+'</h1>'+
+      '<p class="sub">'+s.sub+'</p>';
+
+    var browserF=el('div','browser wide');
+    browserF.innerHTML = urlBar(s.url);
+    var bodyF=el('div','body rf-body');
+
+    var progWrap=el('div','rf-progress');
+    progWrap.innerHTML = '<span class="rf-progress-text" id="rfProgressText"></span><span class="rf-progress-track"><i id="rfProgressBar"></i></span>';
+    bodyF.appendChild(progWrap);
+
+    var submitBtn; // referenced by updateProgress, declared before use below
+
+    function fieldComplete(f){ return (formState[f.key]||'').toString().trim().length>0; }
+
+    function updateProgress(){
+      var reqFields = s.fields.filter(function(f){ return f.required; });
+      var doneCount = reqFields.filter(fieldComplete).length;
+      var pct = reqFields.length ? Math.round(doneCount/reqFields.length*100) : 100;
+      var txt = document.getElementById('rfProgressText');
+      var barI = document.getElementById('rfProgressBar');
+      if(txt) txt.textContent = doneCount+' of '+reqFields.length+' required fields complete';
+      if(barI) barI.style.width = pct+'%';
+      if(submitBtn) submitBtn.disabled = doneCount < reqFields.length;
+    }
+
+    s.fields.forEach(function(f){
+      var fw=el('div','rf-field');
+      var labelHtml = '<div class="rf-label">'+f.label+(f.required?'<span class="req">*</span>':'<span class="opt">(optional)</span>')+'</div>';
+      fw.innerHTML = labelHtml;
+
+      var inputEl;
+      if(f.type==='text'){
+        inputEl=document.createElement('input');
+        inputEl.type='text'; inputEl.className='rf-input';
+        inputEl.placeholder=f.placeholder||'';
+        inputEl.value=formState[f.key]||'';
+        inputEl.addEventListener('input', function(){ formState[f.key]=inputEl.value; updateProgress(); });
+        fw.appendChild(inputEl);
+      } else if(f.type==='textarea'){
+        inputEl=document.createElement('textarea');
+        inputEl.className='rf-textarea';
+        inputEl.placeholder=f.placeholder||'';
+        inputEl.value=formState[f.key]||'';
+        inputEl.addEventListener('input', function(){ formState[f.key]=inputEl.value; updateProgress(); });
+        fw.appendChild(inputEl);
+      } else if(f.type==='select'){
+        inputEl=document.createElement('select');
+        inputEl.className='rf-select';
+        var optDefault=document.createElement('option'); optDefault.value=''; optDefault.textContent='-';
+        inputEl.appendChild(optDefault);
+        f.options.forEach(function(o){
+          var op=document.createElement('option'); op.value=o; op.textContent=o; inputEl.appendChild(op);
+        });
+        inputEl.value=formState[f.key]||'';
+        inputEl.addEventListener('change', function(){ formState[f.key]=inputEl.value; updateProgress(); });
+        fw.appendChild(inputEl);
+      } else if(f.type==='file'){
+        var drop=el('div','rf-filedrop');
+        drop.textContent='Choose a file or drag and drop here';
+        fw.appendChild(drop);
+      }
+
+      if(f.hint){
+        var hintEl=el('div','rf-hint');
+        var routingHtml = '';
+        if(f.hintRouting){
+          routingHtml = '<ul class="rf-routing">'+f.hintRouting.map(function(r){
+            return '<li><div class="rr-topic">'+r.label+'</div><div class="rr-dest">&rarr; '+r.dest+'</div></li>';
+          }).join('')+'</ul>';
+        }
+        hintEl.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><div><span>'+f.hint+'</span>'+routingHtml+'</div>';
+        fw.appendChild(hintEl);
+      }
+      bodyF.appendChild(fw);
+    });
+
+    submitBtn=el('button','rf-submitbtn');
+    submitBtn.type='button';
+    submitBtn.textContent='Submit';
+    submitBtn.onclick=function(){
+      formSubmitted[s.formKey]=true;
+      render();
+    };
+    bodyF.appendChild(submitBtn);
+
+    browserF.appendChild(bodyF);
+    wrapF.appendChild(browserF);
+    dF.appendChild(wrapF);
+    stage.appendChild(dF);
+
+    updateProgress();
+    next.disabled = true;
+    play(s.au);
+  }
+
+  else if(s.t==='tip'){
+    var ix=el('div','ix');
+    var wrap=el('div','wrap wide');
+    wrap.innerHTML='<div class="eyebrow"><span class="dot"></span>Good to know</div>';
+    var sc=el('div','scenario-card');
+    sc.innerHTML='<div class="lbl">Heads up</div><p>'+s.scenario+'</p>';
+    wrap.appendChild(sc);
+    var q=el('div','q'); q.textContent=s.prompt; wrap.appendChild(q);
+    var b=el('button','opt reveal-btn');
+    b.innerHTML='<span class="ltr">?</span><span>Show me what to do</span>';
+    b.onclick=function(){ revealTip(s,wrap,b); };
+    wrap.appendChild(b);
+    ix.appendChild(wrap);
+    stage.appendChild(ix);
+    next.disabled = !answered[i];
+    if(answered[i]){ b.remove(); showAns(s,wrap); play(s.au); }
+    else{ play(s.au); }
+  }
+
+  else if(s.t==='tryit'){
+    var d3a=el('div','ix center');
+    var picked = answered['tryit'];
+    var html3a =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>Your turn</div>'+
+      '<h1 class="hl">Now try it yourself</h1>'+
+      '<p class="sub">Open the support form and walk through whichever path applies — a Member Support ticket or a Grievance Submission. You don\'t need to submit a real ticket for this practice — just get comfortable with where everything lives.</p>'+
+      '<a class="cta-btn" href="'+s.zdUrl+'" target="_blank" rel="noopener">Open the SCAN support form<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
+      '<p class="cta-note">This example links to the SCAN support form. Swap in the correct partner URL for other partners.</p>'+
+      '<div class="confirm-prompt">Were you able to find your way through the form?</div>'+
+      '<div class="confirm-row">'+
+        '<button type="button" class="confirm-btn'+(picked==='yes'?' picked-yes':'')+'" id="pickYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Yes, I found my way through it</button>'+
+        '<button type="button" class="confirm-btn'+(picked==='no'?' picked-no':'')+'" id="pickNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>No, I got stuck</button>'+
+      '</div>'+
+      (picked==='yes' ? '<div class="confirm-reveal good"><b>Nice work!</b>You\'re ready to open the right ticket the next time an exception or grievance comes up, and to loop in your Account Coordinator once you have the ticket number.</div>' : '')+
+      (picked==='no' ? '<div class="confirm-reveal warn"><b>No problem — this happens.</b>Revisit the steps above, or reach out to your manager for help. Once you feel good about it, come back and select &ldquo;Yes&rdquo; above to continue.</div>' : '')+
+      '</div>';
+    d3a.innerHTML = html3a;
+    stage.appendChild(d3a);
+
+    var yesBtn=document.getElementById('pickYes'), noBtn=document.getElementById('pickNo');
+    if(yesBtn) yesBtn.onclick=function(){ answered['tryit']='yes'; render(); };
+    if(noBtn) noBtn.onclick=function(){ answered['tryit']='no'; render(); };
+
+    next.disabled = (picked !== 'yes');
+    if(!picked) play(s.au);
+  }
+
+  else if(s.t==='outro'){
+    var d3=el('div','ix center');
+    d3.innerHTML =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>All set</div>'+
+      '<h1 class="hl">You\'re ready to manage exceptions and escalations.</h1>'+
+      '<p class="sub">You now know how to recognize when to escalate, choose between a support ticket and a grievance, and loop in your Account Coordinator with the ticket number. Head to the Knowledge Check next — you\'ll walk through a full scenario, take a short quiz, and earn your certificate of completion.</p>'+
+      '<div class="outro-thanks"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="currentColor" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg><span>Thank you for working with The Helper Bees — we\'re glad to have you on the team.</span></div>'+
+      '</div>';
+    stage.appendChild(d3);
+    next.disabled = false;
+    play(s.au);
+  }
+}
+
+function finish(){ window.location.href='../Begin-Training.html'; }
+
+function revealTip(s,wrap,btn){
+  if(answered[i]) return;
+  answered[i] = true;
+  btn.remove();
+  showAns(s,wrap);
+  play(s.auReveal);
+  next.disabled=false;
+}
+function showAns(s,wrap){
+  if(!wrap.querySelector('.answer')){
+    var a=el('div','answer'); a.innerHTML=s.reveal; wrap.appendChild(a);
+  }
+}
+
+next.onclick=function(){ if(i<SCREENS.length-1){ i++; render(); } else { finish(); } };
+back.onclick=function(){ if(i>0){ i--; render(); } };
+
+document.getElementById('startBtn').onclick=function(){
+  document.getElementById('startOverlay').classList.add('hide');
+  render();
+};
+</script>
+</body>
+</html>
