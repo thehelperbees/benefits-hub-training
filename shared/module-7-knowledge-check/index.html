@@ -379,6 +379,9 @@
 
   /* ---------- bottom nav ---------- */
   .bot{display:flex;align-items:center;gap:12px;padding:14px 4px 2px;flex:none;}
+  .audiobtn{background:transparent;border:1.5px solid rgba(252,247,238,.3);color:var(--cream);border-radius:12px;padding:12px 18px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;min-width:168px;display:inline-flex;align-items:center;gap:8px;justify-content:center;}
+  .audiobtn svg{width:14px;height:14px;flex:none;}
+  .audiobtn[hidden]{display:none;}
   button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
   .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
   .back[disabled]{opacity:.25;cursor:default;}
@@ -452,15 +455,17 @@
       <span class="prog"><i id="bar"></i></span>
       <span class="stepnum" id="stepnum"></span>
     </div>
-    <a class="home-link" href="../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
+    <a class="home-link" href="../../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
   </div>
 
   <div class="stage" id="stage"></div>
 
   <div class="bot">
     <button class="nav back" id="back">Back</button>
+    <button class="audiobtn" id="audioToggle" hidden></button>
     <button class="nav next" id="next">Next</button>
   </div>
+  <audio id="au"></audio>
 </div>
 
 <!-- Print-only certificate, kept in sync via updateCertSheet() -->
@@ -569,14 +574,15 @@
 
 var SCREENS = [
 
-  { t:'cover' },
+  { t:'cover', au:'01_cover.mp3' },
 
-  { t:'name' },
+  { t:'name', au:'02_name.mp3' },
 
   { t:'scenario',
     eyebrow:'Put it all together',
     h:'A referral, start to finish',
     sub:"A member calls in asking for help with a Home Modification benefit — they'd like a grab bar installed in their shower. Let's follow that one referral through its whole lifecycle, right here, the same way you'd see it play out over several calls in real life.",
+    au:'03_scenario_intro.mp3',
     steps:[
       {n:1, b:'Find the member, then submit', s:'Search for them, then walk through adding the referral, right here in the module.'},
       {n:2, b:'Follow it over time', s:"The member calls back a few times as the status changes — you'll check it and respond each time."},
@@ -586,31 +592,37 @@ var SCREENS = [
   { t:'story', chapter:'submit', stepLabel:'Scenario 1 of 5',
     eyebrow:'Find the member, then submit',
     h:'Get the referral moving',
-    sub:"Search using Member #12345678912 to pull up Helper Test's profile, then choose the right benefit, the right service for the grab bar install, set the quantity, add it to your cart, and check out."},
+    sub:"Search using Member #12345678912 to pull up Helper Test's profile, then choose the right benefit, the right service for the grab bar install, set the quantity, add it to your cart, and check out.",
+    au:'04_story_submit.mp3'},
 
   { t:'story', chapter:'new', stepLabel:'Scenario 2 of 5',
     eyebrow:'Right after submitting',
     h:'Check the status',
-    sub:"Here's the referral you just submitted — take a look at the status."},
+    sub:"Here's the referral you just submitted — take a look at the status.",
+    au:'05_story_new.mp3'},
 
   { t:'story', chapter:'assigned', stepLabel:'Scenario 3 of 5', needsProvider:true,
     eyebrow:'A few days later',
     h:'The member calls to check on it',
-    sub:"The status has changed to Assigned to Provider — check the provider field."},
+    sub:"The status has changed to Assigned to Provider — check the provider field.",
+    au:'06_story_assigned.mp3'},
 
   { t:'story', chapter:'unable', stepLabel:'Scenario 4 of 5', needsNote:true,
     eyebrow:'Later',
     h:'The member calls again',
-    sub:"The status has changed again, and the member says they still haven't heard from the provider but still want the service. This referral is stalled — check the provider's contact info, try to help get them back in touch with the member for scheduling, and log a note documenting what you did."},
+    sub:"The status has changed again, and the member says they still haven't heard from the provider but still want the service. This referral is stalled — check the provider's contact info, try to help get them back in touch with the member for scheduling, and log a note documenting what you did.",
+    au:'07_story_unable.mp3'},
 
   { t:'story', chapter:'completed', stepLabel:'Scenario 5 of 5', needsEnc:true,
     eyebrow:'Following up',
     h:'Confirm the service was completed',
-    sub:"After some back-and-forth, here's how the referral wrapped up. The provider's contact info is now visible since they accepted — take a look, then check the encounter for the provider's own confirmation the install was completed."},
+    sub:"After some back-and-forth, here's how the referral wrapped up. The provider's contact info is now visible since they accepted — take a look, then check the encounter for the provider's own confirmation the install was completed.",
+    au:'08_story_completed.mp3'},
 
   { t:'transition',
     h:"Nice work — that's a full referral, start to finish",
-    sub:"You just followed one referral the whole way through: found the member, submitted the referral — setting the quantity and checking out along the way — watched its status change over several calls, knew when it was and wasn't okay to share provider contact info, logged a note to help move a stalled referral forward, and confirmed how it wrapped up. Now let's do one complete knowledge check covering everything you've learned. Pass it, and your certificate is next."},
+    sub:"You just followed one referral the whole way through: found the member, submitted the referral — setting the quantity and checking out along the way — watched its status change over several calls, knew when it was and wasn't okay to share provider contact info, logged a note to help move a stalled referral forward, and confirmed how it wrapped up. Now let's do one complete knowledge check covering everything you've learned. Pass it, and your certificate is next.",
+    au:'09_transition.mp3'},
 
   { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 1 of 8',
     eyebrow:'Finding and Reviewing a Member', visual:'tile-balance',
@@ -700,7 +712,7 @@ var SCREENS = [
     ],
     explain:"Once you have your ticket number, send a quick email to your Account Coordinator letting them know you'd like to escalate it — that's what gets it moving."},
 
-  { t:'results' },
+  { t:'results', auPass:'10_results_pass.mp3', auFail:'11_results_fail.mp3' },
 
   { t:'certificate' }
 ];
@@ -709,8 +721,39 @@ var SCREENS = [
 var i=0, learnerName='', quizAnswered={}, blankState={};
 var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
     back=document.getElementById('back'), next=document.getElementById('next'),
-    stepnum=document.getElementById('stepnum');
+    stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
+    audioToggle=document.getElementById('audioToggle');
+var AUDIO_DIR='assets/audio/';
 var L=['A','B','C','D','E'];
+
+function play(src){
+  if(!src){ audioToggle.hidden=true; return; }
+  au.src=AUDIO_DIR+src; audioToggle.hidden=false;
+  au.play().catch(function(){ updateAudioBtn(); });
+  updateAudioBtn();
+}
+function stopAu(){ try{au.pause();}catch(e){} au.removeAttribute('src'); audioToggle.hidden=true; }
+
+var ICON_PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+var ICON_PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+
+function updateAudioBtn(){
+  audioToggle.innerHTML = au.paused
+    ? ICON_PLAY+'<span>Play narration</span>'
+    : ICON_PAUSE+'<span>Pause narration</span>';
+}
+au.addEventListener('play', updateAudioBtn);
+au.addEventListener('pause', updateAudioBtn);
+au.addEventListener('ended', updateAudioBtn);
+
+audioToggle.onclick=function(){
+  if(au.paused){
+    if(au.ended){ au.currentTime=0; }
+    au.play().catch(function(){});
+  } else {
+    au.pause();
+  }
+};
 
 var gradedIdx=[];
 for(var k=0;k<SCREENS.length;k++){ if(SCREENS[k].graded) gradedIdx.push(k); }
@@ -1485,14 +1528,25 @@ function matchAnswer(input, answers){
   return false;
 }
 
+var lastRenderedIndex = -1;
 function render(){
-  var s=SCREENS[i]; stage.innerHTML='';
+  var s=SCREENS[i];
+  var sameScreen = (i===lastRenderedIndex);
+  var preservedScroll = null;
+  var scrollTargetAfterAnswer = null;
+  if(sameScreen){
+    var oldIx = stage.querySelector('.ix');
+    if(oldIx) preservedScroll = oldIx.scrollTop;
+  }
+  stage.innerHTML='';
+  stopAu();
   bar.style.width = Math.round(i/(SCREENS.length-1)*100)+'%';
   stepnum.textContent = s.stepLabel || '';
   back.disabled = (i===0);
   next.onclick = defaultNext;
   next.textContent = 'Next';
   next.disabled = false;
+  lastRenderedIndex = i;
 
   if(s.t==='cover'){
     var d=el('div','ix center');
@@ -1600,6 +1654,7 @@ function render(){
         var ans=el('div','answer');
         ans.innerHTML='<b>'+(quizAnswered[i]?'Correct. ':'Not quite. ')+'</b>'+s.explain;
         wrap4.appendChild(ans);
+        if(sameScreen) scrollTargetAfterAnswer = ans;
       }
       next.disabled = !answered;
     }
@@ -1631,6 +1686,7 @@ function render(){
         var ans2=el('div','answer');
         ans2.innerHTML='<b>'+(quizAnswered[i]?'Correct. ':'Not quite — correct answer: "'+s.answers[0]+'". ')+'</b>'+s.explain;
         wrap4.appendChild(ans2);
+        if(sameScreen) scrollTargetAfterAnswer = ans2;
       }
       next.disabled = !answered2;
     }
@@ -1675,6 +1731,7 @@ function render(){
         var ans3=el('div','answer');
         ans3.innerHTML='<b>'+(quizAnswered[i]?'Correct. ':'Not quite — the green box shows the right spot. ')+'</b>'+s.explain;
         wrap4.appendChild(ans3);
+        if(sameScreen) scrollTargetAfterAnswer = ans3;
       }
       next.disabled = !answered3;
     }
@@ -1719,7 +1776,7 @@ function render(){
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>All set</div>'+
       '<h1 class="hl">Congratulations'+(learnerName? ', '+learnerName.split(' ')[0] : '')+'!</h1>'+
-      '<p class="sub">You\'ve completed the Benefits Hub Partner Training. Save or print your certificate below.</p>'+
+      '<p class="sub">You\'ve completed the Benefits Hub Partner Training. Save or print your certificate below. When you need a refresher later, the Resource Library has quick-reference job aids and the SCAN Case Manager FAQ for day-to-day questions.</p>'+
       '<div class="certpreview">'+
         '<div class="certeyebrow">The Helper Bees &middot; Partner Training</div>'+
         '<h2>Certificate of Completion</h2>'+
@@ -1728,7 +1785,7 @@ function render(){
         '<p>has successfully completed the Benefits Hub Partner Training.</p>'+
         '<div class="cert-actions">'+
           '<button class="cert-btn" id="printCertBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Print / Save as PDF</button>'+
-          '<a class="cert-link" href="library.html">Go to Resource Library</a>'+
+          '<a class="cert-link" href="../../scan/library.html">Go to Resource Library</a>'+
         '</div>'+
         '<div class="printhint">Clicking Print opens your browser\'s print dialog — choose "Save as PDF" as the destination to download it instead of printing.</div>'+
       '</div>'+
@@ -1737,6 +1794,22 @@ function render(){
     document.getElementById('printCertBtn').onclick=function(){ updateCertSheet(); window.print(); };
     next.disabled=true;
     next.textContent='Finish';
+  }
+
+  if(scrollTargetAfterAnswer){
+    scrollTargetAfterAnswer.scrollIntoView({block:'nearest'});
+  } else if(preservedScroll !== null){
+    var newIx = stage.querySelector('.ix');
+    if(newIx) newIx.scrollTop = preservedScroll;
+  }
+
+  if(!sameScreen){
+    if(s.t==='results'){
+      var passed = quizStats().passed;
+      play(passed ? s.auPass : s.auFail);
+    } else if(s.au){
+      play(s.au);
+    }
   }
 }
 

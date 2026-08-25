@@ -98,6 +98,15 @@
   .zoomBox .zbar span{font-weight:800;color:var(--green);font-size:14px;}
   .zoomClose{background:none;border:none;cursor:pointer;color:var(--green);font-size:22px;line-height:1;padding:4px 10px;font-family:inherit;}
   .zoomBox img{display:block;width:auto;height:auto;max-width:100%;max-height:100%;}
+  .zoomBox .zbody{position:relative;}
+  .zoomNav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(15,46,35,.85);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;}
+  .zoomNav:hover{background:var(--green);}
+  .zoomNav.prev{left:10px;}
+  .zoomNav.next{right:10px;}
+  .zoomNav svg{width:20px;height:20px;}
+  .zoomDots{display:flex;gap:6px;justify-content:center;padding:10px 0 14px;background:#fff;}
+  .zoomDots button{width:8px;height:8px;border-radius:50%;border:none;background:var(--sand);cursor:pointer;padding:0;}
+  .zoomDots button.active{background:var(--rasp);}
 
   /* ---------- bottom nav ---------- */
   .bot{display:flex;align-items:center;gap:12px;padding:10px 4px 2px;flex:none;}
@@ -136,6 +145,33 @@
   .checkbtn:hover{background:var(--green-soft);}
   .answer-feedback{border-radius:14px;padding:16px 18px;margin-top:14px;font-size:15px;line-height:1.5;}
   .answer-feedback.right{background:#EAF6E9;color:#256b1c;border:1.5px solid #8FCB86;}
+
+  /* ---------- mock advanced search widget ---------- */
+  .mock-advsearch{margin-top:20px;background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:18px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;}
+  .mock-advsearch label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:800;color:#5c7568;text-transform:uppercase;letter-spacing:.4px;flex:1;min-width:150px;}
+  .mock-advsearch input{border:1.5px solid var(--sand);border-radius:10px;padding:11px 13px;font-family:inherit;font-size:14.5px;color:var(--ink);background:#fff;font-weight:600;text-transform:none;letter-spacing:normal;}
+  .mock-advsearch input:focus{outline:none;border-color:var(--teal);}
+  .mock-advsearch .checkbtn{flex:none;height:44px;}
+  .mock-result{margin-top:16px;background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:18px 20px;}
+  .mock-result-name{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:12px;}
+  .mock-result-grid{display:flex;flex-wrap:wrap;gap:22px;}
+  .mock-result-grid div{display:flex;flex-direction:column;gap:3px;}
+  .mock-result-grid span{font-size:11px;font-weight:800;color:#5c7568;text-transform:uppercase;letter-spacing:.4px;}
+  .mock-result-grid b{font-size:15px;color:var(--ink);font-weight:700;}
+  .mock-topbar{display:flex;align-items:center;justify-content:space-between;background:var(--green);padding:12px 20px;}
+  .mock-topbar .mock-logo{display:flex;align-items:center;gap:8px;color:var(--yellow);font-weight:800;font-size:13px;letter-spacing:.5px;}
+  .mock-topbar .mock-logo svg{width:19px;height:19px;}
+  .mock-topbar .mock-icons{display:flex;align-items:center;gap:14px;color:var(--yellow);}
+  .mock-topbar .mock-icons svg{width:19px;height:19px;}
+  .mock-page-body{background:var(--cream-dim);padding:20px;}
+  .mock-member-header{font-size:19px;font-weight:800;color:var(--ink);margin-bottom:2px;}
+  .mock-member-sub{font-size:12.5px;color:#5c7568;margin-bottom:16px;}
+  .mock-section-title{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:10px;}
+  .mock-tilegrid{display:flex;gap:10px;flex-wrap:wrap;}
+  .mock-tile{flex:1;min-width:130px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:14px 10px;text-align:center;font-size:12.5px;font-weight:700;color:var(--ink);}
+  .mock-tile-icon{margin:0 auto 8px;width:26px;height:26px;color:#5c7568;}
+  .mock-tile-icon svg{width:100%;height:100%;}
+  .mock-tile.active{background:var(--lime);border-color:#1a1a1a;}
   .answer-feedback.wrongans{background:#FDEDEA;color:#9c3a1f;border:1.5px solid #F0B6A4;}
   .answer-feedback b{display:block;margin-bottom:4px;}
 
@@ -187,7 +223,7 @@
       <span class="prog"><i id="bar"></i></span>
       <span class="stepnum" id="stepnum"></span>
     </div>
-    <a class="home-link" href="../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
+    <a class="home-link" href="../../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
   </div>
 
   <div class="stage" id="stage"></div>
@@ -210,7 +246,7 @@ var SCREENS = [
   { t:'step', n:1, of:3,
     kicker:"Step 1",
     h:"Search for your member",
-    sub:"Let's find your member. You can search by member number for the fastest results, or use Advanced Search to look someone up by name and date of birth if you don't have their number handy.",
+    sub:"Let's find your member. You can search by member number for the fastest results, or use Advanced Search to look someone up by first name, last name, and date of birth if you don't have their number handy.",
     visual:'shot', img:'assets/img/search.png', url:'yourcompany.benefitshub.com/search', vhCap:26, imgAspect:0.4384,
     zooms:[
       {key:'advsearch', img:'assets/img/advanced-search.png', label:'Advanced Search', left:72, top:80, width:13, height:5, tagLeft:72, tagTop:73.5, zoomAu:'screen1_advsearch.mp3'}
@@ -244,11 +280,8 @@ var SCREENS = [
       {key:'assessments', img:'assets/img/benefit_assessments.png', label:'Assessments', left:40.3, top:63, width:18.9, height:15},
       {key:'homemod', img:'assets/img/benefit_homemod.png', label:'Home Modification, Bathroom Safety, Air Quality, Pest Control', left:60, top:63, width:18.9, height:15}
     ],
-    caption:"Tap any tile above to switch, or use the enlarge button to see it up close.",
+    caption:"Tap any tile above to switch, or use the enlarge button to compare them up close — you can switch tiles from there too.",
     au:'screen3.mp3' },
-
-  { t:'bookmarkcheck', au:'practice_bookmark.mp3', auYes:'practice_bookmark_yes.mp3', auNo:'practice_bookmark_no.mp3',
-    signinUrl:'https://[CLIENT].benefitshub.com/signin' },
 
   { t:'findmember', au:'practice_search.mp3', auYes:'practice_search_yes.mp3', auNo:'practice_search_no.mp3' },
 
@@ -303,11 +336,20 @@ audioToggle.onclick=function(){
 };
 
 function el(tag,cls){var e=document.createElement(tag); if(cls)e.className=cls; return e;}
+function escapeAttr(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function urlBar(url){
   return '<div class="bar"><div class="dots"><i></i><i></i><i></i></div>'+
     '<div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>'+url+'</span></div></div>';
 }
+var LOGO_SVG='<svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="currentColor" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>';
+var ICON_CART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
+var ICON_ACCOUNT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>';
+function topbar(){
+  return '<div class="mock-topbar"><div class="mock-logo">'+LOGO_SVG+'<span>THE HELPER BEES</span></div>'+
+    '<div class="mock-icons">'+ICON_CART+ICON_ACCOUNT+'</div></div>';
+}
+var ICON_STORE_M3='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>';
 
 function visual(s){
   var b=el('div', s.wide ? 'browser wide' : 'browser');
@@ -348,7 +390,11 @@ var zoomOverlayEl;
 function ensureZoomOverlay(){
   if(zoomOverlayEl) return zoomOverlayEl;
   var ov=el('div','zoomOverlay'); ov.id='zoomOverlay';
-  ov.innerHTML='<div class="zoomBox"><div class="zbar"><span id="zoomLabel"></span><button class="zoomClose" id="zoomClose" type="button">&times;</button></div><div class="zbody"><img id="zoomImg" src="" alt=""></div></div>';
+  ov.innerHTML='<div class="zoomBox"><div class="zbar"><span id="zoomLabel"></span><button class="zoomClose" id="zoomClose" type="button">&times;</button></div>'+
+    '<div class="zbody"><img id="zoomImg" src="" alt="">'+
+    '<button type="button" class="zoomNav prev" id="zoomPrev" aria-label="Previous" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></button>'+
+    '<button type="button" class="zoomNav next" id="zoomNext" aria-label="Next" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>'+
+    '</div><div class="zoomDots" id="zoomDots" style="display:none;"></div></div>';
   document.body.appendChild(ov);
   ov.addEventListener('click', function(e){ if(e.target===ov) closeZoom(); });
   ov.querySelector('#zoomClose').addEventListener('click', closeZoom);
@@ -359,12 +405,43 @@ function openZoom(src, label){
   var ov=ensureZoomOverlay();
   ov.querySelector('#zoomImg').src=src;
   ov.querySelector('#zoomLabel').textContent=label;
+  ov.querySelector('#zoomPrev').style.display='none';
+  ov.querySelector('#zoomNext').style.display='none';
+  ov.querySelector('#zoomDots').style.display='none';
+  ov.querySelector('#zoomDots').innerHTML='';
+  ov.classList.add('show');
+}
+function openTileZoom(tiles, activeKey, onSwitch){
+  var ov=ensureZoomOverlay();
+  var idx = tiles.findIndex(function(t){ return t.key===activeKey; });
+  if(idx<0) idx=0;
+  function show(i2){
+    idx = (i2+tiles.length)%tiles.length;
+    var t = tiles[idx];
+    ov.querySelector('#zoomImg').src=t.img;
+    ov.querySelector('#zoomLabel').textContent=t.label||t.key;
+    var dotsWrap = ov.querySelector('#zoomDots');
+    dotsWrap.querySelectorAll('button').forEach(function(d,di){ d.classList.toggle('active', di===idx); });
+    if(onSwitch) onSwitch(t);
+  }
+  ov.querySelector('#zoomPrev').style.display='flex';
+  ov.querySelector('#zoomNext').style.display='flex';
+  ov.querySelector('#zoomPrev').onclick=function(){ show(idx-1); };
+  ov.querySelector('#zoomNext').onclick=function(){ show(idx+1); };
+  var dotsWrap = ov.querySelector('#zoomDots');
+  dotsWrap.style.display='flex';
+  dotsWrap.innerHTML='';
+  tiles.forEach(function(t,ti){
+    var dot=el('button'); dot.type='button'; dot.setAttribute('aria-label', t.label||t.key);
+    dot.onclick=function(){ show(ti); };
+    dotsWrap.appendChild(dot);
+  });
+  show(idx);
   ov.classList.add('show');
 }
 function closeZoom(){
   var ov=document.getElementById('zoomOverlay');
   if(ov) ov.classList.remove('show');
-  stopAu();
 }
 
 function tilesVisual(s){
@@ -376,34 +453,38 @@ function tilesVisual(s){
     '<button type="button" class="expand-btn" id="tileExpandBtn" aria-label="Enlarge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button></div>';
   var body = b.querySelector('.body');
   var expandBtn = b.querySelector('#tileExpandBtn');
-  function setExpandTarget(t){
-    expandBtn.onclick=function(){ openZoom(t.img, t.label || t.key); };
+  function switchTile(t){
+    answered['tile3']=t.key;
+    var img = document.getElementById('tileImg');
+    if(img){ img.style.opacity='0'; setTimeout(function(){ if(img){ img.src=t.img; img.style.opacity='1'; } }, 140); }
   }
-  setExpandTarget(activeTile);
+  expandBtn.onclick=function(){ openTileZoom(s.tiles, answered['tile3']||s.tiles[0].key, switchTile); };
   s.tiles.forEach(function(t){
     var hit = el('div','tile-hit');
     hit.style.left=t.left+'%'; hit.style.top=t.top+'%'; hit.style.width=t.width+'%'; hit.style.height=t.height+'%';
-    hit.onclick=function(){
-      answered['tile3']=t.key;
-      document.getElementById('tileImg').style.opacity='0';
-      setTimeout(function(){
-        var img = document.getElementById('tileImg');
-        if(img){ img.src=t.img; img.style.opacity='1'; }
-      }, 140);
-      setExpandTarget(t);
-    };
+    hit.onclick=function(){ switchTile(t); };
     body.appendChild(hit);
   });
   return b;
 }
 
+var lastRenderedIndex = -1;
 function render(){
-  var s=SCREENS[i]; stage.innerHTML=''; stopAu(); closeZoom();
+  var s=SCREENS[i];
+  var sameScreen = (i===lastRenderedIndex);
+  var preservedScroll = null;
+  var scrollTargetAfterAnswer = null;
+  if(sameScreen){
+    var oldIx = stage.querySelector('.ix');
+    if(oldIx) preservedScroll = oldIx.scrollTop;
+  }
+  stage.innerHTML=''; stopAu(); closeZoom();
   bar.style.width = Math.round(i/(SCREENS.length-1)*100)+'%';
   stepnum.textContent = (s.t==='step') ? ('Step '+s.n+' of '+s.of) : '';
   back.disabled = (i===0);
   next.textContent = (i===SCREENS.length-1) ? 'Finish' : 'Next';
   next.disabled = false;
+  lastRenderedIndex = i;
 
   if(s.t==='cover'){
     var d=el('div','ix center');
@@ -446,55 +527,53 @@ function render(){
     play(s.au);
   }
 
-  else if(s.t==='bookmarkcheck'){
-    var dbm=el('div','ix center');
-    var bmPicked = answered['bookmarkcheck'];
-    var htmlBm =
-      '<div class="wrap">'+
-      '<div class="eyebrow"><span class="dot"></span>Put it into practice</div>'+
-      '<h1 class="hl">Time to put this into practice</h1>'+
-      '<p class="sub">Head back to the bookmark you created in the sign-in module, and sign in to the real Benefits Hub portal.</p>'+
-      '<div class="confirm-prompt">Were you able to find your bookmark?</div>'+
-      '<div class="confirm-row">'+
-        '<button type="button" class="confirm-btn'+(bmPicked==='yes'?' picked-yes':'')+'" id="bmYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Yes, I found it</button>'+
-        '<button type="button" class="confirm-btn'+(bmPicked==='no'?' picked-no':'')+'" id="bmNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>No, I didn\'t find it</button>'+
-      '</div>'+
-      (bmPicked==='yes' ? '<div class="confirm-reveal good"><b>Nice.</b>Go ahead and sign in now if you haven\'t already, then come back and continue when you\'re ready.</div>' : '')+
-      (bmPicked==='no' ? ('<div class="confirm-reveal warn"><b>No problem.</b>Use the link below to get to the sign-in page, and once you\'re in, go ahead and bookmark it now so it\'s easy to find next time.<br><br>'+
-        '<a class="cta-btn" href="'+s.signinUrl+'" target="_blank" rel="noopener">Go to Benefits Hub sign-in<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
-        '<p class="cta-note">Link placeholder — swap in the client-specific Benefits Hub URL before sending.</p></div>') : '')+
-      '</div>';
-    dbm.innerHTML = htmlBm;
-    stage.appendChild(dbm);
-
-    var bmYesBtn=document.getElementById('bmYes'), bmNoBtn=document.getElementById('bmNo');
-    if(bmYesBtn) bmYesBtn.onclick=function(){ answered['bookmarkcheck']='yes'; render(); play(s.auYes); };
-    if(bmNoBtn) bmNoBtn.onclick=function(){ answered['bookmarkcheck']='no'; render(); play(s.auNo); };
-
-    next.disabled = !bmPicked;
-    if(!bmPicked) play(s.au);
-  }
-
   else if(s.t==='findmember'){
     var dfm=el('div','ix center');
-    var fmPicked = answered['findmember_found'];
+    var fm = answered['fm'] || {fn:'', ln:'', dob:'', searched:false, found:false};
     var htmlFm =
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>Your turn</div>'+
       '<h1 class="hl">Find a member</h1>'+
-      '<p class="sub">A member calls in, but they don\'t have their member number handy. Use Advanced Search to look them up by name and date of birth instead — search for <b>Helper Bee Test</b>, born <b>August 7th, 1959</b>.</p>'+
-      '<div class="confirm-prompt">Were you able to find them?</div>'+
-      '<div class="confirm-row">'+
-        '<button type="button" class="confirm-btn'+(fmPicked==='yes'?' picked-yes':'')+'" id="fmYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Yes, I found them</button>'+
-        '<button type="button" class="confirm-btn'+(fmPicked==='no'?' picked-no':'')+'" id="fmNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>No, I couldn\'t find them</button>'+
+      '<p class="sub">A member calls in, but they don\'t have their member number handy. Use the Advanced Search fields below to look them up — enter the first name, last name, and date of birth for <b>Helper Test</b>, born <b>August 7th, 1959</b>.</p>'+
+      '<div class="browser wide">'+
+        urlBar('yourcompany.benefitshub.com/search') +
+        topbar() +
+        '<div class="mock-page-body">'+
+          '<div class="mock-member-header">Advanced Search</div>'+
+          '<div class="mock-member-sub">Search by member details</div>'+
+          '<div class="mock-advsearch">'+
+            '<label>First Name<input type="text" id="fmFirst" value="'+escapeAttr(fm.fn)+'" placeholder="First Name"></label>'+
+            '<label>Last Name<input type="text" id="fmLast" value="'+escapeAttr(fm.ln)+'" placeholder="Last Name"></label>'+
+            '<label>Date of Birth<input type="date" id="fmDob" value="'+escapeAttr(fm.dob)+'"></label>'+
+            '<button type="button" class="checkbtn" id="fmSearchBtn">Search</button>'+
+          '</div>'+
+          (fm.searched && !fm.found ? '<div class="confirm-reveal warn"><b>No match found.</b>Double check that all three fields are filled in exactly — first name, last name, and date of birth (08/07/1959) — then search again.</div>' : '')+
+          (fm.found ? '<div class="mock-member-header" style="margin-top:16px;">Helper Test</div><div class="mock-member-sub">Member #: 12345678912</div><div class="mock-result"><div class="mock-result-name">Overview</div><div class="mock-result-grid"><div><span>Full Name</span><b>Helper Test</b></div><div><span>Date of Birth</span><b>8/7/1959</b></div></div><div class="mock-result-grid" style="margin-top:14px;"><div><span>Address</span><b>123 Bee Hive Avenue, San francisco, CA, 94102</b></div><div><span>Phone</span><b>888-888-8888</b></div></div><div class="mock-result-grid" style="margin-top:14px;"><div><span>Email</span><b>bees@gmail.com</b></div><div><span>Preferred Language</span><b>English</b></div></div></div>' : '')+
+        '</div>'+
       '</div>'+
-      (fmPicked==='no' ? '<div class="confirm-reveal warn"><b>No problem.</b>Double check you\'re using Advanced Search (not the Member # box), and enter the date of birth as 08/07/1959. Give it another try, then come back and select &ldquo;Yes&rdquo; once you\'ve found them.</div>' : '')+
-      (fmPicked==='yes' ? '<div class="confirm-reveal good" id="fmGoodBox"><b>Nice work!</b>Now let\'s confirm you\'ve got the right member — what Member ID do you see listed for them?</div>' : '')+
+      (fm.found ? '<div class="confirm-reveal good" id="fmGoodBox"><b>Nice work — found them!</b>Now let\'s confirm you\'ve got the right member — what Member ID do you see listed at the top of their profile?</div>' : '')+
       '</div>';
     dfm.innerHTML = htmlFm;
     stage.appendChild(dfm);
 
-    if(fmPicked==='yes'){
+    var searchBtn = document.getElementById('fmSearchBtn');
+    if(searchBtn){
+      searchBtn.onclick=function(){
+        var fnVal = document.getElementById('fmFirst').value.trim().toLowerCase();
+        var lnVal = document.getElementById('fmLast').value.trim().toLowerCase();
+        var dobVal = document.getElementById('fmDob').value;
+        var found = fnVal==='helper' && lnVal==='test' && dobVal==='1959-08-07';
+        answered['fm'] = {
+          fn:document.getElementById('fmFirst').value,
+          ln:document.getElementById('fmLast').value,
+          dob:dobVal, searched:true, found:found
+        };
+        render();
+        play(found ? s.auYes : s.auNo);
+      };
+    }
+
+    if(fm.found){
       var idWrap = document.getElementById('fmGoodBox');
       var abox = el('div','answerbox');
       var idInput = el('input'); idInput.type='text'; idInput.id='memberIdInput'; idInput.placeholder='Member ID';
@@ -519,15 +598,12 @@ function render(){
           ? '<b>That\'s right!</b>12345678912 is the Member ID for this test member.'
           : '<b>Not quite.</b>The Member ID is 12345678912 — you\'ll find it listed directly below the member\'s name at the top of their profile.';
         abox.parentNode.insertBefore(fb, abox.nextSibling);
+        if(sameScreen) scrollTargetAfterAnswer = fb;
       }
     }
 
-    var fmYesBtn=document.getElementById('fmYes'), fmNoBtn=document.getElementById('fmNo');
-    if(fmYesBtn) fmYesBtn.onclick=function(){ answered['findmember_found']='yes'; render(); play(s.auYes); };
-    if(fmNoBtn) fmNoBtn.onclick=function(){ answered['findmember_found']='no'; render(); play(s.auNo); };
-
-    next.disabled = !(fmPicked==='no' || (fmPicked==='yes' && memberIdState.checked));
-    if(!fmPicked) play(s.au);
+    next.disabled = !(fm.found && memberIdState.checked);
+    if(!fm.searched) play(s.au);
   }
 
   else if(s.t==='verifymember'){
@@ -538,6 +614,32 @@ function render(){
       '<div class="eyebrow"><span class="dot"></span>One more check</div>'+
       '<h1 class="hl">Verify member benefit details</h1>'+
       '<p class="sub">Take a look at the member\'s Home Modification benefit tile.</p>'+
+      '<div class="browser wide">'+
+        urlBar('yourcompany.benefitshub.com/member/12345678912') +
+        topbar() +
+        '<div class="mock-page-body">'+
+          '<div class="mock-member-header">Helper Test</div>'+
+          '<div class="mock-member-sub">Member #: 12345678912</div>'+
+          '<div class="mock-section-title">Benefits</div>'+
+          '<div class="mock-tilegrid">'+
+            '<div class="mock-tile"><div class="mock-tile-icon">'+ICON_STORE_M3+'</div><div>At Home Care</div></div>'+
+            '<div class="mock-tile"><div class="mock-tile-icon">'+ICON_STORE_M3+'</div><div>Respite Care</div></div>'+
+            '<div class="mock-tile"><div class="mock-tile-icon">'+ICON_STORE_M3+'</div><div>Assessments</div></div>'+
+            '<div class="mock-tile active"><div class="mock-tile-icon">'+ICON_STORE_M3+'</div><div>Home Modification, Bathroom Safety, Air Quality, Pest Control</div></div>'+
+          '</div>'+
+          '<div class="mock-result" style="margin-top:14px;"><div class="mock-result-name">Authorizations for Home Modification, Bathroom Safety, Air Quality, Pest Control</div>'+
+            '<div class="mock-result-grid" style="margin-top:10px;">'+
+              '<div><span>Effective</span><b>7/13/2026</b></div>'+
+              '<div><span>Expires</span><b>12/31/2026</b></div>'+
+              '<div><span>Plan Code/Option</span><b>–</b></div>'+
+              '<div><span>Plan Allowance</span><b>25.00</b></div>'+
+              '<div><span>Used</span><b>0.00</b></div>'+
+              '<div><span>Pending</span><b>0.00</b></div>'+
+              '<div><span>Remaining</span><b>25.00</b></div>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
       '<div class="confirm-prompt">What is the correct expiration date for this benefit?</div>'+
       '</div>';
     dvm.innerHTML = htmlVm;
@@ -559,6 +661,7 @@ function render(){
       var vfb = el('div','answer-feedback ' + (s.opts[vmPicked].correct ? 'right':'wrongans'));
       vfb.innerHTML = '<b>'+(s.opts[vmPicked].correct?'Correct!':'Not quite.')+'</b>'+s.explain;
       vwrap2.appendChild(vfb);
+      if(sameScreen) scrollTargetAfterAnswer = vfb;
     }
     stage.appendChild(dvm);
     next.disabled = (vmPicked===undefined);
@@ -577,9 +680,16 @@ function render(){
     next.disabled = false;
     play(s.au);
   }
+
+  if(scrollTargetAfterAnswer){
+    scrollTargetAfterAnswer.scrollIntoView({block:'nearest'});
+  } else if(preservedScroll !== null){
+    var newIx = stage.querySelector('.ix');
+    if(newIx) newIx.scrollTop = preservedScroll;
+  }
 }
 
-next.onclick=function(){ if(i<SCREENS.length-1){ i++; render(); } else { window.location.href='../Begin-Training.html'; } };
+next.onclick=function(){ if(i<SCREENS.length-1){ i++; render(); } else { window.location.href='../../Begin-Training.html'; } };
 back.onclick=function(){ if(i>0){ i--; render(); } };
 
 document.getElementById('startBtn').onclick=function(){

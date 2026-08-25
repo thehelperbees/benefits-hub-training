@@ -239,7 +239,7 @@
       <span class="prog"><i id="bar"></i></span>
       <span class="stepnum" id="stepnum"></span>
     </div>
-    <a class="home-link" href="../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
+    <a class="home-link" href="../../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
   </div>
 
   <div class="stage" id="stage"></div>
@@ -308,7 +308,7 @@ var BRANCH_STEP = { t:'step',
   h:"You'll start with the Member Support Form",
   sub:"We'll walk through the Member Support Form first, since it covers the most common exceptions — meals, purses, benefit access, and system issues. Once you've submitted it, you'll get a chance to try the Grievance Submission too.",
   visual:'shot', img:'assets/img/ticket-new.png', url:ZD_URL, wide:true, vhCap:46, imgAspect:0.3298,
-  caption:"This example uses the SCAN support form — swap in the correct partner Zendesk URL before sending.",
+  caption:"This is SCAN's Member Support Form.",
   au:'03_branch.mp3' };
 
 var SUPPORT_FORM_STEP = { t:'formfill',
@@ -779,7 +779,7 @@ function render(){
       '<h1 class="hl">Now try it yourself</h1>'+
       '<p class="sub">Open the support form and walk through whichever path applies — a Member Support ticket or a Grievance Submission. You don\'t need to submit a real ticket for this practice — just get comfortable with where everything lives.</p>'+
       '<a class="cta-btn" href="'+s.zdUrl+'" target="_blank" rel="noopener">Open the SCAN support form<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
-      '<p class="cta-note">This example links to the SCAN support form. Swap in the correct partner URL for other partners.</p>'+
+      '<p class="cta-note">This links to SCAN\'s actual support form.</p>'+
       '<div class="confirm-prompt">Were you able to find your way through the form?</div>'+
       '<div class="confirm-row">'+
         '<button type="button" class="confirm-btn'+(picked==='yes'?' picked-yes':'')+'" id="pickYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Yes, I found my way through it</button>'+
@@ -805,7 +805,7 @@ function render(){
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>All set</div>'+
       '<h1 class="hl">You\'re ready to manage exceptions and escalations.</h1>'+
-      '<p class="sub">You now know how to recognize when to escalate, choose between a support ticket and a grievance, and loop in your Account Coordinator with the ticket number. Head to the Knowledge Check next — you\'ll walk through a full scenario, take a short quiz, and earn your certificate of completion.</p>'+
+      '<p class="sub">You now know how to recognize when to escalate, choose between a support ticket and a grievance, and loop in your Account Coordinator with the ticket number. For a quick reference later, the SCAN Case Manager FAQ in the Resource Library covers this same ground in more depth — worth a bookmark. Head to the Knowledge Check next — you\'ll walk through a full scenario, take a short quiz, and earn your certificate of completion.</p>'+
       '<div class="outro-thanks"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="currentColor" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg><span>Thank you for working with The Helper Bees — we\'re glad to have you on the team.</span></div>'+
       '</div>';
     stage.appendChild(d3);
@@ -814,7 +814,7 @@ function render(){
   }
 }
 
-function finish(){ window.location.href='../Begin-Training.html'; }
+function finish(){ window.location.href='../../Begin-Training.html'; }
 
 function revealTip(s,wrap,btn){
   if(answered[i]) return;

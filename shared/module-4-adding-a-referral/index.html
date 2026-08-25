@@ -105,6 +105,9 @@
   .pm-stat.green b{color:#3C8B3C;}
   .pm-stat span{font-size:9px;color:#999;text-transform:uppercase;font-weight:700;}
   .pm-section-title{font-size:12.5px;font-weight:800;margin:10px 0 6px;color:#1a1a1a;}
+  .pm-section-divider{display:flex;align-items:center;gap:10px;margin:22px 0 4px;font-size:11.5px;font-weight:800;color:var(--rasp);text-transform:uppercase;letter-spacing:.4px;}
+  .pm-section-divider:before{content:'';flex:none;width:22px;height:1.5px;background:var(--rasp);opacity:.4;}
+  .pm-section-divider:after{content:'';flex:1;height:1.5px;background:var(--sand);}
   .pm-link{font-size:10.5px;color:#5c7568;text-decoration:underline;font-weight:600;}
 
   .pm-tilegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 3px;}
@@ -142,6 +145,8 @@
   .pm-dropdown{position:absolute;top:100%;left:0;right:0;margin-top:4px;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 8px 20px -6px rgba(0,0,0,.2);z-index:5;overflow:hidden;}
   .pm-dropdown div{padding:9px 12px;font-size:11.5px;color:#333;cursor:pointer;}
   .pm-dropdown div:hover{background:#F5EEE0;}
+  .pm-dropdown div.pm-disabled{color:#b0b0b0;cursor:not-allowed;}
+  .pm-dropdown div.pm-disabled:hover{background:none;}
 
   .pm-servicecard{background:#EEF3F6;border:1.5px solid #D8E2E8;border-radius:10px;padding:11px 14px;margin-top:10px;}
   .pm-servicecard h5{font-size:12px;font-weight:800;margin:0 0 7px;}
@@ -173,6 +178,8 @@
   .pm-addr-card{background:#fff;border-radius:10px;padding:10px 13px;margin-top:9px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
   .pm-addr-card h5{font-size:12px;font-weight:800;margin:0 0 4px;}
   .pm-addr-card p{margin:0;font-size:11px;color:#555;line-height:1.4;}
+  .pm-addr-card.flag{border:2px solid var(--rasp);background:#FEF6FA;box-shadow:0 0 0 3px rgba(204,73,131,.08);}
+  .pm-addr-card.flag h5{color:var(--rasp);}
   .pm-bottomrow{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
   .pm-bottomrow .pm-total-label{font-weight:800;font-size:12.5px;}
   .pm-btnrow{display:flex;gap:8px;}
@@ -268,7 +275,7 @@
       <span class="prog"><i id="bar"></i></span>
       <span class="stepnum" id="stepnum"></span>
     </div>
-    <a class="home-link" href="../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
+    <a class="home-link" href="../../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
   </div>
 
   <div class="stage" id="stage"></div>
@@ -309,43 +316,35 @@ var SCREENS = [
 
   { t:'cover', au:'cover.mp3' },
 
-  { t:'step', n:1, of:5,
+  { t:'step', n:1, of:4,
     kicker:"Step 1",
     h:"Select a benefit",
     sub:"Select the benefit tile you want to create a referral for.",
     render:'step1',
-    au:'screen1.mp3', auTile:'screen1_tile.mp3' },
+    au:'screen1.mp3', auTile:'screen1_tile.mp3', auAdded:'screen1_added.mp3' },
 
-  { t:'step', n:2, of:5,
+  { t:'step', n:2, of:4,
     kicker:"Step 2",
     h:"Find your service",
     sub:"Choose a category, then search for the service you need.",
     render:'step2',
     au:'screen2.mp3', auSearch:'screen2_search.mp3', auSelected:'screen2_selected.mp3' },
 
-  { t:'step', n:3, of:5,
+  { t:'step', n:3, of:4,
     kicker:"Step 3",
     h:"Set your quantity and add to cart",
     sub:"Enter your quantity, then select Add to Cart.",
     render:'step3',
     au:'screen3.mp3', auAdded:'screen3_added.mp3' },
 
-  { t:'step', n:4, of:5,
+  { t:'step', n:4, of:4,
     kicker:"Step 4",
-    h:"Review your referrals summary",
-    sub:"Select the cart icon, then the member's name, to review before checkout.",
+    h:"Review and submit your referral",
+    sub:"Select the cart icon, then the member's name, to review — then select Checkout to submit.",
     render:'step4',
-    au:'screen4.mp3', auMini:'screen4_mini.mp3', auSummary:'screen4_summary.mp3' },
+    au:'screen4.mp3', auMini:'screen4_mini.mp3', auSummary:'screen4_summary.mp3', auConfirm:'screen5_confirm.mp3', auDone:'screen5_done.mp3' },
 
-  { t:'step', n:5, of:5,
-    kicker:"Step 5",
-    h:"Complete checkout",
-    sub:"Select Checkout, then Confirm to submit your referral.",
-    render:'step5',
-    au:'screen5.mp3', auConfirm:'screen5_confirm.mp3', auDone:'screen5_done.mp3' },
-
-  { t:'practicecheck', au:'practice_intro.mp3', auYes:'practice_yes.mp3', auNo:'practice_no.mp3',
-    portalUrl:'https://[CLIENT].benefitshub.com/signin' },
+  { t:'practicecheck', au:'practice_intro.mp3' },
 
   { t:'outro', au:'outro.mp3' }
 ];
@@ -359,6 +358,15 @@ var SERVICE_OPTIONS = [
   "Folding Shower Seat & Installation",
   "Handheld Shower/Install"
 ];
+var SERVICE_DATA = {
+  "Bathroom grab bar with install service": {id:"258718", points:450.00, desc:"In-home evaluation and installation of bathroom grab bar(s) by a qualified professional"},
+  "In-Home Safety Assessment": {id:"258701", points:150.00, desc:"In-home evaluation of fall risks and safety hazards throughout the home"},
+  "Raised Toilet Seat/Install": {id:"258722", points:120.00, desc:"Delivery and installation of a raised toilet seat for improved accessibility"},
+  "Lever Handle Faucet/Install": {id:"258730", points:180.00, desc:"Delivery and installation of lever handle faucets for easier grip and use"},
+  "Portable Air Conditioner & installation": {id:"258745", points:375.00, desc:"Delivery and setup of a portable air conditioning unit for home cooling"},
+  "Folding Shower Seat & Installation": {id:"258752", points:210.00, desc:"Delivery and installation of a folding shower seat for safer bathing"},
+  "Handheld Shower/Install": {id:"258760", points:165.00, desc:"Delivery and installation of a handheld showerhead for easier bathing access"}
+};
 
 var TILES = [
   {label:"At Home Care"},
@@ -369,6 +377,7 @@ var TILES = [
 
 /* ================= ENGINE ================= */
 var i=0, answered={};
+var practiceRerenderHook = null;
 var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
     back=document.getElementById('back'), next=document.getElementById('next'),
     stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
@@ -379,6 +388,11 @@ function play(src){
   if(!src){ audioToggle.hidden=true; return; }
   au.src=AUDIO_DIR+src; audioToggle.hidden=false;
   au.play().catch(function(){ updateAudioBtn(); });
+  updateAudioBtn();
+}
+function setupAudio(src){
+  if(!src){ audioToggle.hidden=true; return; }
+  au.src=AUDIO_DIR+src; audioToggle.hidden=false;
   updateAudioBtn();
 }
 function stopAu(){ try{au.pause();}catch(e){} au.removeAttribute('src'); audioToggle.hidden=true; }
@@ -425,13 +439,14 @@ function renderStep1(vwrap){
 
   var tileHtml = '<div class="pm-section-title">Benefits</div><div class="pm-tilegrid">' + TILES.map(function(t,idx){
     var isHot = !opened && t.active;
-    return '<div class="pm-tile'+(opened?' active':'')+(isHot?' pm-hot':'')+'" data-idx="'+idx+'">'+ICON_STORE+'<div>'+t.label+'</div>'+(isHot?hotTag('Click to select'):'')+'</div>';
+    return '<div class="pm-tile'+((opened&&t.active)?' active':'')+(isHot?' pm-hot':'')+'" data-idx="'+idx+'">'+ICON_STORE+'<div>'+t.label+'</div>'+(isHot?hotTag('Click to select'):'')+'</div>';
   }).join('') + '</div>';
   tileHtml += '<div class="pm-hint">'+(opened?'Tile selected — see authorization below':'Click the highlighted tile to select it')+'</div>';
 
   var authHtml = '';
   if(opened){
-    var addBtnHot = !answered['s1_done'];
+    var done = !!answered['s1_done'];
+    var addBtnHot = !done;
     authHtml = '<div class="pm-authblock"><h4>Authorizations for Home Modification, Bathroom Safety, Air Quality, Pest Control</h4>'+
       '<div class="pm-authrow">'+
       '<div><span>Effective</span><b>7/13/2026</b></div>'+
@@ -441,9 +456,11 @@ function renderStep1(vwrap){
       '<div><span>Used</span><b>0.00</b></div>'+
       '<div><span>Pending</span><b>0.00</b></div>'+
       '<div><span>Remaining</span><b>1300.00</b></div>'+
-      '<button class="pm-btn-dark'+(addBtnHot?' pm-hot':'')+'" style="position:relative;" id="pmAddReferralBtn">Add Referral'+(addBtnHot?hotTag('Click to add referral'):'')+'</button>'+
+      '<button class="pm-btn-dark'+(addBtnHot?' pm-hot':'')+'" style="position:relative;" id="pmAddReferralBtn" '+(done?'disabled':'')+'>'+(done?'Referral Started':'Add Referral')+(addBtnHot?hotTag('Click to add referral'):'')+'</button>'+
       '</div>'+
-      '<div class="pm-nofound">No referrals found for Home Modification, Bathroom Safety, Air Quality, Pest Control benefit.</div>'+
+      (done
+        ? '<div class="pm-toast">'+ICON_CHECK+'<span>Referral started for Home Modification, Bathroom Safety, Air Quality, Pest Control — select Next to search for a service.</span></div>'
+        : '<div class="pm-nofound">No referrals found for Home Modification, Bathroom Safety, Air Quality, Pest Control benefit.</div>')+
       '</div>';
   }
 
@@ -465,6 +482,8 @@ function renderStep1(vwrap){
       answered['s1_done']=true;
       renderStep1(vwrap);
       next.disabled=false;
+      play(s.auAdded);
+      if(practiceRerenderHook) practiceRerenderHook();
     };
   }
   next.disabled = !answered['s1_done'];
@@ -482,7 +501,7 @@ function renderStep2(vwrap){
 
   var dropdownHtml = '';
   if(dropdownOpen && !selected){
-    dropdownHtml = '<div class="pm-dropdown" id="pmDropdown">'+SERVICE_OPTIONS.map(function(opt,idx){
+    dropdownHtml = '<div class="pm-dropdown" id="pmDropdown">'+SERVICE_OPTIONS.map(function(opt, idx){
       var isHot = idx===0;
       return '<div data-opt="'+opt.replace(/"/g,'&quot;')+'" style="position:relative;" class="'+(isHot?'pm-hot':'')+'">'+opt+(isHot?hotTag('Select this'):'')+'</div>';
     }).join('')+'</div>';
@@ -497,13 +516,14 @@ function renderStep2(vwrap){
 
   var serviceCardHtml = '';
   if(selected){
+    var svc = SERVICE_DATA[selected] || SERVICE_DATA["Bathroom grab bar with install service"];
     serviceCardHtml = '<div class="pm-servicecard"><h5>Selected Service Details</h5>'+
       '<div class="pm-servicegrid">'+
-      '<div><b>Service ID</b><span>258718</span></div>'+
+      '<div><b>Service ID</b><span>'+svc.id+'</span></div>'+
       '<div><b>Service Name</b><span>'+selected+'</span></div>'+
-      '<div><b>Points</b><span>450.00</span></div>'+
+      '<div><b>Points</b><span>'+svc.points.toFixed(2)+'</span></div>'+
       '<div><b>Status</b><span>Active</span></div>'+
-      '<div><b>Description</b><span>In-home evaluation and installation of bathroom grab bar(s) by a qualified professional</span></div>'+
+      '<div><b>Description</b><span>'+svc.desc+'</span></div>'+
       '</div></div>';
   }
 
@@ -537,6 +557,7 @@ function renderStep2(vwrap){
       renderStep2(vwrap);
       next.disabled=false;
       play(s.auSelected);
+      if(practiceRerenderHook) practiceRerenderHook();
     };
   });
   next.disabled = !answered['s2_service'];
@@ -545,18 +566,20 @@ function renderStep2(vwrap){
 /* ---------- Step 3: quantity + add to cart ---------- */
 function renderStep3(vwrap){
   var s = SCREENS[i];
+  var selectedService = answered['s2_service'] || "Bathroom grab bar with install service";
+  var svc = SERVICE_DATA[selectedService] || SERVICE_DATA["Bathroom grab bar with install service"];
   var qty = answered['s3_qty'] || 0;
-  var total = qty*450;
+  var total = (qty*svc.points).toFixed(2);
   var added = !!answered['s3_added'];
 
   var inner = backrow('Add Referral','Helper Test | Member #: 12345678912') +
     '<div class="pm-servicecard"><h5>Selected Service Details</h5>'+
     '<div class="pm-servicegrid">'+
-    '<div><b>Service ID</b><span>258718</span></div>'+
-    '<div><b>Service Name</b><span>Bathroom grab bar with install service</span></div>'+
-    '<div><b>Points</b><span>450.00</span></div>'+
+    '<div><b>Service ID</b><span>'+svc.id+'</span></div>'+
+    '<div><b>Service Name</b><span>'+selectedService+'</span></div>'+
+    '<div><b>Points</b><span>'+svc.points.toFixed(2)+'</span></div>'+
     '<div><b>Status</b><span>Active</span></div>'+
-    '<div><b>Description</b><span>In-home evaluation and installation of bathroom grab bar(s) by a qualified professional</span></div>'+
+    '<div><b>Description</b><span>'+svc.desc+'</span></div>'+
     '</div></div>'+
     '<div class="pm-section-title" style="margin-top:16px;">Order Details</div>'+
     '<div class="pm-orderrow">'+
@@ -564,7 +587,7 @@ function renderStep3(vwrap){
       '<div class="pm-total">Total Points<b>'+total+'</b></div>'+
     '</div>'+
     '<button class="pm-cart-btn'+(qty>=1&&!added?' pm-hot':'')+'" style="position:relative;" id="pmAddCartBtn" '+(qty<1?'disabled':'')+'>Add to Cart'+(qty>=1&&!added?hotTag('Click to add to cart'):'')+'</button>'+
-    (added ? '<div class="pm-toast">'+ICON_CHECK+'<span>Bathroom grab bar with install service added to cart</span></div>' : '');
+    (added ? '<div class="pm-toast">'+ICON_CHECK+'<span>'+selectedService+' added to cart</span></div>' : '');
 
   var frame = browserFrame('yourcompany.benefitshub.com/referral/add', inner);
   vwrap.innerHTML=''; vwrap.appendChild(frame);
@@ -584,6 +607,7 @@ function renderStep3(vwrap){
       renderStep3(vwrap);
       next.disabled=false;
       play(s.auAdded);
+      if(practiceRerenderHook) practiceRerenderHook();
     };
   }
   next.disabled = !answered['s3_added'];
@@ -594,28 +618,58 @@ function renderStep4(vwrap){
   var s = SCREENS[i];
   var miniOpen = !!answered['s4_mini'];
   var summaryOpen = !!answered['s4_summary'];
+  var confirming = !!answered['s4_confirming'];
+  var done = !!answered['s4_done'];
+  var selectedService = answered['s2_service'] || "Bathroom grab bar with install service";
+  var svc = SERVICE_DATA[selectedService] || SERVICE_DATA["Bathroom grab bar with install service"];
+  var qty = answered['s3_qty'] || 1;
+  var lineTotal = (qty*svc.points).toFixed(2);
 
   var innerBody;
   if(!summaryOpen){
     innerBody = backrow('Add Referral','Helper Test | Member #: 12345678912') +
       '<div class="pm-servicecard"><h5>Selected Service Details</h5><div class="pm-servicegrid">'+
-      '<div><b>Service ID</b><span>258718</span></div><div><b>Service Name</b><span>Bathroom grab bar with install service</span></div>'+
-      '<div><b>Points</b><span>450.00</span></div><div><b>Status</b><span>Active</span></div>'+
-      '<div><b>Description</b><span>In-home evaluation and installation</span></div></div></div>'+
+      '<div><b>Service ID</b><span>'+svc.id+'</span></div><div><b>Service Name</b><span>'+selectedService+'</span></div>'+
+      '<div><b>Points</b><span>'+svc.points.toFixed(2)+'</span></div><div><b>Status</b><span>Active</span></div>'+
+      '<div><b>Description</b><span>'+svc.desc+'</span></div></div></div>'+
       (miniOpen ? '<div class="pm-minicart pm-hot">Helper Test '+ICON_CART+'<span class="pm-mini-badge">1</span>'+hotTag('Click to view summary')+'</div>' : '');
   } else {
-    innerBody = backrow('Referrals Summary','Helper Test | Items: 1') +
-      '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
-      '<tr><td>Bathroom grab bar with install service<br><span style="color:#999;font-size:9.5px;">Added: 7/21/2026</span></td><td>1</td><td>450.00</td><td>450.00</td><td class="trash">🗑</td></tr>'+
-      '</table>'+
-      '<div class="pm-addr-card"><h5>Service Address</h5><p>123 Bee Hive Avenue<br>San francisco, CA 94102</p></div>'+
-      '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: 450.00</div>'+
-      '<div class="pm-btnrow"><button class="pm-btn-outline danger">Clear Cart</button><button class="pm-btn-outline">Continue Shopping</button><button class="pm-btn-checkout">Checkout</button></div></div>';
+    innerBody = backrow('Referrals Summary', done ? 'Helper Test | Items: 0' : 'Helper Test | Items: 1');
+    if(!done){
+      innerBody += '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
+        '<tr><td>'+selectedService+'<br><span style="color:#999;font-size:9.5px;">Added: 7/21/2026</span></td><td>'+qty+'</td><td>'+svc.points.toFixed(2)+'</td><td>'+lineTotal+'</td><td class="trash">🗑</td></tr>'+
+        '</table>'+
+        '<div class="pm-addr-card flag"><h5>Service Address</h5><p>123 Bee Hive Avenue<br>San francisco, CA 94102</p></div>'+
+        '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: '+lineTotal+'</div>'+
+        '<div class="pm-btnrow"><button class="pm-btn-outline danger">Clear Cart</button><button class="pm-btn-outline">Continue Shopping</button><button class="pm-btn-checkout'+(!confirming?' pm-hot':'')+'" style="position:relative;" id="pmCheckoutBtn">Checkout'+(!confirming?hotTag('Click to checkout'):'')+'</button></div></div>';
+    } else {
+      innerBody += '<div style="text-align:center;color:#999;padding:30px 0;">Your cart is empty</div>';
+    }
+  }
+
+  var modalHtml = '';
+  if(confirming && !done){
+    modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><p>Confirm referrals?</p>'+
+      '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="pmConfirmBtn">Confirm'+hotTag('Click to confirm')+'</button><button class="pm-btn-outline" id="pmCloseBtn">Close</button></div></div></div>';
+  } else if(done){
+    modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><p>Thank you. Your referrals have been submitted.</p>'+
+      '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="pmContinueBtn">Continue'+hotTag('Click to continue')+'</button></div></div></div>';
   }
 
   var frame = browserFrame(summaryOpen ? 'yourcompany.benefitshub.com/referral/cart' : 'yourcompany.benefitshub.com/referral/add',
     topbar(1, !summaryOpen && !miniOpen) + innerBody);
+  frame.style.position='relative';
+  frame.insertAdjacentHTML('beforeend', modalHtml);
   vwrap.innerHTML=''; vwrap.appendChild(frame);
+
+  if(summaryOpen && !done){
+    var addrNote=el('div','infonote');
+    addrNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Before you check out, be sure to verify the <b>Service Address</b> shown above — this is where the referral will route to, and it determines which provider services that zip code. Take a minute to review this screen. When you\'re ready, select <b>Checkout</b> to submit.</span>';
+    vwrap.appendChild(addrNote);
+    var cartNote=el('div','infonote');
+    cartNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Checkout submits every item in the cart at once.</b> Before you confirm, make sure everything listed is still needed — there\'s no way to submit just one item at a time.</span>';
+    vwrap.appendChild(cartNote);
+  }
 
   var cartIcon = vwrap.querySelector('#pmCartIcon');
   if(cartIcon && !summaryOpen){
@@ -630,60 +684,26 @@ function renderStep4(vwrap){
     minicart.onclick=function(){
       answered['s4_summary']=true;
       renderStep4(vwrap);
-      next.disabled=false;
       play(s.auSummary);
     };
   }
-  next.disabled = !answered['s4_summary'];
-}
-
-/* ---------- Step 5: checkout -> confirm modal -> thank you ---------- */
-function renderStep5(vwrap){
-  var s = SCREENS[i];
-  var confirming = !!answered['s5_confirming'];
-  var done = !!answered['s5_done'];
-
-  var summaryBody = backrow('Referrals Summary', done ? 'Helper Test | Items: 0' : 'Helper Test | Items: 1');
-  if(!done){
-    summaryBody += '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
-      '<tr><td>Bathroom grab bar with install service<br><span style="color:#999;font-size:9.5px;">Added: 7/21/2026</span></td><td>1</td><td>450.00</td><td>450.00</td><td class="trash">🗑</td></tr></table>'+
-      '<div class="pm-addr-card"><h5>Service Address</h5><p>123 Bee Hive Avenue<br>San francisco, CA 94102</p></div>'+
-      '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: 450.00</div>'+
-      '<div class="pm-btnrow"><button class="pm-btn-outline danger">Clear Cart</button><button class="pm-btn-outline">Continue Shopping</button><button class="pm-btn-checkout'+(!confirming?' pm-hot':'')+'" style="position:relative;" id="pmCheckoutBtn">Checkout'+(!confirming?hotTag('Click to checkout'):'')+'</button></div></div>';
-  } else {
-    summaryBody += '<div style="text-align:center;color:#999;padding:30px 0;">Your cart is empty</div>';
-  }
-
-  var modalHtml = '';
-  if(confirming && !done){
-    modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><p>Confirm referrals?</p>'+
-      '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="pmConfirmBtn">Confirm'+hotTag('Click to confirm')+'</button><button class="pm-btn-outline" id="pmCloseBtn">Close</button></div></div></div>';
-  } else if(done){
-    modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><p>Thank you. Your referrals have been submitted.</p>'+
-      '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="pmContinueBtn">Continue'+hotTag('Click to continue')+'</button></div></div></div>';
-  }
-
-  var wrapDiv = el('div','browser wide');
-  wrapDiv.style.position='relative';
-  wrapDiv.innerHTML = urlBar('yourcompany.benefitshub.com/referral/cart') + '<div class="body"><div class="pm">'+topbar(1)+summaryBody+'</div></div>' + modalHtml;
-  vwrap.innerHTML=''; vwrap.appendChild(wrapDiv);
-
   var checkoutBtn = vwrap.querySelector('#pmCheckoutBtn');
   if(checkoutBtn){
-    checkoutBtn.onclick=function(){ answered['s5_confirming']=true; renderStep5(vwrap); play(s.auConfirm); };
+    checkoutBtn.onclick=function(){ answered['s4_confirming']=true; renderStep4(vwrap); play(s.auConfirm); };
   }
   var closeBtn = vwrap.querySelector('#pmCloseBtn');
   if(closeBtn){
-    closeBtn.onclick=function(){ answered['s5_confirming']=false; renderStep5(vwrap); };
+    closeBtn.onclick=function(){ answered['s4_confirming']=false; renderStep4(vwrap); };
   }
   var confirmBtn = vwrap.querySelector('#pmConfirmBtn');
   if(confirmBtn){
     confirmBtn.onclick=function(){
-      answered['s5_confirming']=false;
-      answered['s5_done']=true;
-      renderStep5(vwrap);
+      answered['s4_confirming']=false;
+      answered['s4_done']=true;
+      renderStep4(vwrap);
       next.disabled=false;
       play(s.auDone);
+      if(practiceRerenderHook) practiceRerenderHook();
     };
   }
   var continueBtn = vwrap.querySelector('#pmContinueBtn');
@@ -693,20 +713,27 @@ function renderStep5(vwrap){
       if(overlay) overlay.style.display='none';
     };
   }
-  next.disabled = !answered['s5_done'];
+  next.disabled = !done;
 }
 
 var STEP_RENDERERS = {
-  step1: renderStep1, step2: renderStep2, step3: renderStep3, step4: renderStep4, step5: renderStep5
+  step1: renderStep1, step2: renderStep2, step3: renderStep3, step4: renderStep4
 };
 
 function render(){
-  var s=SCREENS[i]; stage.innerHTML=''; stopAu();
+  var s=SCREENS[i];
+  var preservedScroll = null;
+  if(s.t==='practicecheck'){
+    var oldIx = stage.querySelector('.ix');
+    if(oldIx) preservedScroll = oldIx.scrollTop;
+  }
+  stage.innerHTML=''; stopAu();
   bar.style.width = Math.round(i/(SCREENS.length-1)*100)+'%';
   stepnum.textContent = (s.t==='step') ? ('Step '+s.n+' of '+s.of) : '';
   back.disabled = (i===0);
   next.textContent = (i===SCREENS.length-1) ? 'Finish' : 'Next';
   next.disabled = false;
+  practiceRerenderHook = (s.t==='practicecheck') ? render : null;
 
   if(s.t==='cover'){
     var d=el('div','ix center');
@@ -749,33 +776,59 @@ function render(){
   }
 
   else if(s.t==='practicecheck'){
+    if(!answered['practice_reset']){
+      answered['practice_reset']=true;
+      ['s1_done','s1_open','s2_dropdown','s2_service','s3_added','s3_qty','s4_mini','s4_summary','s4_confirming','s4_done'].forEach(function(k){ delete answered[k]; });
+    }
     var dpc=el('div','ix center');
-    var pcPicked = answered['practice_found'];
-    var htmlPc =
-      '<div class="wrap">'+
+    var introHtml =
+      '<div class="wrap wide">'+
       '<div class="eyebrow"><span class="dot"></span>Put it into practice</div>'+
-      '<h1 class="hl">Create a real referral</h1>'+
-      '<p class="sub">Now it\'s your turn. In the real Benefits Hub portal, find the member below and submit a referral for the Bathroom grab bar with install service, just like we walked through.</p>'+
-      '<ul class="practice-bullets"><li><b>Member Name:</b> Helper Bee Test</li><li><b>Member ID:</b> 12345678912</li></ul>'+
-      '<a class="cta-btn" href="'+s.portalUrl+'" target="_blank" rel="noopener">Go to Benefits Hub<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
-      '<p class="cta-note">Link placeholder — swap in the client-specific Benefits Hub URL before sending.</p>'+
-      '<div class="confirm-prompt">Were you able to submit the referral?</div>'+
-      '<div class="confirm-row">'+
-        '<button type="button" class="confirm-btn'+(pcPicked==='yes'?' picked-yes':'')+'" id="pcYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Yes, I submitted it</button>'+
-        '<button type="button" class="confirm-btn'+(pcPicked==='no'?' picked-no':'')+'" id="pcNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>No, I couldn\'t</button>'+
-      '</div>'+
-      (pcPicked==='no' ? '<div class="confirm-reveal warn"><b>No problem.</b>Double check you selected a quantity, clicked Add to Cart, and clicked Checkout &rarr; Confirm. Give it another try, then come back and select &ldquo;Yes&rdquo; once you\'ve submitted it.</div>' : '')+
-      (pcPicked==='yes' ? '<div class="confirm-reveal good"><b>Nice work!</b>You\'ve created and submitted a real referral. When you\'re ready, select Next to continue.</div>' : '')+
+      '<h1 class="hl">Create a referral on your own</h1>'+
+      '<p class="sub">Now it\'s your turn — no instructions this time. Using the steps we just covered, submit a referral for the Bathroom grab bar with install service.</p>'+
       '</div>';
-    dpc.innerHTML = htmlPc;
+    dpc.innerHTML = introHtml;
     stage.appendChild(dpc);
 
-    var pcYesBtn=document.getElementById('pcYes'), pcNoBtn=document.getElementById('pcNo');
-    if(pcYesBtn) pcYesBtn.onclick=function(){ answered['practice_found']='yes'; render(); play(s.auYes); };
-    if(pcNoBtn) pcNoBtn.onclick=function(){ answered['practice_found']='no'; render(); play(s.auNo); };
+    var section1=el('div','wrap wide'); section1.style.marginTop='12px'; dpc.appendChild(section1);
+    renderStep1(section1);
+    var step1Done = !!answered['s1_done'];
 
-    next.disabled = !pcPicked;
-    if(!pcPicked) play(s.au);
+    var section2, step2Done=false;
+    if(step1Done){
+      var divider2=el('div','pm-section-divider'); divider2.textContent='Next: search for a service'; dpc.appendChild(divider2);
+      section2=el('div','wrap wide'); section2.style.marginTop='12px'; dpc.appendChild(section2);
+      renderStep2(section2);
+      step2Done = !!answered['s2_service'];
+    }
+
+    var section3, step3Done=false;
+    if(step2Done){
+      var divider3=el('div','pm-section-divider'); divider3.textContent='Next: set quantity and add to cart'; dpc.appendChild(divider3);
+      section3=el('div','wrap wide'); section3.style.marginTop='12px'; dpc.appendChild(section3);
+      renderStep3(section3);
+      step3Done = !!answered['s3_added'];
+    }
+
+    var section4;
+    if(step3Done){
+      var divider4=el('div','pm-section-divider'); divider4.textContent='Next: review and submit'; dpc.appendChild(divider4);
+      section4=el('div','wrap wide'); section4.style.marginTop='12px'; dpc.appendChild(section4);
+      renderStep4(section4);
+    } else {
+      next.disabled = true;
+    }
+
+    if(answered['s4_done']){
+      var doneNote=el('div','confirm-reveal good');
+      doneNote.innerHTML='<b>Nice work!</b>You\'ve created and submitted a referral on your own. Select Next to continue.';
+      dpc.appendChild(doneNote);
+    }
+
+    if(!answered['practice_audio_played']){ answered['practice_audio_played']=true; play(s.au); }
+    else { setupAudio(s.au); }
+
+    if(preservedScroll !== null){ dpc.scrollTop = preservedScroll; }
   }
 
   else if(s.t==='outro'){
@@ -792,10 +845,14 @@ function render(){
   }
 }
 
-function finish(){ window.location.href='../Begin-Training.html'; }
+function finish(){ window.location.href='../../Begin-Training.html'; }
 
-next.onclick=function(){ if(i<SCREENS.length-1){ i++; render(); } else { finish(); } };
-back.onclick=function(){ if(i>0){ i--; render(); } };
+next.onclick=function(){
+  if(i<SCREENS.length-1){ i++; render(); } else { finish(); }
+};
+back.onclick=function(){
+  if(i>0){ i--; render(); }
+};
 
 document.getElementById('startBtn').onclick=function(){
   document.getElementById('startOverlay').classList.add('hide');

@@ -189,38 +189,23 @@ var SCREENS = [
 
   { t:'cover', au:'01_cover.mp3' },
 
-  { t:'step', n:1, of:4,
+  { t:'step', n:1, of:2,
     kicker:"Step 1",
-    h:"Go to your Benefits Hub sign-in page",
-    sub:"Your account team will send a personal sign-in link by email. Bookmark it — you'll use it every day. Enter the username and password from that email.",
-    visual:'shot', img:'assets/img/login.png', url:'yourcompany.benefitshub.com/signin', compact:true, vhCap:27, imgAspect:0.9486,
-    au:'02_step1_signin.mp3' },
+    h:"Go to SCAN's SSO sign-in page",
+    sub:"SCAN sends your name and email to The Helper Bees, who creates your Benefits Hub account. SCAN then sends you the SSO sign-in URL — go there and enter your usual SCAN credentials.",
+    visual:'shot', img:'../../shared/module-2-signing-in/assets/img/login.png', url:'auth.myhomealign.com/Auth/Login/ha-prod-scan', compact:true, vhCap:27, imgAspect:0.9486,
+    au:'02_step1_sso.mp3' },
 
-  { t:'step', n:2, of:4,
+  { t:'step', n:2, of:2,
     kicker:"Step 2",
-    h:"Verify your identity",
-    sub:"After you sign in, check your email for a 6-digit verification code and enter it to finish logging in.",
-    visual:'email', img:'assets/img/verify-email.png', vhCap:33, imgAspect:0.5534,
-    au:'03_step2_verify.mp3' },
-
-  { t:'tip',
-    n:3, of:4,
-    scenario:"Verification codes expire 10 minutes after they're sent.",
-    prompt:"So what happens if you open the email late and the code has already expired?",
-    reveal:"No problem — just go back to the sign-in page and enter your credentials again. That sends a brand new code. No need to contact support for this one.",
-    au:'04_tip_fact.mp3', auReveal:'05_tip_reveal.mp3' },
-
-  { t:'step', n:4, of:4,
-    kicker:"Step 4",
     h:"You're in",
-    sub:"Once you're signed in, you'll land on your home screen — ready to search for members and view benefits.",
-    visual:'shot', img:'assets/img/home.png', url:'yourcompany.benefitshub.com/home', vhCap:24, imgAspect:0.4164,
-    au:'06_step4_home.mp3' },
+    sub:"Because SCAN uses single sign-on, there's no separate emailed verification code to enter — SSO confirms your identity as part of signing in. Once that's done, you'll land on your home screen, ready to search for members and view benefits.",
+    visual:'shot', img:'../../shared/module-2-signing-in/assets/img/home.png', url:'yourcompany.benefitshub.com/home', vhCap:24, imgAspect:0.4164,
+    au:'03_step2_home.mp3' },
 
-  { t:'trylogin', au:'07_trylogin.mp3', auYes:'08_trylogin_yes.mp3', auNo:'09_trylogin_no.mp3',
-    signinUrl:'https://[CLIENT].benefitshub.com/signin' },
+  { t:'trylogin', au:'04_trylogin.mp3' },
 
-  { t:'outro', au:'10_outro.mp3' }
+  { t:'outro', au:'07_outro.mp3' }
 ];
 
 /* ================= ENGINE ================= */
@@ -325,6 +310,7 @@ function render(){
   var s=SCREENS[i];
   var sameScreen = (i===lastRenderedIndex);
   var preservedScroll = null;
+  var scrollTargetAfterAnswer = null;
   if(sameScreen){
     var oldIx = stage.querySelector('.ix');
     if(oldIx) preservedScroll = oldIx.scrollTop;
@@ -343,7 +329,7 @@ function render(){
       '<div class="wrap">'+
       '<div class="cover-badge"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FCF7EE" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FCF7EE"/></svg>Benefits Hub</div>'+
       '<h1 class="hl">Accessing Benefits Hub and Signing In</h1>'+
-      '<p class="sub">We\'re glad you\'re here. In the next few minutes, you\'ll learn how to sign in, verify your identity, and find your way around your new home screen.</p>'+
+      '<p class="sub">We\'re glad you\'re here. In the next few minutes, you\'ll learn how to sign in through SCAN\'s single sign-on (SSO) and find your way around your new home screen.</p>'+
       '<div class="cover-meta"><div><b>~4 minutes</b><span>self-paced</span></div></div>'+
       '</div>';
     stage.appendChild(d);
@@ -407,31 +393,18 @@ function render(){
 
   else if(s.t==='trylogin'){
     var d3a=el('div','ix center');
-    var picked = answered['trylogin'];
     var html3a =
       '<div class="wrap">'+
-      '<div class="eyebrow"><span class="dot"></span>Your turn</div>'+
-      '<h1 class="hl">Now try it yourself</h1>'+
-      '<p class="sub">Using the steps we just covered, go to your Benefits Hub sign-in page and log in for real. Come back to this tab once you\'re done.</p>'+
-      '<a class="cta-btn" href="'+s.signinUrl+'" target="_blank" rel="noopener">Go to Benefits Hub sign-in<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
-      '<p class="cta-note">Link placeholder — swap in the client-specific Benefits Hub URL before sending.</p>'+
-      '<div class="confirm-prompt">Were you able to sign in successfully?</div>'+
-      '<div class="confirm-row">'+
-        '<button type="button" class="confirm-btn'+(picked==='yes'?' picked-yes':'')+'" id="pickYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Yes, I signed in successfully</button>'+
-        '<button type="button" class="confirm-btn'+(picked==='no'?' picked-no':'')+'" id="pickNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>No, I wasn\'t able to sign in</button>'+
-      '</div>'+
-      (picked==='yes' ? '<div class="confirm-reveal good"><b>Nice work — you\'re in!</b>One more thing to keep in your back pocket: if you ever forget your password, look for the &ldquo;Forgot password?&rdquo; link right on the sign-in page. It\'ll walk you through resetting it.</div>' : '')+
-      (picked==='no' ? '<div class="confirm-reveal warn"><b>No problem — this happens.</b>Reach out to your account manager for help getting signed in. Once you\'re in, come back and select &ldquo;Yes&rdquo; above to continue.</div>' : '')+
+      '<div class="eyebrow"><span class="dot"></span>Heads up</div>'+
+      '<h1 class="hl">Once you receive your SSO link</h1>'+
+      '<p class="sub">SCAN will send you your SSO sign-in link separately — you don\'t need it to finish this training. Once you have it, sign in for real with your usual SCAN credentials, the same way you just walked through.</p>'+
+      '<div class="confirm-reveal good"><b>If you\'re ever locked out:</b> First, check with your SCAN supervisor or admin to confirm your name and email were sent to The Helper Bees and your account has been created. If your account is set up and you\'re still stuck, reach out to your organization\'s SSO or IT support for help getting signed in.</div>'+
       '</div>';
     d3a.innerHTML = html3a;
     stage.appendChild(d3a);
 
-    var yesBtn=document.getElementById('pickYes'), noBtn=document.getElementById('pickNo');
-    if(yesBtn) yesBtn.onclick=function(){ answered['trylogin']='yes'; render(); play(s.auYes); };
-    if(noBtn) noBtn.onclick=function(){ answered['trylogin']='no'; render(); play(s.auNo); };
-
-    next.disabled = (picked !== 'yes');
-    if(!picked) play(s.au);
+    next.disabled = false;
+    play(s.au);
   }
 
   else if(s.t==='outro'){
@@ -439,15 +412,17 @@ function render(){
     d3.innerHTML =
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>All set</div>'+
-      '<h1 class="hl">Nice work — you\'re signed in.</h1>'+
-      '<p class="sub">You\'ve covered everything you need to sign in with confidence, and you just proved it by doing it for real. You\'re welcome to revisit this module anytime you need a refresher.</p>'+
+      '<h1 class="hl">Nice work — you\'re ready to sign in.</h1>'+
+      '<p class="sub">You\'ve covered everything you need to sign in with confidence — once SCAN sends your SSO link, you\'ll be ready to use it right away. You\'re welcome to revisit this module anytime you need a refresher.</p>'+
       '</div>';
     stage.appendChild(d3);
     next.disabled = false;
     play(s.au);
   }
 
-  if(preservedScroll !== null){
+  if(scrollTargetAfterAnswer){
+    scrollTargetAfterAnswer.scrollIntoView({block:'nearest'});
+  } else if(preservedScroll !== null){
     var newIx = stage.querySelector('.ix');
     if(newIx) newIx.scrollTop = preservedScroll;
   }
