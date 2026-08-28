@@ -395,7 +395,15 @@ function render(){
 }
 
 function advance(){ i++; render(); }
-function finish(){ window.location.href='../../Begin-Training.html'; }
+function partnerHome(file){
+  try{
+    var p = new URLSearchParams(window.location.search).get('partner');
+    if(p) return '../../'+p+'/'+file;
+  }catch(e){}
+  return '../../'+file;
+}
+function finish(){ window.location.href=partnerHome('Begin-Training.html'); }
+(function(){ var hl=document.querySelector('.home-link'); if(hl) hl.href=partnerHome('Begin-Training.html'); })();
 
 next.onclick=function(){ if(i<SCREENS.length-1){ advance(); } else { finish(); } };
 back.onclick=function(){ if(i>0){ i--; render(); } };

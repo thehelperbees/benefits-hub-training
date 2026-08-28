@@ -313,6 +313,11 @@
   .pm-infotoggle svg{width:12px;height:12px;flex:none;}
   .pm-infotoggle:hover{text-decoration:underline;}
 
+  .reslink{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:13px 18px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;text-decoration:none;font-size:14px;font-weight:700;color:var(--green);transition:.15s;box-shadow:0 6px 16px -10px rgba(0,50,34,.2);}
+  .reslink:hover{border-color:var(--teal);}
+  .reslink .reslink-ic{flex:none;width:18px;height:18px;color:var(--rasp);}
+  .reslink .reslink-arrow{margin-left:auto;width:14px;height:14px;flex:none;color:var(--rasp);}
+
   @media(max-width:640px){
     .ix{padding:32px 22px;} h1.hl{font-size:27px;}
     .cover-meta{flex-direction:column;gap:10px;}
@@ -1084,6 +1089,7 @@ function render(){
       '<div class="eyebrow"><span class="dot"></span>All set</div>'+
       '<h1 class="hl">You\'re ready to manage a referral!</h1>'+
       '<p class="sub">You now know how to read a referral\'s status, find provider contact information, check the referral narrative, check its remaining balance, review encounters once a service is complete, and add a note of your own. Keep this module on hand as a reference. Continue on to the next module when you\'re ready.</p>'+
+      '<a class="reslink" href="../resources/Understanding Benefits, Balances, Referrals, and Notes - Job Aid.pdf" target="_blank" rel="noopener"><svg class="reslink-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span>Job Aid: Understanding Benefits, Balances, Referrals, and Notes</span><svg class="reslink-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
       '</div>';
     stage.appendChild(d3);
     next.disabled = false;

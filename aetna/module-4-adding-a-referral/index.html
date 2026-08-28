@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../gate.js" data-home="../index.html"></script>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benefits Hub — Creating and Submitting a Referral | The Helper Bees</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#003322; --green-soft:#0B4A36;
+    --cream:#FCF7EE; --cream-dim:#F5EEE0;
+    --yellow:#FFD646; --lime:#E6EC82; --teal:#82D2CA;
+    --peach:#FDA761; --pink:#FEB3D3; --rasp:#CC4983;
+    --sand:#E3D7BB; --ink:#0F2E23;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;overflow-x:hidden;background:var(--green);font-family:'Manrope',system-ui,-apple-system,Arial,sans-serif;color:var(--ink);}
+  #app{max-width:1080px;margin:0 auto;height:100vh;display:flex;flex-direction:column;padding:22px 22px 26px;width:100%;box-sizing:border-box;}
+
+  /* ---------- top chrome ---------- */
+  .top{display:flex;align-items:center;gap:16px;padding:2px 4px 18px;flex:none;}
+  .brand{display:flex;align-items:center;gap:9px;white-space:nowrap;}
+  .brand svg{width:20px;height:20px;flex:none;}
+  .brand span{color:var(--cream);font-weight:800;font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;}
+  .track{flex:1;display:flex;align-items:center;gap:10px;}
+  .prog{flex:1;height:6px;background:rgba(252,247,238,.16);border-radius:6px;overflow:hidden;}
+  .prog>i{display:block;height:100%;width:0;background:var(--yellow);border-radius:6px;transition:width .35s ease;}
+  .stepnum{font-size:12px;font-weight:700;color:var(--cream);opacity:.55;white-space:nowrap;letter-spacing:.2px;}
+  .home-link{display:inline-flex;align-items:center;gap:6px;color:var(--cream);opacity:.72;font-size:12.5px;font-weight:700;text-decoration:none;white-space:nowrap;padding:6px 10px;border-radius:8px;flex:none;transition:opacity .15s ease,background .15s ease;}
+  .home-link:hover{opacity:1;background:rgba(252,247,238,.08);}
+  .home-link svg{width:13px;height:13px;flex:none;}
+
+  /* ---------- stage ---------- */
+  .stage{flex:1;min-height:0;background:var(--cream);border-radius:22px;overflow:hidden;position:relative;box-shadow:0 20px 50px -20px rgba(0,0,0,.45);}
+  .ix{position:absolute;inset:0;overflow-y:auto;padding:24px 60px;box-sizing:border-box;}
+  .center{display:flex;flex-direction:column;}
+  .ix.center>*:first-child{margin-top:auto;}
+  .ix.center>*:last-child{margin-bottom:auto;}
+  .wrap{max-width:620px;width:100%;}
+  .wrap.wide{max-width:760px;width:100%;}
+  .browser{width:100%;}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--rasp);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;margin-bottom:16px;}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--rasp);}
+  h1.hl{font-size:32px;font-weight:800;line-height:1.14;letter-spacing:-.5px;margin:0 0 6px;color:var(--green);}
+  .sub{font-size:15.5px;line-height:1.4;color:#3C5A4D;margin:0 0 4px;max-width:56ch;}
+  .kicker{font-size:15px;font-weight:700;color:var(--green);margin:0 0 4px;}
+  .practice-bullets{list-style:none;margin:4px 0 18px;padding:0;display:flex;flex-direction:column;gap:6px;}
+  .practice-bullets li{display:flex;align-items:baseline;gap:8px;font-size:15px;color:var(--ink);}
+  .practice-bullets li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--rasp);flex:none;}
+  .practice-bullets li b{color:var(--green);font-weight:800;min-width:110px;}
+
+  /* ---------- cover ---------- */
+  .cover-badge{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:var(--cream);border-radius:999px;padding:8px 16px 8px 10px;font-size:13px;font-weight:800;letter-spacing:.3px;margin-bottom:26px;}
+  .cover-badge svg{width:16px;height:16px;}
+  .cover-meta{display:flex;gap:22px;margin-top:16px;}
+  .cover-meta div{display:flex;flex-direction:column;gap:2px;}
+  .cover-meta b{font-size:13px;color:var(--green);font-weight:800;}
+  .cover-meta span{font-size:12.5px;color:#5c7568;}
+
+  /* ---------- browser mock ---------- */
+  .browser{border:1.5px solid var(--sand);border-radius:14px;overflow:visible;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:520px;width:100%;}
+  .browser.wide{max-width:760px;}
+  .browser .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--cream-dim);border-bottom:1px solid var(--sand);border-top-left-radius:12.5px;border-top-right-radius:12.5px;}
+  .browser .dots{display:flex;gap:5px;flex:none;}
+  .browser .dots i{width:8px;height:8px;border-radius:50%;background:#D8CDB0;display:block;}
+  .browser .url{flex:1;min-width:0;background:#fff;border:1px solid var(--sand);border-radius:8px;padding:6px 12px;font-size:12.5px;color:#5c7568;font-weight:700;display:flex;align-items:center;gap:7px;overflow:hidden;}
+  .browser .url span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .browser .url svg{width:11px;height:11px;flex:none;opacity:.6;}
+  .browser .body{background:#F7F3EA;position:relative;border-bottom-left-radius:12.5px;border-bottom-right-radius:12.5px;}
+  .capnote{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:#5c7568;font-weight:700;}
+  .capnote svg{width:14px;height:14px;flex:none;color:var(--rasp);}
+  .infonote{display:flex;align-items:flex-start;gap:10px;margin-top:16px;font-size:14px;line-height:1.5;color:#3C5A4D;background:var(--cream-dim);border:1.5px solid var(--sand);border-radius:12px;padding:14px 16px;}
+  .infonote svg{width:16px;height:16px;flex:none;color:var(--rasp);margin-top:1px;}
+  .infonote b{color:var(--green);}
+
+  /* ---------- product mock (recreated real UI, inside browser body) ---------- */
+  .pm{padding:15px 18px;font-size:13px;color:#1a1a1a;}
+  .pm-topbar{display:flex;align-items:center;justify-content:space-between;background:var(--green);margin:-15px -18px 13px;padding:11px 18px;}
+  .pm-topbar .pm-logo{display:flex;align-items:center;gap:8px;color:var(--lime);font-weight:800;font-size:14px;letter-spacing:.3px;}
+  .pm-topbar .pm-logo svg{width:20px;height:20px;}
+  .pm-topbar .pm-icons{display:flex;align-items:center;gap:14px;}
+  .pm-cart-wrap{position:relative;cursor:pointer;}
+  .pm-cart-wrap svg{width:20px;height:20px;color:var(--lime);display:block;}
+  .pm-badge{position:absolute;top:-6px;right:-7px;background:#C0392B;color:#fff;font-size:9px;font-weight:800;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .pm-account{width:20px;height:20px;color:var(--lime);}
+  .pm-h1{font-size:19px;font-weight:800;color:#1a1a1a;margin:0 0 1px;}
+  .pm-sub{font-size:12px;color:#8a8a8a;margin:0 0 10px;}
+  .pm-backrow{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .pm-back-circle{width:26px;height:26px;border-radius:50%;border:1.5px solid #ddd;display:flex;align-items:center;justify-content:center;flex:none;}
+  .pm-back-circle svg{width:13px;height:13px;color:#555;}
+  .pm-cards{display:grid;grid-template-columns:1.6fr 1fr;gap:10px;margin-bottom:10px;}
+  .pm-card{background:#fff;border-radius:10px;padding:10px 13px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+  .pm-card h4{font-size:12px;font-weight:800;margin:0 0 7px;color:#1a1a1a;}
+  .pm-table{width:100%;border-collapse:collapse;font-size:11.5px;}
+  .pm-table th{background:#F1F1F1;text-align:left;font-weight:800;padding:6px 8px;color:#333;}
+  .pm-table td{padding:8px 8px;color:#333;border-top:none;}
+  .pm-stats{display:flex;gap:14px;border-top:2px solid #eee;padding-top:8px;margin-top:4px;}
+  .pm-stat b{display:block;font-size:16px;}
+  .pm-stat.orange b{color:#D2691E;}
+  .pm-stat.green b{color:#3C8B3C;}
+  .pm-stat span{font-size:9px;color:#999;text-transform:uppercase;font-weight:700;}
+  .pm-section-title{font-size:12.5px;font-weight:800;margin:10px 0 6px;color:#1a1a1a;}
+  .pm-section-divider{display:flex;align-items:center;gap:10px;margin:22px 0 4px;font-size:11.5px;font-weight:800;color:var(--rasp);text-transform:uppercase;letter-spacing:.4px;}
+  .pm-section-divider:before{content:'';flex:none;width:22px;height:1.5px;background:var(--rasp);opacity:.4;}
+  .pm-section-divider:after{content:'';flex:1;height:1.5px;background:var(--sand);}
+  .pm-link{font-size:10.5px;color:#5c7568;text-decoration:underline;font-weight:600;}
+
+  .pm-tilegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 3px;}
+  .pm-tile{background:#fff;border:1.5px solid #eee;border-radius:9px;padding:9px 6px;text-align:center;font-size:9.5px;font-weight:700;color:#333;cursor:pointer;position:relative;transition:.15s;}
+
+  /* ---------- click-here highlight (guides first-time users to the next action) ---------- */
+  @keyframes hotpulse{
+    0%,100%{box-shadow:0 0 0 4px rgba(204,73,131,.22);}
+    50%{box-shadow:0 0 0 9px rgba(204,73,131,.06);}
+  }
+  .pm-hot{animation:hotpulse 1.6s ease-in-out infinite;border-color:var(--rasp) !important;}
+  .pm-hot-tag{position:absolute;top:-25px;left:50%;transform:translateX(-50%);background:var(--rasp);color:#fff;font-size:9.5px;font-weight:800;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 4px 10px -4px rgba(0,0,0,.4);pointer-events:none;z-index:6;}
+  .pm-hot-tag:after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--rasp);}
+  .pm-tile svg{width:22px;height:22px;margin:0 auto 6px;display:block;color:#333;}
+  .pm-tile.active{background:var(--lime);border-color:#1a1a1a;}
+  .pm-tile:not(.active):hover{border-color:var(--rasp);}
+  .pm-hint{font-size:10px;color:#999;text-align:center;margin-top:6px;}
+
+  .pm-authblock{background:#fff;border-radius:10px;padding:11px 14px;margin-top:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+  .pm-authblock h4{font-size:12px;font-weight:800;margin:0 0 7px;line-height:1.3;}
+  .pm-authrow{display:flex;gap:18px;font-size:11px;flex-wrap:wrap;align-items:flex-end;}
+  .pm-authrow div{display:flex;flex-direction:column;gap:2px;}
+  .pm-authrow b{font-size:12px;color:#1a1a1a;}
+  .pm-authrow span{color:#999;font-size:9.5px;text-transform:uppercase;font-weight:700;}
+  .pm-btn-dark{background:var(--green);color:var(--lime);border:none;border-radius:8px;padding:9px 16px;font-weight:800;font-size:11.5px;cursor:pointer;font-family:inherit;margin-left:auto;}
+  .pm-btn-dark:hover{background:var(--green-soft);}
+  .pm-nofound{font-size:11px;color:#999;margin-top:12px;}
+
+  .pm-fieldrow{display:grid;grid-template-columns:1fr 1.6fr;gap:10px;position:relative;}
+  .pm-field{display:flex;flex-direction:column;gap:4px;}
+  .pm-field label{font-size:9.5px;color:#999;font-weight:700;text-transform:uppercase;}
+  .pm-field .box{border:1.5px solid #ddd;border-radius:8px;padding:9px 11px;font-size:11.5px;color:#333;background:#fff;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+  .pm-field .box.placeholder{color:#aaa;}
+  .pm-field .box:hover{border-color:var(--rasp);}
+  .pm-dropdown{position:absolute;top:100%;left:0;right:0;margin-top:4px;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 8px 20px -6px rgba(0,0,0,.2);z-index:5;overflow:hidden;}
+  .pm-dropdown div{padding:9px 12px;font-size:11.5px;color:#333;cursor:pointer;}
+  .pm-dropdown div:hover{background:#F5EEE0;}
+  .pm-dropdown div.pm-disabled{color:#b0b0b0;cursor:not-allowed;}
+  .pm-dropdown div.pm-disabled:hover{background:none;}
+
+  .pm-servicecard{background:#EEF3F6;border:1.5px solid #D8E2E8;border-radius:10px;padding:11px 14px;margin-top:10px;}
+  .pm-servicecard h5{font-size:12px;font-weight:800;margin:0 0 7px;}
+  .pm-servicegrid{display:grid;grid-template-columns:0.7fr 1.3fr 0.6fr 0.6fr 1.6fr;gap:10px;font-size:10.5px;}
+  .pm-servicegrid > div{display:flex;flex-direction:column;gap:3px;}
+  .pm-servicegrid b{font-size:9px;color:#333;text-transform:uppercase;}
+  .pm-servicegrid span{color:#555;}
+
+  .pm-orderrow{display:flex;align-items:flex-end;justify-content:space-between;margin-top:12px;}
+  .pm-qty{display:flex;align-items:center;gap:8px;}
+  .pm-qty button{width:26px;height:26px;border-radius:6px;border:1.5px solid #ddd;background:#fff;font-size:15px;cursor:pointer;line-height:1;}
+  .pm-qty input{width:44px;text-align:center;border:1.5px solid #ddd;border-radius:6px;padding:5px;font-size:12px;font-family:inherit;}
+  .pm-total{text-align:right;font-size:11px;color:#999;}
+  .pm-total b{display:block;font-size:15px;color:#1a1a1a;}
+  .pm-cart-btn{background:var(--green);color:var(--lime);border:none;border-radius:8px;padding:10px 20px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;margin-top:10px;}
+  .pm-cart-btn:disabled{opacity:.4;cursor:default;}
+
+  .pm-toast{display:flex;align-items:center;gap:10px;background:var(--green);color:#fff;border-radius:9px;padding:9px 13px;margin-top:11px;font-size:12px;font-weight:700;}
+  .pm-toast svg{width:16px;height:16px;color:var(--lime);flex:none;}
+
+  .pm-minicart{position:absolute;top:44px;right:0;background:#fff;border:1px solid #ddd;border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;box-shadow:0 8px 20px -6px rgba(0,0,0,.25);}
+  .pm-minicart svg{width:14px;height:14px;}
+  .pm-minicart .pm-mini-badge{background:#C0392B;color:#fff;font-size:8px;width:13px;height:13px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+
+  .pm-summarytable{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px;}
+  .pm-summarytable th{background:#F1F1F1;text-align:left;padding:6px 8px;font-weight:800;color:#333;}
+  .pm-summarytable td{padding:7px 8px;color:#333;}
+  .pm-summarytable .trash{color:#C0392B;}
+  .pm-addr-card{background:#fff;border-radius:10px;padding:10px 13px;margin-top:9px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+  .pm-addr-card h5{font-size:12px;font-weight:800;margin:0 0 4px;}
+  .pm-addr-card p{margin:0;font-size:11px;color:#555;line-height:1.4;}
+  .pm-addr-card.flag{border:2px solid var(--rasp);background:#FEF6FA;box-shadow:0 0 0 3px rgba(204,73,131,.08);}
+  .pm-addr-card.flag h5{color:var(--rasp);}
+  .pm-bottomrow{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+  .pm-bottomrow .pm-total-label{font-weight:800;font-size:12.5px;}
+  .pm-btnrow{display:flex;gap:8px;}
+  .pm-btn-outline{background:#fff;border:1.5px solid #ddd;border-radius:20px;padding:8px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .pm-btn-outline.danger{color:#C0392B;border-color:#f0c4c4;}
+  .pm-btn-checkout{background:var(--green);color:var(--lime);border:none;border-radius:20px;padding:8px 18px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;}
+
+  .pm-modal-overlay{position:absolute;inset:0;background:rgba(80,80,80,.55);display:flex;align-items:center;justify-content:center;z-index:10;}
+  .pm-modal{background:#fff;border-radius:14px;padding:26px 30px;text-align:center;max-width:320px;box-shadow:0 20px 40px -10px rgba(0,0,0,.3);}
+  .pm-modal p{font-size:14px;font-weight:800;color:#1a1a1a;margin:0 0 18px;line-height:1.4;}
+  .pm-modal-btns{display:flex;gap:10px;justify-content:center;}
+
+  /* ---------- confirm buttons (Yes/No) ---------- */
+  .confirm-prompt{font-size:17px;font-weight:700;color:var(--green);margin:22px 0 14px;}
+  .confirm-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .confirm-btn{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:13px 20px;font-family:inherit;font-weight:800;font-size:14.5px;color:var(--ink);cursor:pointer;transition:.15s;}
+  .confirm-btn:hover{border-color:var(--teal);}
+  .confirm-btn svg{width:16px;height:16px;flex:none;}
+  .confirm-btn.picked-yes{border-color:#8FCB86;background:#EAF6E9;color:#256b1c;}
+  .confirm-btn.picked-no{border-color:#F0B6A4;background:#FDEDEA;color:#9c3a1f;}
+  .confirm-reveal{border-radius:14px;padding:18px 20px;margin-top:16px;font-size:15px;line-height:1.55;}
+  .confirm-reveal.good{background:#EAF6E9;color:#256b1c;border:1.5px solid #8FCB86;}
+  .confirm-reveal.warn{background:#FDEDEA;color:#9c3a1f;border:1.5px solid #F0B6A4;}
+  .confirm-reveal b{display:block;margin-bottom:4px;}
+  .confirm-reveal .cta-btn{margin-top:4px;}
+  .confirm-reveal .cta-note{color:#9c3a1f;opacity:.75;}
+  .cta-btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:var(--green);font-weight:800;font-size:15px;text-decoration:none;border-radius:12px;padding:14px 22px;margin-top:10px;letter-spacing:.2px;}
+  .cta-btn svg{width:16px;height:16px;flex:none;}
+  .cta-btn:hover{filter:brightness(0.96);}
+  .reslink{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:13px 18px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;text-decoration:none;font-size:14px;font-weight:700;color:var(--green);transition:.15s;box-shadow:0 6px 16px -10px rgba(0,50,34,.2);}
+  .reslink:hover{border-color:var(--teal);}
+  .reslink .reslink-ic{flex:none;width:18px;height:18px;color:var(--rasp);}
+  .reslink .reslink-arrow{margin-left:auto;width:14px;height:14px;flex:none;color:var(--rasp);}
+  .cta-note{font-size:12px;color:#8a7a55;font-weight:700;margin-top:10px;font-style:italic;}
+
+  /* ---------- typed-answer check ---------- */
+  .answerbox{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .answerbox input{flex:1;min-width:180px;border:1.5px solid var(--sand);border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;color:var(--ink);background:#fff;}
+  .answerbox input:focus{outline:none;border-color:var(--teal);}
+  .answerbox input.right{border-color:#8FCB86;background:#EAF6E9;}
+  .answerbox input.wrongans{border-color:#F0B6A4;background:#FDEDEA;}
+  .checkbtn{background:var(--green);color:var(--cream);border:none;border-radius:10px;padding:12px 20px;font-family:inherit;font-weight:800;font-size:14px;cursor:pointer;}
+  .checkbtn:hover{background:var(--green-soft);}
+  .answer-feedback{border-radius:14px;padding:16px 18px;margin-top:14px;font-size:15px;line-height:1.5;}
+  .answer-feedback.right{background:#EAF6E9;color:#256b1c;border:1.5px solid #8FCB86;}
+  .answer-feedback.wrongans{background:#FDEDEA;color:#9c3a1f;border:1.5px solid #F0B6A4;}
+  .answer-feedback b{display:block;margin-bottom:4px;}
+
+  /* ---------- bottom nav ---------- */
+  .bot{display:flex;align-items:center;gap:12px;padding:18px 4px 2px;flex:none;}
+  button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
+  .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
+  .back[disabled]{opacity:.25;cursor:default;}
+  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next[disabled]{opacity:.35;cursor:default;}
+
+  /* ---------- start overlay ---------- */
+  #startOverlay{position:fixed;inset:0;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:100;text-align:center;padding:24px;}
+  #startOverlay svg{width:40px;height:40px;}
+  .so-brand{color:var(--cream);font-weight:800;font-size:13px;letter-spacing:1.6px;text-transform:uppercase;opacity:.75;}
+  #startOverlay h1{color:var(--cream);font-size:32px;font-weight:800;margin:2px 0 0;letter-spacing:-.5px;}
+  #startOverlay p{color:#B9CFC3;font-size:15.5px;margin:0 0 10px;max-width:40ch;}
+  #startBtn{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);color:var(--green);font-family:inherit;font-weight:800;font-size:16px;border:none;border-radius:14px;padding:16px 28px;cursor:pointer;letter-spacing:.2px;}
+  #startBtn svg{width:18px;height:18px;}
+  #startBtn:hover{filter:brightness(0.97);}
+  #startOverlay.hide{display:none;}
+  .audiobtn{background:transparent;border:1.5px solid rgba(252,247,238,.3);color:var(--cream);border-radius:12px;padding:12px 18px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;min-width:168px;display:inline-flex;align-items:center;gap:8px;justify-content:center;}
+  .audiobtn svg{width:14px;height:14px;flex:none;}
+  .audiobtn[hidden]{display:none;}
+
+  @media(max-width:640px){
+    .ix{padding:32px 22px;} h1.hl{font-size:27px;}
+    .cover-meta{flex-direction:column;gap:10px;}
+    #app{padding:16px 14px 20px;}
+    .pm-cards{grid-template-columns:1fr;}
+    .pm-tilegrid{grid-template-columns:repeat(2,1fr);}
+    .pm-fieldrow{grid-template-columns:1fr;}
+    .pm-servicegrid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+<div id="startOverlay">
+  <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+  <div class="so-brand">The Helper Bees</div>
+  <h1>Benefits Hub: Creating and Submitting a Referral</h1>
+  <p>A short, narrated walkthrough — click below to begin with sound.</p>
+  <button id="startBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Start module</button>
+</div>
+<div id="app">
+  <div class="top">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+      <span>The Helper Bees</span>
+    </div>
+    <div class="track">
+      <span class="prog"><i id="bar"></i></span>
+      <span class="stepnum" id="stepnum"></span>
+    </div>
+    <a class="home-link" href="../Begin-Training.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>Training Home</a>
+  </div>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="bot">
+    <button class="nav back" id="back">Back</button>
+    <button class="audiobtn" id="audioToggle" hidden></button>
+    <button class="nav next" id="next">Next</button>
+  </div>
+  <audio id="au"></audio>
+</div>
+
+<script>
+/* ================= SHARED ICONS ================= */
+var ICON_STORE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9M3 9v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V9M3 9h18M8 13a2 2 0 0 1-4 0M12 13a2 2 0 0 1-4 0M16 13a2 2 0 0 1-4 0M20 13a2 2 0 0 1-4 0"/></svg>';
+var ICON_CART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
+var ICON_ACCOUNT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>';
+var ICON_BACK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>';
+var ICON_CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>';
+var LOGO_SVG='<svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="currentColor" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>';
+
+function topbar(cartCount, hotCart){
+  cartCount = cartCount || 0;
+  return '<div class="pm-topbar"><div class="pm-logo">'+LOGO_SVG+'<span>THE HELPER BEES</span></div>'+
+    '<div class="pm-icons"><div class="pm-cart-wrap'+(hotCart?' pm-hot':'')+'" id="pmCartIcon">'+ICON_CART+
+    (cartCount>0 ? '<span class="pm-badge">'+cartCount+'</span>' : '')+
+    (hotCart?hotTag('Click for cart'):'')+
+    '</div><div class="pm-account">'+ICON_ACCOUNT+'</div></div></div>';
+}
+function backrow(title, sub){
+  return '<div class="pm-backrow"><div class="pm-back-circle">'+ICON_BACK+'</div>'+
+    '<div><div class="pm-h1">'+title+'</div><div class="pm-sub">'+sub+'</div></div></div>';
+}
+
+/* ================= CONTENT ================= */
+
+var SCREENS = [
+
+  { t:'cover', au:'cover.mp3' },
+
+  { t:'step', n:1, of:4,
+    kicker:"Step 1",
+    h:"Select a benefit",
+    sub:"Select the benefit tile you want to create a referral for.",
+    render:'step1',
+    au:'screen1.mp3', auTile:'screen1_tile.mp3', auAdded:'screen1_added.mp3' },
+
+  { t:'step', n:2, of:4,
+    kicker:"Step 2",
+    h:"Find your service",
+    sub:"Choose a category, then search for the service you need.",
+    render:'step2',
+    au:'screen2.mp3', auSearch:'screen2_search.mp3', auSelected:'screen2_selected.mp3' },
+
+  { t:'step', n:3, of:4,
+    kicker:"Step 3",
+    h:"Set your quantity and add to cart",
+    sub:"Enter your quantity, then select Add to Cart.",
+    render:'step3',
+    au:'screen3.mp3', auAdded:'screen3_added.mp3' },
+
+  { t:'step', n:4, of:4,
+    kicker:"Step 4",
+    h:"Review and submit your referral",
+    sub:"Select the cart icon, then the member's name, to review — then select Checkout to submit.",
+    render:'step4',
+    au:'screen4.mp3', auMini:'screen4_mini.mp3', auSummary:'screen4_summary.mp3', auConfirm:'screen5_confirm.mp3', auDone:'screen5_done.mp3' },
+
+  { t:'practicecheck', au:'practice_intro.mp3' },
+
+  { t:'outro', au:'outro.mp3' }
+];
+
+var SERVICE_OPTIONS = [
+  "Personal Care"
+];
+var SERVICE_DATA = {
+  "Personal Care": {id:"246403", points:40.00, desc:"Assistance with completing Activities of Daily Living (ADLs) in the home, including bathing, dressing, mobility, and light housekeeping."}
+};
+
+var TILES = [
+  {label:"Post Discharge In Home Support"},
+  {label:"Personal Care Services", active:true},
+  {label:"Social Needs Companion"}
+];
+
+/* ================= ENGINE ================= */
+var i=0, answered={};
+var practiceRerenderHook = null;
+var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
+    back=document.getElementById('back'), next=document.getElementById('next'),
+    stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
+    audioToggle=document.getElementById('audioToggle');
+var AUDIO_DIR='assets/audio/';
+
+function play(src){
+  if(!src){ audioToggle.hidden=true; return; }
+  au.src=AUDIO_DIR+src; audioToggle.hidden=false;
+  au.play().catch(function(){ updateAudioBtn(); });
+  updateAudioBtn();
+}
+function setupAudio(src){
+  if(!src){ audioToggle.hidden=true; return; }
+  au.src=AUDIO_DIR+src; audioToggle.hidden=false;
+  updateAudioBtn();
+}
+function stopAu(){ try{au.pause();}catch(e){} au.removeAttribute('src'); audioToggle.hidden=true; }
+
+var ICON_PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+var ICON_PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+
+function updateAudioBtn(){
+  audioToggle.innerHTML = au.paused
+    ? ICON_PLAY+'<span>Play narration</span>'
+    : ICON_PAUSE+'<span>Pause narration</span>';
+}
+au.addEventListener('play', updateAudioBtn);
+au.addEventListener('pause', updateAudioBtn);
+au.addEventListener('ended', updateAudioBtn);
+
+audioToggle.onclick=function(){
+  if(au.paused){
+    if(au.ended){ au.currentTime=0; }
+    au.play().catch(function(){});
+  } else {
+    au.pause();
+  }
+};
+
+function el(tag,cls){var e=document.createElement(tag); if(cls)e.className=cls; return e;}
+function hotTag(text){ return '<span class="pm-hot-tag">'+text+'</span>'; }
+
+function urlBar(url){
+  return '<div class="bar"><div class="dots"><i></i><i></i><i></i></div>'+
+    '<div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>'+url+'</span></div></div>';
+}
+
+function browserFrame(url, innerHtml){
+  var b=el('div','browser wide');
+  b.innerHTML = urlBar(url) + '<div class="body"><div class="pm">'+innerHtml+'</div></div>';
+  return b;
+}
+
+/* ---------- Step 1: benefit tiles + add referral reveal ---------- */
+function renderStep1(vwrap){
+  var s = SCREENS[i];
+  var opened = !!answered['s1_open'];
+
+  var tileHtml = '<div class="pm-section-title">Benefits</div><div class="pm-tilegrid">' + TILES.map(function(t,idx){
+    var isHot = !opened && t.active;
+    return '<div class="pm-tile'+((opened&&t.active)?' active':'')+(isHot?' pm-hot':'')+'" data-idx="'+idx+'">'+ICON_STORE+'<div>'+t.label+'</div>'+(isHot?hotTag('Click to select'):'')+'</div>';
+  }).join('') + '</div>';
+  tileHtml += '<div class="pm-hint">'+(opened?'Tile selected — see authorization below':'Click the highlighted tile to select it')+'</div>';
+
+  var authHtml = '';
+  if(opened){
+    var done = !!answered['s1_done'];
+    var addBtnHot = !done;
+    authHtml = '<div class="pm-authblock"><h4>Authorizations for Personal Care Services</h4>'+
+      '<div class="pm-authrow">'+
+      '<div><span>Effective</span><b>1/1/2026</b></div>'+
+      '<div><span>Expires</span><b>12/31/2026</b></div>'+
+      '<div><span>Plan Code / Option</span><b>–</b></div>'+
+      '<div><span>Plan Allowance</span><b>40.00</b></div>'+
+      '<div><span>Used</span><b>0.00</b></div>'+
+      '<div><span>Pending</span><b>0.00</b></div>'+
+      '<div><span>Remaining</span><b>40.00</b></div>'+
+      '<button class="pm-btn-dark'+(addBtnHot?' pm-hot':'')+'" style="position:relative;" id="pmAddReferralBtn" '+(done?'disabled':'')+'>'+(done?'Referral Started':'Add Referral')+(addBtnHot?hotTag('Click to add referral'):'')+'</button>'+
+      '</div>'+
+      (done
+        ? '<div class="pm-toast">'+ICON_CHECK+'<span>Referral started for Personal Care Services — select Next to search for a service.</span></div>'
+        : '<div class="pm-nofound">No referrals found for Personal Care Services benefit.</div>')+
+      '</div>';
+  }
+
+  var inner = backrow('Aetna Training','Member #: 0987654321') + tileHtml + authHtml;
+  var frame = browserFrame('yourcompany.benefitshub.com/member/0987654321', inner);
+  vwrap.innerHTML=''; vwrap.appendChild(frame);
+
+  vwrap.querySelectorAll('.pm-tile').forEach(function(tile){
+    tile.onclick=function(){
+      if(answered['s1_open']) return;
+      answered['s1_open']=true;
+      renderStep1(vwrap);
+      play(s.auTile);
+    };
+  });
+  var addBtn = vwrap.querySelector('#pmAddReferralBtn');
+  if(addBtn){
+    addBtn.onclick=function(){
+      answered['s1_done']=true;
+      renderStep1(vwrap);
+      next.disabled=false;
+      play(s.auAdded);
+      if(practiceRerenderHook) practiceRerenderHook();
+    };
+  }
+  next.disabled = !answered['s1_done'];
+}
+
+/* ---------- Step 2: add referral page + service search reveal ---------- */
+function renderStep2(vwrap){
+  var s = SCREENS[i];
+  var dropdownOpen = !!answered['s2_dropdown'];
+  var selected = answered['s2_service'];
+
+  var searchBoxHtml = selected
+    ? '<div class="box">'+selected+'</div>'
+    : '<div class="box placeholder'+(!dropdownOpen?' pm-hot':'')+'" style="position:relative;" id="pmSearchBox">'+(dropdownOpen ? 'Type to search…' : 'Search For Services')+' <span>▾</span>'+(!dropdownOpen?hotTag('Click to search'):'')+'</div>';
+
+  var dropdownHtml = '';
+  if(dropdownOpen && !selected){
+    dropdownHtml = '<div class="pm-dropdown" id="pmDropdown">'+SERVICE_OPTIONS.map(function(opt, idx){
+      var isHot = idx===0;
+      return '<div data-opt="'+opt.replace(/"/g,'&quot;')+'" style="position:relative;" class="'+(isHot?'pm-hot':'')+'">'+opt+(isHot?hotTag('Select this'):'')+'</div>';
+    }).join('')+'</div>';
+  }
+
+  var fieldsHtml =
+    '<div class="pm-section-title">Available Services for Aetna Training in 78748 <span class="pm-link">(change service address)</span></div>'+
+    '<div class="pm-fieldrow">'+
+      '<div class="pm-field"><label>Service Category</label><div class="box">In Home Support</div></div>'+
+      '<div class="pm-field"><label>Search For Services</label>'+searchBoxHtml+dropdownHtml+'</div>'+
+    '</div>';
+
+  var serviceCardHtml = '';
+  if(selected){
+    var svc = SERVICE_DATA[selected] || SERVICE_DATA["Personal Care"];
+    serviceCardHtml = '<div class="pm-servicecard"><h5>Selected Service Details</h5>'+
+      '<div class="pm-servicegrid">'+
+      '<div><b>Service ID</b><span>'+svc.id+'</span></div>'+
+      '<div><b>Service Name</b><span>'+selected+'</span></div>'+
+      '<div><b>Points</b><span>'+svc.points.toFixed(2)+'</span></div>'+
+      '<div><b>Status</b><span>Active</span></div>'+
+      '<div><b>Description</b><span>'+svc.desc+'</span></div>'+
+      '</div></div>';
+  }
+
+  var inner = backrow('Add Referral','Aetna Training | Member #: 0987654321') +
+    '<div class="pm-cards">'+
+      '<div class="pm-card"><h4>Authorization Information</h4>'+
+      '<table class="pm-table"><tr><th>Auth ID</th><th>Client Program</th><th>Plan Code</th><th>Plan Option</th><th>Status</th><th>Expires</th></tr>'+
+      '<tr><td>28</td><td>Personal Care Services</td><td>–</td><td>–</td><td>New</td><td>12/31/2026</td></tr></table></div>'+
+      '<div class="pm-card"><h4>Benefit Summary</h4><div class="pm-stats">'+
+      '<div class="pm-stat orange"><b>40</b><span>Plan Allow.</span></div>'+
+      '<div class="pm-stat green"><b>0</b><span>Used</span></div>'+
+      '<div class="pm-stat orange"><b>0</b><span>Pending</span></div>'+
+      '</div></div>'+
+    '</div>'+
+    fieldsHtml + serviceCardHtml;
+
+  var frame = browserFrame('yourcompany.benefitshub.com/referral/add', inner);
+  vwrap.innerHTML=''; vwrap.appendChild(frame);
+
+  var searchBox = vwrap.querySelector('#pmSearchBox');
+  if(searchBox){
+    searchBox.onclick=function(){
+      answered['s2_dropdown']=true;
+      renderStep2(vwrap);
+      play(s.auSearch);
+    };
+  }
+  vwrap.querySelectorAll('#pmDropdown div').forEach(function(opt){
+    opt.onclick=function(){
+      answered['s2_service']=opt.getAttribute('data-opt');
+      renderStep2(vwrap);
+      next.disabled=false;
+      play(s.auSelected);
+      if(practiceRerenderHook) practiceRerenderHook();
+    };
+  });
+  next.disabled = !answered['s2_service'];
+}
+
+/* ---------- Step 3: quantity + add to cart ---------- */
+function renderStep3(vwrap){
+  var s = SCREENS[i];
+  var selectedService = answered['s2_service'] || "Personal Care";
+  var svc = SERVICE_DATA[selectedService] || SERVICE_DATA["Personal Care"];
+  var qty = answered['s3_qty'] || 0;
+  var total = (qty*svc.points).toFixed(2);
+  var added = !!answered['s3_added'];
+
+  var inner = backrow('Add Referral','Aetna Training | Member #: 0987654321') +
+    '<div class="pm-servicecard"><h5>Selected Service Details</h5>'+
+    '<div class="pm-servicegrid">'+
+    '<div><b>Service ID</b><span>'+svc.id+'</span></div>'+
+    '<div><b>Service Name</b><span>'+selectedService+'</span></div>'+
+    '<div><b>Points</b><span>'+svc.points.toFixed(2)+'</span></div>'+
+    '<div><b>Status</b><span>Active</span></div>'+
+    '<div><b>Description</b><span>'+svc.desc+'</span></div>'+
+    '</div></div>'+
+    '<div class="pm-section-title" style="margin-top:16px;">Order Details</div>'+
+    '<div class="pm-orderrow">'+
+      '<div class="pm-qty"><button id="pmQtyMinus">–</button><input id="pmQtyInput" value="'+qty+'" readonly><button id="pmQtyPlus" style="position:relative;" class="'+(qty<1?'pm-hot':'')+'">+'+(qty<1?hotTag('Click to increase'):'')+'</button></div>'+
+      '<div class="pm-total">Total Points<b>'+total+'</b></div>'+
+    '</div>'+
+    '<button class="pm-cart-btn'+(qty>=1&&!added?' pm-hot':'')+'" style="position:relative;" id="pmAddCartBtn" '+(qty<1?'disabled':'')+'>Add to Cart'+(qty>=1&&!added?hotTag('Click to add to cart'):'')+'</button>'+
+    (added ? '<div class="pm-toast">'+ICON_CHECK+'<span>'+selectedService+' added to cart</span></div>' : '');
+
+  var frame = browserFrame('yourcompany.benefitshub.com/referral/add', inner);
+  vwrap.innerHTML=''; vwrap.appendChild(frame);
+
+  vwrap.querySelector('#pmQtyPlus').onclick=function(){
+    answered['s3_qty']=(answered['s3_qty']||0)+1;
+    renderStep3(vwrap);
+  };
+  vwrap.querySelector('#pmQtyMinus').onclick=function(){
+    answered['s3_qty']=Math.max(0,(answered['s3_qty']||0)-1);
+    renderStep3(vwrap);
+  };
+  var cartBtn = vwrap.querySelector('#pmAddCartBtn');
+  if(qty>=1){
+    cartBtn.onclick=function(){
+      answered['s3_added']=true;
+      renderStep3(vwrap);
+      next.disabled=false;
+      play(s.auAdded);
+      if(practiceRerenderHook) practiceRerenderHook();
+    };
+  }
+  next.disabled = !answered['s3_added'];
+}
+
+/* ---------- Step 4: cart -> mini preview -> referrals summary ---------- */
+function renderStep4(vwrap){
+  var s = SCREENS[i];
+  var miniOpen = !!answered['s4_mini'];
+  var summaryOpen = !!answered['s4_summary'];
+  var confirming = !!answered['s4_confirming'];
+  var done = !!answered['s4_done'];
+  var selectedService = answered['s2_service'] || "Personal Care";
+  var svc = SERVICE_DATA[selectedService] || SERVICE_DATA["Personal Care"];
+  var qty = answered['s3_qty'] || 1;
+  var lineTotal = (qty*svc.points).toFixed(2);
+
+  var innerBody;
+  if(!summaryOpen){
+    innerBody = backrow('Add Referral','Aetna Training | Member #: 0987654321') +
+      '<div class="pm-servicecard"><h5>Selected Service Details</h5><div class="pm-servicegrid">'+
+      '<div><b>Service ID</b><span>'+svc.id+'</span></div><div><b>Service Name</b><span>'+selectedService+'</span></div>'+
+      '<div><b>Points</b><span>'+svc.points.toFixed(2)+'</span></div><div><b>Status</b><span>Active</span></div>'+
+      '<div><b>Description</b><span>'+svc.desc+'</span></div></div></div>'+
+      (miniOpen ? '<div class="pm-minicart pm-hot">Aetna Training '+ICON_CART+'<span class="pm-mini-badge">1</span>'+hotTag('Click to view summary')+'</div>' : '');
+  } else {
+    innerBody = backrow('Referrals Summary', done ? 'Aetna Training | Items: 0' : 'Aetna Training | Items: 1');
+    if(!done){
+      innerBody += '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
+        '<tr><td>'+selectedService+'<br><span style="color:#999;font-size:9.5px;">Added: 7/21/2026</span></td><td>'+qty+'</td><td>'+svc.points.toFixed(2)+'</td><td>'+lineTotal+'</td><td class="trash">🗑</td></tr>'+
+        '</table>'+
+        '<div class="pm-addr-card flag"><h5>Service Address</h5><p>789 Training Way<br>Austin, TX 78748</p></div>'+
+        '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: '+lineTotal+'</div>'+
+        '<div class="pm-btnrow"><button class="pm-btn-outline danger">Clear Cart</button><button class="pm-btn-outline">Continue Shopping</button><button class="pm-btn-checkout'+(!confirming?' pm-hot':'')+'" style="position:relative;" id="pmCheckoutBtn">Checkout'+(!confirming?hotTag('Click to checkout'):'')+'</button></div></div>';
+    } else {
+      innerBody += '<div style="text-align:center;color:#999;padding:30px 0;">Your cart is empty</div>';
+    }
+  }
+
+  var modalHtml = '';
+  if(confirming && !done){
+    modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><p>Confirm referrals?</p>'+
+      '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="pmConfirmBtn">Confirm'+hotTag('Click to confirm')+'</button><button class="pm-btn-outline" id="pmCloseBtn">Close</button></div></div></div>';
+  } else if(done){
+    modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><p>Thank you. Your referrals have been submitted.</p>'+
+      '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="pmContinueBtn">Continue'+hotTag('Click to continue')+'</button></div></div></div>';
+  }
+
+  var frame = browserFrame(summaryOpen ? 'yourcompany.benefitshub.com/referral/cart' : 'yourcompany.benefitshub.com/referral/add',
+    topbar(done ? 0 : 1, !summaryOpen && !miniOpen) + innerBody);
+  frame.style.position='relative';
+  frame.insertAdjacentHTML('beforeend', modalHtml);
+  vwrap.innerHTML=''; vwrap.appendChild(frame);
+
+  if(summaryOpen && !done){
+    var addrNote=el('div','infonote');
+    addrNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Before you check out, be sure to verify the <b>Service Address</b> shown above — this is where the referral will route to, and it determines which provider services that zip code. Take a minute to review this screen. When you\'re ready, select <b>Checkout</b> to submit.</span>';
+    vwrap.appendChild(addrNote);
+    var cartNote=el('div','infonote');
+    cartNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Checkout submits every item in the cart at once.</b> Before you confirm, make sure everything listed is still needed — there\'s no way to submit just one item at a time.</span>';
+    vwrap.appendChild(cartNote);
+  }
+
+  var cartIcon = vwrap.querySelector('#pmCartIcon');
+  if(cartIcon && !summaryOpen){
+    cartIcon.onclick=function(){
+      answered['s4_mini']=true;
+      renderStep4(vwrap);
+      play(s.auMini);
+    };
+  }
+  var minicart = vwrap.querySelector('.pm-minicart');
+  if(minicart){
+    minicart.onclick=function(){
+      answered['s4_summary']=true;
+      renderStep4(vwrap);
+      play(s.auSummary);
+    };
+  }
+  var checkoutBtn = vwrap.querySelector('#pmCheckoutBtn');
+  if(checkoutBtn){
+    checkoutBtn.onclick=function(){ answered['s4_confirming']=true; renderStep4(vwrap); play(s.auConfirm); };
+  }
+  var closeBtn = vwrap.querySelector('#pmCloseBtn');
+  if(closeBtn){
+    closeBtn.onclick=function(){ answered['s4_confirming']=false; renderStep4(vwrap); };
+  }
+  var confirmBtn = vwrap.querySelector('#pmConfirmBtn');
+  if(confirmBtn){
+    confirmBtn.onclick=function(){
+      answered['s4_confirming']=false;
+      answered['s4_done']=true;
+      renderStep4(vwrap);
+      next.disabled=false;
+      play(s.auDone);
+      if(practiceRerenderHook) practiceRerenderHook();
+    };
+  }
+  var continueBtn = vwrap.querySelector('#pmContinueBtn');
+  if(continueBtn){
+    continueBtn.onclick=function(){
+      var overlay = vwrap.querySelector('.pm-modal-overlay');
+      if(overlay) overlay.style.display='none';
+    };
+  }
+  next.disabled = !done;
+}
+
+var STEP_RENDERERS = {
+  step1: renderStep1, step2: renderStep2, step3: renderStep3, step4: renderStep4
+};
+
+function render(){
+  var s=SCREENS[i];
+  var preservedScroll = null;
+  if(s.t==='practicecheck'){
+    var oldIx = stage.querySelector('.ix');
+    if(oldIx) preservedScroll = oldIx.scrollTop;
+  }
+  stage.innerHTML=''; stopAu();
+  bar.style.width = Math.round(i/(SCREENS.length-1)*100)+'%';
+  stepnum.textContent = (s.t==='step') ? ('Step '+s.n+' of '+s.of) : '';
+  back.disabled = (i===0);
+  next.textContent = (i===SCREENS.length-1) ? 'Finish' : 'Next';
+  next.disabled = false;
+  practiceRerenderHook = (s.t==='practicecheck') ? render : null;
+
+  if(s.t==='cover'){
+    var d=el('div','ix center');
+    d.innerHTML =
+      '<div class="wrap">'+
+      '<div class="cover-badge">'+LOGO_SVG.replace('currentColor','#FCF7EE')+'Benefits Hub</div>'+
+      '<h1 class="hl">Creating and Submitting a Referral</h1>'+
+      '<p class="sub">Now that you know how to sign in and find your member, let\'s create a referral — then put it into practice with a real referral of your own.</p>'+
+      '<div class="cover-meta"><div><b>~6 minutes</b><span>self-paced</span></div></div>'+
+      '</div>';
+    stage.appendChild(d);
+    play(s.au);
+  }
+
+  else if(s.t==='step'){
+    var d2=el('div','ix center');
+    d2.innerHTML =
+      '<div class="wrap wide">'+
+      '<div class="eyebrow"><span class="dot"></span>'+s.kicker+'</div>'+
+      '<h1 class="hl">'+s.h+'</h1>'+
+      '<p class="sub">'+s.sub+'</p>'+
+      '</div>';
+    var vwrap=el('div','wrap wide'); vwrap.style.marginTop='12px';
+    d2.appendChild(vwrap);
+    stage.appendChild(d2);
+
+    STEP_RENDERERS[s.render](vwrap);
+
+    if(s.render==='step2'){
+      var note=el('div','infonote');
+      note.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Some services include extra <b>Service Detail Questions (SDQs)</b> — answer any that appear before adding to cart.</span>';
+      d2.querySelector('.wrap.wide[style]').appendChild(note);
+    }
+    if(s.caption){
+      var cap=el('div','capnote');
+      cap.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>'+s.caption+'</span>';
+      d2.querySelector('.wrap.wide[style]').appendChild(cap);
+    }
+    play(s.au);
+  }
+
+  else if(s.t==='practicecheck'){
+    if(!answered['practice_reset']){
+      answered['practice_reset']=true;
+      ['s1_done','s1_open','s2_dropdown','s2_service','s3_added','s3_qty','s4_mini','s4_summary','s4_confirming','s4_done'].forEach(function(k){ delete answered[k]; });
+    }
+    var dpc=el('div','ix center');
+    var introHtml =
+      '<div class="wrap wide">'+
+      '<div class="eyebrow"><span class="dot"></span>Put it into practice</div>'+
+      '<h1 class="hl">Create a referral on your own</h1>'+
+      '<p class="sub">Now it\'s your turn — no instructions this time. Using the steps we just covered, submit a referral for the Personal Care.</p>'+
+      '</div>';
+    dpc.innerHTML = introHtml;
+    stage.appendChild(dpc);
+
+    var section1=el('div','wrap wide'); section1.style.marginTop='12px'; dpc.appendChild(section1);
+    renderStep1(section1);
+    var step1Done = !!answered['s1_done'];
+
+    var section2, step2Done=false;
+    if(step1Done){
+      var divider2=el('div','pm-section-divider'); divider2.textContent='Next: search for a service'; dpc.appendChild(divider2);
+      section2=el('div','wrap wide'); section2.style.marginTop='12px'; dpc.appendChild(section2);
+      renderStep2(section2);
+      step2Done = !!answered['s2_service'];
+    }
+
+    var section3, step3Done=false;
+    if(step2Done){
+      var divider3=el('div','pm-section-divider'); divider3.textContent='Next: set quantity and add to cart'; dpc.appendChild(divider3);
+      section3=el('div','wrap wide'); section3.style.marginTop='12px'; dpc.appendChild(section3);
+      renderStep3(section3);
+      step3Done = !!answered['s3_added'];
+    }
+
+    var section4;
+    if(step3Done){
+      var divider4=el('div','pm-section-divider'); divider4.textContent='Next: review and submit'; dpc.appendChild(divider4);
+      section4=el('div','wrap wide'); section4.style.marginTop='12px'; dpc.appendChild(section4);
+      renderStep4(section4);
+    } else {
+      next.disabled = true;
+    }
+
+    if(answered['s4_done']){
+      var doneNote=el('div','confirm-reveal good');
+      doneNote.innerHTML='<b>Nice work!</b>You\'ve created and submitted a referral on your own. Select Next to continue.';
+      dpc.appendChild(doneNote);
+    }
+
+    if(!answered['practice_audio_played']){ answered['practice_audio_played']=true; play(s.au); }
+    else { setupAudio(s.au); }
+
+    if(preservedScroll !== null){ dpc.scrollTop = preservedScroll; }
+  }
+
+  else if(s.t==='outro'){
+    var d3=el('div','ix center');
+    d3.innerHTML =
+      '<div class="wrap">'+
+      '<div class="eyebrow"><span class="dot"></span>All set</div>'+
+      '<h1 class="hl">Nice work — you\'ve submitted a referral.</h1>'+
+      '<p class="sub">You\'ve covered selecting a service, setting quantity, and checking out, and you just did it for real. Keep this module on hand anytime you need a refresher. Continue on to the next module when you\'re ready.</p>'+
+      '<a class="reslink" href="../../shared/resources/Adding a Referral - Job Aid.pdf" target="_blank" rel="noopener"><svg class="reslink-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span>Job Aid: Adding a Referral</span><svg class="reslink-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
+      '</div>';
+    stage.appendChild(d3);
+    next.disabled = false;
+    play(s.au);
+  }
+}
+
+function finish(){ window.location.href='../Begin-Training.html'; }
+
+next.onclick=function(){
+  if(i<SCREENS.length-1){ i++; render(); } else { finish(); }
+};
+back.onclick=function(){
+  if(i>0){ i--; render(); }
+};
+
+document.getElementById('startBtn').onclick=function(){
+  document.getElementById('startOverlay').classList.add('hide');
+  render();
+};
+</script>
+</body>
+</html>

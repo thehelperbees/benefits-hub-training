@@ -410,18 +410,18 @@ function render(){
     var picked = answered['trylogin'];
     var html3a =
       '<div class="wrap">'+
-      '<div class="eyebrow"><span class="dot"></span>Your turn</div>'+
-      '<h1 class="hl">Now try it yourself</h1>'+
-      '<p class="sub">Using the steps we just covered, go to your Benefits Hub sign-in page and log in for real. Come back to this tab once you\'re done.</p>'+
+      '<div class="eyebrow"><span class="dot"></span>Good to know</div>'+
+      '<h1 class="hl">Try it for real, anytime</h1>'+
+      '<p class="sub">Once your account team sends your personal sign-in link, use the steps we just covered to log in for real — it\'s the best way to make sure everything\'s set up correctly. No need to do it right now to keep going.</p>'+
       '<a class="cta-btn" href="'+s.signinUrl+'" target="_blank" rel="noopener">Go to Benefits Hub sign-in<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
       '<p class="cta-note">Link placeholder — swap in the client-specific Benefits Hub URL before sending.</p>'+
-      '<div class="confirm-prompt">Were you able to sign in successfully?</div>'+
+      '<div class="confirm-prompt">If you\'ve already tried it — how\'d it go?</div>'+
       '<div class="confirm-row">'+
-        '<button type="button" class="confirm-btn'+(picked==='yes'?' picked-yes':'')+'" id="pickYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Yes, I signed in successfully</button>'+
-        '<button type="button" class="confirm-btn'+(picked==='no'?' picked-no':'')+'" id="pickNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>No, I wasn\'t able to sign in</button>'+
+        '<button type="button" class="confirm-btn'+(picked==='yes'?' picked-yes':'')+'" id="pickYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Signed in without a problem</button>'+
+        '<button type="button" class="confirm-btn'+(picked==='no'?' picked-no':'')+'" id="pickNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>Ran into an issue</button>'+
       '</div>'+
       (picked==='yes' ? '<div class="confirm-reveal good"><b>Nice work — you\'re in!</b>One more thing to keep in your back pocket: if you ever forget your password, look for the &ldquo;Forgot password?&rdquo; link right on the sign-in page. It\'ll walk you through resetting it.</div>' : '')+
-      (picked==='no' ? '<div class="confirm-reveal warn"><b>No problem — this happens.</b>Reach out to your account manager for help getting signed in. Once you\'re in, come back and select &ldquo;Yes&rdquo; above to continue.</div>' : '')+
+      (picked==='no' ? '<div class="confirm-reveal warn"><b>No problem — this happens.</b>Reach out to your account manager for help getting signed in. You can keep going with this module in the meantime and try again later.</div>' : '')+
       '</div>';
     d3a.innerHTML = html3a;
     stage.appendChild(d3a);
@@ -430,7 +430,7 @@ function render(){
     if(yesBtn) yesBtn.onclick=function(){ answered['trylogin']='yes'; render(); play(s.auYes); };
     if(noBtn) noBtn.onclick=function(){ answered['trylogin']='no'; render(); play(s.auNo); };
 
-    next.disabled = (picked !== 'yes');
+    next.disabled = false;
     if(!picked) play(s.au);
   }
 
@@ -439,8 +439,8 @@ function render(){
     d3.innerHTML =
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>All set</div>'+
-      '<h1 class="hl">Nice work — you\'re signed in.</h1>'+
-      '<p class="sub">You\'ve covered everything you need to sign in with confidence, and you just proved it by doing it for real. You\'re welcome to revisit this module anytime you need a refresher.</p>'+
+      '<h1 class="hl">Nice work — you\'re ready to sign in.</h1>'+
+      '<p class="sub">You\'ve covered everything you need to sign in with confidence. Once your credentials arrive, come back to this module anytime you need a refresher.</p>'+
       '</div>';
     stage.appendChild(d3);
     next.disabled = false;
@@ -453,7 +453,15 @@ function render(){
   }
 }
 
-function finish(){ window.location.href='../../Begin-Training.html'; }
+function partnerHome(file){
+  try{
+    var p = new URLSearchParams(window.location.search).get('partner');
+    if(p) return '../../'+p+'/'+file;
+  }catch(e){}
+  return '../../'+file;
+}
+function finish(){ window.location.href=partnerHome('Begin-Training.html'); }
+(function(){ var hl=document.querySelector('.home-link'); if(hl) hl.href=partnerHome('Begin-Training.html'); })();
 
 function revealTip(s,wrap,btn){
   if(answered[i]) return;

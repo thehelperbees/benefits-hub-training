@@ -108,17 +108,25 @@
   .example-card b{display:block;font-size:14.5px;color:var(--green);}
   @media(max-width:640px){ .example-grid{grid-template-columns:1fr;} }
 
-  /* ---------- troubleshoot-before-you-escalate category cards ---------- */
+  /* ---------- troubleshoot-before-you-escalate category cards (click to expand) ---------- */
   .ts-stack{display:flex;flex-direction:column;gap:14px;width:100%;max-width:660px;}
-  .ts-card{background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:18px 22px;box-shadow:0 6px 16px -10px rgba(0,50,34,.2);}
-  .ts-card h4{margin:0 0 10px;font-size:14.5px;color:var(--rasp);font-weight:800;letter-spacing:.2px;}
-  .ts-card ul{margin:0;padding-left:19px;}
-  .ts-card li{font-size:13.5px;color:#3C5A4D;line-height:1.55;margin-bottom:7px;}
-  .ts-card li:last-child{margin-bottom:0;}
+  .ts-card{background:#fff;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;box-shadow:0 6px 16px -10px rgba(0,50,34,.2);}
+  .ts-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:transparent;border:none;padding:17px 22px;font-family:inherit;text-align:left;cursor:pointer;}
+  .ts-card-head:hover{background:var(--cream-dim);}
+  .ts-card-title{font-size:14.5px;color:var(--rasp);font-weight:800;letter-spacing:.2px;}
+  .ts-chev{width:16px;height:16px;flex:none;color:var(--rasp);transition:transform .2s ease;}
+  .ts-card.expanded .ts-chev{transform:rotate(180deg);}
+  .ts-card-body{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .ts-card.expanded .ts-card-body{max-height:600px;}
+  .ts-card-body ul{margin:0;padding:0 22px 18px 41px;}
+  .ts-card-body li{font-size:13.5px;color:#3C5A4D;line-height:1.55;margin-bottom:7px;}
+  .ts-card-body li:last-child{margin-bottom:0;}
 
-  /* ---------- outro closing thank-you note ---------- */
-  .outro-thanks{display:flex;align-items:center;gap:12px;margin-top:26px;padding:16px 20px;background:var(--cream-dim);border:1.5px solid var(--sand);border-radius:14px;font-size:15px;font-weight:700;color:var(--green);max-width:560px;}
-  .outro-thanks svg{flex:none;width:24px;height:24px;color:var(--rasp);}
+
+  .reslink{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:13px 18px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;text-decoration:none;font-size:14px;font-weight:700;color:var(--green);transition:.15s;box-shadow:0 6px 16px -10px rgba(0,50,34,.2);}
+  .reslink:hover{border-color:var(--teal);}
+  .reslink .reslink-ic{flex:none;width:18px;height:18px;color:var(--rasp);}
+  .reslink .reslink-arrow{margin-left:auto;width:14px;height:14px;flex:none;color:var(--rasp);}
 
   .capnote{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:#5c7568;font-weight:700;}
   .capnote svg{width:14px;height:14px;flex:none;color:var(--rasp);}
@@ -132,7 +140,7 @@
   .rf-field{margin-bottom:20px;}
   .rf-label{font-weight:800;font-size:14px;color:#1f2d27;margin-bottom:3px;}
   .rf-label .req{color:var(--rasp);margin-left:2px;}
-  .rf-label .opt{font-weight:600;color:#8a8a8a;font-size:12px;text-transform:none;letter-spacing:0;margin-left:6px;}
+  .rf-label .opttag{font-weight:600;color:#8a8a8a;font-size:12px;text-transform:none;letter-spacing:0;margin-left:6px;}
   .rf-input,.rf-select,.rf-textarea{width:100%;border:1.5px solid var(--sand);border-radius:9px;padding:11px 13px;font-family:inherit;font-size:14px;color:#1a1a1a;background:#fff;margin-top:6px;}
   .rf-input:focus,.rf-select:focus,.rf-textarea:focus{outline:2px solid var(--teal);outline-offset:1px;}
   .rf-textarea{min-height:84px;resize:vertical;}
@@ -277,20 +285,20 @@ var RECOGNIZE_STEP = { t:'step',
   au:'02_recognize.mp3' };
 
 var TROUBLESHOOT_CATEGORIES = [
-  { title:"Verify and search", items:[
+  { title:"Verify and search", au:'02b_troubleshoot_verify.mp3', items:[
       "Confirm the member's identity — name, address, and date of birth.",
       "Confirm the benefit type and program first. Home Modification and In-Home Support/LTSS.",
       "Check all referrals — not just the first result."
   ]},
-  { title:"Read before you escalate", items:[
+  { title:"Read before you escalate", au:'02b_troubleshoot_read.mp3', items:[
       "Read the referral narrative and notes, including the authorization details, provider updates, or the next step.",
       "For LTSS, confirm whether a referral is truly inactive or just displayed in monthly segments. Look for &ldquo;monthly ongoing&rdquo; in the narrative before requesting a new one.",
       "Compare the requested service, hours, visit limit, effective date, and provider against the current authorization."
   ]},
-  { title:"Give it time", items:[
+  { title:"Give it time", au:'02b_troubleshoot_time.mp3', items:[
       "If an authorization was just created or updated, allow at least 24 hours before treating it as a system issue."
   ]},
-  { title:"If you still need to escalate", items:[
+  { title:"If you still need to escalate", au:'02b_troubleshoot_escalate.mp3', items:[
       "Choose the issue type based on the action needed, not just the topic mentioned — that's what routes it to the right team.",
       "Include: member name and ID, benefit and service type, current info vs. requested change, and the effective or appointment date.",
       "Add provider or agency information when relevant, plus what troubleshooting you've already done and the outcome.",
@@ -300,7 +308,7 @@ var TROUBLESHOOT_CATEGORIES = [
 
 var TROUBLESHOOT_STEP = { t:'step',
   h:"Troubleshoot before you escalate",
-  sub:"A lot of tickets can be avoided by checking a few things first. Walk through these before deciding an issue actually needs a support ticket.",
+  sub:"A lot of tickets can be avoided by checking a few things first. Select each category below to see what to check — you'll need to open all four before you can continue.",
   visual:'troubleshoot',
   au:'02b_troubleshoot.mp3' };
 
@@ -308,26 +316,25 @@ var BRANCH_STEP = { t:'step',
   h:"You'll start with the Member Support Form",
   sub:"We'll walk through the Member Support Form first, since it covers the most common exceptions — meals, purses, benefit access, and system issues. Once you've submitted it, you'll get a chance to try the Grievance Submission too.",
   visual:'shot', img:'assets/img/ticket-new.png', url:ZD_URL, wide:true, vhCap:46, imgAspect:0.3298,
-  caption:"This is SCAN's Member Support Form.",
   au:'03_branch.mp3' };
 
 var SUPPORT_FORM_STEP = { t:'formfill',
   formKey:'support',
   h:"Fill out the Member Support Form",
-  sub:"Every field here feeds directly into how fast your Account Coordinator can act. Fill it out like you would for a real exception — you'll need to complete every required field before you can submit.",
+  sub:"Every field here feeds directly into how fast your Account Coordinator can act. Fill it out like you would for a real exception — nothing here is required for this practice, so type in as much or as little as you'd like, then hit Submit whenever you're ready.",
   url:ZD_URL,
   au:'04a_support_formfill.mp3',
   auConfirm:'04b_support_confirm.mp3',
   fields:[
-    { key:'email', label:'Your email address', type:'text', required:true, placeholder:'',
+    { key:'email', label:'Your email address', type:'text', required:false, placeholder:'',
       hint:"You'll get the ticket confirmation and any follow-up questions here." },
-    { key:'membername', label:'Member Name', type:'text', required:true, placeholder:'Member Name',
+    { key:'membername', label:'Member Name', type:'text', required:false, placeholder:'Member Name',
       hint:"Use the exact name on file — a mismatch is one of the most common reasons a ticket bounces back." },
-    { key:'memberid', label:'Member ID', type:'text', required:true, placeholder:'Please provide the Member ID',
+    { key:'memberid', label:'Member ID', type:'text', required:false, placeholder:'Please provide the Member ID',
       hint:"The fastest way for your Account Coordinator to pull up the right account. Double-check it." },
-    { key:'dob', label:"Member's Date of Birth", type:'text', required:true, placeholder:'Please format as MM/DD/YYYY',
+    { key:'dob', label:"Member's Date of Birth", type:'text', required:false, placeholder:'Please format as MM/DD/YYYY',
       hint:"Confirms everyone is looking at the same member as the Member ID." },
-    { key:'issuetype', label:'Issue Type', type:'select', required:true,
+    { key:'issuetype', label:'Issue Type', type:'select', required:false,
       options:['I need help logging in','I have a question about my order/service','Need a refund','Account creation/deletion','Provider: change request/report a provider issue','Member Authorizations/Referral Questions','Report system issue/outage','2 hour show up fee','Cancel Service','Parking request','Other'],
       hint:"Match the action needed, not just the topic:",
       hintRouting:[
@@ -336,15 +343,15 @@ var SUPPORT_FORM_STEP = { t:'formfill',
         {label:'Stopping a service', dest:'Cancel Service'},
         {label:'Access, visibility, or system behavior', dest:'Report system issue/outage'}
       ] },
-    { key:'service', label:'Which service are you inquiring about?', type:'select', required:true,
+    { key:'service', label:'Which service are you inquiring about?', type:'select', required:false,
       options:['Travel Escort','Home Modifications','Personal Care','Respite Care','In-Home Safety Assessment'],
       hint:"Match this to the benefit tied to the exception — for example, Personal Care for a missed meal delivery — so it lands with the right specialist." },
-    { key:'submittedby', label:'Ticket Submitted By', type:'select', required:true,
+    { key:'submittedby', label:'Ticket Submitted By', type:'select', required:false,
       options:['Member','Case Manager','Leadership'],
       hint:"Lets your Account Coordinator know who to expect follow-up from — the member, you as case manager, or leadership." },
-    { key:'subject', label:'Subject', type:'text', required:true, placeholder:'',
+    { key:'subject', label:'Subject', type:'text', required:false, placeholder:'',
       hint:"Keep it short and specific, like &ldquo;Meals not delivered 7/29&rdquo;." },
-    { key:'comments', label:'Additional comments', type:'textarea', required:true, placeholder:'Please include additional comments here.',
+    { key:'comments', label:'Additional comments', type:'textarea', required:false, placeholder:'Please include additional comments here.',
       hint:"This matters most for a fast resolution. Include what happened, when, and what you've already tried." },
     { key:'attachments', label:'Attachments', type:'file', required:false,
       hint:"Optional, but a screenshot or a message from the member can help your Account Coordinator resolve it without needing to ask for more detail." }
@@ -354,26 +361,26 @@ var SUPPORT_FORM_STEP = { t:'formfill',
 var GRIEVANCE_FORM_STEP = { t:'formfill',
   formKey:'grievance',
   h:"Fill out the Grievance Submission",
-  sub:"Every field here feeds directly into how fast your Account Coordinator can act. Fill it out like you would for a real complaint — you'll need to complete every required field before you can submit.",
+  sub:"Every field here feeds directly into how fast your Account Coordinator can act. Fill it out like you would for a real complaint — nothing here is required for this practice, so type in as much or as little as you'd like, then hit Submit whenever you're ready.",
   url:ZD_URL,
   au:'05a_grievance_formfill.mp3',
   auConfirm:'05b_grievance_confirm.mp3',
   fields:[
-    { key:'g_email', label:'Your email address', type:'text', required:true, placeholder:'',
+    { key:'g_email', label:'Your email address', type:'text', required:false, placeholder:'',
       hint:"You'll get the ticket confirmation and any follow-up questions here." },
-    { key:'g_subject', label:'Subject', type:'text', required:true, placeholder:'',
+    { key:'g_subject', label:'Subject', type:'text', required:false, placeholder:'',
       hint:"Keep it short and specific, so your Account Coordinator knows what the grievance is about." },
-    { key:'g_membername', label:'Member Name', type:'text', required:true, placeholder:'Member Name',
+    { key:'g_membername', label:'Member Name', type:'text', required:false, placeholder:'Member Name',
       hint:"Use the exact name on file — a mismatch is one of the most common reasons a ticket bounces back." },
-    { key:'g_memberid', label:'Member ID', type:'text', required:true, placeholder:'Please provide the Member ID',
+    { key:'g_memberid', label:'Member ID', type:'text', required:false, placeholder:'Please provide the Member ID',
       hint:"The fastest way for your Account Coordinator to pull up the right account. Double-check it." },
     { key:'g_phone', label:"Member's Phone Number", type:'text', required:false, placeholder:'Please format as: 123-456-7890.',
       hint:"Optional, but gives your Account Coordinator a fast way to reach the member directly." },
-    { key:'g_summary', label:'Grievance Summary', type:'textarea', required:true, placeholder:'',
+    { key:'g_summary', label:'Grievance Summary', type:'textarea', required:false, placeholder:'',
       hint:"This is the heart of the ticket. Include what the member is dissatisfied with, relevant dates, and any prior communication." },
-    { key:'g_action', label:'Action/Response Needed', type:'textarea', required:true, placeholder:'',
+    { key:'g_action', label:'Action/Response Needed', type:'textarea', required:false, placeholder:'',
       hint:"Let your Account Coordinator know what outcome the member is looking for." },
-    { key:'g_comments', label:'Additional comments', type:'textarea', required:true, placeholder:'Please include additional comments here.',
+    { key:'g_comments', label:'Additional comments', type:'textarea', required:false, placeholder:'Please include additional comments here.',
       hint:"Anything relevant that didn't fit above — extra context, related tickets, or helpful detail." },
     { key:'g_attachments', label:'Attachments', type:'file', required:false,
       hint:"Optional, but a screenshot or a message from the member can help your Account Coordinator resolve it without needing to ask for more detail." }
@@ -397,7 +404,6 @@ var EMAILCOORD_STEP = { t:'step',
       "<p>C: [Your Phone Number]</p>"+
       "<p>E: [Your Email]</p>"+
     "</div>",
-  caption:"Email address and signature details are placeholders — swap in your own contact info and the Account Coordinator's real address for this partner.",
   au:'06_email_coordinator.mp3' };
 
 var TIP_STEP = { t:'tip',
@@ -412,6 +418,7 @@ var TRYIT_STEP = { t:'tryit', au:'08_tryit.mp3',
 var OUTRO_STEP = { t:'outro', au:'09_outro.mp3' };
 
 var chosenPath = null; // 'support' | 'grievance'
+var troubleshootOpened = {}; // category idx -> bool, all 4 must be opened before Next unlocks on Step 1
 var formState = {};     // field key -> current value (persists while navigating)
 var formSubmitted = {}; // formKey -> bool (has this form's Submit been clicked)
 
@@ -522,11 +529,32 @@ function visual(s, opts){
   }
   if(s.visual==='troubleshoot'){
     var b5=el('div','ts-stack');
-    b5.innerHTML = TROUBLESHOOT_CATEGORIES.map(function(cat){
-      return '<div class="ts-card"><h4>'+cat.title+'</h4><ul>'+
-        cat.items.map(function(item){ return '<li>'+item+'</li>'; }).join('')+
-        '</ul></div>';
+    b5.innerHTML = TROUBLESHOOT_CATEGORIES.map(function(cat,idx){
+      return '<div class="ts-card" data-idx="'+idx+'">'+
+        '<button type="button" class="ts-card-head">'+
+          '<span class="ts-card-title">'+cat.title+'</span>'+
+          '<svg class="ts-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'+
+        '</button>'+
+        '<div class="ts-card-body"><ul>'+
+          cat.items.map(function(item){ return '<li>'+item+'</li>'; }).join('')+
+        '</ul></div>'+
+      '</div>';
     }).join('');
+    Array.prototype.forEach.call(b5.querySelectorAll('.ts-card'), function(card){
+      var head = card.querySelector('.ts-card-head');
+      head.onclick = function(){
+        var opening = !card.classList.contains('expanded');
+        card.classList.toggle('expanded');
+        if(opening){
+          var idx = parseInt(card.getAttribute('data-idx'),10);
+          var cat = TROUBLESHOOT_CATEGORIES[idx];
+          if(cat && cat.au) play(cat.au);
+          troubleshootOpened[idx] = true;
+          var allOpenNow = TROUBLESHOOT_CATEGORIES.every(function(c,ci){ return !!troubleshootOpened[ci]; });
+          next.disabled = !allOpenNow;
+        }
+      };
+    });
     return b5;
   }
 }
@@ -601,6 +629,10 @@ function render(){
         cap.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>'+s.caption+'</span>';
         vwrap.appendChild(cap);
       }
+      if(s.visual==='troubleshoot'){
+        var allOpen = TROUBLESHOOT_CATEGORIES.every(function(c,ci){ return !!troubleshootOpened[ci]; });
+        next.disabled = !allOpen;
+      }
     }
 
     d2.appendChild(vwrap);
@@ -671,19 +703,20 @@ function render(){
     function fieldComplete(f){ return (formState[f.key]||'').toString().trim().length>0; }
 
     function updateProgress(){
-      var reqFields = s.fields.filter(function(f){ return f.required; });
-      var doneCount = reqFields.filter(fieldComplete).length;
-      var pct = reqFields.length ? Math.round(doneCount/reqFields.length*100) : 100;
+      // Nothing on this form is required — this bar is informational only and never blocks Submit.
+      var trackFields = s.fields.filter(function(f){ return f.type!=='file'; });
+      var doneCount = trackFields.filter(fieldComplete).length;
+      var pct = trackFields.length ? Math.round(doneCount/trackFields.length*100) : 100;
       var txt = document.getElementById('rfProgressText');
       var barI = document.getElementById('rfProgressBar');
-      if(txt) txt.textContent = doneCount+' of '+reqFields.length+' required fields complete';
+      if(txt) txt.textContent = doneCount+' of '+trackFields.length+' fields filled in';
       if(barI) barI.style.width = pct+'%';
-      if(submitBtn) submitBtn.disabled = doneCount < reqFields.length;
+      if(submitBtn) submitBtn.disabled = false;
     }
 
     s.fields.forEach(function(f){
       var fw=el('div','rf-field');
-      var labelHtml = '<div class="rf-label">'+f.label+(f.required?'<span class="req">*</span>':'<span class="opt">(optional)</span>')+'</div>';
+      var labelHtml = '<div class="rf-label">'+f.label+(f.required?'<span class="req">*</span>':'<span class="opttag">(optional)</span>')+'</div>';
       fw.innerHTML = labelHtml;
 
       var inputEl;
@@ -805,8 +838,8 @@ function render(){
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>All set</div>'+
       '<h1 class="hl">You\'re ready to manage exceptions and escalations.</h1>'+
-      '<p class="sub">You now know how to recognize when to escalate, choose between a support ticket and a grievance, and loop in your Account Coordinator with the ticket number. For a quick reference later, the SCAN Case Manager FAQ in the Resource Library covers this same ground in more depth — worth a bookmark. Head to the Knowledge Check next — you\'ll walk through a full scenario, take a short quiz, and earn your certificate of completion.</p>'+
-      '<div class="outro-thanks"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="currentColor" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg><span>Thank you for working with The Helper Bees — we\'re glad to have you on the team.</span></div>'+
+      '<p class="sub">You now know how to recognize when to escalate, choose between a support ticket and a grievance, and loop in your Account Coordinator with the ticket number. For a quick reference later, check out the SCAN Case Manager FAQ below — it covers this same ground in more depth, worth a bookmark. Head to the Knowledge Check next — you\'ll walk through a full scenario, take a short quiz, and earn your certificate of completion.</p>'+
+      '<a class="reslink" href="../resources/SCAN Case Manager FAQ.pdf" target="_blank" rel="noopener"><svg class="reslink-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span>Job Aid: SCAN Case Manager Zendesk &amp; Referral FAQ</span><svg class="reslink-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
       '</div>';
     stage.appendChild(d3);
     next.disabled = false;

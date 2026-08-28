@@ -624,7 +624,7 @@ var SCREENS = [
     sub:"You just followed one referral the whole way through: found the member, submitted the referral — setting the quantity and checking out along the way — watched its status change over several calls, knew when it was and wasn't okay to share provider contact info, logged a note to help move a stalled referral forward, and confirmed how it wrapped up. Now let's do one complete knowledge check covering everything you've learned. Pass it, and your certificate is next.",
     au:'09_transition.mp3'},
 
-  { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 1 of 8',
+  { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 1 of 8', au:'quiz_start.mp3',
     eyebrow:'Finding and Reviewing a Member', visual:'tile-balance',
     q:"Looking at this member's benefit tile, how much of their allowance is still available to use?",
     opts:[
@@ -714,11 +714,22 @@ var SCREENS = [
 
   { t:'results', auPass:'10_results_pass.mp3', auFail:'11_results_fail.mp3' },
 
-  { t:'certificate' }
+  { t:'certificate', au:'12_certificate.mp3' }
 ];
 
 /* ================= ENGINE ================= */
 var i=0, learnerName='', quizAnswered={}, blankState={};
+
+/* Shared across all partners — this module has no partner folder of its own,
+   so the calling Begin-Training page passes ?partner=<folder-name> in the link.
+   Falls back to Training Home if that's ever missing, rather than guessing. */
+function getPartnerLibraryLink(){
+  try{
+    var partner = new URLSearchParams(window.location.search).get('partner');
+    if(partner){ return {href:'../../'+partner+'/library.html', label:'Go to Resource Library'}; }
+  }catch(e){}
+  return {href:'../../Begin-Training.html', label:'Back to Training Home'};
+}
 var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
     back=document.getElementById('back'), next=document.getElementById('next'),
     stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
@@ -1771,12 +1782,13 @@ function render(){
 
   else if(s.t==='certificate'){
     updateCertSheet();
+    var libLink = getPartnerLibraryLink();
     var d7=el('div','ix center');
     d7.innerHTML =
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>All set</div>'+
       '<h1 class="hl">Congratulations'+(learnerName? ', '+learnerName.split(' ')[0] : '')+'!</h1>'+
-      '<p class="sub">You\'ve completed the Benefits Hub Partner Training. Save or print your certificate below. When you need a refresher later, the Resource Library has quick-reference job aids and the SCAN Case Manager FAQ for day-to-day questions.</p>'+
+      '<p class="sub">You\'ve completed the Benefits Hub Partner Training. Save or print your certificate below. When you need a refresher later, the Resource Library has quick-reference job aids and FAQ for day-to-day questions.</p>'+
       '<div class="certpreview">'+
         '<div class="certeyebrow">The Helper Bees &middot; Partner Training</div>'+
         '<h2>Certificate of Completion</h2>'+
@@ -1785,7 +1797,7 @@ function render(){
         '<p>has successfully completed the Benefits Hub Partner Training.</p>'+
         '<div class="cert-actions">'+
           '<button class="cert-btn" id="printCertBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Print / Save as PDF</button>'+
-          '<a class="cert-link" href="../../scan/library.html">Go to Resource Library</a>'+
+          '<a class="cert-link" href="'+libLink.href+'">'+libLink.label+'</a>'+
         '</div>'+
         '<div class="printhint">Clicking Print opens your browser\'s print dialog — choose "Save as PDF" as the destination to download it instead of printing.</div>'+
       '</div>'+
