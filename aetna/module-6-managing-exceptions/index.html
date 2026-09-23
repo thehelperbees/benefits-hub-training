@@ -46,8 +46,8 @@
 
   .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--rasp);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;margin-bottom:16px;}
   .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--rasp);}
-  h1.hl{font-size:38px;font-weight:800;line-height:1.12;letter-spacing:-.5px;margin:0 0 14px;color:var(--green);}
-  .sub{font-size:17.5px;line-height:1.55;color:#3C5A4D;margin:0 0 6px;max-width:52ch;}
+  h1.hl{font-size:30px;font-weight:800;line-height:1.15;letter-spacing:-.3px;margin:0 0 10px;color:var(--green);}
+  .sub{font-size:15px;line-height:1.5;color:#3C5A4D;margin:0 0 4px;max-width:58ch;}
   .kicker{font-size:15px;font-weight:700;color:var(--green);margin:0 0 4px;}
 
   /* ---------- cover ---------- */
@@ -60,8 +60,25 @@
 
   /* ---------- browser mock ---------- */
   .browser{border:1.5px solid var(--sand);border-radius:14px;overflow:visible;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:520px;width:100%;}
+  .zdaccess-wrap{max-width:480px;width:100%;border:1.5px solid var(--sand);border-radius:14px;overflow:visible;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);position:relative;}
+  .zdaccess-nav{background:var(--green);border-radius:12px 12px 0 0;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
+  .zdaccess-logo{color:#FCF7EE;font-weight:800;font-size:13px;display:flex;align-items:center;gap:8px;}
+  .zdaccess-logo svg{width:20px;height:20px;}
+  .zdaccess-icons{display:flex;align-items:center;gap:16px;color:#FCF7EE;}
+  .zdaccess-icons svg{width:19px;height:19px;}
+  .zdaccess-icons .active-icon{background:#fff;border-radius:50%;padding:3px;color:var(--green);}
+  .zdaccess-body{background:#fff;border-radius:0 0 12px 12px;padding:22px;min-height:70px;}
+  .zdaccess-dropdown{position:absolute;top:56px;right:14px;background:#fff;border-radius:12px;box-shadow:0 16px 34px -10px rgba(0,0,0,.35);width:260px;padding:16px 18px;text-align:left;z-index:10;}
+  .zdaccess-name{font-weight:800;font-size:13.5px;color:var(--ink);}
+  .zdaccess-email{font-size:11.5px;color:#8a9b91;margin-top:2px;}
+  .zdaccess-role{font-size:11px;color:#8a9b91;margin-top:1px;}
+  .zdaccess-divider{height:1px;background:var(--sand);margin:12px 0;}
+  .zdaccess-menuitem{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--ink);padding:6px 0;}
+  .zdaccess-menuitem svg{width:16px;height:16px;color:#5c7568;}
+  .zdaccess-menuitem.hot{color:var(--rasp);}
+  .zdaccess-menuitem.hot svg{color:var(--rasp);}
   .browser.compact{max-width:520px;}
-  .browser.wide{max-width:760px;}
+  .browser.wide{max-width:920px;}
   .field-label{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;color:var(--rasp);letter-spacing:.3px;text-transform:uppercase;margin-bottom:10px;}
   .field-label svg{width:13px;height:13px;flex:none;}
   .browser .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--cream-dim);border-bottom:1px solid var(--sand);border-radius:12.5px 12.5px 0 0;}
@@ -121,6 +138,15 @@
   .ts-card-body ul{margin:0;padding:0 22px 18px 41px;}
   .ts-card-body li{font-size:13.5px;color:#3C5A4D;line-height:1.55;margin-bottom:7px;}
   .ts-card-body li:last-child{margin-bottom:0;}
+
+  /* ---------- after-submit: most tickets vs. true escalations ---------- */
+  .afterresult-stack{display:flex;flex-direction:column;gap:14px;width:100%;max-width:660px;}
+  .afterresult-card{background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:18px 22px;box-shadow:0 6px 16px -10px rgba(0,50,34,.2);}
+  .afterresult-card h5{margin:0 0 8px;font-size:14.5px;color:var(--green);font-weight:800;display:flex;align-items:center;gap:8px;}
+  .afterresult-card p{margin:0;font-size:13.5px;color:#3C5A4D;line-height:1.55;}
+  .afterresult-card.rare h5{color:var(--rasp);}
+  .afterresult-card .pill{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 8px;border-radius:20px;background:var(--cream-dim);color:#5c7568;}
+  .afterresult-card.rare .pill{background:rgba(199,60,101,.12);color:var(--rasp);}
 
 
   .reslink{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:13px 18px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;text-decoration:none;font-size:14px;font-weight:700;color:var(--green);transition:.15s;box-shadow:0 6px 16px -10px rgba(0,50,34,.2);}
@@ -182,8 +208,12 @@
   button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
   .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
   .back[disabled]{opacity:.25;cursor:default;}
-  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next{background:var(--yellow);color:var(--green);}
   .next[disabled]{opacity:.35;cursor:default;}
+  .ready-hint{font-size:12px;color:#5c7568;font-style:italic;opacity:0;transform:translateY(3px);transition:opacity .3s ease, transform .3s ease;margin-left:auto;}
+  .ready-hint.show{opacity:1;transform:translateY(0);}
+  @keyframes nextpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,214,70,.55);}50%{box-shadow:0 0 0 7px rgba(255,214,70,0);}}
+  .next.ready{animation:nextpulse 1.6s ease-out 2;}
   .cta-btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:var(--green);font-weight:800;font-size:15px;text-decoration:none;border-radius:12px;padding:14px 22px;margin-top:22px;letter-spacing:.2px;}
   .cta-btn svg{width:16px;height:16px;flex:none;}
   .cta-btn:hover{filter:brightness(0.96);}
@@ -218,12 +248,24 @@
   .audiobtn[hidden]{display:none;}
 
   @media(max-width:640px){
-    .ix{padding:32px 22px;} h1.hl{font-size:27px;} .dm-grid{grid-template-columns:1fr;}
+    .ix{padding:32px 22px;} h1.hl{font-size:22px;} .dm-grid{grid-template-columns:1fr;}
     .cover-meta{flex-direction:column;gap:10px;}
     .browser .body{padding:18px 16px;}
     .hotspot-tag{font-size:10px;padding:3px 7px;border-radius:5px;}
     #app{padding:16px 14px 20px;}
   }
+
+  .expand-btn{position:absolute;top:12px;right:12px;background:var(--green);color:var(--cream);border:none;border-radius:9px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 14px -6px rgba(0,0,0,.4);z-index:5;}
+  .expand-btn svg{width:16px;height:16px;}
+  .expand-btn:hover{background:var(--green-soft);}
+  .zoomOverlay{position:fixed;inset:0;background:rgba(0,51,34,.75);display:none;align-items:center;justify-content:center;z-index:200;padding:24px;}
+  .zoomOverlay.show{display:flex;}
+  .zoomBox{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);width:min(1100px,92vw);}
+  .zoomBox .zbody{display:flex;align-items:center;justify-content:center;padding:28px;max-height:85vh;box-sizing:border-box;position:relative;}
+  .zoomBox .zbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--cream-dim);border-bottom:1px solid var(--sand);}
+  .zoomBox .zbar span{font-weight:800;color:var(--green);font-size:14px;}
+  .zoomClose{background:none;border:none;cursor:pointer;color:var(--green);font-size:22px;line-height:1;padding:4px 10px;font-family:inherit;}
+  .zoomBox img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(85vh - 56px);object-fit:contain;}
 </style>
 </head>
 <body>
@@ -252,6 +294,7 @@
   <div class="bot">
     <button class="nav back" id="back">Back</button>
     <button class="audiobtn" id="audioToggle" hidden></button>
+    <span class="ready-hint" id="readyHint">Ready when you are — select Next to continue.</span>
     <button class="nav next" id="next">Next</button>
   </div>
   <audio id="au"></audio>
@@ -308,6 +351,12 @@ var TROUBLESHOOT_STEP = { t:'step',
   visual:'troubleshoot',
   au:'02b_troubleshoot.mp3' };
 
+var ZDACCESS_STEP = { t:'step',
+  h:"Find the ticket form from Benefits Hub",
+  sub:"Wherever you are in Benefits Hub, select the person icon in the top right, then Submit a ticket. That'll take you straight to the ticket form, where you can submit it — no need to remember or bookmark a separate URL.",
+  visual:'zdaccess',
+  au:'02c_zdaccess.mp3' };
+
 var BRANCH_STEP = { t:'step',
   h:"You'll fill out the Member Support Form",
   sub:"This covers the most common exceptions — missed service visits, referral or authorization issues, benefit access, and system issues.",
@@ -317,63 +366,51 @@ var BRANCH_STEP = { t:'step',
 var SUPPORT_FORM_STEP = { t:'formfill',
   formKey:'support',
   h:"Fill out the Member Support Form",
-  sub:"Every field here feeds directly into how fast your Account Coordinator can act. Fill it out like you would for a real exception — nothing here is required for this practice, so type in as much or as little as you'd like, then hit Submit whenever you're ready.",
+  sub:"Every field here feeds directly into how fast the right team can act on it. In the real form, these fields are required — enter N/A if a member-specific field doesn't apply. For this practice, type in as much or as little as you'd like, then hit Submit whenever you're ready.",
   url:ZD_URL,
   au:'04a_support_formfill.mp3',
   auConfirm:'04b_support_confirm.mp3',
   fields:[
-    { key:'email', label:'Your email address', type:'text', required:false, placeholder:'',
+    { key:'email', label:'Your email address', type:'text', required:true, placeholder:'',
       hint:"You'll get the ticket confirmation and any follow-up questions here." },
-    { key:'membername', label:'Member Name', type:'text', required:false, placeholder:'Member Name',
-      hint:"Use the exact name on file — a mismatch is one of the most common reasons a ticket bounces back." },
-    { key:'memberid', label:'Member ID', type:'text', required:false, placeholder:'Please provider the Member ID',
-      hint:"The fastest way for your Account Coordinator to pull up the right account. Double-check it." },
-    { key:'dob', label:"Member's Date of Birth", type:'text', required:false, placeholder:'Please format as MM/DD/YYYY',
+    { key:'membername', label:'Member Name', type:'text', required:true, placeholder:'Member Name',
+      hint:"Use the exact name on file — a mismatch is one of the most common reasons a ticket bounces back. If the issue isn't about a specific member — like an Account Creation/Deletion request for internal Benefits Hub access — it's fine to enter N/A here and in Member ID / DOB below." },
+    { key:'memberid', label:'Member ID', type:'text', required:true, placeholder:'Please provider the Member ID',
+      hint:"The fastest way for whoever picks up the ticket to pull up the right account. Double-check it." },
+    { key:'dob', label:"Member's Date of Birth", type:'text', required:true, placeholder:'Please format as MM/DD/YYYY',
       hint:"Confirms everyone is looking at the same member as the Member ID." },
-    { key:'issuetype', label:'Issue Type', type:'select', required:false,
+    { key:'issuetype', label:'Issue Type', type:'select', required:true,
       options:['I need help logging in','I have a question about my order/service/referral','Need a refund','Account creation/deletion','Provider: change request/report a provider issue','Report system issue/outage'],
       hint:"Match the action needed, not just the topic:",
       hintRouting:[
         {label:'Referral, service, or order questions', dest:'I have a question about my order/service/referral'},
         {label:'Provider or agency issues', dest:'Provider: change request/report a provider issue'},
         {label:'Trouble accessing your account', dest:'I need help logging in'},
+        {label:'Requesting new Benefits Hub user access, or removing a user', dest:'Account creation/deletion'},
         {label:'System behavior or outages', dest:'Report system issue/outage'}
       ] },
-    { key:'submittedby', label:'Ticket Submitted By', type:'select', required:false,
+    { key:'submittedby', label:'Ticket Submitted By', type:'select', required:true,
       options:['Member','Case Manager','Leadership'],
-      hint:"Lets your Account Coordinator know who to expect follow-up from — the member, you as case manager, or leadership." },
-    { key:'subject', label:'Subject', type:'text', required:false, placeholder:'',
+      hint:"Lets whoever picks up the ticket know who to expect follow-up from — the member, you as case manager, or leadership." },
+    { key:'subject', label:'Subject', type:'text', required:true, placeholder:'',
       hint:"Keep it short and specific, like &ldquo;Referral missing authorization&rdquo;." },
-    { key:'comments', label:'Additional comments', type:'textarea', required:false, placeholder:'Please include additional comments here.',
+    { key:'comments', label:'Additional comments', type:'textarea', required:true, placeholder:'Please include additional comments here.',
       hint:"This matters most for a fast resolution. Include what happened, when, and what you've already tried." },
     { key:'attachments', label:'Attachments', type:'file', required:false,
-      hint:"Optional, but a screenshot or a message from the member can help your Account Coordinator resolve it without needing to ask for more detail." }
+      hint:"Optional, but a screenshot or a message from the member can help resolve it without needing to ask for more detail." }
   ]
 };
 
-var EMAILCOORD_STEP = { t:'step',
-  h:"Email your Account Coordinator",
-  sub:"Once you have your ticket number, send a quick email to your Account Coordinator letting them know you'd like to escalate it.",
-  visual:'emailmock',
-  emailTo:'[ACCOUNT COORDINATOR EMAIL]',
-  emailSubject:'Escalation — Support Ticket #12345',
-  emailBody:"<p>Hello,</p>"+
-    "<p>I've submitted support ticket #12345 to help escalate this issue. [Briefly describe what's happening and any pattern you're seeing.]</p>"+
-    "<p>Please review and let us know the next steps or an expected timeline.</p>"+
-    "<p>Thank you!</p>"+
-    "<div class=\"ec-sig\">"+
-      "<p>[Your Name]</p>"+
-      "<p>[Your Title]</p>"+
-      "<p>[Your Organization]</p>"+
-      "<p>C: [Your Phone Number]</p>"+
-      "<p>E: [Your Email]</p>"+
-    "</div>",
-  au:'06_email_coordinator.mp3' };
+var AFTERSUBMIT_STEP = { t:'step',
+  h:"What happens after you submit",
+  sub:"Tickets aren't all routed the same way, and most don't need any follow-up from you once submitted.",
+  visual:'afterresult',
+  au:'06_after_submit.mp3' };
 
 var TIP_STEP = { t:'tip',
   scenario:"A member calls to say their scheduled Personal Care visit didn't happen today.",
   prompt:"What's the right move?",
-  reveal:"Log a support ticket for the missed visit, then email your Account Coordinator with the ticket number so they can help escalate it — the same two steps you'd use for a referral issue, a benefit access problem, or a system outage.",
+  reveal:"Log a support ticket with the details — that's it. A missed visit, a referral issue, or a benefit access problem all work the same way: submit the ticket with the right Issue Type and you're done. Only email your THB Account Coordinator with the ticket number if the situation is urgent and needs faster attention — that's the exception, not the norm.",
   au:'07a_tip_prompt.mp3', auReveal:'07b_tip_reveal.mp3' };
 
 var TRYIT_STEP = { t:'tryit', au:'08_tryit.mp3',
@@ -386,7 +423,7 @@ var formState = {};     // field key -> current value (persists while navigating
 var formSubmitted = {}; // formKey -> bool (has this form's Submit been clicked)
 
 function assembleScreens(){
-  var arr = [COVER_STEP, TROUBLESHOOT_STEP, RECOGNIZE_STEP, BRANCH_STEP, SUPPORT_FORM_STEP, EMAILCOORD_STEP, TIP_STEP, TRYIT_STEP, OUTRO_STEP];
+  var arr = [COVER_STEP, TROUBLESHOOT_STEP, RECOGNIZE_STEP, ZDACCESS_STEP, BRANCH_STEP, SUPPORT_FORM_STEP, AFTERSUBMIT_STEP, TIP_STEP, TRYIT_STEP, OUTRO_STEP];
   var stepEntries = arr.filter(function(s){ return s.t==='step' || s.t==='formfill'; });
   stepEntries.forEach(function(s,idx){ s.n = idx+1; s.of = stepEntries.length; });
   return arr;
@@ -396,11 +433,31 @@ var SCREENS = assembleScreens();
 
 /* ================= ENGINE ================= */
 var i=0, answered={};
+
+// Force a fresh reload if the page is restored from the back/forward cache
+// (e.g. leaving via Training Home and returning) so practice exercises reset.
+window.addEventListener('pageshow', function(e){
+  if(e.persisted){ window.location.reload(); }
+});
 var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
     back=document.getElementById('back'), next=document.getElementById('next'),
     stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
     audioToggle=document.getElementById('audioToggle');
 var AUDIO_DIR='assets/audio/';
+
+function markReady(){
+  var hint = document.getElementById('readyHint');
+  if(hint) hint.classList.add('show');
+  if(next) next.classList.add('ready');
+}
+(function(){
+  if(!next) return;
+  new MutationObserver(function(){
+    if(!next.disabled) markReady();
+  }).observe(next, {attributes:true, attributeFilter:['disabled']});
+})();
+var __au = document.getElementById('au');
+if(__au) __au.addEventListener('ended', function(){ if(next && !next.disabled) markReady(); });
 
 function play(src){
   if(!src){ audioToggle.hidden=true; return; }
@@ -438,15 +495,61 @@ function urlBar(url){
     '<div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>'+url+'</span></div></div>';
 }
 
+var zoomOverlayEl;
+function ensureZoomOverlay(){
+  if(zoomOverlayEl) return zoomOverlayEl;
+  var ov=el('div','zoomOverlay'); ov.id='zoomOverlay';
+  ov.innerHTML='<div class="zoomBox"><div class="zbar"><span id="zoomLabel"></span><button class="zoomClose" id="zoomClose" type="button">&times;</button></div>'+
+    '<div class="zbody"><img id="zoomImg" src="" alt=""></div></div>';
+  document.body.appendChild(ov);
+  ov.addEventListener('click', function(e){ if(e.target===ov) closeZoom(); });
+  ov.querySelector('#zoomClose').addEventListener('click', closeZoom);
+  zoomOverlayEl=ov;
+  return ov;
+}
+function openZoom(src, label){
+  var ov=ensureZoomOverlay();
+  ov.querySelector('#zoomImg').src=src;
+  ov.querySelector('#zoomLabel').textContent=label||'';
+  ov.classList.add('show');
+}
+function closeZoom(){
+  var ov=document.getElementById('zoomOverlay');
+  if(ov) ov.classList.remove('show');
+}
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){ closeZoom(); }
+});
+
 function visual(s, opts){
   opts = opts || {};
+  if(s.visual==='zdaccess'){
+    var bz=el('div','zdaccess-wrap');
+    bz.innerHTML =
+      '<div class="zdaccess-nav">'+
+        '<div class="zdaccess-logo"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FCF7EE" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FCF7EE"/></svg>THE HELPER BEES</div>'+
+        '<div class="zdaccess-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>'+
+        '<span class="active-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span></div>'+
+      '</div>'+
+      '<div class="zdaccess-body"></div>'+
+      '<div class="zdaccess-dropdown">'+
+        '<div class="zdaccess-name">Jordan Lee</div>'+
+        '<div class="zdaccess-email">jordan.lee@example.com</div>'+
+        '<div class="zdaccess-role">Case Manager</div>'+
+        '<div class="zdaccess-divider"></div>'+
+        '<div class="zdaccess-menuitem hot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Submit a ticket</div>'+
+        '<div class="zdaccess-menuitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>Logout</div>'+
+      '</div>';
+    return bz;
+  }
   if(s.visual==='shot'){
     var b=el('div','browser'+(s.compact?' compact':'')+(s.wide?' wide':''));
     var capPx = s.wide ? 760 : 520;
     if(s.vhCap && s.imgAspect){ b.style.maxWidth = 'min('+capPx+'px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
     var showAlt = opts.showAlt;
     var imgSrc = (showAlt && s.img2) ? s.img2 : s.img;
-    b.innerHTML = urlBar(s.url) + '<div class="body"><img src="'+imgSrc+'" alt="" class="shot-img"></div>';
+    b.innerHTML = urlBar(s.url) + '<div class="body"><img src="'+imgSrc+'" alt="" class="shot-img">'+'<button type="button" class="expand-btn" aria-label="Enlarge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>'+'</div>';
+    var expandBtn = b.querySelector('.expand-btn'); if(expandBtn){ expandBtn.onclick=function(){ var curImg=b.querySelector('.shot-img'); openZoom(curImg?curImg.src:imgSrc, s.h||''); }; }
     if(s.hotspot && !showAlt){
       var h=s.hotspot;
       var body=b.querySelector('.body');
@@ -488,6 +591,15 @@ function visual(s, opts){
       return '<div class="example-card"><div class="ic">'+ex.icon+'</div><b>'+ex.label+'</b></div>';
     }).join('');
     return b4;
+  }
+  if(s.visual==='afterresult'){
+    var b6=el('div','afterresult-stack');
+    b6.innerHTML =
+      '<div class="afterresult-card"><h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Most tickets <span class="pill">Default</span></h5>'+
+      '<p>Once you hit submit, you\'re done. The ticket routes automatically based on the Issue Type you selected — no email or follow-up needed from you.</p></div>'+
+      '<div class="afterresult-card rare"><h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22V3"/></svg>Need to escalate? <span class="pill">Urgent only</span></h5>'+
+      '<p>Selecting the Issue Type routes your ticket to the internal department who\'ll assist you — that\'s normally all it takes. If the ticket is <b>urgent</b>, send a quick email to your THB Account Coordinator with the ticket number so they can help move it along faster.</p></div>';
+    return b6;
   }
   if(s.visual==='troubleshoot'){
     var b5=el('div','ts-stack');
@@ -555,7 +667,7 @@ function render(){
       '<div class="wrap">'+
       '<div class="cover-badge"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FCF7EE" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FCF7EE"/></svg>Benefits Hub</div>'+
       '<h1 class="hl">Managing Common Exceptions and Escalations</h1>'+
-      '<p class="sub">Not every issue can be resolved inside Benefits Hub. In the next few minutes, you\'ll learn how to recognize when to escalate, submit a support ticket, and loop in your Account Coordinator so it gets picked up quickly.</p>'+
+      '<p class="sub">Not every issue can be resolved inside Benefits Hub. In the next few minutes, you\'ll learn how to recognize when to escalate, submit a support ticket, and understand how tickets get routed once you submit.</p>'+
       '<div class="cover-meta"><div><b>~4 minutes</b><span>self-paced</span></div></div>'+
       '</div>';
     stage.appendChild(d);
@@ -612,7 +724,7 @@ function render(){
         '<div class="eyebrow"><span class="dot"></span>Step '+s.n+'</div>'+
         '<div class="rf-donebadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg></div>'+
         '<h1 class="hl">Ticket submitted</h1>'+
-        '<p class="sub">Your Member Support Form is in. You\'ll get a ticket number like <b>#12345</b> — you\'ll need that for the next step, emailing your Account Coordinator.</p>';
+        '<p class="sub">Your Member Support Form is in. You\'ll get a ticket number like <b>#12345</b> for your own reference — for most tickets, that\'s all you need to do.</p>';
 
       dF.appendChild(wrapF);
       stage.appendChild(dF);
@@ -755,7 +867,7 @@ function render(){
         '<button type="button" class="confirm-btn'+(picked==='yes'?' picked-yes':'')+'" id="pickYes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Yes, I found my way through it</button>'+
         '<button type="button" class="confirm-btn'+(picked==='no'?' picked-no':'')+'" id="pickNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>No, I got stuck</button>'+
       '</div>'+
-      (picked==='yes' ? '<div class="confirm-reveal good"><b>Nice work!</b>You\'re ready to open the right ticket the next time an exception comes up, and to loop in your Account Coordinator once you have the ticket number.</div>' : '')+
+      (picked==='yes' ? '<div class="confirm-reveal good"><b>Nice work!</b>You\'re ready to open the right ticket the next time an exception comes up — and you know that submitting it is usually the whole job.</div>' : '')+
       (picked==='no' ? '<div class="confirm-reveal warn"><b>No problem — this happens.</b>Revisit the steps above, or reach out to your manager for help. Once you feel good about it, come back and select &ldquo;Yes&rdquo; above to continue.</div>' : '')+
       '</div>';
     d3a.innerHTML = html3a;
@@ -775,7 +887,7 @@ function render(){
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>All set</div>'+
       '<h1 class="hl">You\'re ready to manage exceptions and escalations.</h1>'+
-      '<p class="sub">You now know how to recognize when to escalate, submit a support ticket, and loop in your Account Coordinator with the ticket number. Head to the Knowledge Check next — you\'ll walk through a full scenario, take a short quiz, and earn your certificate of completion.</p>'+
+      '<p class="sub">You now know how to recognize when to escalate, submit a support ticket, and understand how tickets get routed once you submit. Head to the Knowledge Check next — you\'ll walk through a full scenario, take a short quiz, and earn your certificate of completion.</p>'+
       '</div>';
     stage.appendChild(d3);
     next.disabled = false;

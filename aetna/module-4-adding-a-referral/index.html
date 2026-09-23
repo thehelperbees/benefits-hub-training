@@ -46,8 +46,8 @@
 
   .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--rasp);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;margin-bottom:16px;}
   .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--rasp);}
-  h1.hl{font-size:32px;font-weight:800;line-height:1.14;letter-spacing:-.5px;margin:0 0 6px;color:var(--green);}
-  .sub{font-size:15.5px;line-height:1.4;color:#3C5A4D;margin:0 0 4px;max-width:56ch;}
+  h1.hl{font-size:26px;font-weight:800;line-height:1.16;letter-spacing:-.3px;margin:0 0 6px;color:var(--green);}
+  .sub{font-size:15px;line-height:1.48;color:#3C5A4D;margin:0 0 4px;max-width:60ch;}
   .kicker{font-size:15px;font-weight:700;color:var(--green);margin:0 0 4px;}
   .practice-bullets{list-style:none;margin:4px 0 18px;padding:0;display:flex;flex-direction:column;gap:6px;}
   .practice-bullets li{display:flex;align-items:baseline;gap:8px;font-size:15px;color:var(--ink);}
@@ -79,7 +79,7 @@
   .infonote b{color:var(--green);}
 
   /* ---------- product mock (recreated real UI, inside browser body) ---------- */
-  .pm{padding:15px 18px;font-size:13px;color:#1a1a1a;}
+  .pm{padding:26px 30px;font-size:15px;color:#1a1a1a;}
   .pm-topbar{display:flex;align-items:center;justify-content:space-between;background:var(--green);margin:-15px -18px 13px;padding:11px 18px;}
   .pm-topbar .pm-logo{display:flex;align-items:center;gap:8px;color:var(--lime);font-weight:800;font-size:14px;letter-spacing:.3px;}
   .pm-topbar .pm-logo svg{width:20px;height:20px;}
@@ -88,30 +88,30 @@
   .pm-cart-wrap svg{width:20px;height:20px;color:var(--lime);display:block;}
   .pm-badge{position:absolute;top:-6px;right:-7px;background:#C0392B;color:#fff;font-size:9px;font-weight:800;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
   .pm-account{width:20px;height:20px;color:var(--lime);}
-  .pm-h1{font-size:19px;font-weight:800;color:#1a1a1a;margin:0 0 1px;}
-  .pm-sub{font-size:12px;color:#8a8a8a;margin:0 0 10px;}
+  .pm-h1{font-size:28px;font-weight:800;color:#1a1a1a;margin:0 0 4px;}
+  .pm-sub{font-size:14px;color:#8a8a8a;margin:0 0 10px;}
   .pm-backrow{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
   .pm-back-circle{width:26px;height:26px;border-radius:50%;border:1.5px solid #ddd;display:flex;align-items:center;justify-content:center;flex:none;}
   .pm-back-circle svg{width:13px;height:13px;color:#555;}
   .pm-cards{display:grid;grid-template-columns:1.6fr 1fr;gap:10px;margin-bottom:10px;}
   .pm-card{background:#fff;border-radius:10px;padding:10px 13px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
-  .pm-card h4{font-size:12px;font-weight:800;margin:0 0 7px;color:#1a1a1a;}
-  .pm-table{width:100%;border-collapse:collapse;font-size:11.5px;}
+  .pm-card h4{font-size:18px;font-weight:800;margin:0 0 10px;color:#1a1a1a;}
+  .pm-table{width:100%;border-collapse:collapse;font-size:13.5px;}
   .pm-table th{background:#F1F1F1;text-align:left;font-weight:800;padding:6px 8px;color:#333;}
   .pm-table td{padding:8px 8px;color:#333;border-top:none;}
   .pm-stats{display:flex;gap:14px;border-top:2px solid #eee;padding-top:8px;margin-top:4px;}
   .pm-stat b{display:block;font-size:16px;}
   .pm-stat.orange b{color:#D2691E;}
   .pm-stat.green b{color:#3C8B3C;}
-  .pm-stat span{font-size:9px;color:#999;text-transform:uppercase;font-weight:700;}
-  .pm-section-title{font-size:12.5px;font-weight:800;margin:10px 0 6px;color:#1a1a1a;}
+  .pm-stat span{font-size:12.5px;color:#888;font-weight:500;}
+  .pm-section-title{font-size:20px;font-weight:800;margin:18px 0 10px;color:#1a1a1a;}
   .pm-section-divider{display:flex;align-items:center;gap:10px;margin:22px 0 4px;font-size:11.5px;font-weight:800;color:var(--rasp);text-transform:uppercase;letter-spacing:.4px;}
   .pm-section-divider:before{content:'';flex:none;width:22px;height:1.5px;background:var(--rasp);opacity:.4;}
   .pm-section-divider:after{content:'';flex:1;height:1.5px;background:var(--sand);}
   .pm-link{font-size:10.5px;color:#5c7568;text-decoration:underline;font-weight:600;}
 
   .pm-tilegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 3px;}
-  .pm-tile{background:#fff;border:1.5px solid #eee;border-radius:9px;padding:9px 6px;text-align:center;font-size:9.5px;font-weight:700;color:#333;cursor:pointer;position:relative;transition:.15s;}
+  .pm-tile{background:#fff;border:1.5px solid #eee;border-radius:12px;padding:18px 12px;text-align:center;font-size:13px;font-weight:700;color:#333;cursor:pointer;position:relative;transition:.15s;}
 
   /* ---------- click-here highlight (guides first-time users to the next action) ---------- */
   @keyframes hotpulse{
@@ -119,26 +119,32 @@
     50%{box-shadow:0 0 0 9px rgba(204,73,131,.06);}
   }
   .pm-hot{animation:hotpulse 1.6s ease-in-out infinite;border-color:var(--rasp) !important;}
-  .pm-hot-tag{position:absolute;top:-25px;left:50%;transform:translateX(-50%);background:var(--rasp);color:#fff;font-size:9.5px;font-weight:800;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 4px 10px -4px rgba(0,0,0,.4);pointer-events:none;z-index:6;}
+  .pm-hot-tag{position:absolute;top:-25px;left:50%;transform:translateX(-50%);background:var(--rasp);color:#fff !important;font-size:9.5px;font-weight:800;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 4px 10px -4px rgba(0,0,0,.4);pointer-events:none;z-index:6;}
   .pm-hot-tag:after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--rasp);}
-  .pm-tile svg{width:22px;height:22px;margin:0 auto 6px;display:block;color:#333;}
+  /* Highlight-tag placement fallbacks: used automatically when the default spot (centered above) would cover text */
+  .pm-hot-tag.tp-ra{left:auto;right:0;transform:none;} .pm-hot-tag.tp-ra:after{left:auto;right:12px;transform:none;}
+  .pm-hot-tag.tp-la{left:0;transform:none;} .pm-hot-tag.tp-la:after{left:12px;transform:none;}
+  .pm-hot-tag.tp-side{top:50%;left:calc(100% + 10px);transform:translateY(-50%);} .pm-hot-tag.tp-side:after{top:50%;left:auto;right:100%;transform:translateY(-50%);border-top-color:transparent;border-right-color:var(--rasp);}
+  .pm-hot-tag.tp-below{top:calc(100% + 8px);} .pm-hot-tag.tp-below:after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:var(--rasp);}
+  .pm-tile svg{width:30px;height:30px;margin:0 auto 10px;display:block;color:#333;}
   .pm-tile.active{background:var(--lime);border-color:#1a1a1a;}
   .pm-tile:not(.active):hover{border-color:var(--rasp);}
   .pm-hint{font-size:10px;color:#999;text-align:center;margin-top:6px;}
 
   .pm-authblock{background:#fff;border-radius:10px;padding:11px 14px;margin-top:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
-  .pm-authblock h4{font-size:12px;font-weight:800;margin:0 0 7px;line-height:1.3;}
+  .pm-authblock h4{font-size:19px;font-weight:800;margin:0 0 12px;line-height:1.3;}
   .pm-authrow{display:flex;gap:18px;font-size:11px;flex-wrap:wrap;align-items:flex-end;}
   .pm-authrow div{display:flex;flex-direction:column;gap:2px;}
-  .pm-authrow b{font-size:12px;color:#1a1a1a;}
-  .pm-authrow span{color:#999;font-size:9.5px;text-transform:uppercase;font-weight:700;}
-  .pm-btn-dark{background:var(--green);color:var(--lime);border:none;border-radius:8px;padding:9px 16px;font-weight:800;font-size:11.5px;cursor:pointer;font-family:inherit;margin-left:auto;}
+  .pm-authrow b{font-size:15px;color:#1a1a1a;font-weight:700;}
+  .pm-authrow span{color:#888;font-size:13px;font-weight:500;}
+  .pm-btn-dark{background:var(--green);color:var(--lime);border:none;border-radius:24px;padding:11px 22px;font-weight:800;font-size:13.5px;cursor:pointer;font-family:inherit;margin-left:auto;}
   .pm-btn-dark:hover{background:var(--green-soft);}
+  .pm-authrow .pm-btn-dark.pm-hot{margin-top:30px;} /* room for the 'Click to add referral' tag so it never sits on the numbers */
   .pm-nofound{font-size:11px;color:#999;margin-top:12px;}
 
   .pm-fieldrow{display:grid;grid-template-columns:1fr 1.6fr;gap:10px;position:relative;}
   .pm-field{display:flex;flex-direction:column;gap:4px;}
-  .pm-field label{font-size:9.5px;color:#999;font-weight:700;text-transform:uppercase;}
+  .pm-field label{font-size:12.5px;color:#888;font-weight:500;}
   .pm-field .box{border:1.5px solid #ddd;border-radius:8px;padding:9px 11px;font-size:11.5px;color:#333;background:#fff;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
   .pm-field .box.placeholder{color:#aaa;}
   .pm-field .box:hover{border-color:var(--rasp);}
@@ -152,8 +158,8 @@
   .pm-servicecard h5{font-size:12px;font-weight:800;margin:0 0 7px;}
   .pm-servicegrid{display:grid;grid-template-columns:0.7fr 1.3fr 0.6fr 0.6fr 1.6fr;gap:10px;font-size:10.5px;}
   .pm-servicegrid > div{display:flex;flex-direction:column;gap:3px;}
-  .pm-servicegrid b{font-size:9px;color:#333;text-transform:uppercase;}
-  .pm-servicegrid span{color:#555;}
+  .pm-servicegrid b{font-size:12px;color:#888;font-weight:500;}
+  .pm-servicegrid span{color:#1a1a1a;font-weight:700;font-size:13.5px;}
 
   .pm-orderrow{display:flex;align-items:flex-end;justify-content:space-between;margin-top:12px;}
   .pm-qty{display:flex;align-items:center;gap:8px;}
@@ -171,7 +177,7 @@
   .pm-minicart svg{width:14px;height:14px;}
   .pm-minicart .pm-mini-badge{background:#C0392B;color:#fff;font-size:8px;width:13px;height:13px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 
-  .pm-summarytable{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px;}
+  .pm-summarytable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:10px;}
   .pm-summarytable th{background:#F1F1F1;text-align:left;padding:6px 8px;font-weight:800;color:#333;}
   .pm-summarytable td{padding:7px 8px;color:#333;}
   .pm-summarytable .trash{color:#C0392B;}
@@ -189,6 +195,14 @@
 
   .pm-modal-overlay{position:absolute;inset:0;background:rgba(80,80,80,.55);display:flex;align-items:center;justify-content:center;z-index:10;}
   .pm-modal{background:#fff;border-radius:14px;padding:26px 30px;text-align:center;max-width:320px;box-shadow:0 20px 40px -10px rgba(0,0,0,.3);}
+  .pm-modal.addr-modal{text-align:left;max-width:400px;width:100%;}
+  .pm-modal.addr-modal h5{margin:0 0 14px;font-size:15px;color:var(--ink);}
+  .pm-addrform-row{display:flex;gap:10px;margin-bottom:10px;}
+  .pm-addrfield{flex:1;display:flex;flex-direction:column;gap:4px;}
+  .pm-addrfield label{font-size:12.5px;color:#888;font-weight:500;}
+  .pm-addrfield input{border:1.5px solid #ddd;border-radius:8px;padding:9px 11px;font-size:12.5px;color:#333;font-family:inherit;}
+  .pm-addrfield input:focus{outline:none;border-color:var(--teal);}
+  .pm-addrfield.zip{max-width:110px;}
   .pm-modal p{font-size:14px;font-weight:800;color:#1a1a1a;margin:0 0 18px;line-height:1.4;}
   .pm-modal-btns{display:flex;gap:10px;justify-content:center;}
 
@@ -233,8 +247,12 @@
   button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
   .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
   .back[disabled]{opacity:.25;cursor:default;}
-  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next{background:var(--yellow);color:var(--green);}
   .next[disabled]{opacity:.35;cursor:default;}
+  .ready-hint{font-size:12px;color:#5c7568;font-style:italic;opacity:0;transform:translateY(3px);transition:opacity .3s ease, transform .3s ease;margin-left:auto;}
+  .ready-hint.show{opacity:1;transform:translateY(0);}
+  @keyframes nextpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,214,70,.55);}50%{box-shadow:0 0 0 7px rgba(255,214,70,0);}}
+  .next.ready{animation:nextpulse 1.6s ease-out 2;}
 
   /* ---------- start overlay ---------- */
   #startOverlay{position:fixed;inset:0;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:100;text-align:center;padding:24px;}
@@ -251,7 +269,7 @@
   .audiobtn[hidden]{display:none;}
 
   @media(max-width:640px){
-    .ix{padding:32px 22px;} h1.hl{font-size:27px;}
+    .ix{padding:32px 22px;} h1.hl{font-size:22px;}
     .cover-meta{flex-direction:column;gap:10px;}
     #app{padding:16px 14px 20px;}
     .pm-cards{grid-template-columns:1fr;}
@@ -287,6 +305,7 @@
   <div class="bot">
     <button class="nav back" id="back">Back</button>
     <button class="audiobtn" id="audioToggle" hidden></button>
+    <span class="ready-hint" id="readyHint">Ready when you are — select Next to continue.</span>
     <button class="nav next" id="next">Next</button>
   </div>
   <audio id="au"></audio>
@@ -332,7 +351,7 @@ var SCREENS = [
     h:"Find your service",
     sub:"Choose a category, then search for the service you need.",
     render:'step2',
-    au:'screen2.mp3', auSearch:'screen2_search.mp3', auSelected:'screen2_selected.mp3' },
+    au:'screen2.mp3', auSearch:'screen2_search.mp3', auSelected:'screen2_selected.mp3', auAltAddr:'screen2_altaddr.mp3' },
 
   { t:'step', n:3, of:4,
     kicker:"Step 3",
@@ -368,12 +387,32 @@ var TILES = [
 
 /* ================= ENGINE ================= */
 var i=0, answered={};
+
+// Force a fresh reload if the page is restored from the back/forward cache
+// (e.g. leaving via Training Home and returning) so practice exercises reset.
+window.addEventListener('pageshow', function(e){
+  if(e.persisted){ window.location.reload(); }
+});
 var practiceRerenderHook = null;
 var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
     back=document.getElementById('back'), next=document.getElementById('next'),
     stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
     audioToggle=document.getElementById('audioToggle');
 var AUDIO_DIR='assets/audio/';
+
+function markReady(){
+  var hint = document.getElementById('readyHint');
+  if(hint) hint.classList.add('show');
+  if(next) next.classList.add('ready');
+}
+(function(){
+  if(!next) return;
+  new MutationObserver(function(){
+    if(!next.disabled) markReady();
+  }).observe(next, {attributes:true, attributeFilter:['disabled']});
+})();
+var __au = document.getElementById('au');
+if(__au) __au.addEventListener('ended', function(){ if(next && !next.disabled) markReady(); });
 
 function play(src){
   if(!src){ audioToggle.hidden=true; return; }
@@ -449,6 +488,7 @@ function renderStep1(vwrap){
       '<div><span>Remaining</span><b>40.00</b></div>'+
       '<button class="pm-btn-dark'+(addBtnHot?' pm-hot':'')+'" style="position:relative;" id="pmAddReferralBtn" '+(done?'disabled':'')+'>'+(done?'Referral Started':'Add Referral')+(addBtnHot?hotTag('Click to add referral'):'')+'</button>'+
       '</div>'+
+      '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Pending</b> reflects hours or units already reserved by other referrals against this same authorization — it does not mean a referral hasn\'t been entered yet. This field works the same way across every plan.</span></div>'+
       (done
         ? '<div class="pm-toast">'+ICON_CHECK+'<span>Referral started for Personal Care Services — select Next to search for a service.</span></div>'
         : '<div class="pm-nofound">No referrals found for Personal Care Services benefit.</div>')+
@@ -481,10 +521,19 @@ function renderStep1(vwrap){
 }
 
 /* ---------- Step 2: add referral page + service search reveal ---------- */
+function currentAltAddr(){ return answered['s2_altAddr']; }
+function currentServiceZip(){ var a=currentAltAddr(); return a ? a.zip : '78748'; }
+function currentServiceAddrLines(){
+  var a=currentAltAddr();
+  if(a) return a.street+(a.apt?' '+a.apt:'')+'<br>'+a.city+', '+a.state+' '+a.zip;
+  return '789 Training Way<br>Austin, TX 78748';
+}
 function renderStep2(vwrap){
   var s = SCREENS[i];
   var dropdownOpen = !!answered['s2_dropdown'];
   var selected = answered['s2_service'];
+  var altModalOpen = !!answered['s2_altAddrModal'];
+  var altAddr = currentAltAddr();
 
   var searchBoxHtml = selected
     ? '<div class="box">'+selected+'</div>'
@@ -499,11 +548,13 @@ function renderStep2(vwrap){
   }
 
   var fieldsHtml =
-    '<div class="pm-section-title">Available Services for Aetna Training in 78748 <span class="pm-link">(change service address)</span></div>'+
+    '<div class="pm-section-title">Available Services for Aetna Training in '+currentServiceZip()+' <span class="pm-link" id="pmChangeAddrLink">(change service address)</span></div>'+
+    (altAddr ? '<div class="infonote" style="margin-bottom:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>New zip code appears above — services now reflect <b>'+currentServiceZip()+'</b> instead of the member\'s address on file.</span></div>' : '')+
     '<div class="pm-fieldrow">'+
       '<div class="pm-field"><label>Service Category</label><div class="box">In Home Support</div></div>'+
       '<div class="pm-field"><label>Search For Services</label>'+searchBoxHtml+dropdownHtml+'</div>'+
-    '</div>';
+    '</div>'+
+    (!altAddr ? '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>If the member is receiving care somewhere other than their address on file — staying with family, temporary housing, and so on — select <b>(change service address)</b> above to set a different location for just this referral. Their address on file won\'t change.</span></div>' : '');
 
   var serviceCardHtml = '';
   if(selected){
@@ -532,7 +583,45 @@ function renderStep2(vwrap){
     fieldsHtml + serviceCardHtml;
 
   var frame = browserFrame('yourcompany.benefitshub.com/referral/add', inner);
+
+  var modalHtml = '';
+  if(altModalOpen){
+    modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal addr-modal"><h5>Change Service Address</h5>'+
+      '<div class="infonote" style="margin-bottom:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>This address will also be used as the service address at checkout.</span></div>'+
+      '<div class="pm-addrfield" style="margin-bottom:10px;"><label>Street Address *</label><input type="text" id="pmAltStreet" placeholder="123 Mary Poppins St"></div>'+
+      '<div class="pm-addrfield" style="margin-bottom:10px;"><label>Apt, Suite, Unit, etc.</label><input type="text" id="pmAltApt" placeholder=""></div>'+
+      '<div class="pm-addrform-row">'+
+        '<div class="pm-addrfield"><label>City *</label><input type="text" id="pmAltCity" placeholder="San Diego"></div>'+
+        '<div class="pm-addrfield" style="max-width:70px;"><label>State *</label><input type="text" id="pmAltState" placeholder="CA" maxlength="2"></div>'+
+        '<div class="pm-addrfield zip"><label>Zip Code *</label><input type="text" id="pmAltZip" placeholder="92007"></div>'+
+      '</div>'+
+      '<div class="pm-modal-btns" style="margin-top:16px;"><button class="pm-btn-checkout" id="pmAltSaveBtn">Save</button><button class="pm-btn-outline" id="pmAltCancelBtn">Cancel</button></div>'+
+      '</div></div>';
+  }
+  frame.style.position='relative';
+  frame.insertAdjacentHTML('beforeend', modalHtml);
   vwrap.innerHTML=''; vwrap.appendChild(frame);
+
+  var changeAddrLink = vwrap.querySelector('#pmChangeAddrLink');
+  if(changeAddrLink){
+    changeAddrLink.onclick=function(){ answered['s2_altAddrModal']=true; renderStep2(vwrap); play(s.auAltAddr); };
+  }
+  var altCancelBtn = vwrap.querySelector('#pmAltCancelBtn');
+  if(altCancelBtn){ altCancelBtn.onclick=function(){ answered['s2_altAddrModal']=false; renderStep2(vwrap); }; }
+  var altSaveBtn = vwrap.querySelector('#pmAltSaveBtn');
+  if(altSaveBtn){
+    altSaveBtn.onclick=function(){
+      var street=document.getElementById('pmAltStreet').value.trim();
+      var apt=document.getElementById('pmAltApt').value.trim();
+      var city=document.getElementById('pmAltCity').value.trim();
+      var state=document.getElementById('pmAltState').value.trim();
+      var zip=document.getElementById('pmAltZip').value.trim();
+      if(!street || !city || !state || !zip) return;
+      answered['s2_altAddr'] = {street:street, apt:apt, city:city, state:state.toUpperCase(), zip:zip};
+      answered['s2_altAddrModal']=false;
+      renderStep2(vwrap);
+    };
+  }
 
   var searchBox = vwrap.querySelector('#pmSearchBox');
   if(searchBox){
@@ -630,9 +719,9 @@ function renderStep4(vwrap){
       innerBody += '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
         '<tr><td>'+selectedService+'<br><span style="color:#999;font-size:9.5px;">Added: 7/21/2026</span></td><td>'+qty+'</td><td>'+svc.points.toFixed(2)+'</td><td>'+lineTotal+'</td><td class="trash">🗑</td></tr>'+
         '</table>'+
-        '<div class="pm-addr-card flag"><h5>Service Address</h5><p>789 Training Way<br>Austin, TX 78748</p></div>'+
+        '<div class="pm-addr-card flag"><h5>Service Address</h5><p>'+currentServiceAddrLines()+'</p></div>'+
         '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: '+lineTotal+'</div>'+
-        '<div class="pm-btnrow"><button class="pm-btn-outline danger">Clear Cart</button><button class="pm-btn-outline">Continue Shopping</button><button class="pm-btn-checkout'+(!confirming?' pm-hot':'')+'" style="position:relative;" id="pmCheckoutBtn">Checkout'+(!confirming?hotTag('Click to checkout'):'')+'</button></div></div>';
+        '<div class="pm-btnrow"><button class="pm-btn-outline danger" id="pmClearCartBtn">Clear Cart</button><button class="pm-btn-outline">Continue Shopping</button><button class="pm-btn-checkout'+(!confirming?' pm-hot':'')+'" style="position:relative;" id="pmCheckoutBtn">Checkout'+(!confirming?hotTag('Click to checkout'):'')+'</button></div></div>';
     } else {
       innerBody += '<div style="text-align:center;color:#999;padding:30px 0;">Your cart is empty</div>';
     }
@@ -648,7 +737,7 @@ function renderStep4(vwrap){
   }
 
   var frame = browserFrame(summaryOpen ? 'yourcompany.benefitshub.com/referral/cart' : 'yourcompany.benefitshub.com/referral/add',
-    topbar(done ? 0 : 1, !summaryOpen && !miniOpen) + innerBody);
+    topbar((answered['s3_added'] && !done) ? 1 : 0, !summaryOpen && !miniOpen) + innerBody);
   frame.style.position='relative';
   frame.insertAdjacentHTML('beforeend', modalHtml);
   vwrap.innerHTML=''; vwrap.appendChild(frame);
@@ -657,6 +746,11 @@ function renderStep4(vwrap){
     var addrNote=el('div','infonote');
     addrNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Before you check out, be sure to verify the <b>Service Address</b> shown above — this is where the referral will route to, and it determines which provider services that zip code. Take a minute to review this screen. When you\'re ready, select <b>Checkout</b> to submit.</span>';
     vwrap.appendChild(addrNote);
+    if(currentAltAddr()){
+      var altNote=el('div','infonote');
+      altNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>You\'re using an <b>alternative service address</b> for this referral — only one is allowed per checkout, and the member\'s address on file stays unchanged. Once you check out, this address can\'t be edited. To change it afterward, you\'d need to submit a Zendesk ticket (not guaranteed) or close this referral and create a new one with the correct address.</span>';
+      vwrap.appendChild(altNote);
+    }
     var cartNote=el('div','infonote');
     cartNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Checkout submits every item in the cart at once.</b> Before you confirm, make sure everything listed is still needed — there\'s no way to submit just one item at a time.</span>';
     vwrap.appendChild(cartNote);
@@ -681,6 +775,15 @@ function renderStep4(vwrap){
   var checkoutBtn = vwrap.querySelector('#pmCheckoutBtn');
   if(checkoutBtn){
     checkoutBtn.onclick=function(){ answered['s4_confirming']=true; renderStep4(vwrap); play(s.auConfirm); };
+  }
+  var clearCartBtn = vwrap.querySelector('#pmClearCartBtn');
+  if(clearCartBtn){
+    clearCartBtn.onclick=function(){
+      answered['s3_added']=false; answered['s3_qty']=0;
+      answered['s4_mini']=false; answered['s4_summary']=false;
+      renderStep4(vwrap);
+      next.disabled=true;
+    };
   }
   var closeBtn = vwrap.querySelector('#pmCloseBtn');
   if(closeBtn){
@@ -769,7 +872,7 @@ function render(){
   else if(s.t==='practicecheck'){
     if(!answered['practice_reset']){
       answered['practice_reset']=true;
-      ['s1_done','s1_open','s2_dropdown','s2_service','s3_added','s3_qty','s4_mini','s4_summary','s4_confirming','s4_done'].forEach(function(k){ delete answered[k]; });
+      ['s1_done','s1_open','s2_dropdown','s2_service','s2_altAddr','s2_altAddrModal','s3_added','s3_qty','s4_mini','s4_summary','s4_confirming','s4_done'].forEach(function(k){ delete answered[k]; });
     }
     var dpc=el('div','ix center');
     var introHtml =
@@ -850,6 +953,51 @@ document.getElementById('startBtn').onclick=function(){
   document.getElementById('startOverlay').classList.add('hide');
   render();
 };
+
+/* ---------- Highlight-tag placement ----------
+   Tags default to centered above their target. Field labels usually sit right
+   above a field, so the default can cover the label. After each render, check
+   each visible tag; if it covers text, try the fallbacks in order and keep the
+   first spot that covers nothing and stays inside the mockup frame. */
+(function(){
+  var POS=['','tp-ra','tp-la','tp-side','tp-below'];
+  function textLeaves(scope){ /* every visible text node, including text mixed with bold/links */
+    var out=[], w=document.createTreeWalker(scope, NodeFilter.SHOW_TEXT), n;
+    while((n=w.nextNode())){ if(n.nodeValue.trim() && n.parentElement && n.parentElement.offsetParent) out.push(n); }
+    return out;
+  }
+  function hits(tag, leaves, frame){
+    var tr=tag.getBoundingClientRect(), fr=frame.getBoundingClientRect(), anchor=tag.parentElement;
+    if(tr.left<fr.left-1||tr.right>fr.right+1||tr.top<fr.top-1||tr.bottom>fr.bottom+1) return true;
+    for(var k=0;k<leaves.length;k++){
+      var e=leaves[k]; if(tag.contains(e)||anchor.contains(e)) continue;
+      var rg=document.createRange(); rg.selectNodeContents(e); var r=rg.getBoundingClientRect(); /* actual text, not the full-width box */
+      if(!r.width) continue;
+      if(Math.min(r.right,tr.right)-Math.max(r.left,tr.left)>2 && Math.min(r.bottom,tr.bottom)-Math.max(r.top,tr.top)>2) return true;
+    }
+    return false;
+  }
+  function placeHotTags(){
+    var tags=document.querySelectorAll('.pm-hot-tag');
+    for(var t=0;t<tags.length;t++){
+      var tag=tags[t]; if(!tag.offsetParent) continue;
+      var frame=tag.closest('.browser')||tag.closest('.pm')||document.body;
+      var leaves=textLeaves(frame), chosen=null;
+      for(var p=0;p<POS.length;p++){
+        POS.forEach(function(c){ if(c) tag.classList.remove(c); });
+        if(POS[p]) tag.classList.add(POS[p]);
+        if(!hits(tag,leaves,frame)){ chosen=POS[p]; break; }
+      }
+      if(chosen===null){ POS.forEach(function(c){ if(c) tag.classList.remove(c); }); }
+    }
+  }
+  var queued=false;
+  new MutationObserver(function(){
+    if(queued) return; queued=true;
+    requestAnimationFrame(function(){ queued=false; placeHotTags(); });
+  }).observe(document.body,{childList:true,subtree:true});
+  window.addEventListener('resize',placeHotTags);
+})();
 </script>
 </body>
 </html>

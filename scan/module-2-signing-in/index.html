@@ -46,7 +46,7 @@
 
   .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--rasp);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;margin-bottom:16px;}
   .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--rasp);}
-  h1.hl{font-size:38px;font-weight:800;line-height:1.12;letter-spacing:-.5px;margin:0 0 14px;color:var(--green);}
+  h1.hl{font-size:30px;font-weight:800;line-height:1.15;letter-spacing:-.3px;margin:0 0 10px;color:var(--green);}
   .sub{font-size:17.5px;line-height:1.55;color:#3C5A4D;margin:0 0 6px;max-width:52ch;}
   .kicker{font-size:15px;font-weight:700;color:var(--green);margin:0 0 4px;}
 
@@ -59,7 +59,14 @@
   .cover-meta span{font-size:12.5px;color:#5c7568;}
 
   /* ---------- browser mock ---------- */
-  .browser{border:1.5px solid var(--sand);border-radius:14px;overflow:visible;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:520px;width:100%;}
+  .browser{border:1.5px solid var(--sand);border-radius:14px;overflow:visible;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:640px;width:100%;}
+  .sso-redirect-card{border:1.5px solid var(--sand);border-radius:14px;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:460px;width:100%;padding:32px 28px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+  .sso-redirect-row{display:flex;align-items:center;gap:18px;}
+  .sso-redirect-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;text-align:center;line-height:1.2;padding:6px;}
+  .sso-redirect-icon.scan{background:var(--cream-dim);color:var(--green);border:1.5px solid var(--sand);}
+  .sso-redirect-icon.bh{background:var(--green);color:#FCF7EE;}
+  .sso-redirect-arrow{color:var(--rasp);flex:none;}
+  .sso-redirect-caption{font-size:11.5px;color:#5c7568;font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
   .browser.compact{max-width:520px;}
   .browser .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--cream-dim);border-bottom:1px solid var(--sand);border-radius:12.5px 12.5px 0 0;}
   .browser .dots{display:flex;gap:5px;flex:none;}
@@ -79,7 +86,7 @@
   .hotspot-tag.clickable{cursor:pointer;pointer-events:auto;}
   .shot-img{transition:opacity .18s ease;}
 
-  .emailcard{border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:520px;width:100%;}
+  .emailcard{border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 10px 26px -14px rgba(0,50,34,.25);max-width:520px;width:100%;position:relative;}
   .emailcard .bar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--cream-dim);border-bottom:1px solid var(--sand);font-size:11.5px;font-weight:800;color:#5c7568;letter-spacing:.3px;text-transform:uppercase;}
   .emailcard img{display:block;width:100%;height:auto;}
 
@@ -90,7 +97,7 @@
   .scenario-card{background:var(--green);color:var(--cream);border-radius:14px;padding:20px 22px;margin-bottom:22px;}
   .scenario-card .lbl{font-size:11px;font-weight:800;color:var(--yellow);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;}
   .scenario-card p{margin:0;font-size:16px;line-height:1.5;}
-  .q{font-size:17px;font-weight:800;margin-bottom:16px;color:var(--green);}
+  .q{font-size:15px;font-weight:800;margin-bottom:12px;color:var(--green);}
   .opt{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:13px 16px;margin:9px 0;font-size:15px;color:var(--ink);cursor:pointer;font-family:inherit;font-weight:600;transition:.15s;}
   .opt .ltr{flex:none;width:22px;height:22px;border-radius:50%;background:var(--cream-dim);color:var(--green);font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;}
   .opt:hover:not(:disabled){border-color:var(--teal);}
@@ -106,8 +113,12 @@
   button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
   .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
   .back[disabled]{opacity:.25;cursor:default;}
-  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next{background:var(--yellow);color:var(--green);}
   .next[disabled]{opacity:.35;cursor:default;}
+  .ready-hint{font-size:12px;color:#5c7568;font-style:italic;opacity:0;transform:translateY(3px);transition:opacity .3s ease, transform .3s ease;margin-left:auto;}
+  .ready-hint.show{opacity:1;transform:translateY(0);}
+  @keyframes nextpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,214,70,.55);}50%{box-shadow:0 0 0 7px rgba(255,214,70,0);}}
+  .next.ready{animation:nextpulse 1.6s ease-out 2;}
   .cta-btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:var(--green);font-weight:800;font-size:15px;text-decoration:none;border-radius:12px;padding:14px 22px;margin-top:22px;letter-spacing:.2px;}
   .cta-btn svg{width:16px;height:16px;flex:none;}
   .cta-btn:hover{filter:brightness(0.96);}
@@ -146,13 +157,25 @@
   .audiobtn[hidden]{display:none;}
 
   @media(max-width:640px){
-    .ix{padding:32px 22px;} h1.hl{font-size:27px;} .dm-grid{grid-template-columns:1fr;}
+    .ix{padding:32px 22px;} h1.hl{font-size:22px;} .dm-grid{grid-template-columns:1fr;}
     .cover-meta{flex-direction:column;gap:10px;}
     .browser .body{padding:18px 16px;}
     .hotspot-tag{font-size:10px;padding:3px 7px;border-radius:5px;}
     .dashmock .dm-nav span{font-size:10px;padding:5px 9px;}
     #app{padding:16px 14px 20px;}
   }
+
+  .expand-btn{position:absolute;top:12px;right:12px;background:var(--green);color:var(--cream);border:none;border-radius:9px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 14px -6px rgba(0,0,0,.4);z-index:5;}
+  .expand-btn svg{width:16px;height:16px;}
+  .expand-btn:hover{background:var(--green-soft);}
+  .zoomOverlay{position:fixed;inset:0;background:rgba(0,51,34,.75);display:none;align-items:center;justify-content:center;z-index:200;padding:24px;}
+  .zoomOverlay.show{display:flex;}
+  .zoomBox{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);width:min(1100px,92vw);}
+  .zoomBox .zbody{display:flex;align-items:center;justify-content:center;padding:28px;max-height:85vh;box-sizing:border-box;position:relative;}
+  .zoomBox .zbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--cream-dim);border-bottom:1px solid var(--sand);}
+  .zoomBox .zbar span{font-weight:800;color:var(--green);font-size:14px;}
+  .zoomClose{background:none;border:none;cursor:pointer;color:var(--green);font-size:22px;line-height:1;padding:4px 10px;font-family:inherit;}
+  .zoomBox img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(85vh - 56px);object-fit:contain;}
 </style>
 </head>
 <body>
@@ -181,6 +204,7 @@
   <div class="bot">
     <button class="nav back" id="back">Back</button>
     <button class="audiobtn" id="audioToggle" hidden></button>
+    <span class="ready-hint" id="readyHint">Ready when you are — select Next to continue.</span>
     <button class="nav next" id="next">Next</button>
   </div>
   <audio id="au"></audio>
@@ -195,15 +219,19 @@ var SCREENS = [
 
   { t:'step', n:1, of:2,
     kicker:"Step 1",
-    h:"Go to SCAN's SSO sign-in page",
-    sub:"SCAN sends your name and email to The Helper Bees, who creates your Benefits Hub account. SCAN then sends you the SSO sign-in URL — go there and enter your usual SCAN credentials.",
-    visual:'shot', img:'../../shared/module-2-signing-in/assets/img/login.png', url:'auth.myhomealign.com/Auth/Login/ha-prod-scan', compact:true, vhCap:27, imgAspect:0.9486,
+    h:"Click your SSO sign-in link",
+    sub:"Your Benefits Hub access is set up behind the scenes — SCAN and The Helper Bees coordinate to create your account and add you to the right access group. Once that's approved, SCAN sends you a personal SSO link directly. Click it, and since you're already signed into your SCAN session, it takes you straight into Benefits Hub — no separate sign-in page, username, or password to enter.",
+    /* VISUAL PLACEHOLDER: replace this conceptual redirect card with a real screenshot
+       of the actual click-through experience once SCAN's revised process/photos are
+       available (expected Q4). Confirmed with Chellsie 9/2026: true SSO pass-through,
+       no login form — do not reuse the old email/password mock here. */
+    visual:'ssoredirect',
     au:'02_step1_sso.mp3' },
 
   { t:'step', n:2, of:2,
     kicker:"Step 2",
     h:"You're in",
-    sub:"Because SCAN uses single sign-on, there's no separate emailed verification code to enter — SSO confirms your identity as part of signing in. Once that's done, you'll land on your home screen, ready to search for members and view benefits.",
+    sub:"That's it — no credentials, no verification code, nothing else to enter. SSO confirms your identity automatically as part of the redirect, and you land directly on your home screen, ready to search for members and view benefits.",
     visual:'shot', img:'../../shared/module-2-signing-in/assets/img/home.png', url:'yourcompany.benefitshub.com/home', vhCap:24, imgAspect:0.4164,
     au:'03_step2_home.mp3' },
 
@@ -214,12 +242,32 @@ var SCREENS = [
 
 /* ================= ENGINE ================= */
 var i=0, answered={};
+
+// Force a fresh reload if the page is restored from the back/forward cache
+// (e.g. leaving via Training Home and returning) so practice exercises reset.
+window.addEventListener('pageshow', function(e){
+  if(e.persisted){ window.location.reload(); }
+});
 var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
     back=document.getElementById('back'), next=document.getElementById('next'),
     stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
     audioToggle=document.getElementById('audioToggle');
 var L=['A','B','C'];
 var AUDIO_DIR='assets/audio/';
+
+function markReady(){
+  var hint = document.getElementById('readyHint');
+  if(hint) hint.classList.add('show');
+  if(next) next.classList.add('ready');
+}
+(function(){
+  if(!next) return;
+  new MutationObserver(function(){
+    if(!next.disabled) markReady();
+  }).observe(next, {attributes:true, attributeFilter:['disabled']});
+})();
+var __au = document.getElementById('au');
+if(__au) __au.addEventListener('ended', function(){ if(next && !next.disabled) markReady(); });
 
 function play(src){
   if(!src){ audioToggle.hidden=true; return; }
@@ -257,14 +305,52 @@ function urlBar(url){
     '<div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>'+url+'</span></div></div>';
 }
 
+var zoomOverlayEl;
+function ensureZoomOverlay(){
+  if(zoomOverlayEl) return zoomOverlayEl;
+  var ov=el('div','zoomOverlay'); ov.id='zoomOverlay';
+  ov.innerHTML='<div class="zoomBox"><div class="zbar"><span id="zoomLabel"></span><button class="zoomClose" id="zoomClose" type="button">&times;</button></div>'+
+    '<div class="zbody"><img id="zoomImg" src="" alt=""></div></div>';
+  document.body.appendChild(ov);
+  ov.addEventListener('click', function(e){ if(e.target===ov) closeZoom(); });
+  ov.querySelector('#zoomClose').addEventListener('click', closeZoom);
+  zoomOverlayEl=ov;
+  return ov;
+}
+function openZoom(src, label){
+  var ov=ensureZoomOverlay();
+  ov.querySelector('#zoomImg').src=src;
+  ov.querySelector('#zoomLabel').textContent=label||'';
+  ov.classList.add('show');
+}
+function closeZoom(){
+  var ov=document.getElementById('zoomOverlay');
+  if(ov) ov.classList.remove('show');
+}
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){ closeZoom(); }
+});
+
 function visual(s, opts){
   opts = opts || {};
+  if(s.visual==='ssoredirect'){
+    var br=el('div','sso-redirect-card');
+    br.innerHTML =
+      '<div class="sso-redirect-row">'+
+        '<div class="sso-redirect-icon scan">SCAN</div>'+
+        '<svg class="sso-redirect-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="26" height="26"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'+
+        '<div class="sso-redirect-icon bh"><svg viewBox="0 0 40 40" fill="none" width="26" height="26"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FCF7EE" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FCF7EE"/></svg></div>'+
+      '</div>'+
+      '<div class="sso-redirect-caption">No sign-in form — just an automatic redirect</div>';
+    return br;
+  }
   if(s.visual==='shot'){
     var b=el('div','browser'+(s.compact?' compact':''));
     if(s.vhCap && s.imgAspect){ b.style.maxWidth = 'min(520px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
     var showAlt = opts.showAlt;
     var imgSrc = (showAlt && s.img2) ? s.img2 : s.img;
-    b.innerHTML = urlBar(s.url) + '<div class="body"><img src="'+imgSrc+'" alt="" class="shot-img"></div>';
+    b.innerHTML = urlBar(s.url) + '<div class="body"><img src="'+imgSrc+'" alt="" class="shot-img">'+'<button type="button" class="expand-btn" aria-label="Enlarge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>'+'</div>';
+    var expandBtn = b.querySelector('.expand-btn'); if(expandBtn){ expandBtn.onclick=function(){ var curImg=b.querySelector('.shot-img'); openZoom(curImg?curImg.src:imgSrc, s.h||''); }; }
     if(s.hotspot && !showAlt){
       var h=s.hotspot;
       var body=b.querySelector('.body');
@@ -401,8 +487,12 @@ function render(){
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>Heads up</div>'+
       '<h1 class="hl">Once you receive your SSO link</h1>'+
-      '<p class="sub">SCAN will send you your SSO sign-in link separately — you don\'t need it to finish this training. Once you have it, sign in for real with your usual SCAN credentials, the same way you just walked through.</p>'+
-      '<div class="confirm-reveal good"><b>If you\'re ever locked out:</b> First, check with your SCAN supervisor or admin to confirm your name and email were sent to The Helper Bees and your account has been created. If your account is set up and you\'re still stuck, reach out to your organization\'s SSO or IT support for help getting signed in.</div>'+
+      '<p class="sub">SCAN will send you your SSO link separately — you don\'t need it to finish this training. Once you have it, click it for real and you\'ll be signed in automatically, the same way you just walked through.</p>'+
+      '<div class="confirm-reveal warn"><b>A note on bookmarking:</b> Only bookmark this page after you\'ve successfully signed in. Bookmarking too early can save a generic link that prompts you for a password later, instead of signing you in automatically. If that happens, go back to the original SSO link SCAN sent you and try again.'+
+      /* VISUAL PLACEHOLDER: screenshot illustrating the bookmark/password-prompt
+         pitfall, pending SCAN's revised SSO process (expected Q4). Add once available. */
+      '</div>'+
+      '<div class="confirm-reveal good"><b>If you\'re ever locked out:</b> First, check with your SCAN supervisor or admin to confirm your name and email were sent to The Helper Bees, your account has been created, and you\'ve been added to the right access group — all of that needs to be done before your SSO link will work. If your account is set up and you\'re still stuck, reach out to your organization\'s SSO or IT support for help getting signed in.</div>'+
       '</div>';
     d3a.innerHTML = html3a;
     stage.appendChild(d3a);

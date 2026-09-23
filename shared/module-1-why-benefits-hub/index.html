@@ -116,8 +116,12 @@
   button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
   .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
   .back[disabled]{opacity:.25;cursor:default;}
-  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next{background:var(--yellow);color:var(--green);}
   .next[disabled]{opacity:.35;cursor:default;}
+  .ready-hint{font-size:12px;color:#5c7568;font-style:italic;opacity:0;transform:translateY(3px);transition:opacity .3s ease, transform .3s ease;margin-left:auto;}
+  .ready-hint.show{opacity:1;transform:translateY(0);}
+  @keyframes nextpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,214,70,.55);}50%{box-shadow:0 0 0 7px rgba(255,214,70,0);}}
+  .next.ready{animation:nextpulse 1.6s ease-out 2;}
 
   @media(max-width:760px){
     .stage{flex-direction:column;}
@@ -154,6 +158,7 @@
 
   <div class="bot">
     <button class="nav back" id="back">Back</button>
+    <span class="ready-hint" id="readyHint">Ready when you are — select Next to continue.</span>
     <button class="nav next" id="next">Next</button>
   </div>
   <audio id="au"></audio>
@@ -226,6 +231,12 @@ var SCREENS = [
 
 /* ================= ENGINE ================= */
 var i=0;
+
+// Force a fresh reload if the page is restored from the back/forward cache
+// (e.g. leaving via Training Home and returning) so practice exercises reset.
+window.addEventListener('pageshow', function(e){
+  if(e.persisted){ window.location.reload(); }
+});
 var stage=document.getElementById('stage'), ix=document.getElementById('ix'), back=document.getElementById('back'), next=document.getElementById('next'),
     au=document.getElementById('au'), dotsEl=document.getElementById('dots'), avatarPanel=document.getElementById('avatarPanel');
 var AUDIO_DIR='assets/audio/', VIDEO_DIR='assets/video/';
@@ -252,9 +263,15 @@ function updateAudioBtn(){
   avAudioBtn.innerHTML = au.paused ? ICON_PLAY+'<span>Play</span>' : ICON_PAUSE+'<span>Pause</span>';
   if(avFrame) avFrame.classList.toggle('speaking', !au.paused);
 }
+function markReady(){
+  var hint = document.getElementById('readyHint');
+  if(hint) hint.classList.add('show');
+  if(next) next.classList.add('ready');
+}
 au.addEventListener('play', updateAudioBtn);
 au.addEventListener('pause', updateAudioBtn);
 au.addEventListener('ended', updateAudioBtn);
+au.addEventListener('ended', markReady);
 
 function play(src){
   if(!src){ au.pause(); return; }
@@ -277,6 +294,7 @@ function renderAvatarPanel(s){
     var playOverlay=document.getElementById('playOverlay');
     function hideOverlay(){ playOverlay.hidden=true; }
     v.addEventListener('play', hideOverlay);
+    v.addEventListener('ended', markReady);
     v.addEventListener('error', function(){ v.style.display='none'; document.getElementById('meetFallback').style.display='flex'; hideOverlay(); });
     playOverlay.onclick=function(){ v.play().catch(function(){}); };
     v.play().then(hideOverlay).catch(function(){ /* leave overlay visible — autoplay was blocked */ });
@@ -299,6 +317,7 @@ function renderAvatarPanel(s){
     pv.addEventListener('play', updatePanelBtn);
     pv.addEventListener('pause', updatePanelBtn);
     pv.addEventListener('ended', updatePanelBtn);
+    pv.addEventListener('ended', markReady);
     avAudioBtn.onclick=function(){
       if(pv.paused){ if(pv.ended){ pv.currentTime=0; } pv.play().catch(function(){}); }
       else { pv.pause(); }
@@ -345,6 +364,9 @@ function render(){
   back.disabled = (i===0);
   next.textContent = (i===SCREENS.length-1) ? 'Begin Learning' : 'Next';
   next.disabled = false;
+  next.classList.remove('ready');
+  var readyHintEl = document.getElementById('readyHint');
+  if(readyHintEl) readyHintEl.classList.remove('show');
 
   if(s.t==='cover'){
     /* full-bleed video, no on-screen text — she introduces herself in the clip */

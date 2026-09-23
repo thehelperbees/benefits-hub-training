@@ -46,8 +46,8 @@
 
   .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--rasp);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;margin-bottom:16px;}
   .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--rasp);}
-  h1.hl{font-size:38px;font-weight:800;line-height:1.12;letter-spacing:-.5px;margin:0 0 14px;color:var(--green);}
-  .sub{font-size:17.5px;line-height:1.55;color:#3C5A4D;margin:0 0 6px;max-width:56ch;}
+  h1.hl{font-size:30px;font-weight:800;line-height:1.15;letter-spacing:-.3px;margin:0 0 10px;color:var(--green);}
+  .sub{font-size:15px;line-height:1.5;color:#3C5A4D;margin:0 0 4px;max-width:60ch;}
 
   /* ---------- cover ---------- */
   .cover-badge{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:var(--cream);border-radius:999px;padding:8px 16px 8px 10px;font-size:13px;font-weight:800;letter-spacing:.3px;margin-bottom:26px;}
@@ -98,7 +98,7 @@
   .story-sub{font-size:15.5px;line-height:1.5;color:#3C5A4D;margin:0 0 14px;max-width:60ch;}
   .browser.wide{max-width:760px;}
   .browser .body.pm-body{line-height:normal;}
-  .pm{padding:16px 20px;font-size:13.5px;color:#1a1a1a;}
+  .pm{padding:26px 30px;font-size:15px;color:#1a1a1a;}
   .pm-topbar{display:flex;align-items:center;justify-content:space-between;background:var(--green);margin:-16px -20px 14px;padding:11px 20px;}
   .pm-topbar .pm-logo{display:flex;align-items:center;gap:8px;color:var(--lime);font-weight:800;font-size:14px;letter-spacing:.3px;}
   .pm-topbar .pm-logo svg{width:20px;height:20px;}
@@ -107,12 +107,13 @@
   .pm-backrow{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
   .pm-back-circle{width:30px;height:30px;border-radius:50%;border:1.5px solid #ddd;display:flex;align-items:center;justify-content:center;flex:none;}
   .pm-back-circle svg{width:14px;height:14px;color:#555;}
-  .pm-h1{font-size:16px;font-weight:800;color:#1a1a1a;margin:0 0 2px;}
-  .pm-sub{font-size:11.5px;color:#8a8a8a;margin:0;}
-  .pm-section-title{font-size:13px;font-weight:800;margin:10px 0 6px;color:#1a1a1a;}
+  .pm-h1{font-size:28px;font-weight:800;color:#1a1a1a;margin:0 0 4px;}
+  .pm-sub{font-size:14px;color:#8a8a8a;margin:0;}
+  .pm-section-title{font-size:20px;font-weight:800;margin:18px 0 10px;color:#1a1a1a;}
+  .pm-link{font-size:10.5px;color:#5c7568;text-decoration:underline;font-weight:600;}
 
   .pm-fieldblock{margin-bottom:8px;}
-  .pm-fieldblock-label{display:block;font-size:9.5px;color:#999;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+  .pm-fieldblock-label{display:block;font-size:13px;color:#888;font-weight:500;margin-bottom:6px;}
   .pm-fieldtrigger{display:inline-flex;align-items:center;gap:9px;background:none;border:none;padding:4px 6px;margin-left:-6px;cursor:pointer;font:inherit;border-radius:8px;}
   .pm-fieldtrigger:hover{background:var(--cream-dim);}
   .pm-fieldtrigger b{font-size:11.5px;color:#1a1a1a;}
@@ -135,8 +136,8 @@
 
   .pm-dl{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-size:11px;margin-bottom:8px;}
   .pm-dl div{display:flex;flex-direction:column;gap:2px;}
-  .pm-dl span{color:#999;font-size:9px;text-transform:uppercase;font-weight:700;}
-  .pm-dl b{color:#1a1a1a;font-size:11.5px;}
+  .pm-dl span{color:#888;font-size:13px;font-weight:500;}
+  .pm-dl b{color:#1a1a1a;font-size:15px;font-weight:700;}
 
   .pm-providerpanel{max-width:460px;}
   .pm-provider-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;font-size:11px;}
@@ -163,6 +164,13 @@
   .pm-modal-overlay{position:fixed;inset:0;background:rgba(80,80,80,.55);display:flex;align-items:flex-start;justify-content:center;z-index:50;overflow-y:auto;padding:40px 20px;}
   .pm-modal-overlay .pm-modal{margin:auto;}
   .pm-modal{background:#fff;border-radius:14px;padding:26px 30px;text-align:left;max-width:360px;width:100%;box-shadow:0 20px 40px -10px rgba(0,0,0,.3);}
+  .pm-modal.wide{max-width:520px;}
+  .pm-notestable{width:100%;border-collapse:collapse;font-size:11px;}
+  .pm-notestable th{text-align:left;color:#999;font-size:9.5px;text-transform:uppercase;font-weight:800;padding:0 10px 8px 0;border-bottom:1px solid var(--sand);}
+  .pm-notestable td{padding:10px 10px 10px 0;border-bottom:1px solid var(--sand);vertical-align:top;color:#333;}
+  .infonote{display:flex;align-items:flex-start;gap:10px;font-size:12px;line-height:1.5;color:#3C5A4D;background:var(--cream-dim);border:1.5px solid var(--sand);border-radius:12px;padding:12px 14px;}
+  .infonote svg{width:15px;height:15px;flex:none;color:var(--rasp);margin-top:1px;}
+  .infonote b{color:var(--green);}
   .pm-modal h5{font-size:15px;font-weight:800;color:#1a1a1a;margin:0 0 18px;}
   .pm-modal-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;}
   .pm-notemodal-field{margin-bottom:14px;position:relative;}
@@ -186,21 +194,24 @@
 
   .pm-encbox{display:flex;gap:16px;background:#F7F3EA;border-radius:10px;padding:12px 14px;margin:10px 0;}
   .pm-encbox div{display:flex;flex-direction:column;gap:2px;}
-  .pm-encbox b{font-size:16px;}
-  .pm-encbox span{font-size:9px;color:#999;text-transform:uppercase;font-weight:700;}
+  .pm-encbox b{font-size:22px;}
+  .pm-encbox span{font-size:12.5px;color:#888;font-weight:500;}
 
   .pm-tilegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 4px;max-width:460px;}
-  .pm-tile{background:#fff;border:1.5px solid #eee;border-radius:9px;padding:12px 6px;text-align:center;font-size:9.5px;font-weight:700;color:#333;cursor:pointer;position:relative;transition:.15s;font-family:inherit;}
-  .pm-tile svg{width:22px;height:22px;margin:0 auto 6px;display:block;color:#333;}
+  .pm-tile{background:#fff;border:1.5px solid #eee;border-radius:12px;padding:18px 12px;text-align:center;font-size:13px;font-weight:700;color:#333;cursor:pointer;position:relative;transition:.15s;font-family:inherit;}
+  .pm-tile svg{width:30px;height:30px;margin:0 auto 10px;display:block;color:#333;}
   .pm-tile.active{background:var(--lime);border-color:#1a1a1a;}
   .pm-hint-wrong{font-size:11px;color:#9c3a1f;font-weight:700;margin-top:6px;}
   .pm-note-static{font-size:11.5px;color:#5c7568;margin-top:6px;font-style:italic;line-height:1.4;}
   .pm-locked-phone{color:#999;font-style:italic;font-weight:700;font-size:11.5px;}
+  .pm-share-tag{display:inline-block;margin-left:8px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;padding:2px 7px;border-radius:20px;vertical-align:middle;}
+  .pm-share-tag.no{background:rgba(199,60,101,.12);color:var(--rasp);}
+  .pm-share-tag.yes{background:rgba(30,122,70,.12);color:#1E7A46;}
   /* service-selection layout, matching Creating and Submitting a Referral's real pattern
      (the .box/.dropdown styling itself is shared with the Add Note type picker above) */
   .pm-fieldrow{display:grid;grid-template-columns:1fr 1.6fr;gap:10px;max-width:440px;}
   .pm-field{display:flex;flex-direction:column;gap:4px;}
-  .pm-field label{font-size:9.5px;color:#999;font-weight:700;text-transform:uppercase;}
+  .pm-field label{font-size:12.5px;color:#888;font-weight:500;}
   /* Service Tasks (encounter confirmation), matching Understanding
      Benefits, Balances, Referrals, and Notes's real pattern */
   .pm-tasklist{margin-top:0;}
@@ -213,12 +224,12 @@
   .pm-taskitem-body span{font-size:9.5px;color:#999;}
   .pm-req-badge{background:#FBEEDC;color:#B8860B;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:6px;text-transform:uppercase;}
   .pm-authblock{background:#fff;border-radius:10px;padding:14px 16px;margin-top:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
-  .pm-authblock h4{font-size:13px;font-weight:800;margin:0 0 10px;line-height:1.35;}
+  .pm-authblock h4{font-size:19px;font-weight:800;margin:0 0 12px;line-height:1.35;}
   .pm-authrow{display:flex;gap:18px;font-size:11px;flex-wrap:wrap;align-items:flex-end;}
   .pm-authrow div{display:flex;flex-direction:column;gap:2px;}
-  .pm-authrow b{font-size:12px;color:#1a1a1a;}
-  .pm-authrow span{color:#999;font-size:9.5px;text-transform:uppercase;font-weight:700;}
-  .pm-btn-dark{background:var(--green);color:var(--lime);border:none;border-radius:8px;padding:9px 16px;font-weight:800;font-size:11.5px;cursor:pointer;font-family:inherit;margin-left:auto;position:relative;}
+  .pm-authrow b{font-size:15px;color:#1a1a1a;font-weight:700;}
+  .pm-authrow span{color:#888;font-size:13px;font-weight:500;}
+  .pm-btn-dark{background:var(--green);color:var(--lime);border:none;border-radius:24px;padding:11px 22px;font-weight:800;font-size:13.5px;cursor:pointer;font-family:inherit;margin-left:auto;position:relative;}
   .pm-btn-dark:hover{background:var(--green-soft);}
   .pm-qty{display:flex;align-items:center;gap:8px;}
   .pm-qty button{width:26px;height:26px;border-radius:6px;border:1.5px solid #ddd;background:#fff;font-size:15px;cursor:pointer;line-height:1;}
@@ -232,7 +243,7 @@
   .pm-svcdetail{background:#fff;border:1.5px solid #eee;border-radius:10px;padding:12px 14px;margin-top:10px;}
   .pm-svcdetail h5{margin:0 0 8px;font-size:12.5px;font-weight:800;color:#1a1a1a;}
   /* checkout — matching Creating and Submitting a Referral's real cart/address/summary */
-  .pm-summarytable{width:100%;border-collapse:collapse;font-size:11px;margin-top:10px;}
+  .pm-summarytable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:10px;}
   .pm-summarytable th{background:#F1F1F1;text-align:left;padding:6px 8px;font-weight:800;color:#333;}
   .pm-summarytable td{padding:7px 8px;color:#333;}
   .pm-summarytable .trash{color:#C0392B;}
@@ -248,8 +259,13 @@
     50%{box-shadow:0 0 0 9px rgba(204,73,131,.06);}
   }
   .pm-hot{animation:hotpulse 1.6s ease-in-out infinite;border-color:var(--rasp) !important;}
-  .pm-hot-tag{position:absolute;top:-25px;left:50%;transform:translateX(-50%);background:var(--rasp);color:#fff;font-size:9.5px;font-weight:800;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 4px 10px -4px rgba(0,0,0,.4);pointer-events:none;z-index:6;}
+  .pm-hot-tag{position:absolute;top:-25px;left:50%;transform:translateX(-50%);background:var(--rasp);color:#fff !important;font-size:9.5px;font-weight:800;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 4px 10px -4px rgba(0,0,0,.4);pointer-events:none;z-index:6;}
   .pm-hot-tag:after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--rasp);}
+  /* Highlight-tag placement fallbacks: used automatically when the default spot (centered above) would cover text */
+  .pm-hot-tag.tp-ra{left:auto;right:0;transform:none;} .pm-hot-tag.tp-ra:after{left:auto;right:12px;transform:none;}
+  .pm-hot-tag.tp-la{left:0;transform:none;} .pm-hot-tag.tp-la:after{left:12px;transform:none;}
+  .pm-hot-tag.tp-side{top:50%;left:calc(100% + 10px);transform:translateY(-50%);} .pm-hot-tag.tp-side:after{top:50%;left:auto;right:100%;transform:translateY(-50%);border-top-color:transparent;border-right-color:var(--rasp);}
+  .pm-hot-tag.tp-below{top:calc(100% + 8px);} .pm-hot-tag.tp-below:after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:var(--rasp);}
   .pm-focus-ring{box-shadow:0 0 0 3px rgba(204,73,131,.3);border-radius:10px;}
 
   /* ---------- real screenshot step (search for the member) ---------- */
@@ -385,8 +401,12 @@
   button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
   .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
   .back[disabled]{opacity:.25;cursor:default;}
-  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next{background:var(--yellow);color:var(--green);}
   .next[disabled]{opacity:.35;cursor:default;}
+  .ready-hint{font-size:12px;color:#5c7568;font-style:italic;opacity:0;transform:translateY(3px);transition:opacity .3s ease, transform .3s ease;margin-left:auto;}
+  .ready-hint.show{opacity:1;transform:translateY(0);}
+  @keyframes nextpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,214,70,.55);}50%{box-shadow:0 0 0 7px rgba(255,214,70,0);}}
+  .next.ready{animation:nextpulse 1.6s ease-out 2;}
 
   /* ---------- start overlay ---------- */
   #startOverlay{position:fixed;inset:0;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:100;text-align:center;padding:24px;}
@@ -427,7 +447,7 @@
   #certSheet .cs-footrow b{display:block;font-size:14px;color:#003322;margin-bottom:2px;}
 
   @media(max-width:640px){
-    .ix{padding:32px 22px;} h1.hl{font-size:27px;}
+    .ix{padding:32px 22px;} h1.hl{font-size:22px;}
     .cover-meta{flex-direction:column;gap:10px;}
     .howsteps{flex-direction:column;}
     #app{padding:16px 14px 20px;}
@@ -463,6 +483,7 @@
   <div class="bot">
     <button class="nav back" id="back">Back</button>
     <button class="audiobtn" id="audioToggle" hidden></button>
+    <span class="ready-hint" id="readyHint">Ready when you are — select Next to continue.</span>
     <button class="nav next" id="next">Next</button>
   </div>
   <audio id="au"></audio>
@@ -619,7 +640,7 @@ var SCREENS = [
   { t:'story', chapter:'unable', stepLabel:'Scenario 4 of 5', needsNote:true,
     eyebrow:'Later',
     h:'The member calls again',
-    sub:"The status has changed again, and the member says they still haven't heard from the provider but still want the service. This referral is stalled — check the provider's contact info, try to help get them back in touch with the member for scheduling, and log a note documenting what you did.",
+    sub:"Since you last checked, the provider accepted the referral — then tried reaching the member to schedule and couldn't connect, which is what moves a referral to Unable to Contact. The member says they still haven't heard from the provider but still want the service. This referral is stalled — check the provider's contact info, try to help get them back in touch with the member for scheduling, and log a note documenting what you did.",
     au:'07_story_unable.mp3'},
 
   { t:'story', chapter:'completed', stepLabel:'Scenario 5 of 5', needsEnc:true,
@@ -646,14 +667,14 @@ var SCREENS = [
 
   { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 2 of 8',
     eyebrow:'Creating and Submitting a Referral', visual:'quantity',
-    q:"This is an annual Personal Care Services authorization. Looking at the screen above, what does the Quantity actually represent here — and how does it relate to the Plan Allowance?",
+    q:"This is a Personal Care Services authorization. Looking at the screen above, what does the Quantity actually represent here — and how does it relate to the Plan Allowance?",
     opts:[
       {label:"Quantity (1) is the number of units of this specific service being requested — a separate figure from Plan Allowance (40.00), even though the two happen to match here.", correct:true},
       {label:"Quantity should always be set to match the Plan Allowance in points, not units, so it should be 40, not 1.", correct:false},
       {label:"Quantity and Plan Allowance are two names for the same number.", correct:false},
       {label:"Quantity determines the Plan Allowance for every other benefit in the category.", correct:false}
     ],
-    explain:"Quantity is how many units of Personal Care you're requesting — 1, since this benefit is issued as a single annual authorization. Plan Allowance (40.00) is a separate figure: the category's total budget for the year. For this benefit the two numbers happen to match because of how it's structured, not because they're the same kind of field — for other benefit types (hourly or per-visit services, for example) they can look very different."},
+    explain:"Quantity is how many units of Personal Care you're requesting — 1 in this case. Plan Allowance (40.00) is a separate figure: the category's total available budget. For this benefit the two numbers happen to match because of how it's structured, not because they're the same kind of field — for other benefit types (hourly or per-visit services, for example) they can look very different."},
 
   { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 3 of 8',
     eyebrow:'Creating and Submitting a Referral', visual:'address',
@@ -686,7 +707,7 @@ var SCREENS = [
       {label:"Only the Assigned to Provider one", correct:false},
       {label:"Only the Accepted by Provider one", correct:true}
     ],
-    explain:"A provider's contact info only becomes visible once they've accepted the referral. Assigned to Provider just means someone's been alerted and has 3 days to respond — there's nothing to share yet."},
+    explain:"A provider's contact info, including the phone number, is visible on the referral regardless of status — but it only becomes shareable with the member once they've accepted. Assigned to Provider just means someone's been alerted and has 3 days to respond — you can see it, but nothing to hand off yet."},
 
   { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 6 of 8',
     eyebrow:'Understanding Benefits, Balances, Referrals, and Notes', visual:'balance-box',
@@ -714,12 +735,12 @@ var SCREENS = [
     eyebrow:'Managing Common Exceptions and Escalations', visual:'ticket-confirm',
     q:"You just got this confirmation with your ticket number. What's the very next step?",
     opts:[
-      {label:"Nothing else needed — the system notifies your Account Coordinator automatically.", correct:false},
+      {label:"Nothing else needed — it routes automatically based on the Issue Type you selected.", correct:true},
       {label:"Submit a duplicate ticket as a backup, in case the first one gets lost.", correct:false},
-      {label:"Email your Account Coordinator with the ticket number so they know to help escalate it.", correct:true},
+      {label:"Email your Account Coordinator with the ticket number so they know to help escalate it.", correct:false},
       {label:"Call the member back to give them the ticket number.", correct:false}
     ],
-    explain:"Once you have your ticket number, send a quick email to your Account Coordinator letting them know you'd like to escalate it — that's what gets it moving."},
+    explain:"For most tickets, submitting is the whole job — it routes automatically based on the Issue Type you selected, so no extra email is needed. Emailing your Account Coordinator with the ticket number is only for urgent tickets that need faster attention, not something you do after every routine ticket."},
 
   { t:'results', auPass:'10_results_pass.mp3', auFail:'11_results_fail.mp3' },
 
@@ -728,6 +749,12 @@ var SCREENS = [
 
 /* ================= ENGINE ================= */
 var i=0, learnerName='', quizAnswered={}, blankState={};
+
+// Force a fresh reload if the page is restored from the back/forward cache
+// (e.g. leaving via Training Home and returning) so practice exercises reset.
+window.addEventListener('pageshow', function(e){
+  if(e.persisted){ window.location.reload(); }
+});
 
 /* Shared across all partners — this module has no partner folder of its own,
    so the calling Begin-Training page passes ?partner=<folder-name> in the link.
@@ -745,6 +772,20 @@ var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
     audioToggle=document.getElementById('audioToggle');
 var AUDIO_DIR='assets/audio/';
 var L=['A','B','C','D','E'];
+
+function markReady(){
+  var hint = document.getElementById('readyHint');
+  if(hint) hint.classList.add('show');
+  if(next) next.classList.add('ready');
+}
+(function(){
+  if(!next) return;
+  new MutationObserver(function(){
+    if(!next.disabled) markReady();
+  }).observe(next, {attributes:true, attributeFilter:['disabled']});
+})();
+var __au = document.getElementById('au');
+if(__au) __au.addEventListener('ended', function(){ if(next && !next.disabled) markReady(); });
 
 function play(src){
   if(!src){ audioToggle.hidden=true; return; }
@@ -892,20 +933,20 @@ function storyProviderNone(){
   return '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Service Provider</span><div class="pm-provider-locked">Not yet assigned.</div></div>';
 }
 /* Same field set Module 5 uses for its real (accepted) provider panel —
-   Company Name, DBA, Contact Name, Email, Phone #, City, State — but with
-   Phone # withheld, since the provider hasn't accepted yet at this point in
-   the story. */
+   Company Name, DBA, Contact Name, Email, Phone #, City, State. The phone
+   number is visible on the referral regardless of status — what changes is
+   whether it's okay to *share* it with the member yet. */
 function storyProviderLockedFields(){
   return '<div class="pm-providerpanel"><div class="pm-provider-grid">'+
     '<div><span>Company Name</span><b>Test Provider</b></div>'+
     '<div><span>DBA</span><b>&ndash;</b></div>'+
     '<div><span>Contact Name</span><b>Provider Support</b></div>'+
     '<div><span>Email</span><b>support@testprovider.com</b></div>'+
-    '<div><span>Phone #</span><span class="pm-locked-phone">Not visible yet</span></div>'+
+    '<div><span>Phone #</span><b>555-201-4488</b><span class="pm-share-tag no">Don\'t share yet</span></div>'+
     '<div><span>City</span><b>Austin</b></div>'+
     '<div><span>State</span><b>TX</b></div>'+
     '</div>'+
-    '<div class="pm-note-static">The phone number only becomes visible once a provider has accepted the referral.</div>'+
+    '<div class="pm-note-static">You can see the phone number here, but don\'t give it to the member yet — the provider hasn\'t accepted the referral.</div>'+
     '</div>';
 }
 function storyProviderLockedSettled(){
@@ -919,7 +960,7 @@ function storyProviderUnlockedSettled(){
     '<div><span>DBA</span><b>&ndash;</b></div>'+
     '<div><span>Contact Name</span><b>Provider Support</b></div>'+
     '<div><span>Email</span><b>support@testprovider.com</b></div>'+
-    '<div><span>Phone #</span><b>555-201-4488</b></div>'+
+    '<div><span>Phone #</span><b>555-201-4488</b><span class="pm-share-tag yes">OK to share</span></div>'+
     '<div><span>City</span><b>Austin</b></div>'+
     '<div><span>State</span><b>TX</b></div>'+
     '</div></div></div>';
@@ -984,8 +1025,8 @@ function renderChapterAssigned(vwrap){
     var answered = story.shareChoice!==undefined;
     var qHtml = '<div class="q" style="font-size:15.5px;">The member is asking for the provider\'s phone number so they can follow up directly. What do you do?</div>';
     var optsArr = [
-      {key:'share', label:'Share the phone number — it\'s on the referral.', correct:false},
-      {key:'wait', label:'Not yet — the phone number isn\'t visible until the provider accepts.', correct:true}
+      {key:'share', label:'Share the phone number — it\'s visible on the referral.', correct:false},
+      {key:'wait', label:'Not yet — you can see it, but don\'t give it out until the provider accepts.', correct:true}
     ];
     optsArr.forEach(function(o,idx){
       var cls='opt';
@@ -993,7 +1034,7 @@ function renderChapterAssigned(vwrap){
       qHtml += '<button type="button" class="'+cls+'" data-key="'+o.key+'" '+(answered?'disabled':'')+'><span class="ltr">'+L[idx]+'</span><span>'+o.label+'</span></button>';
     });
     if(answered){
-      qHtml += '<div class="answer"><b>'+(story.shareChoice==='wait'?'Right. ':'Not quite. ')+'</b>The company name, contact name, and email are already on file, but the phone number only becomes visible once the provider accepts — until then, there\'s no number to share with the member. Let them know the provider has been alerted and has a few days to respond.</div>';
+      qHtml += '<div class="answer"><b>'+(story.shareChoice==='wait'?'Right. ':'Not quite. ')+'</b>The company name, contact name, email, and even the phone number are already visible to you — but the phone number isn\'t something to hand off to the member until the provider has actually accepted. Let them know the provider has been alerted and has a few days to respond.</div>';
     }
     qBox.innerHTML = qHtml;
     vwrap.parentNode.appendChild(qBox);
@@ -1048,8 +1089,11 @@ function renderChapterUnable(vwrap){
 
   var notesBlockHtml = '<div class="pm-actionrow">'+addBtnHtml+'</div>'+toastHtml+'<div class="pm-notespanel">'+notesInner+'</div>';
   /* Provider is shown UNLOCKED (phone visible) here, not locked — Unable to
-     Contact means the provider already accepted and made 3 attempts to reach
-     the member, so their contact info would already have been shared. */
+     Contact means the provider already accepted, then attempted outreach to
+     the member and failed to connect (that failed contact attempt is what
+     moves it to Unable to Contact — the provider triggers this, not an
+     internal or system action), so contact info would already have been
+     shared by this point. */
   var extraHtml = storyProviderUnlockedSettled() + notesBlockHtml + storyEncounterNone();
 
   /* Status meaning (3 unsuccessful provider contact attempts) and the "this
@@ -1278,7 +1322,7 @@ function renderChapterSubmit(vwrap){
         return '<div data-svckey="'+s.key+'">'+s.label+'</div>';
       }).join('')+'</div>';
     }
-    svcListHtml = '<div class="pm-section-title">Available Services for Aetna Training in 78748</div>'+
+    svcListHtml = '<div class="pm-section-title">Available Services for Aetna Training in 78748 <span class="pm-link">(change service address)</span></div>'+
       '<div class="pm-fieldrow">'+
       '<div class="pm-field"><label>Service Category</label><div class="box">Home &amp; Bathroom &hellip;</div></div>'+
       '<div class="pm-field"><label>Search For Services</label>'+searchBoxHtml+svcDropdownHtml+'</div>'+
@@ -1324,8 +1368,12 @@ function renderChapterSubmit(vwrap){
   var modalHtml = '';
   if(checkingOut){
     if(!submitted){
-      modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><h5>Confirm referrals?</h5>'+
-        '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="storyConfirmSubmit">Confirm'+storyHotTag('Click to confirm')+'</button>'+
+      modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal wide"><h5>Review before you submit</h5>'+
+        '<table class="pm-notestable" style="margin-bottom:14px;"><tr><th>Service</th><th>Qty</th><th>Total</th></tr>'+
+        '<tr><td>Personal Care</td><td>'+qty+'</td><td>'+totalPoints.toFixed(2)+'</td></tr></table>'+
+        '<div class="pm-addr-card"><h5>Service Address</h5><p>789 Training Way<br>Austin, TX 78748</p></div>'+
+        '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Double-check the <b>service address</b> above before confirming — it determines which provider this referral routes to.</span></div>'+
+        '<div class="pm-modal-btns" style="margin-top:16px;"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="storyConfirmSubmit">Confirm'+storyHotTag('Click to confirm')+'</button>'+
         '<button class="pm-btn-outline" id="storyCloseModal">Close</button></div>'+
         '</div></div>';
     } else {
@@ -1836,6 +1884,51 @@ document.getElementById('startBtn').onclick=function(){
   document.getElementById('startOverlay').classList.add('hide');
   render();
 };
+
+/* ---------- Highlight-tag placement ----------
+   Tags default to centered above their target. Field labels usually sit right
+   above a field, so the default can cover the label. After each render, check
+   each visible tag; if it covers text, try the fallbacks in order and keep the
+   first spot that covers nothing and stays inside the mockup frame. */
+(function(){
+  var POS=['','tp-ra','tp-la','tp-side','tp-below'];
+  function textLeaves(scope){ /* every visible text node, including text mixed with bold/links */
+    var out=[], w=document.createTreeWalker(scope, NodeFilter.SHOW_TEXT), n;
+    while((n=w.nextNode())){ if(n.nodeValue.trim() && n.parentElement && n.parentElement.offsetParent) out.push(n); }
+    return out;
+  }
+  function hits(tag, leaves, frame){
+    var tr=tag.getBoundingClientRect(), fr=frame.getBoundingClientRect(), anchor=tag.parentElement;
+    if(tr.left<fr.left-1||tr.right>fr.right+1||tr.top<fr.top-1||tr.bottom>fr.bottom+1) return true;
+    for(var k=0;k<leaves.length;k++){
+      var e=leaves[k]; if(tag.contains(e)||anchor.contains(e)) continue;
+      var rg=document.createRange(); rg.selectNodeContents(e); var r=rg.getBoundingClientRect(); /* actual text, not the full-width box */
+      if(!r.width) continue;
+      if(Math.min(r.right,tr.right)-Math.max(r.left,tr.left)>2 && Math.min(r.bottom,tr.bottom)-Math.max(r.top,tr.top)>2) return true;
+    }
+    return false;
+  }
+  function placeHotTags(){
+    var tags=document.querySelectorAll('.pm-hot-tag');
+    for(var t=0;t<tags.length;t++){
+      var tag=tags[t]; if(!tag.offsetParent) continue;
+      var frame=tag.closest('.browser')||tag.closest('.pm')||document.body;
+      var leaves=textLeaves(frame), chosen=null;
+      for(var p=0;p<POS.length;p++){
+        POS.forEach(function(c){ if(c) tag.classList.remove(c); });
+        if(POS[p]) tag.classList.add(POS[p]);
+        if(!hits(tag,leaves,frame)){ chosen=POS[p]; break; }
+      }
+      if(chosen===null){ POS.forEach(function(c){ if(c) tag.classList.remove(c); }); }
+    }
+  }
+  var queued=false;
+  new MutationObserver(function(){
+    if(queued) return; queued=true;
+    requestAnimationFrame(function(){ queued=false; placeHotTags(); });
+  }).observe(document.body,{childList:true,subtree:true});
+  window.addEventListener('resize',placeHotTags);
+})();
 </script>
 </body>
 </html>

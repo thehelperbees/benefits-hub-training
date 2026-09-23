@@ -46,8 +46,8 @@
 
   .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--rasp);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;margin-bottom:16px;}
   .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--rasp);}
-  h1.hl{font-size:36px;font-weight:800;line-height:1.12;letter-spacing:-.5px;margin:0 0 8px;color:var(--green);}
-  .sub{font-size:16.5px;line-height:1.42;color:#3C5A4D;margin:0 0 4px;max-width:54ch;}
+  h1.hl{font-size:29px;font-weight:800;line-height:1.15;letter-spacing:-.3px;margin:0 0 8px;color:var(--green);}
+  .sub{font-size:15px;line-height:1.5;color:#3C5A4D;margin:0 0 4px;max-width:58ch;}
   .kicker{font-size:15px;font-weight:700;color:var(--green);margin:0 0 4px;}
 
   /* ---------- cover ---------- */
@@ -92,12 +92,12 @@
   /* ---------- zoom lightbox (Module 3 specific) ---------- */
   .zoomOverlay{position:fixed;inset:0;background:rgba(0,51,34,.75);display:none;align-items:center;justify-content:center;z-index:200;padding:24px;}
   .zoomOverlay.show{display:flex;}
-  .zoomBox{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);width:min(680px,92vw);}
-  .zoomBox .zbody{display:flex;align-items:center;justify-content:center;padding:22px;height:300px;max-height:60vh;box-sizing:border-box;}
+  .zoomBox{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);width:min(1100px,92vw);}
+  .zoomBox .zbody{display:flex;align-items:center;justify-content:center;padding:28px;max-height:85vh;box-sizing:border-box;}
   .zoomBox .zbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--cream-dim);border-bottom:1px solid var(--sand);}
   .zoomBox .zbar span{font-weight:800;color:var(--green);font-size:14px;}
   .zoomClose{background:none;border:none;cursor:pointer;color:var(--green);font-size:22px;line-height:1;padding:4px 10px;font-family:inherit;}
-  .zoomBox img{display:block;width:auto;height:auto;max-width:100%;max-height:100%;}
+  .zoomBox img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(85vh - 56px);object-fit:contain;}
   .zoomBox .zbody{position:relative;}
   .zoomNav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(15,46,35,.85);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;}
   .zoomNav:hover{background:var(--green);}
@@ -113,8 +113,12 @@
   button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
   .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
   .back[disabled]{opacity:.25;cursor:default;}
-  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next{background:var(--yellow);color:var(--green);}
   .next[disabled]{opacity:.35;cursor:default;}
+  .ready-hint{font-size:12px;color:#5c7568;font-style:italic;opacity:0;transform:translateY(3px);transition:opacity .3s ease, transform .3s ease;margin-left:auto;}
+  .ready-hint.show{opacity:1;transform:translateY(0);}
+  @keyframes nextpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,214,70,.55);}50%{box-shadow:0 0 0 7px rgba(255,214,70,0);}}
+  .next.ready{animation:nextpulse 1.6s ease-out 2;}
   .cta-btn{display:inline-flex;align-items:center;gap:9px;background:var(--yellow);color:var(--green);font-weight:800;font-size:15px;text-decoration:none;border-radius:12px;padding:14px 22px;margin-top:22px;letter-spacing:.2px;}
   .cta-btn svg{width:16px;height:16px;flex:none;}
   .cta-btn:hover{filter:brightness(0.96);}
@@ -152,15 +156,28 @@
 
   /* ---------- mock advanced search widget ---------- */
   .mock-advsearch{margin-top:20px;background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:18px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;}
-  .mock-advsearch label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:800;color:#5c7568;text-transform:uppercase;letter-spacing:.4px;flex:1;min-width:150px;}
+  .mock-advsearch label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500;color:#888;flex:1;min-width:150px;}
   .mock-advsearch input{border:1.5px solid var(--sand);border-radius:10px;padding:11px 13px;font-family:inherit;font-size:14.5px;color:var(--ink);background:#fff;font-weight:600;text-transform:none;letter-spacing:normal;}
   .mock-advsearch input:focus{outline:none;border-color:var(--teal);}
   .mock-advsearch .checkbtn{flex:none;height:44px;}
+  .mock-refinebar{background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:16px 18px;}
+  .mock-refinebar .mock-refine-lbl{font-size:16px;font-weight:800;color:#1a1a1a;margin-bottom:12px;}
+  .mock-refine-fields{display:flex;flex-wrap:wrap;gap:22px;}
+  .mock-refine-fields div{display:flex;flex-direction:column;gap:3px;min-width:110px;}
+  .mock-refine-fields span{font-size:13px;font-weight:500;color:#888;}
+  .mock-refine-fields b{font-size:15px;color:var(--ink);font-weight:700;}
+  .mock-resultstable{width:100%;border-collapse:collapse;margin-top:14px;background:#fff;border:1.5px solid var(--sand);border-radius:14px;overflow:hidden;}
+  .mock-resultstable th{background:var(--cream-dim);text-align:left;font-size:13px;font-weight:800;color:#1a1a1a;padding:12px 16px;border-bottom:1.5px solid var(--sand);}
+  .mock-resultstable td{padding:14px 16px;font-size:14.5px;color:var(--ink);font-weight:600;}
+  .mock-result-row{cursor:pointer;transition:background .15s ease;}
+  .mock-result-row:hover{background:rgba(230,236,130,.28);}
+  .mock-result-row td:first-child{font-weight:800;color:var(--green);}
+  .mock-result-row .mock-arrow{float:right;color:var(--rasp);font-weight:800;}
   .mock-result{margin-top:16px;background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:18px 20px;}
-  .mock-result-name{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:12px;}
+  .mock-result-name{font-size:20px;font-weight:800;color:var(--ink);margin-bottom:14px;}
   .mock-result-grid{display:flex;flex-wrap:wrap;gap:22px;}
   .mock-result-grid div{display:flex;flex-direction:column;gap:3px;}
-  .mock-result-grid span{font-size:11px;font-weight:800;color:#5c7568;text-transform:uppercase;letter-spacing:.4px;}
+  .mock-result-grid span{font-size:13px;font-weight:500;color:#888;}
   .mock-result-grid b{font-size:15px;color:var(--ink);font-weight:700;}
   .mock-topbar{display:flex;align-items:center;justify-content:space-between;background:var(--green);padding:12px 20px;}
   .mock-topbar .mock-logo{display:flex;align-items:center;gap:8px;color:var(--yellow);font-weight:800;font-size:13px;letter-spacing:.5px;}
@@ -168,11 +185,11 @@
   .mock-topbar .mock-icons{display:flex;align-items:center;gap:14px;color:var(--yellow);}
   .mock-topbar .mock-icons svg{width:19px;height:19px;}
   .mock-page-body{background:var(--cream-dim);padding:20px;}
-  .mock-member-header{font-size:19px;font-weight:800;color:var(--ink);margin-bottom:2px;}
-  .mock-member-sub{font-size:12.5px;color:#5c7568;margin-bottom:16px;}
-  .mock-section-title{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:10px;}
+  .mock-member-header{font-size:28px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+  .mock-member-sub{font-size:14px;color:#5c7568;margin-bottom:16px;}
+  .mock-section-title{font-size:20px;font-weight:800;color:var(--ink);margin-bottom:12px;}
   .mock-tilegrid{display:flex;gap:10px;flex-wrap:wrap;}
-  .mock-tile{flex:1;min-width:130px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:14px 10px;text-align:center;font-size:12.5px;font-weight:700;color:var(--ink);}
+  .mock-tile{flex:1;min-width:130px;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:20px 14px;text-align:center;font-size:13px;font-weight:700;color:var(--ink);}
   .mock-tile-icon{margin:0 auto 8px;width:26px;height:26px;color:#5c7568;}
   .mock-tile-icon svg{width:100%;height:100%;}
   .mock-tile.active{background:var(--lime);border-color:#1a1a1a;}
@@ -201,7 +218,7 @@
   .audiobtn[hidden]{display:none;}
 
   @media(max-width:640px){
-    .ix{padding:32px 22px;} h1.hl{font-size:27px;} .dm-grid{grid-template-columns:1fr;}
+    .ix{padding:32px 22px;} h1.hl{font-size:22px;} .dm-grid{grid-template-columns:1fr;}
     .cover-meta{flex-direction:column;gap:10px;}
     .browser .body{padding:18px 16px;}
     .hotspot-tag{font-size:10px;padding:3px 7px;border-radius:5px;}
@@ -235,6 +252,7 @@
   <div class="bot">
     <button class="nav back" id="back">Back</button>
     <button class="audiobtn" id="audioToggle" hidden></button>
+    <span class="ready-hint" id="readyHint">Ready when you are — select Next to continue.</span>
     <button class="nav next" id="next">Next</button>
   </div>
   <audio id="au"></audio>
@@ -247,7 +265,7 @@ var SCREENS = [
 
   { t:'cover', au:'cover.mp3' },
 
-  { t:'step', n:1, of:3,
+  { t:'step', n:1, of:5,
     kicker:"Step 1",
     h:"Search for your member",
     sub:"Let's find your member. You can search by member number for the fastest results, or use Advanced Search to look someone up by first name, last name, and date of birth if you don't have their number handy.",
@@ -259,7 +277,7 @@ var SCREENS = [
     requireZoom:'advsearch',
     au:'screen1.mp3' },
 
-  { t:'step', n:2, of:3,
+  { t:'step', n:2, of:5,
     kicker:"Step 2",
     h:"The member landing page",
     sub:"Here's your member's landing page. The Overview panel holds their key details, and Recent Activity on the right keeps you posted on what's changed. Click into either one for a closer look.",
@@ -272,7 +290,7 @@ var SCREENS = [
     requireZooms:['overview','recent'],
     au:'screen2.mp3' },
 
-  { t:'step', n:3, of:3,
+  { t:'step', n:3, of:5,
     kicker:"Step 3",
     h:"Benefit tiles & authorizations",
     sub:"Below Overview, you'll see the member's Benefit tiles — showing what benefits this member is eligible for. Click between tiles to compare authorization details for each one.",
@@ -287,9 +305,9 @@ var SCREENS = [
     caption:"Tap any tile above to switch, or use the enlarge button to compare them up close — you can switch tiles from there too.",
     au:'screen3.mp3' },
 
-  { t:'findmember', au:'practice_search.mp3', auYes:'practice_search_yes.mp3', auNo:'practice_search_no.mp3' },
+  { t:'findmember', n:4, of:5, au:'practice_search.mp3', auYes:'practice_search_yes.mp3', auNo:'practice_search_no.mp3' },
 
-  { t:'verifymember', au:'practice_verify.mp3',
+  { t:'verifymember', n:5, of:5, au:'practice_verify.mp3',
     opts:[
       {label:'7/13/2026', correct:false},
       {label:'12/31/2026', correct:true},
@@ -304,11 +322,31 @@ var SCREENS = [
 /* ================= ENGINE ================= */
 var i=0, answered={};
 var memberIdState = {typed:'', checked:false};
+
+// Force a fresh reload if the page is restored from the back/forward cache
+// (e.g. leaving via Training Home and returning) so practice exercises reset.
+window.addEventListener('pageshow', function(e){
+  if(e.persisted){ window.location.reload(); }
+});
 var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
     back=document.getElementById('back'), next=document.getElementById('next'),
     stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
     audioToggle=document.getElementById('audioToggle');
 var AUDIO_DIR='assets/audio/';
+
+function markReady(){
+  var hint = document.getElementById('readyHint');
+  if(hint) hint.classList.add('show');
+  if(next) next.classList.add('ready');
+}
+(function(){
+  if(!next) return;
+  new MutationObserver(function(){
+    if(!next.disabled) markReady();
+  }).observe(next, {attributes:true, attributeFilter:['disabled']});
+})();
+var __au = document.getElementById('au');
+if(__au) __au.addEventListener('ended', function(){ if(next && !next.disabled) markReady(); });
 
 function play(src){
   if(!src){ audioToggle.hidden=true; return; }
@@ -484,7 +522,7 @@ function render(){
   }
   stage.innerHTML=''; stopAu(); closeZoom();
   bar.style.width = Math.round(i/(SCREENS.length-1)*100)+'%';
-  stepnum.textContent = (s.t==='step') ? ('Step '+s.n+' of '+s.of) : '';
+  stepnum.textContent = (s.n) ? ('Step '+s.n+' of '+s.of) : '';
   back.disabled = (i===0);
   next.textContent = (i===SCREENS.length-1) ? 'Finish' : 'Next';
   next.disabled = false;
@@ -533,7 +571,7 @@ function render(){
 
   else if(s.t==='findmember'){
     var dfm=el('div','ix center');
-    var fm = answered['fm'] || {fn:'', ln:'', dob:'', searched:false, found:false};
+    var fm = answered['fm'] || {fn:'', ln:'', dob:'', searched:false, found:false, selected:false};
     var htmlFm =
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>Your turn</div>'+
@@ -543,19 +581,36 @@ function render(){
         urlBar('yourcompany.benefitshub.com/search') +
         topbar() +
         '<div class="mock-page-body">'+
-          '<div class="mock-member-header">Advanced Search</div>'+
-          '<div class="mock-member-sub">Search by member details</div>'+
-          '<div class="mock-advsearch">'+
-            '<label>First Name<input type="text" id="fmFirst" value="'+escapeAttr(fm.fn)+'" placeholder="First Name"></label>'+
-            '<label>Last Name<input type="text" id="fmLast" value="'+escapeAttr(fm.ln)+'" placeholder="Last Name"></label>'+
-            '<label>Date of Birth<input type="date" id="fmDob" value="'+escapeAttr(fm.dob)+'"></label>'+
-            '<button type="button" class="checkbtn" id="fmSearchBtn">Search</button>'+
-          '</div>'+
-          (fm.searched && !fm.found ? '<div class="confirm-reveal warn"><b>No match found.</b>Double check that all three fields are filled in exactly — first name, last name, and date of birth (08/07/1959) — then search again.</div>' : '')+
-          (fm.found ? '<div class="mock-member-header" style="margin-top:16px;">Helper Test</div><div class="mock-member-sub">Member #: 12345678912</div><div class="mock-result"><div class="mock-result-name">Overview</div><div class="mock-result-grid"><div><span>Full Name</span><b>Helper Test</b></div><div><span>Date of Birth</span><b>8/7/1959</b></div></div><div class="mock-result-grid" style="margin-top:14px;"><div><span>Address</span><b>123 Bee Hive Avenue, San francisco, CA, 94102</b></div><div><span>Phone</span><b>888-888-8888</b></div></div><div class="mock-result-grid" style="margin-top:14px;"><div><span>Email</span><b>bees@gmail.com</b></div><div><span>Preferred Language</span><b>English</b></div></div></div>' : '')+
+          (fm.selected ?
+            '<div class="mock-member-header">Helper Test</div>'+
+            '<div class="mock-member-sub" style="font-size:15px;font-weight:800;color:var(--rasp);margin-bottom:16px;">Member #: 12345678912</div>'+
+            '<div class="mock-result"><div class="mock-result-name">Overview</div><div class="mock-result-grid"><div><span>Full Name</span><b>Helper Test</b></div><div><span>Date of Birth</span><b>8/7/1959</b></div></div><div class="mock-result-grid" style="margin-top:14px;"><div><span>Address</span><b>123 Bee Hive Avenue, San francisco, CA, 94102</b></div><div><span>Phone</span><b>888-888-8888</b></div></div><div class="mock-result-grid" style="margin-top:14px;"><div><span>Email</span><b>bees@gmail.com</b></div><div><span>Preferred Language</span><b>English</b></div></div></div>'
+          : fm.found ?
+            '<div class="mock-refinebar"><div class="mock-refine-lbl">Refine Search</div><div class="mock-refine-fields">'+
+              '<div><span>First Name</span><b>'+escapeAttr(fm.fn)+'</b></div>'+
+              '<div><span>Last Name</span><b>'+escapeAttr(fm.ln)+'</b></div>'+
+              '<div><span>Date of Birth</span><b>08/07/1959</b></div>'+
+            '</div></div>'+
+            '<div class="mock-member-header" style="margin-top:18px;">Search Results</div>'+
+            '<div class="mock-member-sub">Showing 1–1 of 1 records</div>'+
+            '<table class="mock-resultstable"><tr><th>Name</th><th>Date of Birth</th><th>Member #</th></tr>'+
+            '<tr class="mock-result-row" id="fmResultRow"><td>Helper Test<span class="mock-arrow">&rarr;</span></td><td>8/7/1959</td><td>12345678912</td></tr>'+
+            '</table>'
+          :
+            '<div class="mock-member-header">Advanced Search</div>'+
+            '<div class="mock-member-sub">Search by member details</div>'+
+            '<div class="mock-advsearch">'+
+              '<label>First Name<input type="text" id="fmFirst" value="'+escapeAttr(fm.fn)+'" placeholder="First Name"></label>'+
+              '<label>Last Name<input type="text" id="fmLast" value="'+escapeAttr(fm.ln)+'" placeholder="Last Name"></label>'+
+              '<label>Date of Birth<input type="date" id="fmDob" value="'+escapeAttr(fm.dob)+'"></label>'+
+              '<button type="button" class="checkbtn" id="fmSearchBtn">Search</button>'+
+            '</div>'+
+            (fm.searched && !fm.found ? '<div class="confirm-reveal warn"><b>No match found.</b>Double check that all three fields are filled in exactly — first name, last name, and date of birth (08/07/1959) — then search again.</div>' : '')
+          )+
         '</div>'+
       '</div>'+
-      (fm.found ? '<div class="confirm-reveal good" id="fmGoodBox"><b>Nice work — found them!</b>Now let\'s confirm you\'ve got the right member — what Member ID do you see listed at the top of their profile?</div>' : '')+
+      (fm.found && !fm.selected ? '<div class="capnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Tap the row above to open Helper Test\'s profile.</span></div>' : '')+
+      (fm.selected ? '<div class="confirm-reveal good" id="fmGoodBox"><b>Nice work — found them!</b>Now let\'s confirm you\'ve got the right member — what Member ID do you see listed at the top of their profile?</div>' : '')+
       '</div>';
     dfm.innerHTML = htmlFm;
     stage.appendChild(dfm);
@@ -570,14 +625,22 @@ function render(){
         answered['fm'] = {
           fn:document.getElementById('fmFirst').value,
           ln:document.getElementById('fmLast').value,
-          dob:dobVal, searched:true, found:found
+          dob:dobVal, searched:true, found:found, selected:false
         };
         render();
         play(found ? s.auYes : s.auNo);
       };
     }
 
-    if(fm.found){
+    var resultRow = document.getElementById('fmResultRow');
+    if(resultRow){
+      resultRow.onclick=function(){
+        answered['fm'] = {fn:fm.fn, ln:fm.ln, dob:fm.dob, searched:true, found:true, selected:true};
+        render();
+      };
+    }
+
+    if(fm.selected){
       var idWrap = document.getElementById('fmGoodBox');
       var abox = el('div','answerbox');
       var idInput = el('input'); idInput.type='text'; idInput.id='memberIdInput'; idInput.placeholder='Member ID';
@@ -606,7 +669,7 @@ function render(){
       }
     }
 
-    next.disabled = !(fm.found && memberIdState.checked);
+    next.disabled = !(fm.selected && memberIdState.checked);
     if(!fm.searched) play(s.au);
   }
 

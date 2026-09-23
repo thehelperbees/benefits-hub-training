@@ -46,8 +46,8 @@
 
   .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--rasp);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;margin-bottom:10px;}
   .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--rasp);}
-  h1.hl{font-size:32px;font-weight:800;line-height:1.15;letter-spacing:-.5px;margin:0 0 8px;color:var(--green);}
-  .sub{font-size:15.5px;line-height:1.5;color:#3C5A4D;margin:0 0 4px;max-width:56ch;}
+  h1.hl{font-size:26px;font-weight:800;line-height:1.17;letter-spacing:-.3px;margin:0 0 8px;color:var(--green);}
+  .sub{font-size:15px;line-height:1.55;color:#3C5A4D;margin:0 0 4px;max-width:60ch;}
   .kicker{font-size:15px;font-weight:700;color:var(--green);margin:0 0 4px;}
 
   /* ---------- quick check (review-screen questions) ---------- */
@@ -91,7 +91,7 @@
   .infonote b{color:var(--green);}
 
   /* ---------- product mock (recreated real UI, inside browser body) ---------- */
-  .pm{padding:16px 20px;font-size:13.5px;color:#1a1a1a;}
+  .pm{padding:26px 30px;font-size:15px;color:#1a1a1a;}
   .pm-topbar{display:flex;align-items:center;justify-content:space-between;background:var(--green);margin:-16px -20px 14px;padding:11px 20px;}
   .pm-topbar .pm-logo{display:flex;align-items:center;gap:8px;color:var(--lime);font-weight:800;font-size:14px;letter-spacing:.3px;}
   .pm-topbar .pm-logo svg{width:20px;height:20px;}
@@ -99,27 +99,27 @@
   .pm-cart-wrap{position:relative;}
   .pm-cart-wrap svg{width:20px;height:20px;color:var(--lime);display:block;}
   .pm-account{width:20px;height:20px;color:var(--lime);}
-  .pm-h1{font-size:22px;font-weight:800;color:#1a1a1a;margin:0 0 2px;}
-  .pm-sub{font-size:12.5px;color:#8a8a8a;margin:0 0 16px;}
+  .pm-h1{font-size:28px;font-weight:800;color:#1a1a1a;margin:0 0 4px;}
+  .pm-sub{font-size:14px;color:#8a8a8a;margin:0 0 16px;}
   .pm-backrow{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
   .pm-back-circle{width:30px;height:30px;border-radius:50%;border:1.5px solid #ddd;display:flex;align-items:center;justify-content:center;flex:none;}
   .pm-back-circle svg{width:14px;height:14px;color:#555;}
   .pm-cards{display:grid;grid-template-columns:1.6fr 1fr;gap:12px;margin-bottom:16px;}
   .pm-card{background:#fff;border-radius:10px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
-  .pm-card h4{font-size:13px;font-weight:800;margin:0 0 10px;color:#1a1a1a;}
-  .pm-table{width:100%;border-collapse:collapse;font-size:11.5px;}
+  .pm-card h4{font-size:18px;font-weight:800;margin:0 0 10px;color:#1a1a1a;}
+  .pm-table{width:100%;border-collapse:collapse;font-size:13.5px;}
   .pm-table th{background:#F1F1F1;text-align:left;font-weight:800;padding:6px 8px;color:#333;}
   .pm-table td{padding:8px 8px;color:#333;border-top:none;}
   .pm-stats{display:flex;gap:14px;border-top:2px solid #eee;padding-top:8px;margin-top:4px;}
   .pm-stat b{display:block;font-size:16px;}
   .pm-stat.orange b{color:#D2691E;}
   .pm-stat.green b{color:#3C8B3C;}
-  .pm-stat span{font-size:9px;color:#999;text-transform:uppercase;font-weight:700;}
-  .pm-section-title{font-size:13px;font-weight:800;margin:10px 0 6px;color:#1a1a1a;}
+  .pm-stat span{font-size:12.5px;color:#888;font-weight:500;}
+  .pm-section-title{font-size:20px;font-weight:800;margin:18px 0 10px;color:#1a1a1a;}
   .pm-link{font-size:10.5px;color:#5c7568;text-decoration:underline;font-weight:600;}
 
   .pm-tilegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0 4px;}
-  .pm-tile{background:#fff;border:1.5px solid #eee;border-radius:9px;padding:12px 6px;text-align:center;font-size:9.5px;font-weight:700;color:#333;cursor:pointer;position:relative;transition:.15s;}
+  .pm-tile{background:#fff;border:1.5px solid #eee;border-radius:12px;padding:18px 12px;text-align:center;font-size:13px;font-weight:700;color:#333;cursor:pointer;position:relative;transition:.15s;}
 
   /* ---------- click-here highlight (guides first-time users to the next action) ---------- */
   @keyframes hotpulse{
@@ -130,27 +130,32 @@
   .pm-hot-done{border-color:var(--rasp) !important;box-shadow:0 0 0 3px rgba(204,73,131,.15);}
   span.pm-hot-done, .pm-badge-status.pm-hot-done{box-shadow:0 0 0 3px rgba(204,73,131,.18);}
   .pm-providerlink.pm-hot-done{box-shadow:none;border-bottom-color:var(--rasp) !important;}
-  .pm-hot-tag{position:absolute;top:-25px;left:50%;transform:translateX(-50%);background:var(--rasp);color:#fff;font-size:9.5px;font-weight:800;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 4px 10px -4px rgba(0,0,0,.4);pointer-events:none;z-index:6;}
+  .pm-hot-tag{position:absolute;top:-25px;left:50%;transform:translateX(-50%);background:var(--rasp);color:#fff !important;font-size:9.5px;font-weight:800;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 4px 10px -4px rgba(0,0,0,.4);pointer-events:none;z-index:6;}
   .pm-hot-tag:after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--rasp);}
+  /* Highlight-tag placement fallbacks: used automatically when the default spot (centered above) would cover text */
+  .pm-hot-tag.tp-ra{left:auto;right:0;transform:none;} .pm-hot-tag.tp-ra:after{left:auto;right:12px;transform:none;}
+  .pm-hot-tag.tp-la{left:0;transform:none;} .pm-hot-tag.tp-la:after{left:12px;transform:none;}
+  .pm-hot-tag.tp-side{top:50%;left:calc(100% + 10px);transform:translateY(-50%);} .pm-hot-tag.tp-side:after{top:50%;left:auto;right:100%;transform:translateY(-50%);border-top-color:transparent;border-right-color:var(--rasp);}
+  .pm-hot-tag.tp-below{top:calc(100% + 8px);} .pm-hot-tag.tp-below:after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:var(--rasp);}
   .pm-focus-ring{box-shadow:0 0 0 3px rgba(204,73,131,.3);border-radius:10px;}
-  .pm-tile svg{width:22px;height:22px;margin:0 auto 6px;display:block;color:#333;}
+  .pm-tile svg{width:30px;height:30px;margin:0 auto 10px;display:block;color:#333;}
   .pm-tile.active{background:var(--lime);border-color:#1a1a1a;}
   .pm-tile:not(.active):hover{border-color:var(--rasp);}
   .pm-hint{font-size:10px;color:#999;text-align:center;margin-top:6px;}
 
   .pm-authblock{background:#fff;border-radius:10px;padding:14px 16px;margin-top:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
-  .pm-authblock h4{font-size:13px;font-weight:800;margin:0 0 10px;line-height:1.35;}
+  .pm-authblock h4{font-size:19px;font-weight:800;margin:0 0 12px;line-height:1.35;}
   .pm-authrow{display:flex;gap:18px;font-size:11px;flex-wrap:wrap;align-items:flex-end;}
   .pm-authrow div{display:flex;flex-direction:column;gap:2px;}
-  .pm-authrow b{font-size:12px;color:#1a1a1a;}
-  .pm-authrow span{color:#999;font-size:9.5px;text-transform:uppercase;font-weight:700;}
-  .pm-btn-dark{background:var(--green);color:var(--lime);border:none;border-radius:8px;padding:9px 16px;font-weight:800;font-size:11.5px;cursor:pointer;font-family:inherit;margin-left:auto;}
+  .pm-authrow b{font-size:15px;color:#1a1a1a;font-weight:700;}
+  .pm-authrow span{color:#888;font-size:13px;font-weight:500;}
+  .pm-btn-dark{background:var(--green);color:var(--lime);border:none;border-radius:24px;padding:11px 22px;font-weight:800;font-size:13.5px;cursor:pointer;font-family:inherit;margin-left:auto;}
   .pm-btn-dark:hover{background:var(--green-soft);}
   .pm-nofound{font-size:11px;color:#999;margin-top:12px;}
 
   .pm-fieldrow{display:grid;grid-template-columns:1fr 1.6fr;gap:10px;position:relative;}
   .pm-field{display:flex;flex-direction:column;gap:4px;}
-  .pm-field label{font-size:9.5px;color:#999;font-weight:700;text-transform:uppercase;}
+  .pm-field label{font-size:12.5px;color:#888;font-weight:500;}
   .pm-field .box{border:1.5px solid #ddd;border-radius:8px;padding:9px 11px;font-size:11.5px;color:#333;background:#fff;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
   .pm-field .box.placeholder{color:#aaa;}
   .pm-field .box:hover{border-color:var(--rasp);}
@@ -171,8 +176,12 @@
   button.nav{font-family:inherit;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:13px 24px;cursor:pointer;letter-spacing:.2px;}
   .back{background:transparent;color:var(--cream);border:1.5px solid rgba(252,247,238,.3);}
   .back[disabled]{opacity:.25;cursor:default;}
-  .next{background:var(--yellow);color:var(--green);margin-left:auto;}
+  .next{background:var(--yellow);color:var(--green);}
   .next[disabled]{opacity:.35;cursor:default;}
+  .ready-hint{font-size:12px;color:#5c7568;font-style:italic;opacity:0;transform:translateY(3px);transition:opacity .3s ease, transform .3s ease;margin-left:auto;}
+  .ready-hint.show{opacity:1;transform:translateY(0);}
+  @keyframes nextpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,214,70,.55);}50%{box-shadow:0 0 0 7px rgba(255,214,70,0);}}
+  .next.ready{animation:nextpulse 1.6s ease-out 2;}
 
   /* ---------- start overlay ---------- */
   #startOverlay{position:fixed;inset:0;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:100;text-align:center;padding:24px;}
@@ -207,14 +216,14 @@
   .pm-refdetail h5{font-size:12.5px;font-weight:800;margin:0 0 8px;}
   .pm-dl{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-size:11px;margin-bottom:8px;}
   .pm-dl div{display:flex;flex-direction:column;gap:2px;}
-  .pm-dl span{color:#999;font-size:9px;text-transform:uppercase;font-weight:700;}
-  .pm-dl b{color:#1a1a1a;font-size:11.5px;}
-  .pm-dl a{color:var(--rasp);font-weight:700;text-decoration:none;font-size:11.5px;}
+  .pm-dl span{color:#888;font-size:13px;font-weight:500;}
+  .pm-dl b{color:#1a1a1a;font-size:15px;font-weight:700;}
+  .pm-dl a{color:var(--rasp);font-weight:700;text-decoration:none;font-size:15px;}
 
   .pm-encbox{display:flex;gap:16px;background:#F7F3EA;border-radius:10px;padding:12px 14px;margin-bottom:14px;}
   .pm-encbox div{display:flex;flex-direction:column;gap:2px;}
-  .pm-encbox b{font-size:16px;}
-  .pm-encbox span{font-size:9px;color:#999;text-transform:uppercase;font-weight:700;}
+  .pm-encbox b{font-size:22px;}
+  .pm-encbox span{font-size:12.5px;color:#888;font-weight:500;}
 
   .pm-notespanel{background:#F7F3EA;border-radius:10px;padding:12px 14px;font-size:11px;}
   .pm-notespanel h6{margin:0 0 8px;font-size:11px;font-weight:800;color:#1a1a1a;}
@@ -229,6 +238,29 @@
   .pm-btn-blue .pm-reveal-pill{background:#fff;color:#1D5FBF;}
   .pm-btn-blue .pm-reveal-pill.done{background:rgba(255,255,255,.4);color:#fff;}
   .pm-btn-gold{background:#B8860B;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-weight:800;font-size:11.5px;cursor:pointer;font-family:inherit;}
+  .pm-btn-green{background:var(--green);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-weight:800;font-size:11.5px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;}
+  .pm-actiondropdown{position:absolute;top:100%;left:0;margin-top:6px;background:#fff;border:1px solid #ddd;border-radius:10px;box-shadow:0 8px 20px -6px rgba(0,0,0,.2);z-index:20;overflow:hidden;min-width:180px;}
+  .pm-actiondropdown div{padding:10px 14px;font-size:12px;color:#333;cursor:pointer;font-weight:700;}
+  .pm-actiondropdown div:hover{background:#F5EEE0;}
+  .pm-actiondropdown div.disabled-opt{cursor:default;color:#999;}
+  .pm-actiondropdown div.disabled-opt:hover{background:none;}
+  .pm-actiondropdown div .tag{display:block;font-size:9px;font-weight:800;color:var(--rasp);text-transform:uppercase;letter-spacing:.3px;margin-top:2px;}
+  .pm-modal.wide{max-width:600px;}
+  .pm-modal-x{background:none;border:none;font-size:22px;line-height:1;color:#999;cursor:pointer;padding:0 4px;}
+  .pm-notestable{width:100%;border-collapse:collapse;font-size:11px;}
+  .pm-notestable th{text-align:left;color:#999;font-size:9.5px;text-transform:uppercase;font-weight:800;padding:0 10px 8px 0;border-bottom:1px solid var(--sand);}
+  .pm-notestable td{padding:12px 10px 12px 0;border-bottom:1px solid var(--sand);vertical-align:top;color:#333;line-height:1.5;}
+  .pm-notestable td:first-child{font-weight:800;white-space:nowrap;}
+  .pm-docitem{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--sand);border-radius:10px;padding:10px 12px;}
+  .pm-docicon{flex:none;width:28px;height:28px;border-radius:8px;background:var(--cream-dim);display:flex;align-items:center;justify-content:center;color:var(--rasp);}
+  .pm-docicon svg{width:16px;height:16px;}
+  .pm-docitem b{display:block;font-size:11.5px;}
+  .pm-docitem span{color:#999;font-size:9.5px;}
+  .pm-sdqrow{padding:8px 0;border-bottom:1px solid var(--sand);}
+  .pm-sdqrow:last-of-type{border-bottom:none;}
+  .pm-sdqrow span{display:block;font-size:10.5px;color:#8a9b91;font-weight:700;margin-bottom:3px;}
+  .pm-sdqrow span i{color:var(--rasp);font-style:normal;}
+  .pm-sdqrow b{font-size:12.5px;color:#333;}
 
   .pm-glossary-wrap{display:block;}
   .pm-glossary{width:100%;max-width:460px;}
@@ -294,7 +326,7 @@
 
   /* ---- v2: professional inline reveal pattern (trigger lives on the real field) ---- */
   .pm-fieldblock{margin-bottom:8px;}
-  .pm-fieldblock-label{display:block;font-size:9.5px;color:#999;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+  .pm-fieldblock-label{display:block;font-size:13px;color:#888;font-weight:500;margin-bottom:6px;}
   .pm-fieldtrigger{display:inline-flex;align-items:center;gap:9px;background:none;border:none;padding:4px 6px;margin-left:-6px;cursor:pointer;font:inherit;border-radius:8px;}
   .pm-fieldtrigger:hover{background:var(--cream-dim);}
   .pm-fieldtrigger b{font-size:11.5px;color:#1a1a1a;}
@@ -319,7 +351,7 @@
   .reslink .reslink-arrow{margin-left:auto;width:14px;height:14px;flex:none;color:var(--rasp);}
 
   @media(max-width:640px){
-    .ix{padding:32px 22px;} h1.hl{font-size:27px;}
+    .ix{padding:32px 22px;} h1.hl{font-size:22px;}
     .cover-meta{flex-direction:column;gap:10px;}
     #app{padding:16px 14px 20px;}
     .pm-cards{grid-template-columns:1fr;}
@@ -357,6 +389,7 @@
   <div class="bot">
     <button class="nav back" id="back">Back</button>
     <button class="audiobtn" id="audioToggle" hidden></button>
+    <span class="ready-hint" id="readyHint">Ready when you are — select Next to continue.</span>
     <button class="nav next" id="next">Next</button>
   </div>
   <audio id="au"></audio>
@@ -371,6 +404,7 @@ var ICON_BACK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 var ICON_CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>';
 var ICON_CHEVRON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
 var ICON_INFO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>';
+var ICON_DOC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
 var LOGO_SVG='<svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="currentColor" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>';
 
 function topbar(cartCount){
@@ -455,12 +489,13 @@ var SCREENS = [
     sub:'Select the Referral Narrative field to see what it looks like.' },
 
   { t:'section', mode:'addnote', key:'addnote', n:4, of:6, au:'addnote.mp3', auOpen:'addnote_open.mp3', auSubmit:'addnote_submit.mp3',
+    auViewNotes:'addnote_viewnotes.mp3', auViewDocs:'addnote_viewdocs.mp3', auViewSdq:'addnote_viewsdq.mp3',
     h:'Add a note',
-    sub:'Select + ADD NOTE to log an update on this referral.' },
+    sub:'Open the Add menu and select Add Note to log an update on this referral. Feel free to also explore the View menu — View Notes, View Documents, and View SDQ — before continuing.' },
 
   { t:'section', mode:'encsummary', key:'encsummary', n:5, of:6, au:'encsummary.mp3', ungated:true,
-    h:'Check the balance',
-    sub:'Above the encounter list, here\'s how much of this referral\'s allowance is left.' },
+    h:'Check the balance & key dates',
+    sub:'Above the encounter list, here\'s how much of this referral\'s allowance is left — plus the Key Dates below it, which track this referral\'s status history: when it was received, assigned, accepted, or declined.' },
 
   { t:'section', mode:'encounters', key:'encounters', n:6, of:6, au:'encounters.mp3', auReveal:'encounters_reveal.mp3',
     h:'Review encounters',
@@ -468,18 +503,38 @@ var SCREENS = [
 
   { t:'review', render:'review', au:'review.mp3',
     h:'Here\'s the full referral again',
-    sub:'Now that you\'ve been through each piece, here\'s the whole thing once more — status, provider, the narrative, balance, your note, and encounters, all together. Take another look, then scroll down to answer five quick questions.' },
+    sub:'Now that you\'ve been through each piece, here\'s the whole thing once more — status, provider, the narrative, balance, key dates, your note, and encounters, all together. Take another look, then scroll down to answer five quick questions.' },
 
   { t:'outro', au:'outro.mp3' }
 ];
 
 /* ================= ENGINE ================= */
 var i=0, answered={}, lastPlayedIdx=-1;
+
+// Force a fresh reload if the page is restored from the back/forward cache
+// (e.g. leaving via Training Home and returning) so practice exercises reset.
+window.addEventListener('pageshow', function(e){
+  if(e.persisted){ window.location.reload(); }
+});
 var stage=document.getElementById('stage'), bar=document.getElementById('bar'),
     back=document.getElementById('back'), next=document.getElementById('next'),
     stepnum=document.getElementById('stepnum'), au=document.getElementById('au'),
     audioToggle=document.getElementById('audioToggle');
 var AUDIO_DIR='assets/audio/';
+
+function markReady(){
+  var hint = document.getElementById('readyHint');
+  if(hint) hint.classList.add('show');
+  if(next) next.classList.add('ready');
+}
+(function(){
+  if(!next) return;
+  new MutationObserver(function(){
+    if(!next.disabled) markReady();
+  }).observe(next, {attributes:true, attributeFilter:['disabled']});
+})();
+var __au = document.getElementById('au');
+if(__au) __au.addEventListener('ended', function(){ if(next && !next.disabled) markReady(); });
 
 function play(src){
   if(!src){ audioToggle.hidden=true; return; }
@@ -582,6 +637,12 @@ function renderCard(vwrap, mode){
   var noteType = answered['ex_noteType'];
   var noteText = answered['ex_noteText'] || '';
   var noteDone = !!answered['ex_addnote'];
+  var addMenuOpen = !!answered['ex_addMenuOpen'];
+  var viewMenuOpen = !!answered['ex_viewMenuOpen'];
+  var addDocInfoOpen = !!answered['ex_addDocInfo'];
+  var notesModalOpen = !!answered['ex_notesModalOpen'];
+  var docsVisible = !!answered['ex_docsVisible'];
+  var sdqVisible = !!answered['ex_sdqVisible'];
 
   /* ---- Status reveal ---- */
   var glossaryHtml = '';
@@ -605,7 +666,7 @@ function renderCard(vwrap, mode){
     '<div><span>Source</span><b>Portal</b></div>'+
     '<div><span>Service</span><b>Personal Care</b></div>'+
     '</div>'+
-    (readOnly?'':infoToggle('source', 'What does Source mean?', '<b>Source</b> shows how the referral came in — through the Portal (like this one), by eFax, or over the phone. It tells you where to look if you need to trace the original request.'));
+    (readOnly?'':infoToggle('source', 'What does Source mean?', '<b>Source</b> shows how the referral came in. Since case managers create referrals by logging into the Portal, any referral you enter will always show Source: Portal. You may occasionally see eFax or Phone on a referral that came in through another channel — this just tells you where to look if you need to trace the original request.'));
 
   /* ---- Provider reveal ---- */
   var providerPanelHtml = '';
@@ -620,7 +681,7 @@ function renderCard(vwrap, mode){
       '<div><span>City</span><b>Austin</b></div>'+
       '<div><span>State</span><b>TX</b></div>'+
       '</div>'+
-      '<div class="infonote" style="margin-top:14px;">'+ICON_INFO+'<span>The phone number only shows once a provider has <b>accepted</b> the referral — that\'s the case here.</span></div>'+
+      '<div class="infonote" style="margin-top:14px;">'+ICON_INFO+'<span>The phone number is visible here regardless of status — but only <b>share it with the member</b> once the provider has accepted the referral, which is the case here.</span></div>'+
       '</div></div>';
   }
   var hotProvider = (isFocused && mode==='provider' && !providerViewed) || (mode==='review' && (answered['rq_current']||0)===1 && answered['rq_provider']===undefined);
@@ -644,16 +705,16 @@ function renderCard(vwrap, mode){
   var narrativePanelHtml = '';
   if(narrativeVisible){
     narrativePanelHtml = '<div class="pm-revealpanel"><h6>Referral narrative</h6>'+
-      '<p style="margin:0;font-size:11.5px;line-height:1.5;color:#3C5A4D;">Annual authorization for Personal Care Services, based on the member\'s approved Plan of Care (POC). This authorization doesn\'t renew monthly — it runs for the full calendar year shown in the Effective Period above.</p>'+
-      '<div class="infonote" style="margin-top:12px;">'+ICON_INFO+'<span>The <b>narrative</b> is where free-text context on a referral lives — things like Plan of Care (POC) details or other special instructions. It\'s worth checking any time you need more background, even on an annual authorization like this one that doesn\'t renew monthly.</span></div>'+
+      '<p style="margin:0;font-size:11.5px;line-height:1.5;color:#3C5A4D;">Authorization for Personal Care Services, based on the member\'s approved Plan of Care (POC). This authorization doesn\'t renew monthly — it runs for the full period shown in the Effective Period above.</p>'+
+      '<div class="infonote" style="margin-top:12px;">'+ICON_INFO+'<span>The <b>narrative</b> is where free-text context on a referral lives — things like Plan of Care (POC) details or other special instructions. Depending on the plan, it can also hold things like Preferred Language, Preferred Provider, or a CPT Code — what goes here varies plan to plan, so it\'s always worth checking any time you need more background, even on an authorization like this one that doesn\'t renew monthly.</span></div>'+
       '</div></div>';
   }
   var hotNarrative = (isFocused && mode==='narrative' && !narrativeViewed) || (mode==='review' && (answered['rq_current']||0)===4 && answered['rq_narrative']===undefined);
   var narrativeFieldHtml = readOnly
-    ? '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Referral Narrative</span><span style="font-size:11.5px;color:#555;">Annual authorization, POC on file…</span></div>'
+    ? '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Referral Narrative</span><span style="font-size:11.5px;color:#555;">Authorization on file, POC noted…</span></div>'
     : '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Referral Narrative</span>'+
       '<button class="pm-fieldtrigger'+(hotNarrative?' pm-hot':'')+'" id="pmNarrativeField" style="position:relative;">'+
-      '<span style="font-size:12px;color:#333;font-weight:600;">Annual authorization, POC on file…</span>'+
+      '<span style="font-size:12px;color:#333;font-weight:600;">Authorization on file, POC noted…</span>'+
       '<span class="pm-reveal-pill'+(narrativeViewed?' done':'')+'">'+(narrativeViewed?'Viewed':'Select to reveal')+'</span>'+
       miniChevron(narrativeVisible,'pm-reveal-chev')+
       (hotNarrative?hotTag('Click to reveal'):'')+
@@ -699,18 +760,64 @@ function renderCard(vwrap, mode){
     ? '<div class="pm-notespanel pm-focus-ring" style="position:relative;">'+notesPanelInner+hotTag('Look here')+'</div>'
     : '<div class="pm-notespanel">'+notesPanelInner+'</div>';
 
-  var hotAddNoteBtn = isFocused && mode==='addnote' && !noteDone && !modalOpen;
-  var addNoteBtnHtml = readOnly
-    ? '<button class="pm-btn-blue" style="opacity:.6;" disabled>+ ADD NOTE</button>'
-    : (noteDone
-      ? '<button class="pm-btn-blue" id="pmAddNoteBtn" disabled style="opacity:.5;">+ ADD NOTE <span class="pm-reveal-pill done">Note added</span></button>'
-      : '<button class="pm-btn-blue'+(hotAddNoteBtn?' pm-hot':'')+'" id="pmAddNoteBtn" style="position:relative;">+ ADD NOTE <span class="pm-reveal-pill">Select to open</span>'+(hotAddNoteBtn?hotTag('Click to add a note'):'')+'</button>');
+  var hotAddBtn = isFocused && mode==='addnote' && !noteDone && !modalOpen && !addMenuOpen && !viewMenuOpen;
 
-  var addNoteBlockHtml = '<div class="pm-actionrow">'+addNoteBtnHtml+'<button class="pm-btn-gold" id="pmViewSdqBtn">VIEW SDQ</button></div>'+
+  /* Add ▾ dropdown */
+  var addMenuHtml = addMenuOpen ? '<div class="pm-actiondropdown">'+
+      '<div id="pmAddNoteOpt">Add Note</div>'+
+      '<div id="pmAddDocOpt" class="disabled-opt">Add Document<span class="tag">Provider only</span></div>'+
+    '</div>' : '';
+  var addBtnHtml = readOnly
+    ? '<button class="pm-btn-green" style="opacity:.6;" disabled>Add <span>▾</span></button>'
+    : '<div style="position:relative;display:inline-block;"><button class="pm-btn-green'+(hotAddBtn?' pm-hot':'')+'" id="pmAddMenuBtn" style="position:relative;">Add <span>▾</span>'+(hotAddBtn?hotTag('Click to open'):'')+'</button>'+addMenuHtml+'</div>';
+
+  var addDocInfoHtml = addDocInfoOpen
+    ? '<div class="infonote" style="margin-top:10px;">'+ICON_INFO+'<span><b>Add Document</b> is used by the provider — they attach receipts and other files here when they submit an encounter. You won\'t typically use this yourself, but you\'ll use <b>View Documents</b> to check what they\'ve uploaded.</span></div>'
+    : '';
+
+  /* View ▾ dropdown */
+  var viewMenuHtml = viewMenuOpen ? '<div class="pm-actiondropdown">'+
+      '<div id="pmViewNotesOpt">View Notes</div>'+
+      '<div id="pmViewDocsOpt">View Documents</div>'+
+      '<div id="pmViewSdqOpt">View SDQ</div>'+
+    '</div>' : '';
+  var viewBtnHtml = readOnly
+    ? '<button class="pm-btn-gold" style="opacity:.6;" disabled>View <span>▾</span></button>'
+    : '<div style="position:relative;display:inline-block;"><button class="pm-btn-gold" id="pmViewMenuBtn" style="position:relative;">View <span>▾</span></button>'+viewMenuHtml+'</div>';
+
+  /* View Notes modal */
+  var notesModalHtml = '';
+  if(notesModalOpen){
+    var notesRows = '<tr><td>Visit Scheduled Within 1 Week</td><td>Spoke with the member to confirm availability for their Personal Care visit; caregiver will call 24 hours ahead to confirm the schedule.</td><td>Noelle Goins</td><td>7/22/2026</td></tr>';
+    if(noteDone) notesRows += '<tr><td>'+noteType+'</td><td>'+noteText+'</td><td>You</td><td>Just now</td></tr>';
+    notesModalHtml = '<div class="pm-modal-overlay"><div class="pm-modal wide"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;"><h5 style="margin:0;">Referral Notes ('+(noteDone?2:1)+')</h5><button class="pm-modal-x" id="pmNotesModalClose">&times;</button></div>'+
+      '<table class="pm-notestable"><tr><th>Type</th><th>Note</th><th>Created By</th><th>Created</th></tr>'+notesRows+'</table>'+
+      '</div></div>';
+  }
+
+  /* View Documents reveal */
+  var docsPanelHtml = docsVisible
+    ? '<div class="pm-revealpanel" style="margin-top:10px;"><h6>Documents (1)</h6>'+
+      '<div class="pm-docitem"><span class="pm-docicon">'+ICON_DOC+'</span><div><b>Invoice_58821.pdf</b><span>Uploaded by Test Provider on 7/24/2026</span></div></div>'+
+      '<div class="infonote" style="margin-top:10px;">'+ICON_INFO+'<span>Documents show up here once a provider attaches them — usually a receipt or invoice submitted along with their encounter.</span></div>'+
+      '</div>'
+    : '';
+
+  /* View SDQ reveal — aligned to Personal Care Services */
+  var sdqPanelHtml = sdqVisible
+    ? '<div class="pm-revealpanel" style="margin-top:10px;"><h6>Service Detail Questions</h6>'+
+      '<div class="pm-sdqrow"><span>What ADLs does the member need assistance with? <i>*</i></span><b>Bathing, dressing</b></div>'+
+      '<div class="pm-sdqrow"><span>How many hours per week are being requested? <i>*</i></span><b>6</b></div>'+
+      '<div class="pm-sdqrow"><span>Does the member have a preferred caregiver? <i>*</i></span><b>No preference on file</b></div>'+
+      '<div class="infonote" style="margin-top:10px;">'+ICON_INFO+'<span>SDQ questions are <b>specific to the service</b> — a Home Modification referral would ask about installation details instead. Not every service has SDQs.</span></div>'+
+      '</div>'
+    : '';
+
+  var addNoteBlockHtml = '<div class="pm-actionrow">'+addBtnHtml+viewBtnHtml+'</div>'+
+    addDocInfoHtml+
     toastHtml+
-    (readOnly?'':'<div class="infonote" style="margin-top:14px;">'+ICON_INFO+'<span><b>VIEW SDQ</b> opens Service Detail Questions — extra questions specific to certain services. Not every service has them.</span></div>')+
-    (readOnly?'':'<div class="infonote" style="margin-top:10px;">'+ICON_INFO+'<span>Adding a note does <b>not</b> alert The Helper Bees. Notes are for capturing general information within the referral — if something needs escalation or assistance, use a Zendesk ticket instead.</span></div>')+
-    notesPanelHtml;
+    (readOnly?'':'<div class="infonote" style="margin-top:14px;">'+ICON_INFO+'<span>Adding a note does <b>not</b> alert The Helper Bees. Notes are for capturing general information within the referral — if something needs escalation or assistance, use a Zendesk ticket instead.</span></div>')+
+    notesPanelHtml + docsPanelHtml + sdqPanelHtml + notesModalHtml;
 
   /* ---- Encounters ---- */
   var taskHtml = '';
@@ -726,12 +833,12 @@ function renderCard(vwrap, mode){
   }
   var hotEnc = isFocused && mode==='encounters' && !encViewed;
   var encRowHtml = readOnly
-    ? '<table class="pm-enctable"><tr><th>ID</th><th>Status</th><th>Date</th><th>Rendering Provider</th><th>Action</th></tr>'+
-      '<tr><td>651422</td><td><span class="pm-badge-complete"><i></i>Completed</span></td><td>7/24/2026</td><td>Test Provider</td>'+
+    ? '<table class="pm-enctable"><tr><th>ID</th><th>Status</th><th>Date</th><th>Rendering Provider</th><th>Created By</th><th>Modified By</th><th></th></tr>'+
+      '<tr><td>651422</td><td><span class="pm-badge-complete"><i></i>Completed</span></td><td>7/24/2026</td><td>Test Provider</td><td>Noelle Goins</td><td>Noelle Goins</td>'+
       '<td><span class="pm-expand-circle">'+ICON_CHEVRON+'</span></td></tr>'+
       '</table>'
-    : '<table class="pm-enctable"><tr><th>ID</th><th>Status</th><th>Date</th><th>Rendering Provider</th><th>Action</th></tr>'+
-      '<tr class="'+(hotEnc?'pm-row-hot':'')+'"><td>651422</td><td><span class="pm-badge-complete"><i></i>Completed</span></td><td>7/24/2026</td><td>Test Provider</td>'+
+    : '<table class="pm-enctable"><tr><th>ID</th><th>Status</th><th>Date</th><th>Rendering Provider</th><th>Created By</th><th>Modified By</th><th></th></tr>'+
+      '<tr class="'+(hotEnc?'pm-row-hot':'')+'"><td>651422</td><td><span class="pm-badge-complete"><i></i>Completed</span></td><td>7/24/2026</td><td>Test Provider</td><td>Noelle Goins</td><td>Noelle Goins</td>'+
       '<td><button class="pm-enctrigger'+(hotEnc?' pm-hot':'')+'" id="pmEncExpandBtn" style="position:relative;"><span class="pm-expand-circle'+(encVisible?' open':'')+'">'+ICON_CHEVRON+'</span>'+
       '<span class="pm-reveal-pill mini'+(encViewed?' done':'')+'">'+(encViewed?'Viewed':'Select to reveal')+'</span>'+(hotEnc?hotTag('Click to reveal'):'')+'</button></td></tr>'+
       '</table>' + taskHtml;
@@ -828,9 +935,29 @@ function renderCard(vwrap, mode){
     };
   }
 
-  var addNoteBtn = vwrap.querySelector('#pmAddNoteBtn');
-  if(addNoteBtn){ addNoteBtn.onclick=function(){ answered['ex_modalOpen']=true; renderCard(vwrap, mode); if(isFocused) play(SCREENS[i].auOpen); }; }
+  var addMenuBtn = vwrap.querySelector('#pmAddMenuBtn');
+  if(addMenuBtn){ addMenuBtn.onclick=function(){ answered['ex_addMenuOpen']=!answered['ex_addMenuOpen']; answered['ex_viewMenuOpen']=false; renderCard(vwrap, mode); }; }
 
+  var viewMenuBtn = vwrap.querySelector('#pmViewMenuBtn');
+  if(viewMenuBtn){ viewMenuBtn.onclick=function(){ answered['ex_viewMenuOpen']=!answered['ex_viewMenuOpen']; answered['ex_addMenuOpen']=false; renderCard(vwrap, mode); }; }
+
+  var addNoteOpt = vwrap.querySelector('#pmAddNoteOpt');
+  if(addNoteOpt){ addNoteOpt.onclick=function(){ answered['ex_addMenuOpen']=false; answered['ex_modalOpen']=true; renderCard(vwrap, mode); if(isFocused) play(SCREENS[i].auOpen); }; }
+
+  var addDocOpt = vwrap.querySelector('#pmAddDocOpt');
+  if(addDocOpt){ addDocOpt.onclick=function(){ answered['ex_addMenuOpen']=false; answered['ex_addDocInfo']=true; renderCard(vwrap, mode); }; }
+
+  var viewNotesOpt = vwrap.querySelector('#pmViewNotesOpt');
+  if(viewNotesOpt){ viewNotesOpt.onclick=function(){ answered['ex_viewMenuOpen']=false; var opening = !answered['ex_notesModalOpen']; answered['ex_notesModalOpen']=true; renderCard(vwrap, mode); if(isFocused && opening) play(SCREENS[i].auViewNotes); }; }
+
+  var viewDocsOpt = vwrap.querySelector('#pmViewDocsOpt');
+  if(viewDocsOpt){ viewDocsOpt.onclick=function(){ answered['ex_viewMenuOpen']=false; var opening = !answered['ex_docsVisible']; answered['ex_docsVisible']=!answered['ex_docsVisible']; renderCard(vwrap, mode); if(isFocused && opening) play(SCREENS[i].auViewDocs); }; }
+
+  var viewSdqOpt = vwrap.querySelector('#pmViewSdqOpt');
+  if(viewSdqOpt){ viewSdqOpt.onclick=function(){ answered['ex_viewMenuOpen']=false; var opening = !answered['ex_sdqVisible']; answered['ex_sdqVisible']=!answered['ex_sdqVisible']; renderCard(vwrap, mode); if(isFocused && opening) play(SCREENS[i].auViewSdq); }; }
+
+  var notesModalClose = vwrap.querySelector('#pmNotesModalClose');
+  if(notesModalClose){ notesModalClose.onclick=function(){ answered['ex_notesModalOpen']=false; renderCard(vwrap, mode); }; }
   var cancelBtn = vwrap.querySelector('#pmModalCancel');
   if(cancelBtn){ cancelBtn.onclick=function(){ answered['ex_modalOpen']=false; renderCard(vwrap, mode); }; }
 
@@ -910,14 +1037,14 @@ var REVIEW_QUESTIONS = [
       {label:"The referral was just created and is awaiting approval.", correct:false}
     ],
     explain:"This referral shows Accepted by Provider — that's the point a provider has confirmed, which is also when their contact info becomes shareable with the member." },
-  { key:'provider', q:"Select the provider's name above to reveal their contact info — what does seeing that info tell you?",
+  { key:'provider', q:"Select the provider's name above to reveal their contact info — including their phone number. Before sharing that phone number with the member, what should you check?",
     opts:[
-      {label:"This provider hasn't been assigned yet.", correct:false},
-      {label:"This provider has accepted the referral.", correct:true},
-      {label:"This provider declined the referral.", correct:false},
-      {label:"Contact info is always visible, no matter the status.", correct:false}
+      {label:"Nothing — the phone number is always fine to share right away.", correct:false},
+      {label:"That the referral shows Accepted by Provider — that's when it's okay to share.", correct:true},
+      {label:"That the provider has already completed the service.", correct:false},
+      {label:"Whether the member asked for it twice.", correct:false}
     ],
-    explain:"A provider's contact info only becomes visible once they've accepted — that's exactly why it's showing here." },
+    explain:"Provider contact info, including the phone number, is visible on the referral regardless of status — but you should only share the phone number with the member once the provider has accepted. Since this referral shows Accepted by Provider, it's fine to share here." },
   { key:'balance', q:"Look at the Allowed, Used, and Remaining numbers above — how many units of this referral's allowance are left?",
     opts:[
       {label:"0", correct:false},
@@ -933,7 +1060,7 @@ var REVIEW_QUESTIONS = [
       {label:"The member declined the service.", correct:false},
       {label:"The provider requested a different service.", correct:false}
     ],
-    explain:"The narrative field holds free-text context like POC details or other special instructions — worth checking any time you need more background, even for an annual authorization like this one that doesn't renew monthly." }
+    explain:"The narrative field holds free-text context like POC details or other special instructions — worth checking any time you need more background, even for an authorization like this one that doesn't renew monthly. On other plans, this same field might hold different things entirely, like Preferred Language, Preferred Provider, or a CPT Code." }
 ];
 
 function shuffleArr(arr){
@@ -1016,7 +1143,7 @@ function render(){
   var isSameScreenRerender = (i===lastPlayedIdx);
   stage.innerHTML=''; stopAu();
   bar.style.width = Math.round(i/(SCREENS.length-1)*100)+'%';
-  stepnum.textContent = (s.t==='section') ? ('Section '+s.n+' of '+s.of) : '';
+  stepnum.textContent = (s.t==='section') ? ('Step '+s.n+' of '+s.of) : '';
   back.disabled = (i===0);
   next.textContent = (i===SCREENS.length-1) ? 'Finish' : 'Next';
   next.disabled = false;
@@ -1068,7 +1195,7 @@ function render(){
     var d4=el('div','ix');
     d4.innerHTML =
       '<div class="wrap wide">'+
-      '<div class="eyebrow"><span class="dot"></span>Section '+s.n+' of '+s.of+'</div>'+
+      '<div class="eyebrow"><span class="dot"></span>Step '+s.n+' of '+s.of+'</div>'+
       '<h1 class="hl">'+s.h+'</h1>'+
       '<p class="sub">'+s.sub+'</p>'+
       '</div>';
@@ -1106,6 +1233,51 @@ document.getElementById('startBtn').onclick=function(){
   document.getElementById('startOverlay').classList.add('hide');
   render();
 };
+
+/* ---------- Highlight-tag placement ----------
+   Tags default to centered above their target. Field labels usually sit right
+   above a field, so the default can cover the label. After each render, check
+   each visible tag; if it covers text, try the fallbacks in order and keep the
+   first spot that covers nothing and stays inside the mockup frame. */
+(function(){
+  var POS=['','tp-ra','tp-la','tp-side','tp-below'];
+  function textLeaves(scope){ /* every visible text node, including text mixed with bold/links */
+    var out=[], w=document.createTreeWalker(scope, NodeFilter.SHOW_TEXT), n;
+    while((n=w.nextNode())){ if(n.nodeValue.trim() && n.parentElement && n.parentElement.offsetParent) out.push(n); }
+    return out;
+  }
+  function hits(tag, leaves, frame){
+    var tr=tag.getBoundingClientRect(), fr=frame.getBoundingClientRect(), anchor=tag.parentElement;
+    if(tr.left<fr.left-1||tr.right>fr.right+1||tr.top<fr.top-1||tr.bottom>fr.bottom+1) return true;
+    for(var k=0;k<leaves.length;k++){
+      var e=leaves[k]; if(tag.contains(e)||anchor.contains(e)) continue;
+      var rg=document.createRange(); rg.selectNodeContents(e); var r=rg.getBoundingClientRect(); /* actual text, not the full-width box */
+      if(!r.width) continue;
+      if(Math.min(r.right,tr.right)-Math.max(r.left,tr.left)>2 && Math.min(r.bottom,tr.bottom)-Math.max(r.top,tr.top)>2) return true;
+    }
+    return false;
+  }
+  function placeHotTags(){
+    var tags=document.querySelectorAll('.pm-hot-tag');
+    for(var t=0;t<tags.length;t++){
+      var tag=tags[t]; if(!tag.offsetParent) continue;
+      var frame=tag.closest('.browser')||tag.closest('.pm')||document.body;
+      var leaves=textLeaves(frame), chosen=null;
+      for(var p=0;p<POS.length;p++){
+        POS.forEach(function(c){ if(c) tag.classList.remove(c); });
+        if(POS[p]) tag.classList.add(POS[p]);
+        if(!hits(tag,leaves,frame)){ chosen=POS[p]; break; }
+      }
+      if(chosen===null){ POS.forEach(function(c){ if(c) tag.classList.remove(c); }); }
+    }
+  }
+  var queued=false;
+  new MutationObserver(function(){
+    if(queued) return; queued=true;
+    requestAnimationFrame(function(){ queued=false; placeHotTags(); });
+  }).observe(document.body,{childList:true,subtree:true});
+  window.addEventListener('resize',placeHotTags);
+})();
 </script>
 </body>
 </html>
