@@ -5,6 +5,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
 <title>Benefits Hub — Finding and Reviewing a Member | The Helper Bees</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -228,7 +229,7 @@
 </head>
 <body>
 <div id="startOverlay">
-  <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+  <img src="../assets/img/bee-icon.png" alt="" style="width:20px;height:20px;flex:none;">
   <div class="so-brand">The Helper Bees</div>
   <h1>Benefits Hub: Finding and Reviewing a Member</h1>
   <p>A short, narrated walkthrough — click below to begin with sound.</p>
@@ -237,7 +238,7 @@
 <div id="app">
   <div class="top">
     <div class="brand">
-      <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+      <img src="../assets/img/bee-icon.png" alt="" style="width:20px;height:20px;flex:none;">
       <span>The Helper Bees</span>
     </div>
     <div class="track">
@@ -268,7 +269,7 @@ var SCREENS = [
   { t:'step', n:1, of:5,
     kicker:"Step 1",
     h:"Search for your member",
-    sub:"Let's find your member. You can search by EID for the fastest results, or use Advanced Search to look someone up by first name, last name, and date of birth if you don't have their EID handy.",
+    sub:"Let's find your member. You can search by ID for the fastest results, or use Advanced Search to look someone up by first name, last name, and date of birth if you don't have their ID handy.",
     visual:'shot', img:'assets/img/search.png', url:'bcbs-arbenefits.thehelperbees.com', vhCap:36, imgAspect:0.4544,
     zooms:[
       {key:'advsearch', img:'assets/img/advanced-search.png', label:'Advanced Search', left:77, top:86, width:14, height:7, tagLeft:70, tagTop:78, zoomAu:'03_step1_advsearch.mp3'}
@@ -378,7 +379,7 @@ function urlBar(url){
   return '<div class="bar"><div class="dots"><i></i><i></i><i></i></div>'+
     '<div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>'+url+'</span></div></div>';
 }
-var LOGO_SVG='<svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="currentColor" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>';
+var LOGO_SVG='<img src="../assets/img/bee-icon.png" alt="" style="width:20px;height:20px;flex:none;">';
 var ICON_CART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
 var ICON_ACCOUNT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>';
 function topbar(){
@@ -526,7 +527,7 @@ function render(){
     var d=el('div','ix center');
     d.innerHTML =
       '<div class="wrap">'+
-      '<div class="cover-badge"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FCF7EE" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FCF7EE"/></svg>Benefits Hub</div>'+
+      '<div class="cover-badge"><img src="../assets/img/bee-icon.png" alt="" style="width:20px;height:20px;flex:none;">Benefits Hub</div>'+
       '<h1 class="hl">Finding and Reviewing a Member</h1>'+
       '<p class="sub">Now that you know how to sign in, let\'s find your way to a member\'s account. You\'ll learn how to search, read the member landing page, and view benefit details — then put it into practice with a real search of your own.</p>'+
       '<div class="cover-meta"><div><b>~12 minutes</b><span>self-paced</span></div></div>'+
@@ -570,7 +571,7 @@ function render(){
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>Your turn</div>'+
       '<h1 class="hl">Find a member</h1>'+
-      '<p class="sub">A member calls in, but they don\'t have their EID handy. Use the Advanced Search fields below to look them up — enter the first name, last name, and date of birth for <b>Test User 2</b>, born <b>September 16th, 1955</b>.</p>'+
+      '<p class="sub">A member calls in, but they don\'t have their ID handy. Use the Advanced Search fields below to look them up — enter the first name, last name, and date of birth for <b>Test User 2</b>, born <b>September 16th, 1955</b>.</p>'+
       '<div class="browser wide">'+
         urlBar('bcbs-arbenefits.thehelperbees.com/search') +
         topbar() +
@@ -604,7 +605,7 @@ function render(){
         '</div>'+
       '</div>'+
       (fm.found && !fm.selected ? '<div class="capnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Tap the row above to open Test User 2\'s profile.</span></div>' : '')+
-      (fm.selected ? '<div class="confirm-reveal good" id="fmGoodBox"><b>Nice work — found them!</b>Now let\'s confirm you\'ve got the right member — what EID do you see listed at the top of their profile?</div>' : '')+
+      (fm.selected ? '<div class="confirm-reveal good" id="fmGoodBox"><b>Nice work — found them!</b>Now let\'s confirm you\'ve got the right member — what ID do you see listed at the top of their profile?</div>' : '')+
       '</div>';
     dfm.innerHTML = htmlFm;
     stage.appendChild(dfm);
@@ -637,7 +638,7 @@ function render(){
     if(fm.selected){
       var idWrap = document.getElementById('fmGoodBox');
       var abox = el('div','answerbox');
-      var idInput = el('input'); idInput.type='text'; idInput.id='memberIdInput'; idInput.placeholder='EID';
+      var idInput = el('input'); idInput.type='text'; idInput.id='memberIdInput'; idInput.placeholder='ID';
       idInput.value = memberIdState.typed;
       abox.appendChild(idInput);
       if(!memberIdState.checked){
@@ -656,8 +657,8 @@ function render(){
         idInput.classList.add(isRight ? 'right' : 'wrongans');
         var fb = el('div', 'answer-feedback ' + (isRight ? 'right' : 'wrongans'));
         fb.innerHTML = isRight
-          ? '<b>That\'s right!</b>Test123UAT2 is the EID for this test member.'
-          : '<b>Not quite.</b>The EID is Test123UAT2 — you\'ll find it listed directly below the member\'s name at the top of their profile.';
+          ? '<b>That\'s right!</b>Test123UAT2 is the ID for this test member.'
+          : '<b>Not quite.</b>The ID is Test123UAT2 — you\'ll find it listed directly below the member\'s name at the top of their profile.';
         abox.parentNode.insertBefore(fb, abox.nextSibling);
         if(sameScreen) scrollTargetAfterAnswer = fb;
       }

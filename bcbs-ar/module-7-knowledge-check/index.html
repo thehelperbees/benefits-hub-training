@@ -5,6 +5,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
 <title>Benefits Hub — Knowledge Check | The Helper Bees</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -458,7 +459,7 @@
 <body>
 
 <div id="startOverlay">
-  <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+  <img src="../assets/img/bee-icon.png" alt="" style="width:20px;height:20px;flex:none;">
   <div class="so-brand">The Helper Bees</div>
   <h1>Knowledge Check</h1>
   <p>One real scenario, a short knowledge check, and your certificate of completion.</p>
@@ -468,7 +469,7 @@
 <div id="app">
   <div class="top">
     <div class="brand">
-      <svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FFD646" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FFD646"/></svg>
+      <img src="../assets/img/bee-icon.png" alt="" style="width:20px;height:20px;flex:none;">
       <span>The Helper Bees</span>
     </div>
     <div class="track">
@@ -622,7 +623,7 @@ var SCREENS = [
   { t:'story', chapter:'submit', stepLabel:'Scenario 1 of 5',
     eyebrow:'Find the member, then submit',
     h:'Get the referral moving',
-    sub:"Search using EID Test123UAT3 to pull up Test User 3's profile, then choose the right benefit, the right service for Post Discharge, set the quantity, add it to your cart, and check out.",
+    sub:"Search using ID Test123UAT3 to pull up Test User 3's profile, then choose the right benefit, the right service for Post Discharge, set the quantity, add it to your cart, and check out.",
     au:'04_story_submit.mp3'},
 
   { t:'story', chapter:'new', stepLabel:'Scenario 2 of 5',
@@ -832,7 +833,7 @@ var ICON_ACCOUNT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 var ICON_BACK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>';
 var ICON_CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>';
 var ICON_STORE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9M3 9v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V9M3 9h18M8 13a2 2 0 0 1-4 0M12 13a2 2 0 0 1-4 0M16 13a2 2 0 0 1-4 0M20 13a2 2 0 0 1-4 0"/></svg>';
-var LOGO_SVG='<svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="currentColor" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>';
+var LOGO_SVG='<img src="../assets/img/bee-icon.png" alt="" style="width:20px;height:20px;flex:none;">';
 
 function storyTopbar(){
   return '<div class="pm-topbar"><div class="pm-logo">'+LOGO_SVG+'<span>THE HELPER BEES</span></div>'+
@@ -1206,7 +1207,7 @@ function renderMemberSearchStep(vwrap){
     '<div class="body"><div class="shot-wrap">'+
       '<img src="assets/img/search.png" alt="" class="shot-img">'+
       '<div class="shot-inputoverlay" style="left:36.5%;top:75%;width:53.5%;height:11%;">'+
-        '<input type="text" id="searchMemberIdInput" placeholder="EID" value="'+typed+'" class="'+inputCls+'" '+(checked?'disabled':'')+'>'+
+        '<input type="text" id="searchMemberIdInput" placeholder="ID" value="'+typed+'" class="'+inputCls+'" '+(checked?'disabled':'')+'>'+
       '</div>'+
     '</div></div>';
   vwrap.innerHTML=''; vwrap.appendChild(wrapDiv);
@@ -1223,14 +1224,14 @@ function renderMemberSearchStep(vwrap){
   if(checked && correct){
     cap.innerHTML = ICON_CHECK+'<span>Found it — that\'s Test User 3\'s profile.</span>';
   } else if(checked && !correct){
-    cap.innerHTML = ICON_CHECK+'<span>That doesn\'t match — search for EID Test123UAT3 instead.</span>';
+    cap.innerHTML = ICON_CHECK+'<span>That doesn\'t match — search for ID Test123UAT3 instead.</span>';
   } else {
-    cap.innerHTML = ICON_CHECK+'<span>Search for EID Test123UAT3 to pull up Test User 3\'s profile.</span>';
+    cap.innerHTML = ICON_CHECK+'<span>Search for ID Test123UAT3 to pull up Test User 3\'s profile.</span>';
   }
   wrapDiv.appendChild(cap);
 
   var tip = el('div','shot-tip');
-  tip.innerHTML = '<span>Tip: No EID handy? Advanced Search lets you look someone up by name and date of birth instead.</span>';
+  tip.innerHTML = '<span>Tip: No ID handy? Advanced Search lets you look someone up by name and date of birth instead.</span>';
   wrapDiv.appendChild(tip);
 
   var input = vwrap.querySelector('#searchMemberIdInput');
@@ -1608,7 +1609,7 @@ function render(){
     var d=el('div','ix center');
     d.innerHTML =
       '<div class="wrap">'+
-      '<div class="cover-badge"><svg viewBox="0 0 40 40" fill="none"><polygon points="20,4 34,12 34,28 20,36 6,28 6,12" stroke="#FCF7EE" stroke-width="3.2"/><circle cx="20" cy="20" r="3" fill="#FCF7EE"/></svg>Benefits Hub</div>'+
+      '<div class="cover-badge"><img src="../assets/img/bee-icon.png" alt="" style="width:20px;height:20px;flex:none;">Benefits Hub</div>'+
       '<h1 class="hl">You\'ve completed the training</h1>'+
       '<p class="sub">Great work making it through every module. Now let\'s put it all together: one referral, followed from submission through completion, then a short knowledge check.</p>'+
       '<div class="cover-meta"><div><b>1 full scenario</b><span>a referral\'s complete lifecycle</span></div><div><b>8-question quiz</b><span>70% to pass, unlimited retakes</span></div></div>'+
