@@ -110,7 +110,7 @@ Take a moment to check the service details, and make sure the status says Active
 One more thing to watch. If the member will receive care somewhere other than the address on file, like a relative's home, select change service address and enter the right location. It only applies to this referral. The address on their profile stays as is.
 
 **09_step3.mp3**
-Now set the quantity. Use the plus button to enter the number of hours the member needs, then select Add to Cart.
+Now set the quantity. For Ultimate, you always enter a quantity of one. One unit is thirty points, which is the member's full thirty-hour benefit. Use the plus button to enter one, then select Add to Cart.
 
 **10_step3_added.mp3**
 It's in the cart. Select Next to review it.
@@ -220,7 +220,7 @@ Third, give it time. If an authorization was just created or updated, wait a ful
 If you've checked all of that and you're still stuck, it's time to escalate. Choose the issue type based on the action that's needed, not just the topic. That's what sends it to the right team. Give them the details they need: the member's name and ID, the service, what you see, what you need, and what you've already tried. A screenshot helps too.
 
 **07_recognize.mp3**
-So, what counts as something to escalate? A missed visit, a problem with a referral or authorization, a member who can't use their benefit, or a system issue. These all go through the same support ticket.
+So, what counts as something to escalate? A missed visit, a problem with a referral, a benefit that isn't showing for a member, a member who can't use their benefit, or a system issue. These all go through the same support ticket.
 
 **08_zdaccess.mp3**
 You can reach the ticket form from anywhere in Benefits Hub. Select the person icon in the top right, then choose Submit a ticket. There's no need to remember a separate address.
@@ -235,7 +235,7 @@ Now let's fill it out. Every field helps the right team act faster. If a member 
 That's what a submitted ticket looks like. You'd get a confirmation with your ticket number.
 
 **12_after_submit.mp3**
-Here's the good news. Once you submit, you're done. The ticket routes to the right team automatically, based on the issue type you picked. No email or follow-up needed.
+Here's the good news. Once you submit, you're done. The ticket routes to the right team automatically, based on the issue type you picked. No email or follow-up needed. Only if it's urgent, send a quick email to your Account Coordinator with the ticket number.
 
 **13_tip_prompt.mp3**
 Let's test it. A member calls to say their Companion Care visit didn't happen today. What's the right move?

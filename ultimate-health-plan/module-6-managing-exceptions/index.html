@@ -336,7 +336,7 @@ var ICON_SYS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 
 var EXCEPTION_EXAMPLES = [
   {icon:ICON_VISIT, label:'Service visit not completed'},
-  {icon:ICON_REFERRAL, label:"Referral or authorization issue"},
+  {icon:ICON_REFERRAL, label:"Referral issue or benefit not visible"},
   {icon:ICON_BLOCK, label:"Member unable to use their benefit"},
   {icon:ICON_SYS, label:'System issues'}
 ];
@@ -386,7 +386,7 @@ var ZDACCESS_STEP = { t:'step',
 
 var BRANCH_STEP = { t:'step',
   h:"You'll fill out the Member Support Form",
-  sub:"This covers the most common exceptions — missed service visits, referral or authorization issues, benefit access, and system issues. Make sure <b>Member Support Form</b> is selected at the top.",
+  sub:"This covers the most common exceptions — missed service visits, referral issues or benefits not visible, benefit access, and system issues. Make sure <b>Member Support Form</b> is selected at the top.",
   visual:'shot', img:'assets/img/zd-form.png', url:ZD_URL, wide:true, vhCap:60, imgAspect:1.6162,
   au:'09_branch.mp3' };
 
@@ -599,7 +599,9 @@ function visual(s, opts){
     var b6=el('div','afterresult-stack');
     b6.innerHTML =
       '<div class="afterresult-card"><h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Most tickets <span class="pill">Default</span></h5>'+
-      '<p>Once you hit submit, you\'re done. The ticket routes automatically based on the Issue Type you selected — no email or follow-up needed from you.</p></div>';
+      '<p>Once you hit submit, you\'re done. The ticket routes automatically based on the Issue Type you selected — no email or follow-up needed from you.</p></div>'+
+      '<div class="afterresult-card rare"><h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22V3"/></svg>Need to escalate? <span class="pill">Urgent only</span></h5>'+
+      '<p>Selecting the Issue Type routes your ticket to the internal department who\'ll assist you — that\'s normally all it takes. If the ticket is <b>urgent</b>, send a quick email to your THB Account Coordinator with the ticket number so they can help move it along faster.</p></div>'
     return b6;
   }
   if(s.visual==='troubleshoot'){

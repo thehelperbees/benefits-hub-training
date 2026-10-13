@@ -319,6 +319,7 @@ var ICON_CART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 var ICON_ACCOUNT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>';
 var ICON_BACK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>';
 var ICON_CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>';
+var ICON_INFO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>';
 var LOGO_SVG='<img src="../assets/img/bee-icon.png" alt="" style="width:20px;height:20px;flex:none;">';
 
 function topbar(cartCount, hotCart){
@@ -357,7 +358,7 @@ var SCREENS = [
   { t:'step', n:3, of:4,
     kicker:"Step 3",
     h:"Set your quantity and add to cart",
-    sub:"Enter your quantity, then select Add to Cart.",
+    sub:"For Ultimate, enter a quantity of 1 — one unit is the member's full 30-hour benefit — then select Add to Cart.",
     render:'step3',
     au:'09_step3.mp3', auAdded:'10_step3_added.mp3' },
 
@@ -377,7 +378,7 @@ var SERVICE_OPTIONS = [
   "Companion Care"
 ];
 var SERVICE_DATA = {
-  "Companion Care": {id:"25703", points:1.00, desc:"Emotional support, meal preparation, company for social activities and exercise, help with planning and scheduling appointments. Tasks include light housekeeping, laundry and pet-help tasks."}
+  "Companion Care": {id:"25703", points:30.00, desc:"Emotional support, meal preparation, company for social activities and exercise, help with planning and scheduling appointments. Tasks include light housekeeping, laundry and pet-help tasks."}
 };
 
 var TILES = [
@@ -667,6 +668,7 @@ function renderStep3(vwrap){
       '<div class="pm-qty"><button id="pmQtyMinus">–</button><input id="pmQtyInput" value="'+qty+'" readonly><button id="pmQtyPlus" style="position:relative;" class="'+(qty<1?'pm-hot':'')+'">+'+(qty<1?hotTag('Click to increase'):'')+'</button></div>'+
       '<div class="pm-total">Total Points<b>'+total+'</b></div>'+
     '</div>'+
+    '<div class="infonote" style="margin-top:12px;">'+ICON_INFO+'<span><b>One unit is the whole benefit.</b> Companion Care is 30 points per unit &mdash; the member\'s full 30-hour annual benefit &mdash; so a Quantity of 1 is all you ever need.'+(answered['s3_maxhint']?' <b>Quantity can\'t go higher than 1 for this benefit.</b>':'')+'</span></div>'+
     '<button class="pm-cart-btn'+(qty>=1&&!added?' pm-hot':'')+'" style="position:relative;" id="pmAddCartBtn" '+(qty<1?'disabled':'')+'>Add to Cart'+(qty>=1&&!added?hotTag('Click to add to cart'):'')+'</button>'+
     (added ? '<div class="pm-toast">'+ICON_CHECK+'<span>'+selectedService+' added to cart</span></div>' : '');
 
@@ -674,7 +676,8 @@ function renderStep3(vwrap){
   vwrap.innerHTML=''; vwrap.appendChild(frame);
 
   vwrap.querySelector('#pmQtyPlus').onclick=function(){
-    answered['s3_qty']=(answered['s3_qty']||0)+1;
+    if((answered['s3_qty']||0)>=1){ answered['s3_maxhint']=true; }
+    else { answered['s3_qty']=1; }
     renderStep3(vwrap);
   };
   vwrap.querySelector('#pmQtyMinus').onclick=function(){
@@ -717,8 +720,8 @@ function renderStep4(vwrap){
   } else {
     innerBody = backrow('Referrals Summary', done ? 'Honey Bee | Items: 0' : 'Honey Bee | Items: 1');
     if(!done){
-      innerBody += '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
-        '<tr><td>'+selectedService+'<br><span style="color:#999;font-size:9.5px;">Added: 9/29/2026</span></td><td>'+qty+'</td><td>'+svc.points.toFixed(2)+'</td><td>'+lineTotal+'</td><td class="trash">🗑</td></tr>'+
+      innerBody += '<table class="pm-summarytable"><tr><th>Service</th><th>Quantity</th><th>Points Each</th><th>Total Points</th><th>Actions</th></tr>'+
+        '<tr><td>'+selectedService+'<br><span style="color:#999;font-size:9.5px;">Added: 9/29/2026</span></td><td>'+qty+'</td><td>'+svc.points.toFixed(2)+' pts</td><td><b>'+lineTotal+' pts</b></td><td class="trash">🗑</td></tr>'+
         '</table>'+
         '<div class="pm-addr-card flag"><h5>Service Address <span class="pm-link" id="pmEditAddrLink">(edit)</span></h5><p>'+currentServiceAddrLines()+'</p></div>'+
         '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: '+lineTotal+'</div>'+
@@ -814,7 +817,7 @@ function renderStep4(vwrap){
   var clearCartBtn = vwrap.querySelector('#pmClearCartBtn');
   if(clearCartBtn){
     clearCartBtn.onclick=function(){
-      answered['s3_added']=false; answered['s3_qty']=0;
+      answered['s3_added']=false; answered['s3_qty']=0; answered['s3_maxhint']=false;
       answered['s4_mini']=false; answered['s4_summary']=false;
       renderStep4(vwrap);
       next.disabled=true;
@@ -902,7 +905,7 @@ function render(){
   else if(s.t==='practicecheck'){
     if(!answered['practice_reset']){
       answered['practice_reset']=true;
-      ['s1_done','s1_open','s2_dropdown','s2_service','s2_altAddr','s2_altAddrModal','s3_added','s3_qty','s4_mini','s4_summary','s4_confirming','s4_done'].forEach(function(k){ delete answered[k]; });
+      ['s1_done','s1_open','s2_dropdown','s2_service','s2_altAddr','s2_altAddrModal','s3_added','s3_qty','s3_maxhint','s4_mini','s4_summary','s4_confirming','s4_done'].forEach(function(k){ delete answered[k]; });
     }
     var dpc=el('div','ix center');
     var introHtml =

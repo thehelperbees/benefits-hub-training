@@ -573,14 +573,14 @@ var SCREENS = [
 
   { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 2 of 8',
     eyebrow:'Creating and Submitting a Referral', visual:'quantity',
-    q:"This is a Companion Care referral. Looking at the screen above, what does the Quantity represent — and how does it relate to Total Points?",
+    q:"This is a Companion Care referral for a member with the full 30-hour benefit. Looking at the screen above, what Quantity do you enter?",
     opts:[
-      {label:"Quantity (1) is the number of hours of Companion Care being requested — at 1.00 point per hour, that makes Total Points 1.00.", correct:true},
-      {label:"Quantity is the member's remaining hours for the year, so it should always be 30.", correct:false},
-      {label:"Quantity and Total Points are unrelated — Total Points is set later by the provider.", correct:false},
-      {label:"Quantity is how many providers the referral will be sent to.", correct:false}
+      {label:"1 — one unit is 30 points, which covers the member's full 30 hours.", correct:true},
+      {label:"30 — one for each hour of the benefit.", correct:false},
+      {label:"However many hours the member wants to use right now.", correct:false},
+      {label:"It doesn't matter — the provider adjusts it later.", correct:false}
     ],
-    explain:"Quantity is how many hours of Companion Care you're requesting — here just 1. Total Points is simply Quantity multiplied by Points per Unit, so it updates as you change the quantity. It isn't the member's yearly balance; that's tracked on the referral itself."},
+    explain:"Companion Care is 30 points per unit, so a Quantity of 1 equals the member's full 30-hour annual benefit — Total Points 30.00. Entering anything higher would exceed the benefit, and the provider doesn't change it later."},
 
   { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 3 of 8',
     eyebrow:'Creating and Submitting a Referral', visual:'address',
@@ -1189,7 +1189,7 @@ function renderChapterSubmit(vwrap){
   var addedToCart = !!story.addedToCart;
   var checkingOut = !!story.checkingOut;
   var submitted = !!story.submitted;
-  var totalPoints = qty*1;
+  var totalPoints = qty*30;
 
   var tileHtml = '<div class="pm-section-title" style="margin-top:0;">Benefits</div>'+
     '<div class="pm-tilegrid">'+
@@ -1236,8 +1236,8 @@ function renderChapterSubmit(vwrap){
     var qtyHot = qty<1 && !addedToCart;
     var addToCartHot = qty>=1 && !addedToCart;
     svcDetailHtml = '<div class="pm-svcdetail"><h5>Companion Care</h5>'+
-      '<div class="pm-dl"><div><span>Service ID</span><b>25703</b></div><div><span>Points per Unit</span><b>1.00</b></div>'+
-      '<div><span>Status</span><b>Active</b></div><div><span>Description</span><b>Assistance with completing Activities of Daily Living (ADL) in the home.</b></div></div>'+
+      '<div class="pm-dl"><div><span>Service ID</span><b>25703</b></div><div><span>Points per Unit</span><b>30.00</b></div>'+
+      '<div><span>Status</span><b>Active</b></div><div><span>Description</span><b>Emotional support, meal preparation, company for social activities and exercise, help with planning and scheduling appointments.</b></div></div>'+
       (addedToCart ?
         '<div style="margin-top:10px;font-size:11px;color:#1E7A46;font-weight:800;">&#10003; Added to cart — Quantity: '+qty+'</div>'
         :
@@ -1256,8 +1256,8 @@ function renderChapterSubmit(vwrap){
 
   if(addedToCart){
     var checkoutHot = !checkingOut && !submitted;
-    cartHtml = '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
-      '<tr><td>Companion Care</td><td>'+qty+'</td><td>1.00</td><td>'+totalPoints.toFixed(2)+'</td><td class="trash">&#128465;</td></tr>'+
+    cartHtml = '<table class="pm-summarytable"><tr><th>Service</th><th>Quantity</th><th>Points Each</th><th>Total Points</th><th>Actions</th></tr>'+
+      '<tr><td>Companion Care</td><td>'+qty+'</td><td>30.00 pts</td><td><b>'+totalPoints.toFixed(2)+' pts</b></td><td class="trash">&#128465;</td></tr>'+
       '</table>'+
       '<div class="pm-addr-card"><h5>Service Address</h5><p>1000 Training Example Way<br>Spring hill, FL 34609</p></div>'+
       '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: '+totalPoints.toFixed(2)+'</div>'+
@@ -1314,7 +1314,7 @@ function renderChapterSubmit(vwrap){
     };
   });
   var qtyPlus = vwrap.querySelector('#storyQtyPlus');
-  if(qtyPlus){ qtyPlus.onclick=function(){ story.qty=(story.qty||0)+1; render(); }; }
+  if(qtyPlus){ qtyPlus.onclick=function(){ if((story.qty||0)<1){ story.qty=1; } render(); }; }
   var qtyMinus = vwrap.querySelector('#storyQtyMinus');
   if(qtyMinus){ qtyMinus.onclick=function(){ story.qty=Math.max(0,(story.qty||0)-1); render(); }; }
   var addToCartBtn = vwrap.querySelector('#storyAddToCartBtn');
@@ -1382,21 +1382,21 @@ function quizVisual(key){
     var inner = '<div class="pm-authblock"><h4>Authorizations for In-Home Support Services (Companionship)</h4>'+
       '<div class="pm-authrow"><div><span>Effective</span><b>9/29/2026</b></div><div><span>Expires</span><b>12/31/2027</b></div></div></div>'+
       '<div class="pm-svcdetail pm-focus-ring"><h5>Companion Care</h5>'+
-      '<div class="pm-dl"><div><span>Service ID</span><b>25703</b></div><div><span>Points per Unit</span><b>1.00</b></div></div>'+
+      '<div class="pm-dl"><div><span>Service ID</span><b>25703</b></div><div><span>Points per Unit</span><b>30.00</b></div></div>'+
       '<div style="margin-top:8px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">'+
       '<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:9.5px;color:#999;text-transform:uppercase;font-weight:700;">Quantity</span>'+
       '<div class="pm-qty"><button disabled>&minus;</button><input readonly value="1"><button disabled>+</button></div></div>'+
-      '<div style="font-size:11px;color:#999;font-weight:700;">Total Points: <b style="color:#1a1a1a;">1.00</b></div>'+
+      '<div style="font-size:11px;color:#999;font-weight:700;">Total Points: <b style="color:#1a1a1a;">30.00</b></div>'+
       '</div></div>';
     return '<div class="browser wide" style="margin-bottom:18px;">'+storyUrlBar('ultimatebenefits.thehelperbees.com/member/UL1234567')+
       '<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('Honey Bee','Member #: UL1234567')+inner+'</div></div></div>';
   }
   if(key==='address'){
-    var inner = '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
-      '<tr><td>Companion Care</td><td>1</td><td>1.00</td><td>1.00</td><td class="trash">&#128465;</td></tr>'+
+    var inner = '<table class="pm-summarytable"><tr><th>Service</th><th>Quantity</th><th>Points Each</th><th>Total Points</th><th>Actions</th></tr>'+
+      '<tr><td>Companion Care</td><td>1</td><td>30.00 pts</td><td><b>30.00 pts</b></td><td class="trash">&#128465;</td></tr>'+
       '</table>'+
       '<div class="pm-addr-card pm-focus-ring"><h5>Service Address</h5><p>1000 Training Example Way<br>Spring hill, FL 34609</p></div>'+
-      '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: 1.00</div>'+
+      '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: 30.00</div>'+
       '<div class="pm-btnrow"><button class="pm-btn-outline danger" disabled>Clear Cart</button><button class="pm-btn-outline" disabled>Continue Shopping</button><button class="pm-btn-checkout" disabled>Checkout</button></div></div>';
     return '<div class="browser wide" style="margin-bottom:18px;">'+storyUrlBar('ultimatebenefits.thehelperbees.com/member/UL1234567')+
       '<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('Honey Bee','Member #: UL1234567')+inner+'</div></div></div>';
@@ -1431,7 +1431,7 @@ function quizVisual(key){
       '<div class="pm-svcdetail"><h5>Common examples of Service Exceptions</h5>'+
       '<div class="qv-exgrid">'+
       '<div class="qv-exitem">Service visit not completed</div>'+
-      '<div class="qv-exitem">Referral or authorization issue</div>'+
+      '<div class="qv-exitem">Referral issue or benefit not visible</div>'+
       '<div class="qv-exitem">Member unable to use their benefit</div>'+
       '<div class="qv-exitem">System issues</div>'+
       '</div></div>';
