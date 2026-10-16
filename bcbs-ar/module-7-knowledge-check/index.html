@@ -235,6 +235,13 @@
   .pm-qty{display:flex;align-items:center;gap:8px;}
   .pm-qty button{width:26px;height:26px;border-radius:6px;border:1.5px solid #ddd;background:#fff;font-size:15px;cursor:pointer;line-height:1;}
   .pm-qty input{width:56px;text-align:center;border:1.5px solid #ddd;border-radius:6px;padding:5px;font-size:12px;font-family:inherit;}
+  .pm-eye{color:#3A7FC1;display:inline-block;vertical-align:middle;margin-right:10px;}
+  .pm-eye svg{width:15px;height:15px;display:block;}
+  .pm-sumqty{justify-content:center;}
+  .pm-qfield{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;}
+  .pm-qfield label{font-size:12.5px;color:#888;font-weight:500;}
+  .pm-qfield input,.pm-qfield select{border:1.5px solid #ddd;border-radius:8px;padding:9px 11px;font-size:12.5px;color:#333;font-family:inherit;background:#fff;}
+  .pm-qfield .req{color:var(--rasp);font-weight:800;}
   .pm-btn-checkout{background:var(--green);color:var(--lime);border:none;border-radius:20px;padding:8px 18px;font-weight:800;font-size:11px;cursor:pointer;font-family:inherit;position:relative;}
   .pm-btn-checkout:hover{background:var(--green-soft);}
   .pm-btn-checkout[disabled]{opacity:.4;cursor:default;}
@@ -623,7 +630,7 @@ var SCREENS = [
   { t:'story', chapter:'submit', stepLabel:'Scenario 1 of 5',
     eyebrow:'Find the member, then submit',
     h:'Get the referral moving',
-    sub:"Search using ID Test123UAT3 to pull up Test User 3's profile, then choose the right benefit, the right service for Post Discharge, set the quantity, add it to your cart, and check out.",
+    sub:"Search using ID Test123UAT3 to pull up Test User 3's profile, then choose the right benefit, the right service for Post Discharge, answer the service questions, set the hours, add it to your cart, and check out.",
     au:'04_story_submit.mp3'},
 
   { t:'story', chapter:'new', stepLabel:'Scenario 2 of 5',
@@ -664,18 +671,18 @@ var SCREENS = [
       {label:"Can't tell from this tile", correct:false},
       {label:"10", correct:false}
     ],
-    explain:"Remaining shows what's left to use — here the full 20.00 allowance hasn't been touched yet, since Used and Pending are both 0.00."},
+    explain:"Remaining shows what's left to use — here the full 20.00 allowance hasn't been touched yet, since Used and Pending are both 0.00. The Initial IHS Assessment tile beside it is a separate one-point benefit and does not draw from these 20 hours."},
 
   { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 2 of 8',
     eyebrow:'Creating and Submitting a Referral', visual:'quantity',
-    q:"This is a Post Discharge Support authorization. Looking at the screen above, what does the Quantity actually represent here — and how does it relate to the Plan Allowance?",
+    q:"This member needs all 20 hours from Post Discharge in a single referral, at 1.00 point per hour. What quantity do you enter?",
     opts:[
-      {label:"Quantity (1) is the number of units of this specific service being requested — a separate figure from Plan Allowance (20.00), even though both are shown here.", correct:true},
-      {label:"Quantity should always be set to match the Plan Allowance in points, not units, so it should be 20, not 1.", correct:false},
-      {label:"Quantity and Plan Allowance are two names for the same number.", correct:false},
-      {label:"Quantity determines the Plan Allowance for every other benefit in the category.", correct:false}
+      {label:"20 — quantity is the number of hours, and each hour is 1 point.", correct:true},
+      {label:"1 — quantity is the number of referrals.", correct:false},
+      {label:"2 — the 2-hour minimum visit.", correct:false},
+      {label:"Nothing — it fills in automatically from the Plan Allowance.", correct:false}
     ],
-    explain:"Quantity is how many units of Post Discharge you're requesting — here just 1. Plan Allowance (20.00) is a separate figure: the whole authorization's total available hours. The two numbers are unrelated in scale — one referral entry is a small slice of the full allowance, not the whole thing."},
+    explain:"Quantity is hours, at 1.00 point each, so 20 hours is a quantity of 20 and 20 total points. Enter all the hours you intend for a service in one entry, and answer Yes to confirm the quantity reflects the hours allotted."},
 
   { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 3 of 8',
     eyebrow:'Creating and Submitting a Referral', visual:'address',
@@ -934,18 +941,20 @@ function storyProviderNone(){
   return '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Service Provider</span><div class="pm-provider-locked">Not yet assigned.</div></div>';
 }
 /* Same field set Module 5 uses for its real (accepted) provider panel —
-   Company Name, DBA, Contact Name, Email, Phone #, City, State. The phone
+   Provider ID, Company Name, DBA, First and Last Name, Email Address, Phone #, City, State. The phone
    number is visible on the referral regardless of status — what changes is
    whether it's okay to *share* it with the member yet. */
 function storyProviderLockedFields(){
   return '<div class="pm-providerpanel"><div class="pm-provider-grid">'+
+    '<div><span>Provider ID</span><b>333</b></div>'+
     '<div><span>Company Name</span><b>Test Provider</b></div>'+
     '<div><span>DBA</span><b>&ndash;</b></div>'+
-    '<div><span>Contact Name</span><b>Provider Support</b></div>'+
-    '<div><span>Email</span><b>support@testprovider.com</b></div>'+
-    '<div><span>Phone #</span><b>555-201-4488</b><span class="pm-share-tag no">Don\'t share yet</span></div>'+
-    '<div><span>City</span><b>Austin</b></div>'+
-    '<div><span>State</span><b>TX</b></div>'+
+    '<div><span>First Name</span><b>&ndash;</b></div>'+
+    '<div><span>Last Name</span><b>&ndash;</b></div>'+
+    '<div><span>Email Address</span><b>provider@example.com</b></div>'+
+    '<div><span>Phone #</span><b>999-999-9999</b><span class="pm-share-tag no">Don\'t share yet</span></div>'+
+    '<div><span>City</span><b>&ndash;</b></div>'+
+    '<div><span>State</span><b>&ndash;</b></div>'+
     '</div>'+
     '<div class="pm-note-static">You can see the phone number here, but don\'t give it to the member yet — the provider hasn\'t accepted the referral.</div>'+
     '</div>';
@@ -957,13 +966,15 @@ function storyProviderLockedSettled(){
 function storyProviderUnlockedSettled(){
   return '<div class="pm-fieldblock"><span class="pm-fieldblock-label">Service Provider</span>'+
     '<div class="pm-providerpanel"><div class="pm-provider-grid">'+
+    '<div><span>Provider ID</span><b>333</b></div>'+
     '<div><span>Company Name</span><b>Test Provider</b></div>'+
     '<div><span>DBA</span><b>&ndash;</b></div>'+
-    '<div><span>Contact Name</span><b>Provider Support</b></div>'+
-    '<div><span>Email</span><b>support@testprovider.com</b></div>'+
-    '<div><span>Phone #</span><b>555-201-4488</b><span class="pm-share-tag yes">OK to share</span></div>'+
-    '<div><span>City</span><b>Austin</b></div>'+
-    '<div><span>State</span><b>TX</b></div>'+
+    '<div><span>First Name</span><b>&ndash;</b></div>'+
+    '<div><span>Last Name</span><b>&ndash;</b></div>'+
+    '<div><span>Email Address</span><b>provider@example.com</b></div>'+
+    '<div><span>Phone #</span><b>999-999-9999</b><span class="pm-share-tag yes">OK to share</span></div>'+
+    '<div><span>City</span><b>&ndash;</b></div>'+
+    '<div><span>State</span><b>&ndash;</b></div>'+
     '</div></div></div>';
 }
 function storyNotesEmpty(){
@@ -1206,7 +1217,7 @@ function renderMemberSearchStep(vwrap){
   wrapDiv.innerHTML = storyUrlBar('bcbs-arbenefits.thehelperbees.com') +
     '<div class="body"><div class="shot-wrap">'+
       '<img src="assets/img/search.png" alt="" class="shot-img">'+
-      '<div class="shot-inputoverlay" style="left:36.5%;top:75%;width:53.5%;height:11%;">'+
+      '<div class="shot-inputoverlay" style="left:14.9%;top:44.6%;width:69.2%;height:12.7%;">'+
         '<input type="text" id="searchMemberIdInput" placeholder="ID" value="'+typed+'" class="'+inputCls+'" '+(checked?'disabled':'')+'>'+
       '</div>'+
     '</div></div>';
@@ -1261,11 +1272,17 @@ function renderMemberSearchStep(vwrap){
    Allowance (the benefit category's whole yearly budget) — see the content-note
    above SCREENS for the bug this replaced. ---------- */
 var SUBMIT_TILES = [
-  {key:'postdischarge', label:'Post Discharge Support', correct:true}
+  {key:'postdischarge', label:'Post Discharge Support', correct:true},
+  {key:'assessment', label:'Initial IHS Assessment', correct:false}
 ];
 var SUBMIT_SERVICES = [
-  {key:'postdischarge', label:'Post Discharge', correct:true}
+  {key:'postdischarge', label:'Post Discharge', correct:true},
+  {key:'companion', label:'Virtual Companion', correct:false}
 ];
+
+var ICON_EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+function storyEsc(v){ return String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+function storyCanAdd(){ return (story.phone||'').trim().length>0 && story.confirm==='Yes' && (story.qty||0)>=1; }
 
 function renderChapterSubmit(vwrap){
   var normTyped = (story.memberIdTyped||'').replace(/\s+/g,'').toUpperCase();
@@ -1289,11 +1306,11 @@ function renderChapterSubmit(vwrap){
     '<div class="pm-tilegrid">'+
     SUBMIT_TILES.map(function(t){
       var isActive = tileSelected && t.correct;
-      var isHot = !tileSelected;
+      var isHot = !tileSelected && t.correct;
       return '<button type="button" class="pm-tile'+(isActive?' active':'')+(isHot?' pm-hot':'')+'" data-tilekey="'+t.key+'" style="position:relative;">'+ICON_STORE+'<div>'+t.label+'</div></button>';
     }).join('')+
     '</div>'+
-    (story.tileMiss && !tileSelected ? '<div class="pm-hint-wrong">Not quite — try the highlighted tile.</div>' : '');
+    (story.tileMiss && !tileSelected ? '<div class="pm-hint-wrong">'+(story.tileMiss==='assessment' ? 'That is the Initial IHS Assessment tile — the Helper Bees team creates assessment referrals. Choose Post Discharge Support.' : 'Not quite — try the highlighted tile.')+'</div>' : '');
 
   var authHtml = '', svcListHtml = '', svcDetailHtml = '', cartHtml = '';
 
@@ -1318,7 +1335,7 @@ function renderChapterSubmit(vwrap){
         return '<div data-svckey="'+s.key+'">'+s.label+'</div>';
       }).join('')+'</div>';
     }
-    svcListHtml = '<div class="pm-section-title">Available Services for Test User 3 in 78748 <span class="pm-link">(change service address)</span></div>'+
+    svcListHtml = '<div class="pm-section-title">Available Services for Test User 3 in 73160 <span class="pm-link">(change service address)</span></div>'+
       '<div class="pm-fieldrow">'+
       '<div class="pm-field"><label>Service Category</label><div class="box">In Home Support</div></div>'+
       '<div class="pm-field"><label>Search For Services</label>'+searchBoxHtml+svcDropdownHtml+'</div>'+
@@ -1329,29 +1346,34 @@ function renderChapterSubmit(vwrap){
   if(serviceSelected){
     var qtyHot = qty<1 && !addedToCart;
     var addToCartHot = qty>=1 && !addedToCart;
+    var storyOk = storyCanAdd();
     svcDetailHtml = '<div class="pm-svcdetail"><h5>Post Discharge</h5>'+
       '<div class="pm-dl"><div><span>Service ID</span><b>25734</b></div><div><span>Points per Unit</span><b>1.00</b></div>'+
       '<div><span>Status</span><b>Active</b></div><div><span>Description</span><b>Assistance with completing Activities of Daily Living (ADL) in the home.</b></div></div>'+
       (addedToCart ?
         '<div style="margin-top:10px;font-size:11px;color:#1E7A46;font-weight:800;">&#10003; Added to cart — Quantity: '+qty+'</div>'
         :
-        '<div style="margin-top:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">'+
-        '<div class="pm-qty" style="position:relative;">'+
-          '<button type="button" id="storyQtyMinus" '+(qty<1?'disabled':'')+'>&minus;</button>'+
-          '<input readonly value="'+qty+'">'+
-          '<button type="button" id="storyQtyPlus" class="'+(qtyHot?'pm-hot':'')+'" style="position:relative;">+'+(qtyHot?storyHotTag('Click to add 1'):'')+'</button>'+
+        '<div style="margin-top:14px;font-size:13px;font-weight:800;color:#1a1a1a;">Service Questions</div>'+
+        '<div class="pm-qfield" style="margin-top:8px;"><label>Please provide the best phone number for the member: <span class="req">*</span></label><input type="text" id="storyPhone" value="'+storyEsc(story.phone||'')+'"></div>'+
+        '<div class="pm-qfield"><label>I confirm the quantity entered below reflects the hours allotted for this referral <span class="req">*</span></label><select id="storyConfirm"><option value="">-</option><option value="Yes"'+(story.confirm==='Yes'?' selected':'')+'>Yes</option><option value="No"'+(story.confirm==='No'?' selected':'')+'>No</option></select></div>'+
+        '<div style="margin-top:6px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">'+
+        '<div class="pm-qty"><button type="button" id="storyQtyMinus" '+(qty<1?'disabled':'')+'>&minus;</button>'+
+          '<input type="text" id="storyQtyInput" inputmode="numeric" placeholder="0" value="'+(qty?qty:'')+'">'+
+          '<button type="button" id="storyQtyPlus">+</button></div>'+
+        '<div style="font-size:11px;color:#999;font-weight:700;">Total Points: <b id="storyTotalPts" style="color:#1a1a1a;">'+totalPoints.toFixed(2)+'</b></div>'+
         '</div>'+
-        '<div style="font-size:11px;color:#999;font-weight:700;">Total Points: <b style="color:#1a1a1a;">'+totalPoints.toFixed(2)+'</b></div>'+
-        '</div>'+
-        '<div style="margin-top:10px;"><button class="pm-btn-dark'+(addToCartHot?' pm-hot':'')+'" id="storyAddToCartBtn" style="margin-left:0;position:relative;" '+(qty<1?'disabled':'')+'>Add to Cart'+(addToCartHot?storyHotTag('Click to add'):'')+'</button></div>'
+        '<div style="margin-top:10px;"><button class="pm-btn-dark'+(storyOk?' pm-hot':'')+'" id="storyAddToCartBtn" style="margin-left:0;position:relative;" '+(storyOk?'':'disabled')+'>Add to Cart'+(storyOk?storyHotTag('Click to add'):'')+'</button></div>'
       )+
       '</div>';
   }
 
   if(addedToCart){
     var checkoutHot = !checkingOut && !submitted;
-    cartHtml = '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
-      '<tr><td>Post Discharge</td><td>'+qty+'</td><td>1.00</td><td>'+totalPoints.toFixed(2)+'</td><td class="trash">&#128465;</td></tr>'+
+    var lockQty = (checkingOut || submitted) ? ' disabled' : '';
+    cartHtml = '<table class="pm-summarytable"><tr><th>Service</th><th style="text-align:center;">Quantity</th><th>Points Each</th><th>Total Points</th><th>Actions</th></tr>'+
+      '<tr><td><b>Post Discharge</b></td>'+
+      '<td><div class="pm-qty pm-sumqty"><button type="button" id="storyCartMinus"'+lockQty+'>&minus;</button><input readonly value="'+qty+'"><button type="button" id="storyCartPlus"'+lockQty+'>+</button></div></td>'+
+      '<td>1.00 pts</td><td><b>'+totalPoints.toFixed(2)+' pts</b></td><td class="trash"><span class="pm-eye">'+ICON_EYE+'</span>&#128465;</td></tr>'+
       '</table>'+
       '<div class="pm-addr-card"><h5>Service Address</h5><p>123 Honey Street<br>Oklahoma City, OK 73160</p></div>'+
       '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: '+totalPoints.toFixed(2)+'</div>'+
@@ -1407,12 +1429,37 @@ function renderChapterSubmit(vwrap){
       render();
     };
   });
+  function storySync(){
+    var btn = vwrap.querySelector('#storyAddToCartBtn'); if(!btn) return;
+    var good = storyCanAdd();
+    btn.disabled = !good;
+    btn.classList.toggle('pm-hot', good);
+    var tag = btn.querySelector('.pm-hot-tag');
+    if(good && !tag){ btn.insertAdjacentHTML('beforeend', storyHotTag('Click to add')); }
+    if(!good && tag){ tag.parentNode.removeChild(tag); }
+    var tp = vwrap.querySelector('#storyTotalPts'); if(tp){ tp.textContent = ((story.qty||0)*1).toFixed(2); }
+    var mn = vwrap.querySelector('#storyQtyMinus'); if(mn){ mn.disabled = (story.qty||0)<1; }
+  }
+  var phoneEl = vwrap.querySelector('#storyPhone');
+  if(phoneEl){ phoneEl.oninput=function(){ story.phone=phoneEl.value; storySync(); }; }
+  var confEl = vwrap.querySelector('#storyConfirm');
+  if(confEl){ confEl.onchange=function(){ story.confirm=confEl.value; storySync(); }; }
+  var qtyEl = vwrap.querySelector('#storyQtyInput');
+  if(qtyEl){ qtyEl.oninput=function(){
+    var v = parseInt(qtyEl.value.replace(/[^0-9]/g,''),10) || 0;
+    if(v>20) v=20;
+    story.qty=v; qtyEl.value = v ? String(v) : ''; storySync();
+  }; }
+  var cartMinus = vwrap.querySelector('#storyCartMinus');
+  if(cartMinus){ cartMinus.onclick=function(){ story.qty=Math.max(1,(story.qty||1)-1); render(); }; }
+  var cartPlus = vwrap.querySelector('#storyCartPlus');
+  if(cartPlus){ cartPlus.onclick=function(){ story.qty=Math.min(20,(story.qty||1)+1); render(); }; }
   var qtyPlus = vwrap.querySelector('#storyQtyPlus');
-  if(qtyPlus){ qtyPlus.onclick=function(){ story.qty=(story.qty||0)+1; render(); }; }
+  if(qtyPlus){ qtyPlus.onclick=function(){ story.qty=Math.min(20,(story.qty||0)+1); render(); }; }
   var qtyMinus = vwrap.querySelector('#storyQtyMinus');
   if(qtyMinus){ qtyMinus.onclick=function(){ story.qty=Math.max(0,(story.qty||0)-1); render(); }; }
   var addToCartBtn = vwrap.querySelector('#storyAddToCartBtn');
-  if(addToCartBtn){ addToCartBtn.onclick=function(){ if((story.qty||0)>=1){ story.addedToCart=true; render(); } }; }
+  if(addToCartBtn){ addToCartBtn.onclick=function(){ if(storyCanAdd()){ story.addedToCart=true; render(); } }; }
   var clearCartBtn = vwrap.querySelector('#storyClearCartBtn');
   if(clearCartBtn){ clearCartBtn.onclick=function(){ story.addedToCart=false; story.qty=0; render(); }; }
   var checkoutBtn = vwrap.querySelector('#storyCheckoutBtn');
@@ -1458,6 +1505,7 @@ function quizVisual(key){
     var inner = '<div class="pm-section-title" style="margin-top:0;">Benefits</div>'+
       '<div class="pm-tilegrid">'+
       '<div class="pm-tile active">'+ICON_STORE+'<div>Post Discharge Support</div></div>'+
+      '<div class="pm-tile">'+ICON_STORE+'<div>Initial IHS Assessment</div></div>'+
       '</div>'+
       '<div class="pm-authblock pm-focus-ring"><h4>Authorizations for Post Discharge Support</h4>'+
       '<div class="pm-authrow">'+
@@ -1476,15 +1524,15 @@ function quizVisual(key){
       '<div class="pm-dl"><div><span>Service ID</span><b>25734</b></div><div><span>Points per Unit</span><b>1.00</b></div></div>'+
       '<div style="margin-top:8px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">'+
       '<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:9.5px;color:#999;text-transform:uppercase;font-weight:700;">Quantity</span>'+
-      '<div class="pm-qty"><button disabled>&minus;</button><input readonly value="1"><button disabled>+</button></div></div>'+
-      '<div style="font-size:11px;color:#999;font-weight:700;">Total Points: <b style="color:#1a1a1a;">1.00</b></div>'+
+      '<div class="pm-qty"><button disabled>&minus;</button><input readonly placeholder="?" value=""><button disabled>+</button></div></div>'+
+      '<div style="font-size:11px;color:#999;font-weight:700;">Total Points: <b style="color:#1a1a1a;">—</b></div>'+
       '</div></div>';
     return '<div class="browser wide" style="margin-bottom:18px;">'+storyUrlBar('bcbs-arbenefits.thehelperbees.com/member/Test123UAT3')+
       '<div class="body pm-body"><div class="pm">'+storyTopbar()+storyBackrow('Test User 3','Member #: Test123UAT3')+inner+'</div></div></div>';
   }
   if(key==='address'){
-    var inner = '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
-      '<tr><td>Post Discharge</td><td>1</td><td>1.00</td><td>1.00</td><td class="trash">&#128465;</td></tr>'+
+    var inner = '<table class="pm-summarytable"><tr><th>Service</th><th style="text-align:center;">Quantity</th><th>Points Each</th><th>Total Points</th><th>Actions</th></tr>'+
+      '<tr><td><b>Post Discharge</b></td><td><div class="pm-qty pm-sumqty"><button disabled>&minus;</button><input readonly value="1"><button disabled>+</button></div></td><td>1.00 pts</td><td><b>1.00 pts</b></td><td class="trash"><span class="pm-eye">'+ICON_EYE+'</span>&#128465;</td></tr>'+
       '</table>'+
       '<div class="pm-addr-card pm-focus-ring"><h5>Service Address</h5><p>123 Honey Street<br>Oklahoma City, OK 73160</p></div>'+
       '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: 1.00</div>'+

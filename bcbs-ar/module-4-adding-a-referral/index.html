@@ -181,7 +181,11 @@
   .pm-summarytable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:10px;}
   .pm-summarytable th{background:#F1F1F1;text-align:left;padding:6px 8px;font-weight:800;color:#333;}
   .pm-summarytable td{padding:7px 8px;color:#333;}
-  .pm-summarytable .trash{color:#C0392B;}
+  .pm-summarytable .trash{color:#C0392B;white-space:nowrap;}
+  .pm-eye{color:#3A7FC1;display:inline-block;vertical-align:middle;margin-right:10px;}
+  .pm-eye svg{width:15px;height:15px;display:block;}
+  .pm-sumqty{justify-content:center;}
+
   .pm-addr-card{background:#fff;border-radius:10px;padding:10px 13px;margin-top:9px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
   .pm-addr-card h5{font-size:12px;font-weight:800;margin:0 0 4px;}
   .pm-addr-card p{margin:0;font-size:11px;color:#555;line-height:1.4;}
@@ -203,6 +207,9 @@
   .pm-addrfield label{font-size:12.5px;color:#888;font-weight:500;}
   .pm-addrfield input{border:1.5px solid #ddd;border-radius:8px;padding:9px 11px;font-size:12.5px;color:#333;font-family:inherit;}
   .pm-addrfield input:focus{outline:none;border-color:var(--teal);}
+  .pm-addrfield select{border:1.5px solid #ddd;border-radius:8px;padding:9px 11px;font-size:12.5px;color:#333;font-family:inherit;background:#fff;}
+  .pm-addrfield select:focus{outline:none;border-color:var(--teal);}
+  .pm-addrfield .req{color:var(--rasp);font-weight:800;}
   .pm-addrfield.zip{max-width:110px;}
   .pm-modal p{font-size:14px;font-weight:800;color:#1a1a1a;margin:0 0 18px;line-height:1.4;}
   .pm-modal-btns{display:flex;gap:10px;justify-content:center;}
@@ -316,6 +323,7 @@
 /* ================= SHARED ICONS ================= */
 var ICON_STORE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1.5-5h15L21 9M3 9v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V9M3 9h18M8 13a2 2 0 0 1-4 0M12 13a2 2 0 0 1-4 0M16 13a2 2 0 0 1-4 0M20 13a2 2 0 0 1-4 0"/></svg>';
 var ICON_CART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
+var ICON_EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
 var ICON_ACCOUNT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>';
 var ICON_BACK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>';
 var ICON_CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>';
@@ -343,7 +351,7 @@ var SCREENS = [
   { t:'step', n:1, of:4,
     kicker:"Step 1",
     h:"Select a benefit",
-    sub:"Select the benefit tile you want to create a referral for.",
+    sub:"Select the Post Discharge Support tile to create a referral.",
     render:'step1',
     au:'02_step1.mp3', auTile:'03_step1_tile.mp3', auAdded:'04_step1_added.mp3' },
 
@@ -357,7 +365,7 @@ var SCREENS = [
   { t:'step', n:3, of:4,
     kicker:"Step 3",
     h:"Set your quantity and add to cart",
-    sub:"Enter your quantity, then select Add to Cart.",
+    sub:"Answer the service questions, enter your quantity, then select Add to Cart.",
     render:'step3',
     au:'09_step3.mp3', auAdded:'10_step3_added.mp3' },
 
@@ -382,7 +390,8 @@ var SERVICE_DATA = {
 };
 
 var TILES = [
-  {label:"Post Discharge Support", active:true}
+  {label:"Post Discharge Support", active:true},
+  {label:"Initial IHS Assessment", active:false}
 ];
 
 /* ================= ENGINE ================= */
@@ -472,6 +481,9 @@ function renderStep1(vwrap){
     return '<div class="pm-tile'+((opened&&t.active)?' active':'')+(isHot?' pm-hot':'')+'" data-idx="'+idx+'">'+ICON_STORE+'<div>'+t.label+'</div>'+(isHot?hotTag('Click to select'):'')+'</div>';
   }).join('') + '</div>';
   tileHtml += '<div class="pm-hint">'+(opened?'Tile selected — see authorization below':'Click the highlighted tile to select it')+'</div>';
+  if(opened || answered['s1_assessNote']){
+    tileHtml += '<div class="infonote" style="margin-top:12px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Initial IHS Assessment</b> is a separate one-point benefit. You will see Add Referral on that tile as well, but leave it alone — the Helper Bees team creates the assessment referral once your post-discharge referral comes in. Create your referrals from <b>Post Discharge Support</b> only.</span></div>';
+  }
 
   var authHtml = '';
   if(opened){
@@ -486,12 +498,10 @@ function renderStep1(vwrap){
       '<div><span>Used</span><b>0.00</b></div>'+
       '<div><span>Pending</span><b>0.00</b></div>'+
       '<div><span>Remaining</span><b>20.00</b></div>'+
-      '<button class="pm-btn-dark'+(addBtnHot?' pm-hot':'')+'" style="position:relative;" id="pmAddReferralBtn" '+(done?'disabled':'')+'>'+(done?'Referral Started':'Add Referral')+(addBtnHot?hotTag('Click to add referral'):'')+'</button>'+
+      '<button class="pm-btn-dark'+(addBtnHot?' pm-hot':'')+'" style="position:relative;" id="pmAddReferralBtn">Add Referral'+(addBtnHot?hotTag('Click to add referral'):'')+'</button>'+
       '</div>'+
       '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Pending</b> reflects hours already reserved by other referrals against this same authorization — it does not mean a referral hasn\'t been entered yet.</span></div>'+
-      (done
-        ? '<div class="pm-toast">'+ICON_CHECK+'<span>Referral started for Post Discharge Support — select Next to search for a service.</span></div>'
-        : '<div class="pm-nofound">No referrals found for Post Discharge Support benefit.</div>')+
+      '<div class="pm-nofound">No referrals found for Post Discharge Support benefit.</div>'+
       '</div>';
   }
 
@@ -501,6 +511,8 @@ function renderStep1(vwrap){
 
   vwrap.querySelectorAll('.pm-tile').forEach(function(tile){
     tile.onclick=function(){
+      var tdef = TILES[parseInt(tile.getAttribute('data-idx'),10)];
+      if(!tdef.active){ answered['s1_assessNote']=true; renderStep1(vwrap); return; }
       if(answered['s1_open']) return;
       answered['s1_open']=true;
       renderStep1(vwrap);
@@ -511,10 +523,14 @@ function renderStep1(vwrap){
   if(addBtn){
     addBtn.onclick=function(){
       answered['s1_done']=true;
-      renderStep1(vwrap);
-      next.disabled=false;
-      play(s.auAdded);
-      if(practiceRerenderHook) practiceRerenderHook();
+      if(practiceRerenderHook){
+        renderStep1(vwrap);
+        next.disabled=false;
+        practiceRerenderHook();
+        return;
+      }
+      /* like the real system, Add Referral opens the Add Referral page straight away */
+      i++; render();
     };
   }
   next.disabled = !answered['s1_done'];
@@ -549,12 +565,12 @@ function renderStep2(vwrap){
 
   var fieldsHtml =
     '<div class="pm-section-title">Available Services for Test User 3 in '+currentServiceZip()+' <span class="pm-link" id="pmChangeAddrLink">(change service address)</span></div>'+
-    (altAddr ? '<div class="infonote" style="margin-bottom:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>New zip code appears above — services now reflect <b>'+currentServiceZip()+'</b> instead of the member\'s address on file.</span></div>' : '')+
+    (altAddr ? '<div class="infonote" style="margin-bottom:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>New zip code appears above — services now reflect <b>'+currentServiceZip()+'</b> instead of the member\'s address on file.</span></div>' : '<div class="infonote" style="margin-bottom:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Different care address?</b> If the member will receive care somewhere other than their address on file — staying with family, temporary housing, and so on — select <b>(change service address)</b> above before you add the service. It applies to this referral only, and the address on file will not change. You will check it again on the Referrals Summary, but it cannot be changed after you check out.</span></div>')+
     '<div class="pm-fieldrow">'+
       '<div class="pm-field"><label>Service Category</label><div class="box">In Home Support</div></div>'+
       '<div class="pm-field"><label>Search For Services</label>'+searchBoxHtml+dropdownHtml+'</div>'+
     '</div>'+
-    (!altAddr ? '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>If the member is receiving care somewhere other than their address on file — staying with family, temporary housing, and so on — select <b>(change service address)</b> above to set a different location for just this referral. Their address on file won\'t change.</span></div>' : '');
+    '';
 
   var serviceCardHtml = '';
   if(selected){
@@ -644,13 +660,19 @@ function renderStep2(vwrap){
 }
 
 /* ---------- Step 3: quantity + add to cart ---------- */
+function m4Esc(v){ return String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 function renderStep3(vwrap){
   var s = SCREENS[i];
   var selectedService = answered['s2_service'] || "Post Discharge";
   var svc = SERVICE_DATA[selectedService] || SERVICE_DATA["Post Discharge"];
+  var MAX_QTY = 20; /* Plan Allowance for this authorization */
   var qty = answered['s3_qty'] || 0;
   var total = (qty*svc.points).toFixed(2);
   var added = !!answered['s3_added'];
+  var phone = answered['s3_phone'] || '';
+  var confirmVal = answered['s3_confirm'] || '';
+  function canAdd(){ return (answered['s3_phone']||'').trim().length>0 && answered['s3_confirm']==='Yes' && (answered['s3_qty']||0)>=1; }
+  var ok = canAdd();
 
   var inner = backrow('Add Referral','Test User 3 | Member #: Test123UAT3') +
     '<div class="pm-servicecard"><h5>Selected Service Details</h5>'+
@@ -661,19 +683,46 @@ function renderStep3(vwrap){
     '<div><b>Status</b><span>Active</span></div>'+
     '<div><b>Description</b><span>'+svc.desc+'</span></div>'+
     '</div></div>'+
+    '<div class="pm-section-title" style="margin-top:16px;">Service Questions</div>'+
+    '<div class="pm-addrfield" style="margin-bottom:10px;"><label>Please provide the best phone number for the member: <span class="req">*</span></label>'+
+      '<input type="text" id="pmSvcPhone" value="'+m4Esc(phone)+'" '+(added?'disabled':'')+'></div>'+
+    '<div class="pm-addrfield" style="margin-bottom:6px;"><label>I confirm the quantity entered below reflects the hours allotted for this referral <span class="req">*</span></label>'+
+      '<select id="pmSvcConfirm" '+(added?'disabled':'')+'><option value="">-</option><option value="Yes"'+(confirmVal==='Yes'?' selected':'')+'>Yes</option><option value="No"'+(confirmVal==='No'?' selected':'')+'>No</option></select></div>'+
     '<div class="pm-section-title" style="margin-top:16px;">Order Details</div>'+
     '<div class="pm-orderrow">'+
-      '<div class="pm-qty"><button id="pmQtyMinus">–</button><input id="pmQtyInput" value="'+qty+'" readonly><button id="pmQtyPlus" style="position:relative;" class="'+(qty<1?'pm-hot':'')+'">+'+(qty<1?hotTag('Click to increase'):'')+'</button></div>'+
+      '<div class="pm-qty"><button id="pmQtyMinus" '+(added?'disabled':'')+'>–</button><input id="pmQtyInput" inputmode="numeric" placeholder="0" value="'+(qty?qty:'')+'" '+(added?'disabled':'')+'><button id="pmQtyPlus" '+(added?'disabled':'')+'>+</button></div>'+
       '<div class="pm-total">Total Points<b>'+total+'</b></div>'+
     '</div>'+
-    '<button class="pm-cart-btn'+(qty>=1&&!added?' pm-hot':'')+'" style="position:relative;" id="pmAddCartBtn" '+(qty<1?'disabled':'')+'>Add to Cart'+(qty>=1&&!added?hotTag('Click to add to cart'):'')+'</button>'+
+    '<div class="infonote" style="margin-top:12px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Quantity is the number of hours, at 1 point per hour. Enter all the hours you intend for this service in one entry rather than splitting it into smaller referrals.</span></div>'+
+    '<button class="pm-cart-btn'+(ok&&!added?' pm-hot':'')+'" style="position:relative;" id="pmAddCartBtn" '+(ok?'':'disabled')+'>Add to Cart'+(ok&&!added?hotTag('Click to add to cart'):'')+'</button>'+
     (added ? '<div class="pm-toast">'+ICON_CHECK+'<span>'+selectedService+' added to cart</span></div>' : '');
 
   var frame = browserFrame('bcbs-arbenefits.thehelperbees.com/referral/add', inner);
   vwrap.innerHTML=''; vwrap.appendChild(frame);
 
+  function syncCart(){
+    var btn = vwrap.querySelector('#pmAddCartBtn'); if(!btn) return;
+    var good = canAdd();
+    btn.disabled = !good;
+    var hot = good && !answered['s3_added'];
+    btn.classList.toggle('pm-hot', hot);
+    var tag = btn.querySelector('.pm-hot-tag');
+    if(hot && !tag){ btn.insertAdjacentHTML('beforeend', hotTag('Click to add to cart')); }
+    if(!hot && tag){ tag.parentNode.removeChild(tag); }
+    var t = vwrap.querySelector('.pm-total b'); if(t){ t.textContent = ((answered['s3_qty']||0)*svc.points).toFixed(2); }
+  }
+  var phoneEl = vwrap.querySelector('#pmSvcPhone');
+  var confEl = vwrap.querySelector('#pmSvcConfirm');
+  var qtyEl = vwrap.querySelector('#pmQtyInput');
+  phoneEl.oninput=function(){ answered['s3_phone']=phoneEl.value; syncCart(); };
+  confEl.onchange=function(){ answered['s3_confirm']=confEl.value; syncCart(); };
+  qtyEl.oninput=function(){
+    var v = parseInt(qtyEl.value.replace(/[^0-9]/g,''),10) || 0;
+    if(v>MAX_QTY) v=MAX_QTY;
+    answered['s3_qty']=v; qtyEl.value = v ? String(v) : ''; syncCart();
+  };
   vwrap.querySelector('#pmQtyPlus').onclick=function(){
-    answered['s3_qty']=(answered['s3_qty']||0)+1;
+    answered['s3_qty']=Math.min(MAX_QTY,(answered['s3_qty']||0)+1);
     renderStep3(vwrap);
   };
   vwrap.querySelector('#pmQtyMinus').onclick=function(){
@@ -681,15 +730,14 @@ function renderStep3(vwrap){
     renderStep3(vwrap);
   };
   var cartBtn = vwrap.querySelector('#pmAddCartBtn');
-  if(qty>=1){
-    cartBtn.onclick=function(){
-      answered['s3_added']=true;
-      renderStep3(vwrap);
-      next.disabled=false;
-      play(s.auAdded);
-      if(practiceRerenderHook) practiceRerenderHook();
-    };
-  }
+  cartBtn.onclick=function(){
+    if(!canAdd()) return;
+    answered['s3_added']=true;
+    renderStep3(vwrap);
+    next.disabled=false;
+    play(s.auAdded);
+    if(practiceRerenderHook) practiceRerenderHook();
+  };
   next.disabled = !answered['s3_added'];
 }
 
@@ -714,12 +762,14 @@ function renderStep4(vwrap){
       '<div><b>Description</b><span>'+svc.desc+'</span></div></div></div>'+
       (miniOpen ? '<div class="pm-minicart pm-hot">Test User 3 '+ICON_CART+'<span class="pm-mini-badge">1</span>'+hotTag('Click to view summary')+'</div>' : '');
   } else {
-    innerBody = backrow('Referrals Summary', done ? 'Test User 3 | Items: 0' : 'Test User 3 | Items: 1');
+    innerBody = backrow('Referrals Summary', done ? 'Test User 3 | Items: 0' : 'Test User 3 | Items: '+qty);
     if(!done){
-      innerBody += '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
-        '<tr><td>'+selectedService+'<br><span style="color:#999;font-size:9.5px;">Added: 9/22/2026</span></td><td>'+qty+'</td><td>'+svc.points.toFixed(2)+'</td><td>'+lineTotal+'</td><td class="trash">🗑</td></tr>'+
+      innerBody += '<table class="pm-summarytable"><tr><th>Service</th><th style="text-align:center;">Quantity</th><th>Points Each</th><th>Total Points</th><th>Actions</th></tr>'+
+        '<tr><td><b>'+selectedService+'</b><br><span style="color:#999;font-size:9.5px;">Added: 9/22/2026</span></td>'+
+        '<td><div class="pm-qty pm-sumqty"><button id="pmSumMinus"'+(confirming?' disabled':'')+'>–</button><input readonly value="'+qty+'"><button id="pmSumPlus"'+(confirming?' disabled':'')+'>+</button></div></td>'+
+        '<td>'+svc.points.toFixed(2)+' pts</td><td><b>'+lineTotal+' pts</b></td><td class="trash"><span class="pm-eye">'+ICON_EYE+'</span>🗑</td></tr>'+
         '</table>'+
-        '<div class="pm-addr-card flag"><h5>Service Address <span class="pm-link" id="pmEditAddrLink">(edit)</span></h5><p>'+currentServiceAddrLines()+'</p></div>'+
+        '<div class="pm-addr-card flag"><h5>Service Address</h5><p>'+currentServiceAddrLines()+'</p></div>'+
         '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: '+lineTotal+'</div>'+
         '<div class="pm-btnrow"><button class="pm-btn-outline danger" id="pmClearCartBtn">Clear Cart</button><button class="pm-btn-outline">Continue Shopping</button><button class="pm-btn-checkout'+(!confirming?' pm-hot':'')+'" style="position:relative;" id="pmCheckoutBtn">Checkout'+(!confirming?hotTag('Click to checkout'):'')+'</button></div></div>';
     } else {
@@ -734,19 +784,6 @@ function renderStep4(vwrap){
   } else if(done){
     modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><p>Thank you. Your referrals have been submitted.</p>'+
       '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="pmContinueBtn">Continue'+hotTag('Click to continue')+'</button></div></div></div>';
-  } else if(answered['s2_altAddrModal']){
-    var curAddr = answered['s2_altAddr'] || {};
-    modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal addr-modal"><h5>Change Service Address</h5>'+
-      '<div class="infonote" style="margin-bottom:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>This updates the address for this referral only — the member\'s address on file won\'t change.</span></div>'+
-      '<div class="pm-addrfield" style="margin-bottom:10px;"><label>Street Address *</label><input type="text" id="pmAltStreet" placeholder="123 Mary Poppins St" value="'+(curAddr.street||'')+'"></div>'+
-      '<div class="pm-addrfield" style="margin-bottom:10px;"><label>Apt, Suite, Unit, etc.</label><input type="text" id="pmAltApt" placeholder="" value="'+(curAddr.apt||'')+'"></div>'+
-      '<div class="pm-addrform-row">'+
-        '<div class="pm-addrfield"><label>City *</label><input type="text" id="pmAltCity" placeholder="San Diego" value="'+(curAddr.city||'')+'"></div>'+
-        '<div class="pm-addrfield" style="max-width:70px;"><label>State *</label><input type="text" id="pmAltState" placeholder="CA" maxlength="2" value="'+(curAddr.state||'')+'"></div>'+
-        '<div class="pm-addrfield zip"><label>Zip Code *</label><input type="text" id="pmAltZip" placeholder="92007" value="'+(curAddr.zip||'')+'"></div>'+
-      '</div>'+
-      '<div class="pm-modal-btns" style="margin-top:16px;"><button class="pm-btn-checkout" id="pmAltSaveBtn">Save</button><button class="pm-btn-outline" id="pmAltCancelBtn">Cancel</button></div>'+
-      '</div></div>';
   }
 
   var frame = browserFrame(summaryOpen ? 'bcbs-arbenefits.thehelperbees.com/referral/cart' : 'bcbs-arbenefits.thehelperbees.com/referral/add',
@@ -757,11 +794,11 @@ function renderStep4(vwrap){
 
   if(summaryOpen && !done){
     var addrNote=el('div','infonote');
-    addrNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Before you check out, be sure to verify the <b>Service Address</b> shown above — this is where the referral will route to, and it determines which provider services that zip code. Take a minute to review this screen. When you\'re ready, select <b>Checkout</b> to submit.</span>';
+    addrNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Before you check out, verify the <b>Service Address</b> shown above — this is where the referral will route, and it determines which provider services that zip code. If it is not right, go back to the previous screen and use <b>(change service address)</b> before you check out. When you\'re ready, select <b>Checkout</b> to submit.</span>';
     vwrap.appendChild(addrNote);
     if(currentAltAddr()){
       var altNote=el('div','infonote');
-      altNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>You\'re using an <b>alternative service address</b> for this referral — only one is allowed per checkout, and the member\'s address on file stays unchanged. Once you check out, this address can\'t be edited. To change it afterward, you\'d need to submit a Zendesk ticket (not guaranteed) or close this referral and create a new one with the correct address.</span>';
+      altNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>You\'re using an <b>alternative service address</b> for this referral — only one is allowed per checkout, and the member\'s address on file stays unchanged. To change it, go back to the previous screen before you check out — once you check out, this address can\'t be edited, and fixing it afterward means submitting a Zendesk ticket (not guaranteed) or closing this referral and creating a new one with the correct address.</span>';
       vwrap.appendChild(altNote);
     }
     var cartNote=el('div','infonote');
@@ -769,26 +806,10 @@ function renderStep4(vwrap){
     vwrap.appendChild(cartNote);
   }
 
-  var editAddrLink = vwrap.querySelector('#pmEditAddrLink');
-  if(editAddrLink){
-    editAddrLink.onclick=function(){ answered['s2_altAddrModal']=true; renderStep4(vwrap); };
-  }
-  var altCancelBtn4 = vwrap.querySelector('#pmAltCancelBtn');
-  if(altCancelBtn4){ altCancelBtn4.onclick=function(){ answered['s2_altAddrModal']=false; renderStep4(vwrap); }; }
-  var altSaveBtn4 = vwrap.querySelector('#pmAltSaveBtn');
-  if(altSaveBtn4){
-    altSaveBtn4.onclick=function(){
-      var street=document.getElementById('pmAltStreet').value.trim();
-      var apt=document.getElementById('pmAltApt').value.trim();
-      var city=document.getElementById('pmAltCity').value.trim();
-      var state=document.getElementById('pmAltState').value.trim();
-      var zip=document.getElementById('pmAltZip').value.trim();
-      if(!street || !city || !state || !zip) return;
-      answered['s2_altAddr'] = {street:street, apt:apt, city:city, state:state.toUpperCase(), zip:zip};
-      answered['s2_altAddrModal']=false;
-      renderStep4(vwrap);
-    };
-  }
+  var sumMinus = vwrap.querySelector('#pmSumMinus');
+  if(sumMinus){ sumMinus.onclick=function(){ answered['s3_qty']=Math.max(1,(answered['s3_qty']||1)-1); renderStep4(vwrap); }; }
+  var sumPlus = vwrap.querySelector('#pmSumPlus');
+  if(sumPlus){ sumPlus.onclick=function(){ answered['s3_qty']=Math.min(20,(answered['s3_qty']||1)+1); renderStep4(vwrap); }; }
 
   var cartIcon = vwrap.querySelector('#pmCartIcon');
   if(cartIcon && !summaryOpen){
@@ -892,7 +913,7 @@ function render(){
 
     if(s.render==='step2'){
       var note=el('div','infonote');
-      note.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Some services include extra <b>Service Detail Questions (SDQs)</b> — answer any that appear before adding to cart.</span>';
+      note.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Both services ask a couple of required <b>Service Questions</b> — the member\'s best phone number and a quantity confirmation — before you can add to cart.</span>';
       d2.querySelector('.wrap.wide[style]').appendChild(note);
     }
     if(s.caption){
@@ -906,7 +927,7 @@ function render(){
   else if(s.t==='practicecheck'){
     if(!answered['practice_reset']){
       answered['practice_reset']=true;
-      ['s1_done','s1_open','s2_dropdown','s2_service','s2_altAddr','s2_altAddrModal','s3_added','s3_qty','s4_mini','s4_summary','s4_confirming','s4_done'].forEach(function(k){ delete answered[k]; });
+      ['s1_done','s1_open','s1_assessNote','s2_dropdown','s2_service','s2_altAddr','s2_altAddrModal','s3_added','s3_qty','s3_phone','s3_confirm','s4_mini','s4_summary','s4_confirming','s4_done'].forEach(function(k){ delete answered[k]; });
     }
     var dpc=el('div','ix center');
     var introHtml =
