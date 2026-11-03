@@ -212,15 +212,15 @@ var SCREENS = [
   { t:'step', n:1, of:4,
     kicker:"Step 1",
     h:"Go to your Benefits Hub sign-in page",
-    sub:"Go to <a href=\"http://aetnabenefits.thehelperbees.com\" target=\"_blank\" rel=\"noopener\">aetnabenefits.thehelperbees.com</a> and enter the username and password your account team sends you by email. Bookmark the page — you'll use it every day. Benefits Hub is a different system than HomeAlign, but they share the same login credentials — so if you already have a HomeAlign login from The Helper Bees, you don't need a new one. Just sign in with the same username and password you already use.",
-    visual:'shot', img:'assets/img/login.png', url:'aetnabenefits.thehelperbees.com', compact:true, vhCap:27, imgAspect:0.9486,
+    sub:"Go to <a href=\"https://aetnabenefits.thehelperbees.com\" target=\"_blank\" rel=\"noopener\">aetnabenefits.thehelperbees.com</a> and sign in with the email address and password your account team sent you. Bookmark the page — you'll use it every day.", caption:"Benefits Hub is a different system than HomeAlign, but they share the same login credentials. If you already have a HomeAlign login from The Helper Bees, you don't need a new one. Just sign in with the same email address and password you already use.", sidecap:true,
+    visual:'shot', img:'assets/img/login.png', url:'aetnabenefits.thehelperbees.com', compact:true, vhCap:36, imgAspect:0.9486,
     au:'02_step1_signin.mp3' },
 
   { t:'step', n:2, of:4,
     kicker:"Step 2",
     h:"Verify your identity",
     sub:"After you sign in, check your email for a 6-digit verification code and enter it to finish logging in.",
-    visual:'email', img:'assets/img/verify-email.png', vhCap:33, imgAspect:0.5534,
+    visual:'email', img:'assets/img/verify-email.png', vhCap:42, imgAspect:0.5534,
     au:'03_step2_verify.mp3' },
 
   { t:'tip',
@@ -234,11 +234,11 @@ var SCREENS = [
     kicker:"Step 4",
     h:"You're in",
     sub:"Once you're signed in, you'll land on your home screen — ready to search for members and view benefits.",
-    visual:'shot', img:'assets/img/home.png', url:'aetnabenefits.thehelperbees.com/home', vhCap:24, imgAspect:0.4164,
+    visual:'shot', img:'assets/img/home.png', url:'aetnabenefits.thehelperbees.com/home', vhCap:36, imgAspect:0.4164,
     au:'06_step4_home.mp3' },
 
   { t:'trylogin', au:'07_trylogin.mp3', auYes:'08_trylogin_yes.mp3', auNo:'09_trylogin_no.mp3',
-    signinUrl:'http://aetnabenefits.thehelperbees.com' },
+    signinUrl:'https://aetnabenefits.thehelperbees.com' },
 
   { t:'outro', au:'10_outro.mp3' }
 ];
@@ -338,7 +338,7 @@ function visual(s, opts){
   opts = opts || {};
   if(s.visual==='shot'){
     var b=el('div','browser'+(s.compact?' compact':''));
-    if(s.vhCap && s.imgAspect){ b.style.maxWidth = 'min(520px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
+    if(s.vhCap && s.imgAspect){ b.style.maxWidth = 'min(640px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
     var showAlt = opts.showAlt;
     var imgSrc = (showAlt && s.img2) ? s.img2 : s.img;
     b.innerHTML = urlBar(s.url) + '<div class="body"><img src="'+imgSrc+'" alt="" class="shot-img">'+'<button type="button" class="expand-btn" aria-label="Enlarge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>'+'</div>';
@@ -361,7 +361,7 @@ function visual(s, opts){
   }
   if(s.visual==='email'){
     var b2=el('div','emailcard');
-    if(s.vhCap && s.imgAspect){ b2.style.maxWidth = 'min(520px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
+    if(s.vhCap && s.imgAspect){ b2.style.maxWidth = 'min(640px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
     b2.innerHTML = '<div class="bar">Your inbox</div><img src="'+s.img+'" alt="" class="shot-img"><button type="button" class="expand-btn" aria-label="Enlarge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>';
     var expandBtn2 = b2.querySelector('.expand-btn'); if(expandBtn2){ expandBtn2.onclick=function(){ openZoom(s.img, s.h||''); }; }
     return b2;
@@ -449,6 +449,7 @@ function render(){
       }
     }
 
+    if(s.sidecap && s.caption){ vwrap.style.display='flex'; vwrap.style.gap='28px'; vwrap.style.alignItems='flex-start'; var capEl=vwrap.querySelector('.capnote'); if(capEl){ capEl.style.flex='1 1 280px'; capEl.style.marginTop='0'; } var brEl=vwrap.querySelector('.browser'); if(brEl){ brEl.style.flex='0 0 auto'; brEl.style.width='100%'; } }
     d2.appendChild(vwrap);
     stage.appendChild(d2);
     play(s.au);
@@ -480,7 +481,7 @@ function render(){
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>Good to know</div>'+
       '<h1 class="hl">Try it for real, anytime</h1>'+
-      '<p class="sub">Once your account team sends your username and password, use the button below to sign in for real — it\'s the best way to make sure everything\'s set up correctly. No need to do it right now to keep going.</p>'+
+      '<p class="sub">Once your account team sends your sign-in details, use the button below to sign in for real — it\'s the best way to make sure everything\'s set up correctly. No need to do it right now to keep going.</p>'+
       '<a class="cta-btn" href="'+s.signinUrl+'" target="_blank" rel="noopener">Go to Benefits Hub sign-in<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'+
       '<div class="confirm-prompt">If you\'ve already tried it — how\'d it go?</div>'+
       '<div class="confirm-row">'+
@@ -488,7 +489,7 @@ function render(){
         '<button type="button" class="confirm-btn'+(picked==='no'?' picked-no':'')+'" id="pickNo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>Ran into an issue</button>'+
       '</div>'+
       (picked==='yes' ? '<div class="confirm-reveal good"><b>Nice work — you\'re in!</b>One more thing to keep in your back pocket: if you ever forget your password, look for the &ldquo;Forgot password?&rdquo; link right on the sign-in page. It\'ll walk you through resetting it.</div>' : '')+
-      (picked==='no' ? '<div class="confirm-reveal warn"><b>No problem — this happens.</b>Reach out to your account manager for help getting signed in. You can keep going with this module in the meantime and try again later.</div>' : '')+
+      (picked==='no' ? '<div class="confirm-reveal warn"><b>No problem — this happens.</b>First, try the &ldquo;Forgot password?&rdquo; link on the sign-in page. If you still can\'t get in, <a href="https://aetna-thb.zendesk.com/hc/en-us/requests/new" target="_blank" rel="noopener" style="color:inherit;font-weight:700">submit a Zendesk ticket</a> with the Issue Type <span style=\"font-weight:700\">I need help logging in</span>. You can keep going with this module in the meantime and try again later.</div>' : '')+
       '</div>';
     d3a.innerHTML = html3a;
     stage.appendChild(d3a);

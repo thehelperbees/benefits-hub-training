@@ -1,0 +1,1118 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}body.guided .trainees { display: none; }
+</style></head><body>
+<title>Benefits Hub</title><link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Schibsted+Grotesk:wght@500;600;700&family=Francois+One&display=swap">
+<style>
+/* Layout: a faithful copy of the Benefits Hub web app (green bar, cream page, white cards),
+   with a thin training bar above it and a slide-out guide. Single light look, like the real app. */
+:root {
+  color-scheme: light;
+  --green: #003322;
+  --green-2: #0b4a35;
+  --yellow: #f0ee8c;
+  --gold: #ffd646;
+  --tile-on: #e6ea82;
+  --bg: #fcf7ee;
+  --paper: #ffffff;
+  --ink: #262626;
+  --ink-2: #26262699;
+  --line: #e6e1d6;
+  --head: #f5f5f5;
+  --orange: #e8680c;
+  --ok: #2e7d32;
+  --err: #c62828;
+  --info: #0277bd;
+  --svc: #f1f6f8;
+  --new: #7a3fd1;
+  --new-bg: #efe6fb;
+  --font: "Karla", "Roboto", "Helvetica", "Arial", sans-serif;
+  --display: "Schibsted Grotesk", "Karla", "Helvetica", sans-serif;
+  --logo: "Francois One", "Arial Narrow", sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--bg); color: var(--ink); }
+body { font-family: var(--font); font-size: 15px; line-height: 1.45; letter-spacing: .01em; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: #1f1f1f; }
+
+/* training bar (not part of BH) */
+.tbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: #1f1f1f; color: #f3f3f3; font-size: 13px;
+  padding-block: 6px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.tbar strong { color: var(--yellow); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; font-size: 11px; }
+.tbar .sp { flex: 1; }
+.tbtn { background: transparent; border: 1px solid #ffffff40; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 13px; }
+.tbtn:hover { background: #ffffff18; }
+.switch { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.switch input { accent-color: var(--new); }
+
+/* BH header */
+.bh-head { background: var(--green); height: 70px; display: flex; align-items: center; justify-content: space-between;
+  padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); box-shadow: 0 2px 4px #0003; }
+.logo { display: flex; align-items: center; gap: 6px; color: var(--yellow); font-family: var(--logo); font-size: 25px; letter-spacing: -.01em; background: none; border: 0; padding: 0; }
+.logo svg { width: 26px; height: 30px; }
+.hicons { display: flex; gap: 22px; align-items: center; }
+.hicon { position: relative; background: none; border: 0; color: var(--yellow); padding: 4px; display: grid; place-items: center; }
+.hicon svg { width: 26px; height: 26px; }
+.badge { position: absolute; top: -6px; right: -8px; background: #d32f2f; color: #fff; font-size: 11px; border-radius: 999px; min-width: 18px; height: 18px; display: grid; place-items: center; padding: 0 4px; }
+
+main { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 32px 64px; }
+.wrap { max-width: 1440px; margin: 0 auto; }
+.narrow { max-width: 1120px; margin: 0 auto; }
+h1.member { font-family: var(--display); font-weight: 600; font-size: 34px; letter-spacing: -.01em; margin: 0 0 6px; text-wrap: balance; }
+.sub { color: var(--ink-2); font-size: 15px; }
+.card { background: var(--paper); border-radius: 10px; box-shadow: 0 1px 3px #00000014; padding: 18px 22px; min-width: 0; }
+.card h2 { font-size: 21px; font-weight: 600; margin: 0 0 18px; letter-spacing: .01em; }
+.card h3 { font-size: 19px; font-weight: 600; margin: 0 0 12px; }
+.grid-member { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; margin-top: 36px; align-items: start; }
+.stack { display: grid; gap: 24px; min-width: 0; }
+@media (max-width: 960px) { .grid-member { grid-template-columns: minmax(0, 1fr); } }
+
+.ov { display: grid; grid-template-columns: 140px minmax(0,1fr) 150px minmax(0,1fr); gap: 16px 12px; padding: 0 10px 6px; font-size: 15px; }
+.ov dt { color: var(--ink); }
+.ov dd { margin: 0; font-weight: 700; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 760px) { .ov { grid-template-columns: 120px minmax(0,1fr); } }
+.edit-ico { background: none; border: 0; padding: 2px; color: var(--ink-2); display: inline-grid; }
+.edit-ico svg { width: 16px; height: 16px; }
+.inl { display: flex; gap: 6px; align-items: center; }
+.inl input { border: 1px solid #bbb; border-radius: 4px; padding: 4px 8px; width: 180px; max-width: 100%; }
+
+.recent { font-size: 14px; }
+.recent .t { display: flex; gap: 14px; align-items: center; font-size: 15px; margin-bottom: 26px; }
+.recent .t svg { width: 22px; height: 22px; color: var(--green); }
+.recent h4 { margin: 0 0 6px; font-weight: 500; font-size: 15px; }
+.recent p { margin: 0 0 3px; color: var(--ink-2); }
+
+.tiles { display: flex; flex-wrap: wrap; gap: 10px; }
+.tile { width: 190px; height: 98px; background: var(--paper); border: 1px solid #d6d6d6; border-radius: 4px; display: grid; place-items: center; align-content: center; gap: 10px; padding: 8px; font-size: 14.5px; box-shadow: 0 1px 2px #0000000d; }
+.tile svg { width: 30px; height: 30px; color: #2b2b2b; }
+.tile span { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile.on { background: var(--tile-on); border-color: var(--green); }
+.tile:hover:not(.on) { background: #fafaf3; }
+.hint { color: var(--ink-2); text-align: center; padding: 26px 0 30px; }
+
+.authrow { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)) auto; gap: 8px; align-items: end; margin: 10px 0 22px; }
+.authrow .k { color: var(--ink-2); font-size: 14px; }
+.authrow .v { font-size: 15px; font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) { .authrow { grid-template-columns: repeat(3, minmax(0,1fr)); } .authrow .btncell { grid-column: 1 / -1; } }
+
+.btn { border-radius: 999px; border: 0; padding: 9px 18px; font-weight: 700; font-size: 15px; letter-spacing: .02em; }
+.btn-primary { background: var(--green); color: var(--yellow); box-shadow: 0 2px 4px #0003; }
+.btn-primary:hover { background: var(--green-2); }
+.btn-primary:disabled { background: #e0e0e0; color: #9e9e9e; box-shadow: none; cursor: not-allowed; }
+.btn-outline { background: transparent; border: 1px solid var(--green); color: var(--green); font-weight: 500; }
+.btn-danger { background: transparent; border: 1px solid #e57373; color: var(--err); font-weight: 500; }
+.btn-text { background: none; border: 0; color: var(--green); font-weight: 700; padding: 8px 10px; }
+.btn-sm { padding: 5px 12px; font-size: 13.5px; }
+.btn-sec { background: var(--gold); color: var(--green); }
+
+.tscroll { overflow-x: auto; min-width: 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th { background: var(--head); text-align: left; font-weight: 700; padding: 14px 12px; white-space: nowrap; }
+td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+tr.click:hover td { background: #fafafa; cursor: pointer; }
+.num { font-variant-numeric: tabular-nums; }
+.c { text-align: center; }
+
+.chip { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+.chip.new { background: #e3f2fd; color: #0d47a1; }
+.chip.active { background: #e8f5e9; color: #1b5e20; }
+.chip.hold { background: #fff3e0; color: #b45309; }
+.chip.closed { background: #eeeeee; color: #555; }
+.chip.fail { background: #ffebee; color: #b71c1c; }
+.chip.done { background: #e0f2f1; color: #00695c; }
+
+.actbtns { display: grid; gap: 6px; justify-items: center; }
+.actbtn { border-radius: 999px; border: 0; padding: 4px 10px 4px 14px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 2px; min-width: 76px; justify-content: center; }
+.actbtn.add { background: var(--green); color: var(--yellow); }
+.actbtn.view { background: var(--gold); color: var(--green); }
+.actbtn svg { width: 18px; height: 18px; }
+.menu { position: absolute; z-index: 40; background: #fff; border-radius: 6px; box-shadow: 0 6px 18px #0003; min-width: 210px; padding: 6px 0; }
+.menu button { display: flex; width: 100%; text-align: left; background: none; border: 0; padding: 9px 16px; font-size: 14.5px; gap: 8px; align-items: center; }
+.menu button:hover { background: #f5f5f5; }
+
+.exp { background: #fff; padding: 18px 6px 8px; }
+.exp-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 28px; }
+@media (max-width: 860px) { .exp-grid { grid-template-columns: minmax(0,1fr); } }
+.kv { display: grid; grid-template-columns: 170px minmax(0,1fr); gap: 8px 12px; font-size: 14.5px; }
+.kv .k { color: var(--ink-2); font-weight: 500; }
+.kv .v { min-width: 0; overflow-wrap: anywhere; }
+.kd { display: grid; gap: 8px; font-size: 14.5px; }
+.kd div { display: flex; justify-content: space-between; gap: 12px; }
+.kd .k { color: var(--ink-2); }
+.enc { display: flex; justify-content: space-around; text-align: center; margin: 8px 0 12px; }
+.enc b { display: block; font-size: 24px; font-weight: 600; }
+.enc span { color: var(--ink-2); font-size: 13px; }
+.bar { height: 8px; border-radius: 4px; background: #eee; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--green); }
+hr.d { border: 0; border-top: 1px solid #e0e0e0; margin: 20px 0; }
+.narr { border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; min-height: 48px; white-space: pre-line; font-size: 14.5px; }
+.narr-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.foot { color: var(--ink-2); font-size: 13.5px; border-top: 1px solid #eee; padding-top: 12px; margin-top: 16px; }
+
+/* add referral */
+.pagehead { display: flex; gap: 22px; align-items: center; margin-bottom: 26px; }
+.back { width: 46px; height: 46px; border-radius: 50%; border: 1px solid #d0d0d0; background: transparent; display: grid; place-items: center; flex: none; }
+.back svg { width: 22px; height: 22px; color: #555; }
+.pagehead h1 { font-family: var(--font); font-weight: 600; font-size: 34px; margin: 0; letter-spacing: .01em; }
+.ar-top { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 26px; margin-bottom: 26px; }
+@media (max-width: 860px) { .ar-top { grid-template-columns: minmax(0,1fr); } }
+.bs { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; gap: 4px; }
+.bs b { font-size: 21px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.bs .o { color: var(--orange); } .bs .g { color: var(--ok); }
+.bs span { color: var(--ink-2); font-size: 13px; }
+.bs-bar { height: 6px; border-radius: 3px; background: #e0e0e0; margin: -4px 0 18px; overflow: hidden; }
+.bs-bar i { display: block; height: 100%; background: var(--ok); }
+.svc-title { font-size: 21px; font-weight: 600; margin: 8px 0 18px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.link { color: var(--green); text-decoration: underline; background: none; border: 0; padding: 0; font-size: 15px; font-weight: 500; }
+.filters { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 18px; }
+@media (max-width: 700px) { .filters { grid-template-columns: minmax(0,1fr); } }
+.fld { position: relative; }
+.fld label.float { position: absolute; top: -9px; left: 10px; background: #fff; padding: 0 4px; font-size: 12.5px; color: var(--ink-2); }
+.fld select, .fld input.big { width: 100%; height: 56px; border: 1px solid #c4c4c4; border-radius: 4px; padding: 0 14px; background: #fff; font-size: 16px; }
+.fld input.big.focus, .fld input.big:focus { border: 2px solid var(--green); outline: none; }
+.opts { position: absolute; left: 0; right: 0; top: 58px; background: #fff; border-radius: 4px; box-shadow: 0 6px 18px #0003; z-index: 30; max-height: 280px; overflow: auto; }
+.opts button { display: block; width: 100%; text-align: left; border: 0; background: none; padding: 12px 16px; }
+.opts button:hover { background: #f5f5f5; }
+.opts small { display: block; color: var(--ink-2); }
+.ssd { background: var(--svc); border: 1px solid #dfe8ec; border-radius: 8px; padding: 18px 22px; margin: 20px 0; }
+.ssd-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; font-size: 14.5px; }
+.ssd-grid b { display: block; margin-bottom: 4px; }
+.ssd-grid span { color: var(--ink-2); }
+@media (max-width: 760px) { .ssd-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.q { margin-bottom: 20px; }
+.q > label, .q .ql { display: block; font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+.q .req { color: var(--err); margin-left: 3px; }
+.q input[type=text], .q input[type=date], .q input[type=number], .q select, .q textarea { width: 100%; min-height: 46px; border: 1px solid #c4c4c4; border-radius: 4px; padding: 10px 14px; background: #fff; font-size: 15.5px; }
+.q textarea { min-height: 90px; resize: vertical; }
+.q .help { color: var(--ink-2); font-size: 13px; margin-top: 4px; }
+.q .err { color: var(--err); font-size: 13px; margin-top: 4px; }
+.ms { position: relative; }
+.ms-box { width: 100%; min-height: 46px; border: 1px solid #c4c4c4; border-radius: 4px; padding: 10px 40px 10px 14px; background: #fff; text-align: left; font-size: 15px; position: relative; }
+.ms-box::after { content: ""; position: absolute; right: 16px; top: 20px; border: 5px solid transparent; border-top-color: #666; }
+.ms-list { position: absolute; left: 0; right: 0; top: calc(100% + 2px); background: #fff; box-shadow: 0 6px 18px #0003; border-radius: 4px; max-height: 340px; overflow: auto; z-index: 30; padding: 6px 0; }
+.ms-list label { display: flex; gap: 10px; padding: 8px 14px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.ms-list label:hover { background: #f5f5f5; }
+.ms-list input { margin-top: 3px; accent-color: var(--green); }
+.ms-list small { display: block; color: var(--ink-2); }
+.grp { border: 1px dashed #cfd8dc; border-radius: 8px; padding: 14px 16px 2px; margin-bottom: 20px; }
+.grp-t { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 14px; }
+.order { display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 16px; }
+.qty { display: flex; gap: 10px; align-items: center; }
+.qty input { width: 80px; height: 46px; border: 1px solid #c4c4c4; border-radius: 4px; text-align: center; font-size: 16px; }
+.qty button { background: none; border: 0; font-size: 26px; width: 34px; color: #666; }
+.tp { text-align: right; } .tp b { display: block; font-weight: 600; margin-bottom: 8px; }
+.alert { border-radius: 6px; padding: 12px 14px; font-size: 14.5px; display: flex; gap: 10px; align-items: flex-start; margin-bottom: 16px; }
+.alert.info { background: #e5f6fd; color: #014361; }
+.alert.warn { background: #fff4e5; color: #663c00; }
+.alert svg { width: 20px; height: 20px; flex: none; margin-top: 1px; }
+
+/* cart */
+.cart-tbl th, .cart-tbl td { padding: 16px 20px; }
+.cart-tot { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+.cart-tot h3 { margin: 0; font-size: 24px; font-weight: 600; }
+.cart-tot .btns { display: flex; gap: 18px; flex-wrap: wrap; }
+.iconbtn { background: none; border: 0; padding: 4px; display: inline-grid; }
+.iconbtn svg { width: 24px; height: 24px; }
+.grouphead { padding: 12px 20px; background: #fbfbf6; font-weight: 600; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+/* home */
+.home { display: grid; place-items: center; align-content: center; min-height: 58vh; gap: 30px; text-align: center; }
+.home h1 { font-family: var(--display); font-size: clamp(30px, 5vw, 50px); font-weight: 600; margin: 0; letter-spacing: -.015em; text-wrap: balance; }
+.search { width: min(600px, 100%); position: relative; }
+.search input { width: 100%; height: 56px; border-radius: 999px; border: 1px solid #ddd; padding: 0 56px 0 22px; font-size: 16px; background: #fff; box-shadow: 0 1px 4px #0000000f; }
+.search button { position: absolute; right: 10px; top: 8px; border: 0; background: none; width: 40px; height: 40px; display: grid; place-items: center; }
+.search svg { width: 26px; height: 26px; color: #555; }
+.trainees { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 720px; }
+.trainee { border: 1px dashed #b9b3a3; background: #fffdf8; border-radius: 999px; padding: 6px 14px; font-size: 13.5px; }
+.trainee b { font-variant-numeric: tabular-nums; }
+.results { width: min(760px, 100%); text-align: left; }
+
+/* dialogs, toasts */
+.scrim { position: fixed; inset: 0; background: #0006; z-index: 70; display: grid; place-items: center; padding: 16px; }
+.dlg { background: #fff; border-radius: 10px; width: min(560px, 100%); max-height: calc(100vh - 32px); overflow: auto; box-shadow: 0 12px 40px #0005; }
+.dlg h2 { font-size: 20px; font-weight: 600; margin: 0; padding: 20px 24px 8px; }
+.dlg .body { padding: 8px 24px 12px; font-size: 15px; }
+.dlg .acts { display: flex; justify-content: flex-end; gap: 10px; padding: 12px 20px 18px; flex-wrap: wrap; }
+.toasts { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); left: max(20px, env(safe-area-inset-left, 0px)); z-index: 80; display: grid; gap: 8px; max-width: min(460px, calc(100% - 40px)); }
+.toast { border-radius: 6px; padding: 12px 16px; color: #fff; box-shadow: 0 4px 12px #0004; font-size: 14.5px; white-space: pre-wrap; display: flex; gap: 12px; align-items: flex-start; }
+.toast.ok { background: #2e7d32; } .toast.err { background: #d84315; } .toast.info { background: #0277bd; }
+.toast button { background: none; border: 0; color: #fff; margin-left: auto; font-size: 16px; line-height: 1; }
+
+/* 2027 notes */
+.nb { display: none; vertical-align: middle; margin-left: 6px; background: var(--new-bg); color: var(--new); border: 1px solid #d6c4f4; border-radius: 999px; font-size: 11px; font-weight: 700; padding: 1px 8px; letter-spacing: .03em; cursor: help; position: relative; white-space: nowrap; font-family: var(--font); line-height: 1.6; }
+body.notes .nb { display: inline-block; }
+body.notes .newwrap { outline: 2px dashed #b99be9; outline-offset: 4px; border-radius: 6px; }
+.nb:hover::after, .nb:focus::after { content: attr(data-tip); position: absolute; left: 0; top: calc(100% + 6px); width: 280px; max-width: 70vw; background: #2a1650; color: #fff; padding: 9px 11px; border-radius: 6px; font-weight: 500; font-size: 12.5px; letter-spacing: 0; white-space: normal; z-index: 90; line-height: 1.4; text-transform: none; }
+
+/* guide drawer */
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(420px, 100%); background: #fff; z-index: 75; box-shadow: -8px 0 30px #0003; display: flex; flex-direction: column;
+  padding-top: env(safe-area-inset-top, 0px); padding-right: env(safe-area-inset-right, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.drawer header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #eee; }
+.drawer header h2 { margin: 0; font-size: 18px; }
+.drawer .dbody { overflow: auto; padding: 14px 20px 30px; }
+.scn { border: 1px solid #e7e2d6; border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; }
+.scn h3 { margin: 0 0 4px; font-size: 15.5px; }
+.scn p { margin: 0 0 8px; color: #555; font-size: 13.5px; }
+.scn ol { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; display: grid; gap: 3px; }
+.scn .meta { font-size: 12px; color: var(--ink-2); }
+.legend { background: var(--new-bg); border-radius: 8px; padding: 10px 12px; font-size: 13px; color: #3d2470; margin-bottom: 14px; }
+@media (prefers-reduced-motion: no-preference) { .drawer { animation: slide .18s ease-out; } @keyframes slide { from { transform: translateX(30px); opacity: .6 } } }
+</style>
+
+<header class="bh-head">
+  <button class="logo" id="logoBtn" type="button" aria-label="Benefits Hub home">
+    <svg viewBox="0 0 26 30" aria-hidden="true"><ellipse cx="9" cy="5" rx="4" ry="4.5" fill="currentColor"/><path d="M4 10c-3 4-3 12 3 16 6 4 13 1 15-5 2-7-3-13-9-12-3 1-3 6 0 8 3 1 5-2 3-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M10 13c-2 3-1 8 3 9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+    THE HELPER BEES<sup style="font-size:9px">®</sup>
+  </button>
+  <div class="hicons">
+    <button class="hicon" id="cartBtn" type="button" aria-label="Cart"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM1 2v2h2l3.6 7.6-1.4 2.4A2 2 0 0 0 7 17h12v-2H7.4l1.1-2h7.5a2 2 0 0 0 1.7-1l3.6-6.5A1 1 0 0 0 20.4 4H5.2l-.9-2H1zm16 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg><span class="badge" id="cartBadge" hidden>0</span></button>
+    <button class="hicon" type="button" aria-label="Account"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zm0 14a8 8 0 0 1-6.2-3c.9-1.9 3.6-3 6.2-3s5.3 1.1 6.2 3A8 8 0 0 1 12 20z"/></svg></button>
+  </div>
+</header>
+
+<main id="app"></main>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div id="layer"></div>
+
+<script>
+/* =====================================================================================
+   TRAINING DATA. Everything below is invented for training. Edit this block to change
+   programs, hours, questions or members; the screens read from it.
+   Hours: for Aetna 2027 programs 1 point = 1 hour, so BH's point fields show hours.
+   ===================================================================================== */
+const CONFIG = {
+  today: "2027-03-10",
+  caseManager: { first: "Casey", last: "Trainer", email: "casey.trainer@example.test" },
+  trackingBase: "https://benefitshub.example.test/track/",
+
+  // One tile per program on a member's plan. expiry: yearEnd | quarterEnd | submitPlus30 | dischargePlus30
+  programs: {
+    IHSPC80: { label: "In-Home Support Personal Care", code: "Aetna-2027_IHSPC_80", hours: 80, period: "Yearly", expiry: "yearEnd", onePer: "year", service: "IHSPC", icon: "home" },
+    IHSPC40: { label: "In-Home Support Personal Care", code: "Aetna-2027_Group_IHSPC_40", hours: 40, period: "Yearly", expiry: "yearEnd", onePer: "year", service: "IHSPC", icon: "home" },
+    PD12:    { label: "In-Home Support Post-Discharge", code: "Aetna-2027_Group_PD_12", hours: 12, period: "Per discharge", expiry: "submitPlus30", topUp: true, failPrior: true, service: "PD", icon: "hospital" },
+    RAH60:   { label: "Recovery at Home", code: "Aetna-2027_RAH_60", hours: 60, period: "Per qualifying diagnosis", expiry: "dischargePlus30", topUp: true, failPrior: true, oncePerDx: true, pausesIHSPC: true, service: "RAH", icon: "heart" },
+    CC40:    { label: "Companion Care", code: "Aetna-Longevity-2027_Companion_40q", hours: 40, period: "Quarterly", expiry: "quarterEnd", onePer: "quarter", service: "CC", icon: "people" },
+  },
+
+  services: {
+    IHSPC: { id: 4101, name: "In-Home Support - Personal Care", category: "In-Home Support", desc: "Help with activities of daily living at home, by the hour", sdqs: ["bestNumber", "pp", "adlNeeds", "iadlNeeds", "careInterest"] },
+    PD:    { id: 4102, name: "In-Home Support - Post-Discharge", category: "In-Home Support", desc: "In-home help in the 30 days after a hospital or facility discharge", sdqs: ["bestNumber", "pp", "hospital", "anticipatedDischarge", "careNeeded", "conditions", "supportNeeds", "careInterest"] },
+    RAH:   { id: 4103, name: "Recovery at Home", category: "In-Home Support", desc: "In-home help after an acute inpatient stay for a qualifying diagnosis", sdqs: ["bestNumber", "pp", "hospital", "anticipatedDischarge", "careNeeded", "dx", "supportNeeds", "careInterest"] },
+    CC:    { id: 4104, name: "Companion Care", category: "Companionship", desc: "A certified companion for members living in a partner facility", sdqs: ["facility", "facilityContact", "facilityPhone", "prefDates", "prefTimes", "facilityRules", "ssbci", "careInterest"] },
+  },
+
+  // Service detail questions. type: Text | DropDown | Multiple | Date (the types BH renders today)
+  sdqs: {
+    bestNumber: { q: "Best number to reach member", type: "Text", required: true, help: "Mobile if the member has one. The phone on the member record comes from Aetna's eligibility file." },
+    pp: { group: true },
+    hospital: { q: "Current hospital / facility", type: "Text" },
+    anticipatedDischarge: { q: "Anticipated discharge date (may change)", type: "Date", help: "For planning only. The confirmed discharge date is recorded on the referral after the member goes home." },
+    careNeeded: { q: "Date care is needed", type: "Date", required: true, help: "May differ from the discharge date. THB schedules the first visit for this date." },
+    dx: { q: "Qualifying diagnosis - Recovery at Home (one per referral)", type: "DropDown", required: true,
+      options: ["Pneumonia: J09 Influenza due to identified novel influenza virus", "Pneumonia: J12 Viral pneumonia, not elsewhere classified", "Pneumonia: J13 Pneumonia due to Streptococcus pneumoniae", "Pneumonia: J14 Pneumonia due to Haemophilus influenzae", "Pneumonia: J15 Bacterial pneumonia, not elsewhere classified", "Pneumonia: J18.9 Pneumonia, unspecified organism", "Urologic: N30 Cystitis", "Urologic: N31 Neuromuscular dysfunction of bladder", "Urologic: N32 Other disorders of bladder", "Urologic: N34 Urethritis and urethral syndrome", "Urologic: N35 Urethral stricture", "Urologic: N39.0 Urinary tract infection, site not specified", "Urologic: N39.3 Stress incontinence", "Fracture: S32 Fracture of lumbar spine and pelvis", "Fracture: S42 Fracture of shoulder and upper arm", "Fracture: S52 Fracture of forearm", "Fracture: S62 Fracture at wrist and hand level", "Fracture: S72 Fracture of femur", "Fracture: S82 Fracture of lower leg including ankle", "Neurologic: G90 Disorders of autonomic nervous system", "Neurologic: G91 Hydrocephalus", "Neurologic: G93 Other disorders of brain", "Neurologic: G96 Other disorders of central nervous system", "Neurologic: G99 Other disorders of nervous system in diseases classified elsewhere", "MSK: M95.0 Acquired deformity of nose", "MSK: M95.2 Other acquired deformity of head", "MSK: M95.3 Other acquired deformity of neck", "MSK: M95.8 Other specified acquired deformities", "MSK: M95.9 Acquired deformity, unspecified", "CHF: I50.2 Systolic (congestive) heart failure", "CHF: I50.21 Acute systolic (congestive) heart failure", "CHF: I50.22 Chronic systolic (congestive) heart failure", "CHF: I50.23 Acute on chronic systolic (congestive) heart failure", "CHF: I50.9 Heart failure, unspecified"],
+      help: "Recovery at Home allows one referral per qualifying diagnosis, per member, per year." },
+    conditions: { q: "Qualifying chronic condition(s) (select all that apply)", type: "Multiple", required: true, list: "conditions" },
+    supportNeeds: { q: "Support needs (select at least one)", type: "Multiple", required: true, list: "support" },
+    adlNeeds: { q: "Support needs - activities of daily living (select at least two)", type: "Multiple", required: true, list: "adl", min: 2, rule: true, help: "Personal Care requires help with at least two ADLs." },
+    iadlNeeds: { q: "Support needs - instrumental ADLs & other support (select all that apply)", type: "Multiple", list: "iadl" },
+    careInterest: { q: "Care interest confirmed with member?", type: "DropDown", options: ["Yes - member expressed interest", "Not yet - please confirm on outreach", "Speaking with POA / POC only"] },
+    facility: { q: "Please provide the name of the facility where the member resides.", type: "Text", required: true },
+    facilityContact: { q: "Who should the Provider contact at the facility to coordinate scheduling? (Name and role/title)", type: "Text", required: true },
+    facilityPhone: { q: "Please provide the direct phone number and email address for the facility POC.", type: "Text", required: true },
+    prefDates: { q: "Please list the preferred date(s) for the Provider to perform the service. If multiple dates are acceptable, please include all options.", type: "Text", required: true },
+    prefTimes: { q: "Please specify the preferred time(s) or time window(s) for the Provider to visit the facility (e.g., \"Morning between 8-10 AM\" or \"Afternoons after 1 PM\").", type: "Text", required: true },
+    facilityRules: { q: "Does the facility have any specific scheduling rules or restrictions the Provider should be aware of? (visiting hours, check-in procedures, security protocols)", type: "Text", required: true },
+    ssbci: { q: "SSBCI chronic condition(s) (select at least one)", type: "Multiple", required: true, list: "ssbci", ssbci: true },
+  },
+
+  pointPerson: [
+    { k: "name", q: "Point person {n} name", type: "Text", req1: true, help1: "Who THB should work with to arrange care." },
+    { k: "rel", q: "Point person {n} relationship to member", type: "DropDown", req1: true, options: ["Member (self)", "Power of Attorney (POA)", "Point of Contact (POC) / family", "Facility / discharge planner"] },
+    { k: "phi", q: "Can PHI be shared with point person {n}?", type: "DropDown", req1: true, options: ["Yes - PHI may be shared", "No - treat as non-authorized", "Member contact only"] },
+    { k: "email", q: "Point person {n} email", type: "Text" },
+    { k: "mobile", q: "Point person {n} mobile", type: "Text" },
+    { k: "home", q: "Point person {n} home phone", type: "Text" },
+    { k: "time", q: "Point person {n} best time to reach", type: "Text" },
+  ],
+
+  lists: {
+    conditions: [
+      ["Anemia"], ["Autoimmune disorders", "Limited to: dermatomyositis; polyarteritis nodosa; polymyalgia rheumatica; polymyositis; psoriasis; psoriatic arthritis; rheumatoid arthritis; scleroderma; systemic lupus erythematosus"], ["Cancer"],
+      ["Cardiovascular disorders", "Limited to: cardiac arrhythmias; coronary artery disease; peripheral vascular disease; valvular heart disease"], ["Chronic alcohol use disorder and other substance use disorders (SUDs)"],
+      ["Chronic and disabling mental health conditions", "Limited to: anxiety disorders; eating disorders; bipolar disorders; major depressive disorders; paranoid disorder; PTSD; schizophrenia; schizoaffective disorder"],
+      ["Chronic conditions that impair vision, hearing (deafness), taste, touch and smell"], ["Chronic gastrointestinal disease", "Limited to: chronic liver disease; hepatitis B; hepatitis C; irritable bowel syndrome; inflammatory bowel disease; NAFLD; pancreatitis"],
+      ["Chronic heart failure"], ["Chronic kidney disease (CKD)", "Limited to: CKD not requiring dialysis; CKD requiring dialysis / ESRD"],
+      ["Chronic lung disorders", "Limited to: asthma; chronic bronchitis; COPD; cystic fibrosis; emphysema; pulmonary fibrosis; pulmonary hypertension"], ["Chronic pain"],
+      ["Conditions associated with cognitive impairment", "Limited to: Alzheimer's disease; disabling mental illness associated with cognitive impairment; intellectual and developmental disabilities; mild cognitive impairment; traumatic brain injuries"],
+      ["Conditions that require continued therapy services to maintain or retain functioning"], ["Conditions with functional challenges requiring similar services", "Limited to: arthritis; limb loss; paralysis; spinal cord injuries; stroke"],
+      ["Dementia"], ["Diabetes mellitus"], ["HIV/AIDS"], ["Hyperlipidemia"], ["Hypertension"], ["Immunodeficiency and immunosuppressive disorders"],
+      ["Neurologic disorders", "Limited to: ALS; chronic fatigue syndrome; epilepsy; extensive paralysis; fibromyalgia; Huntington's disease; MS; Parkinson's disease; polyneuropathy; spinal cord injuries; spinal stenosis; stroke-related neurologic deficit"],
+      ["Overweight, obesity, and metabolic syndrome"], ["Post-organ transplantation care"],
+      ["Severe hematologic disorders", "Limited to: aplastic anemia; chronic venous thromboembolic disorder; hemophilia; immune thrombocytopenic purpura; myelodysplastic syndrome; sickle-cell disease (excluding trait)"], ["Stroke"],
+    ],
+    support: [["ADL: Bathing & personal hygiene"], ["ADL: Dressing & grooming"], ["ADL: Toileting & continence"], ["ADL: Transfer assistance (bed / chair)"], ["ADL: Ambulation & mobility"], ["ADL: Feeding assistance"],
+      ["IADL: Meal preparation"], ["IADL: Medication reminders"], ["IADL: Light housekeeping"], ["IADL: Laundry"], ["IADL: Errands & shopping"], ["IADL: Transportation assistance"], ["IADL: Companion care & supervision"], ["IADL: In-home safety assessment"], ["Other (describe in referral notes)"]],
+    ssbci: [["Chronic alcohol use disorder and other substance use disorders (SUDs)"], ["Chronic and disabling mental health conditions"], ["Chronic heart failure"], ["Chronic kidney disease"], ["Chronic lung disorders"], ["Dementia"], ["Neurologic disorders"]],
+    iadl: [["Meal preparation"], ["Medication reminders"], ["Light housekeeping"], ["Laundry"], ["Errands & shopping"], ["Transportation assistance"], ["Companion care & supervision"], ["In-home safety assessment"], ["Other (describe in referral narrative)"]],
+    adl: [["Bathing & personal hygiene"], ["Dressing & grooming"], ["Toileting & continence"], ["Transfer assistance (bed / chair)"], ["Ambulation & mobility"], ["Feeding assistance"]],
+  },
+
+  closeReasons: ["Readmitted during the 30-day window (eligibility fail)", "Member declined service", "Member no longer eligible", "Entered in error"],
+
+  // Fake members. referrals: [program, received, status, hours, usedHours, extra]
+  members: [
+    { id: "TEST-1001", first: "Testmember", last: "Alpha", dob: "1948-04-02", phone: "555-0101", mobile: "555-0111", email: "", lang: "English",
+      addr: "101 Example Way", city: "Testville", state: "PA", zip: "00001", plan: "H3959-035", planType: "Individual D-SNP",
+      programs: ["IHSPC80", "RAH60"],
+      referrals: [["IHSPC80", "2027-01-12", "Accepted By Provider", 80, 18, { provider: "Sample Home Care Co." }]] },
+    { id: "TEST-1002", first: "Testmember", last: "Beta", dob: "1951-09-15", phone: "555-0102", mobile: "", email: "beta@example.test", lang: "English",
+      addr: "202 Sample Street", city: "Mocktown", state: "OH", zip: "00002", plan: "H0000-801-0000001", planType: "Group (Plan Sponsor)",
+      programs: ["IHSPC40", "PD12"],
+      referrals: [["PD12", "2027-01-20", "Completed", 12, 12, { provider: "Sample Home Care Co.", discharge: "2027-01-19" }]] },
+    { id: "TEST-1003", first: "Testmember", last: "Gamma", dob: "1940-12-30", phone: "555-0103", mobile: "", email: "", lang: "Spanish",
+      addr: "303 Partner Facility Rd, Rm 12", city: "Faketon", state: "FL", zip: "00003", plan: "H0000-020", planType: "Individual I-SNP",
+      programs: ["CC40"],
+      referrals: [["CC40", "2027-01-05", "Accepted By Provider", 20, 12, { provider: "Sample Companions LLC", facility: "Sample Partner Facility" }]] },
+    { id: "TEST-1004", first: "Testmember", last: "Delta", dob: "1955-06-21", phone: "555-0104", mobile: "555-0114", email: "", lang: "English",
+      addr: "404 Demo Avenue", city: "Testville", state: "PA", zip: "00004", plan: "H3959-088", planType: "Individual D-SNP",
+      programs: ["RAH60"],
+      referrals: [["RAH60", "2027-02-02", "Completed", 60, 41, { provider: "Sample Home Care Co.", dx: "Pneumonia: J18.9 Pneumonia, unspecified organism", discharge: "2027-02-01" }]] },
+    { id: "TEST-1005", first: "Testmember", last: "Epsilon", dob: "1946-02-11", phone: "555-0105", mobile: "555-0115", email: "", lang: "English",
+      addr: "505 Placeholder Ln", city: "Mocktown", state: "OH", zip: "00005", plan: "H0000-801-0000002", planType: "Group (Plan Sponsor)",
+      programs: ["PD12"],
+      referrals: [["PD12", "2027-03-02", "Accepted By Provider", 12, 5, { provider: "Sample Home Care Co.", discharge: "2027-03-01" }]] },
+    { id: "TEST-1006", first: "Testmember", last: "Zeta", dob: "1944-07-08", phone: "555-0106", mobile: "", email: "", lang: "English",
+      addr: "606 Partner Facility Rd, Rm 4", city: "Faketon", state: "FL", zip: "00006", plan: "H0000-020", planType: "Individual I-SNP",
+      programs: ["CC40"],
+      referrals: [] },
+  ],
+};
+
+/* New features for 2027, shown as purple tags when "Show new features for 2027" is on. */
+const NOTES = {
+  topUp: "When a post-discharge or Recovery at Home member has fewer hours left than one discharge's worth, BH asks if this is a new discharge and tops the hours back up.",
+  oncePerDx: "Recovery at Home is limited to one referral per qualifying diagnosis per member per year.",
+  onePer: "One Companion Care referral per member per calendar quarter, and one personal care referral per member per year per plan.",
+  expiry: "Expiration follows Aetna's rules: personal care 12/31, companion care at quarter end, post-discharge 30 days after submission. Recovery at Home starts at 30 days after submission and moves to 30 days after the confirmed discharge date once it's recorded (never past 12/31).",
+  discharge: "On a Recovery at Home referral, the CM or THB staff record the confirmed discharge date. The referral then expires 30 days after it. The date can be corrected later.",
+  readmit: "On a readmission, submitting the new post-discharge or Recovery at Home referral closes the member's open referral on the same program as Eligibility Failed. Its unused hours expire and don't come back.",
+  pause: "While a Recovery at Home referral is open, the personal care referral goes on hold and resumes when Recovery at Home ends.",
+  sdq: "Service question taken from the Aetna referral form.",
+  ssbci: "Companion Care is an SSBCI benefit, so the CM records at least one qualifying chronic condition.",
+  adlMin: "Personal Care requires help with at least two activities of daily living. BH won't let you continue with fewer.",
+  sdqAssumed: "Placeholder question, not from Aetna. Confirm or remove before training.",
+  narrative: "Care managers write the referral narrative on Add Referral and can edit it later (250 characters). When the service has questions, it starts with a pointer telling providers to review them.",
+  contact: "Care managers can update the member's email address. Today only internal staff can.",
+};
+
+/* ===================================================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const nb = (key, label) => `<span class="nb" tabindex="0" data-tip="${esc(NOTES[key])}">${label === "Assumed" ? "Assumed" : "New feature for 2027"}</span>`;
+const D = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+const iso = (dt) => dt.toISOString().slice(0, 10);
+const addDays = (s, n) => { const d = D(s); d.setUTCDate(d.getUTCDate() + n); return iso(d); };
+const fmt = (s) => { if (!s) return "-"; const d = D(s); return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`; };
+const quarterEnd = (s) => { const d = D(s); const q = Math.floor(d.getUTCMonth() / 3); return iso(new Date(Date.UTC(d.getUTCFullYear(), q * 3 + 3, 0))); };
+const quarterOf = (s) => `Q${Math.floor(D(s).getUTCMonth() / 3) + 1} ${D(s).getUTCFullYear()}`;
+const yearEnd = (s) => `${s.slice(0, 4)}-12-31`;
+const OPEN = new Set(["New", "Pending Assignment", "Accepted By Provider", "On Hold"]);
+
+const ICONS = {
+  home: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg>',
+  hospital: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>',
+  heart: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35 10.55 20C5.4 15.36 2 12.28 2 8.5A5.5 5.5 0 0 1 7.5 3 6 6 0 0 1 12 5.09 6 6 0 0 1 16.5 3 5.5 5.5 0 0 1 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+  people: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05A4.22 4.22 0 0 1 17 16.5V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>',
+  back: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>',
+  down: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="m7 10 5 5 5-5z"/></svg>',
+  up: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="m7 14 5-5 5 5z"/></svg>',
+  edit: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>',
+  eye: '<svg viewBox="0 0 24 24" fill="#0288d1"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>',
+  trash: '<svg viewBox="0 0 24 24" fill="#d32f2f"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>',
+  doc: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16a6.47 6.47 0 0 0 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>',
+  info: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>',
+};
+
+/* ------------------------------ state ------------------------------ */
+let S;
+let nextRef = 52001, nextAuth = 70101;
+function buildState() {
+  nextRef = 52001; nextAuth = 70101;
+  const members = CONFIG.members.map((m) => {
+    const auths = m.programs.map((pk) => ({ id: nextAuth++, program: pk, allowance: CONFIG.programs[pk].hours, topUps: 0 }));
+    const referrals = m.referrals.map(([pk, rec, status, hours, used, x = {}]) => {
+      const r = newReferral(m, auths.find((a) => a.program === pk), rec, hours, {});
+      Object.assign(r, { status, used, provider: x.provider || "Not yet assigned", discharge: x.discharge || "", answers: {} });
+      if (x.dx) r.answers.dx = x.dx;
+      if (x.facility) r.answers.facility = x.facility;
+      r.expires = computeExpiry(r);
+      r.narrative = "Referral created for training.";
+      return r;
+    });
+    return { ...m, auths, referrals };
+  });
+  return { route: { name: "home" }, members, cart: [], tile: {}, expanded: null, notes: false, guide: false, search: "" };
+}
+function newReferral(m, auth, received, hours, answers) {
+  return { id: nextRef++, member: m.id, auth: auth.id, program: auth.program, received, status: "New", hours, used: 0,
+    provider: "Not yet assigned", answers, discharge: "", narrative: "", docs: [], notes: [], holdUntil: "", createdBy: `${CONFIG.caseManager.first} ${CONFIG.caseManager.last}` };
+}
+function computeExpiry(r) {
+  const p = CONFIG.programs[r.program];
+  if (p.expiry === "yearEnd") return yearEnd(r.received);
+  if (p.expiry === "quarterEnd") return quarterEnd(r.received);
+  if (p.expiry === "submitPlus30") return addDays(r.received, 30);
+  if (p.expiry === "dischargePlus30") { const e = addDays(r.discharge || r.received, 30); const ye = yearEnd(r.received); return e > ye ? ye : e; }
+  return yearEnd(r.received);
+}
+const member = (id) => S.members.find((m) => m.id === id);
+const authOf = (m, id) => m.auths.find((a) => a.id === id);
+function balance(m, auth) {
+  const refs = m.referrals.filter((r) => r.auth === auth.id);
+  const used = refs.reduce((s, r) => s + r.used, 0);
+  const pending = refs.filter((r) => OPEN.has(r.status)).reduce((s, r) => s + Math.max(0, r.hours - r.used), 0);
+  const expired = refs.reduce((s, r) => s + (r.expiredHours || 0), 0);
+  return { allowance: auth.allowance, used, pending, remaining: auth.allowance - used - pending - expired };
+}
+
+/* ------------------------------ ui helpers ------------------------------ */
+function toast(msg, kind = "ok") {
+  const el = document.createElement("div");
+  el.className = `toast ${kind}`;
+  el.innerHTML = `<span>${esc(msg)}</span><button type="button" aria-label="Dismiss">×</button>`;
+  el.querySelector("button").onclick = () => el.remove();
+  $("#toasts").appendChild(el);
+  setTimeout(() => el.remove(), kind === "err" ? 9000 : 4500);
+}
+function dialog(html, onMount) {
+  const layer = $("#layer");
+  layer.innerHTML = `<div class="scrim" role="dialog" aria-modal="true"><div class="dlg">${html}</div></div>`;
+  const scrim = layer.firstElementChild;
+  scrim.addEventListener("click", (e) => { if (e.target === scrim) closeDialog(); });
+  onMount && onMount(scrim);
+  const f = scrim.querySelector("input, select, textarea, button.btn-primary");
+  f && f.focus();
+}
+function closeDialog() { $("#layer").innerHTML = ""; }
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeDialog(); closeMenus(); } });
+function closeMenus() { document.querySelectorAll(".menu").forEach((m) => m.remove()); }
+document.addEventListener("click", (e) => { if (!e.target.closest(".menu") && !e.target.closest("[data-menu]")) closeMenus(); });
+function go(route) { S.route = route; closeMenus(); render(); window.scrollTo(0, 0); }
+function chip(status) {
+  const cls = { "New": "new", "Pending Assignment": "new", "Accepted By Provider": "active", "On Hold": "hold", "Completed": "done", "Closed": "closed", "Eligibility Failed": "fail", "Member Declined Service": "closed" }[status] || "closed";
+  return `<span class="chip ${cls}">${esc(status)}</span>`;
+}
+
+/* ------------------------------ screens ------------------------------ */
+function render() {
+  $("#cartBadge").hidden = S.cart.length === 0;
+  $("#cartBadge").textContent = S.cart.length;
+  document.body.classList.toggle("notes", S.notes);
+  const r = S.route;
+  const app = $("#app");
+  if (r.name === "home") app.innerHTML = homeView();
+  else if (r.name === "member") app.innerHTML = memberView(member(r.id));
+  else if (r.name === "add") app.innerHTML = addView(member(r.id), r.auth);
+  else if (r.name === "cart") app.innerHTML = cartView();
+  bind();
+}
+
+function homeView() {
+  const q = S.search.trim().toUpperCase();
+  const hits = q ? S.members.filter((m) => m.id.includes(q) || `${m.first} ${m.last}`.toUpperCase().includes(q)) : [];
+  return `<div class="home">
+    <h1>Welcome to Benefits Hub, ${esc(CONFIG.caseManager.first)}</h1>
+    <form class="search" id="searchForm" role="search">
+      <label for="memberSearch" class="sr" hidden>Search by Member #</label>
+      <input id="memberSearch" placeholder="Search by Member #" value="${esc(S.search)}" autocomplete="off">
+      <button type="submit" aria-label="Search">${ICONS.search}</button>
+    </form>
+    ${q ? `<div class="results card"><div class="tscroll"><table><thead><tr><th>Member #</th><th>Name</th><th>Date of Birth</th><th>Plan</th></tr></thead><tbody>
+      ${hits.map((m) => `<tr class="click" data-open="${m.id}"><td>${m.id}</td><td>${esc(m.first)} ${esc(m.last)}</td><td>${fmt(m.dob)}</td><td>${esc(m.plan)}</td></tr>`).join("") || `<tr><td colspan="4" class="c">No members found for "${esc(S.search)}".</td></tr>`}
+    </tbody></table></div></div>` : ""}
+    <div class="trainees" aria-label="Training members">
+      ${S.members.map((m) => `<button class="trainee" type="button" data-open="${m.id}">Training member <b>${m.id}</b></button>`).join("")}
+    </div>
+  </div>`;
+}
+
+function memberView(m) {
+  const tile = S.tile[m.id];
+  const last = m.auths[0];
+  const lastRef = [...m.referrals].sort((a, b) => b.received.localeCompare(a.received))[0];
+  return `<div class="wrap">
+    <h1 class="member">${esc(m.first)} ${esc(m.last)}</h1>
+    <div class="sub">Member #: ${m.id}</div>
+    <div class="grid-member">
+      <div class="stack">
+        <section class="card"><h2>Overview</h2>
+          <dl class="ov">
+            <dt>Full Name</dt><dd>${esc(m.first)} ${esc(m.last)}</dd>
+            <dt>Date of Birth</dt><dd>${fmt(m.dob)}</dd>
+            <dt>Address</dt><dd>${esc(m.addr)}, ${esc(m.city)}, ${m.state}, ${m.zip}</dd>
+            <dt>Phone</dt><dd id="phoneCell">${contactView(m, "phone")}</dd>
+            <dt>Email</dt><dd id="emailCell">${contactView(m, "email")}</dd>
+            <dt>Preferred Language</dt><dd>${esc(m.lang)}</dd>
+          </dl>
+        </section>
+        <section class="card"><h2>Benefits</h2>
+          <div class="tiles">${m.auths.map((a) => { const p = CONFIG.programs[a.program];
+            return `<button type="button" class="tile ${tile === a.id ? "on" : ""}" data-tile="${a.id}" title="${esc(p.label)}">${ICONS[p.icon]}<span>${esc(p.label)}</span></button>`; }).join("")}</div>
+          ${tile ? authSection(m, authOf(m, tile)) : `<div class="hint">Select a benefit tile above to view authorizations and referrals</div>`}
+        </section>
+      </div>
+      <aside class="card recent">
+        <div class="t">${ICONS.doc}<span>Recent Activity</span></div>
+        <h4>Last Authorization</h4>
+        <p>Auth# ${last.id} updated at 1/1/2027 by Eligibility file</p>
+        ${lastRef ? `<p>Referral #${lastRef.id} received ${fmt(lastRef.received)}</p>` : `<p>No referrals found.</p>`}
+        <p>No referral notes found.</p>
+      </aside>
+    </div>
+  </div>`;
+}
+
+function contactView(m, field) {
+  const label = { phone: "phone", mobile: "mobile", email: "email" }[field];
+  const editing = S.editing === `${m.id}:${field}`;
+  if (editing) return `<span class="inl"><input id="ed-${field}" value="${esc(m[field])}" aria-label="Edit ${label}"><button class="iconbtn" data-save-contact="${field}" aria-label="Save" style="color:var(--ok)">${ICONS.check}</button><button class="iconbtn" data-cancel-contact aria-label="Cancel" style="color:var(--err)">${ICONS.x}</button></span>`;
+  const shown = `<span>${esc(m[field]) || '<span style="font-weight:400;color:var(--ink-2)">N/A</span>'}</span>`;
+  if (field !== "email") return shown;
+  return `${shown}<button class="edit-ico" data-edit-contact="${field}" aria-label="Edit ${label}">${ICONS.edit}</button>${nb("contact")}`;
+}
+
+function authSection(m, a) {
+  const p = CONFIG.programs[a.program];
+  const b = balance(m, a);
+  const refs = m.referrals.filter((r) => r.auth === a.id).sort((x, y) => y.received.localeCompare(x.received));
+  return `<h2 style="margin-top:26px">Authorizations for ${esc(p.label)}</h2>
+    <div class="authrow">
+      <div><div class="k">Effective</div><div class="v">1/1/2027</div></div>
+      <div><div class="k">Expires</div><div class="v">12/31/2027</div></div>
+      <div><div class="k">Plan code / option</div><div class="v">${esc(m.plan)}/-</div></div>
+      <div><div class="k">Plan Allowance</div><div class="v">${b.allowance.toFixed(2)}</div></div>
+      <div><div class="k">Used</div><div class="v">${b.used.toFixed(2)}</div></div>
+      <div><div class="k">Pending</div><div class="v">${b.pending.toFixed(2)}</div></div>
+      <div><div class="k">Remaining</div><div class="v">${b.remaining.toFixed(2)}</div></div>
+      <div class="btncell"><button class="btn btn-primary" data-add-ref="${a.id}" type="button">Add Referral</button>${p.topUp ? nb("topUp") : ""}</div>
+    </div>
+    ${refs.length ? referralsTable(m, refs) : `<div class="hint">No referrals found for ${esc(p.label)} benefit.</div>`}`;
+}
+
+function referralsTable(m, refs) {
+  return `<div class="tscroll"><table>
+    <thead><tr><th>Received</th><th>Status</th><th>Service</th><th>Provider</th><th class="c">Notes</th><th class="c">Encounters</th><th class="c">Points Used</th><th class="c">Expires ${nb("expiry")}</th><th class="c">Action</th><th></th></tr></thead>
+    <tbody>${refs.map((r) => { const open = S.expanded === r.id; const svc = CONFIG.services[CONFIG.programs[r.program].service];
+      return `<tr class="click" data-expand="${r.id}">
+        <td>${fmt(r.received)}</td><td>${chip(r.status)}${r.status === "On Hold" ? nb("pause", "Discovery") : ""}</td><td>${esc(svc.name)}</td><td>${esc(r.provider)}</td>
+        <td class="c">${r.notes.length}</td><td class="c">${r.used ? Math.ceil(r.used / 3) : 0}</td><td class="c num">${r.used.toFixed(2)}</td>
+        <td class="c">${r.expires ? fmt(r.expires) : '<span style="color:var(--ink-2);font-size:13px">After discharge<br>is confirmed</span>'}</td>
+        <td class="c"><div class="actbtns"><button class="actbtn add" data-menu="add" data-ref="${r.id}" type="button">Add${ICONS.down}</button><button class="actbtn view" data-menu="view" data-ref="${r.id}" type="button">View${ICONS.down}</button></div></td>
+        <td><button class="iconbtn" data-expand="${r.id}" aria-label="${open ? "Collapse" : "Expand"}">${open ? ICONS.up : ICONS.down}</button></td></tr>
+        ${open ? `<tr><td colspan="10" style="padding:0">${expanded(m, r)}</td></tr>` : ""}`; }).join("")}
+    </tbody></table></div>`;
+}
+
+function expanded(m, r) {
+  const p = CONFIG.programs[r.program];
+  const svc = CONFIG.services[p.service];
+  const pct = r.hours ? Math.min(100, (r.used / r.hours) * 100) : 0;
+  const needsDischarge = p.expiry === "dischargePlus30";
+  return `<div class="exp"><div class="exp-grid">
+    <div>
+      <h3>Service Details (Ref ID ${r.id})</h3>
+      <div class="kv">
+        <div class="k">Status</div><div class="v">${chip(r.status)} ${r.holdUntil ? `<span style="color:var(--ink-2);font-size:13.5px">Resumes ${r.holdUntil === "rah" ? "when Recovery at Home ends" : fmt(r.holdUntil)}</span>` : ""}</div>
+        <div class="k">Source</div><div class="v">Benefits Hub</div>
+        <div class="k">Service</div><div class="v">${esc(svc.name)}</div>
+        <div class="k">Service Provider</div><div class="v">${esc(r.provider)}</div>
+        <div class="k">Plan code/option</div><div class="v">${esc(m.plan)}/-</div>
+        <div class="k">Effective Period</div><div class="v">${fmt(r.received)} - ${r.expires ? fmt(r.expires) : "set when discharge is confirmed"} ${nb("expiry")}</div>
+        ${r.closeReason ? `<div class="k">Close reason</div><div class="v">${esc(r.closeReason)}</div>` : ""}
+      </div>
+      <hr class="d">
+      <div class="narr-head"><h3 style="margin:0">Referral Narrative ${nb("narrative")}</h3>${S.editNarr === r.id ? "" : `<button class="iconbtn" data-edit-narr="${r.id}" aria-label="Edit narrative" style="color:var(--ink-2)">${ICONS.edit}</button>`}</div>
+      ${S.editNarr === r.id
+        ? `<div class="q">${narrField("narrInput", svc, narrBody(svc, r.narrative))}</div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-text btn-sm" data-cancel-narr type="button">Cancel</button><button class="btn btn-primary btn-sm" data-save-narr="${r.id}" type="button">Save</button></div>`
+        : `<div class="narr">${esc(r.narrative) || '<span style="color:var(--ink-2)">No narrative yet.</span>'}</div>`}
+    </div>
+    <div>
+      <h3>Encounter Summary</h3>
+      <div class="enc"><div><b class="num">${r.hours}</b><span>Allowed</span></div><div><b class="num">${r.used}</b><span>Used</span></div><div><b class="num">${Math.max(0, r.hours - r.used)}</b><span>Remaining</span></div></div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <hr class="d">
+      <h3>Key Dates</h3>
+      <div class="kd">
+        <div><span class="k">Date Received:</span><span>${fmt(r.received)}</span></div>
+        <div><span class="k">Date Accepted:</span><span>${r.status === "New" ? "-" : fmt(addDays(r.received, 1))}</span></div>
+        <div><span class="k">Date Assigned:</span><span>${r.status === "New" ? "-" : fmt(addDays(r.received, 1))}</span></div>
+        <div><span class="k">Date Declined:</span><span>-</span></div>
+        ${needsDischarge ? `<div class="newwrap"><span class="k">Date Discharged: ${nb("discharge")}</span><span>${r.discharge ? fmt(r.discharge) : `<button class="link" data-discharge="${r.id}" type="button">Record</button>`}</span></div>` : ""}
+        ${r.answers.careNeeded ? `<div><span class="k">Care needed:</span><span>${fmt(r.answers.careNeeded)}</span></div>` : ""}
+      </div>
+    </div>
+  </div>
+  <hr class="d">
+  <h3>Encounters</h3>
+  ${r.used ? `<div class="tscroll"><table><thead><tr><th>Date</th><th>Status</th><th>Hours</th><th>Type</th></tr></thead><tbody>
+    ${Array.from({ length: Math.ceil(r.used / 3) }, (_, i) => { const h = Math.min(3, r.used - i * 3); return `<tr><td>${fmt(addDays(r.received, 2 + i * 3))}</td><td>${chip("Completed")}</td><td class="num">${h.toFixed(2)}</td><td>In-home visit</td></tr>`; }).join("")}
+  </tbody></table></div>` : `<div style="color:var(--ink-2);padding:6px 0 4px">No encounters yet.</div>`}
+  <div class="foot">Referral created by ${esc(r.createdBy)} on ${fmt(r.received)} and modified by ${esc(r.createdBy)} on ${fmt(r.received)}${r.docs.length ? ` · Documents: ${r.docs.map(esc).join(", ")}` : ""}</div>
+  </div>`;
+}
+
+function addView(m, authId) {
+  const a = authOf(m, authId);
+  const p = CONFIG.programs[a.program];
+  const svc = CONFIG.services[p.service];
+  const b = balance(m, a);
+  const f = S.form;
+  const openIHSPC = p.pausesIHSPC && m.referrals.find((r) => CONFIG.programs[r.program].service === "IHSPC" && OPEN.has(r.status) && r.status !== "On Hold");
+  const exp = previewExpiry(p, f);
+  return `<div class="narrow">
+    <div class="pagehead"><button class="back" data-back="${m.id}" aria-label="Back to member">${ICONS.back}</button>
+      <div><h1>Add Referral</h1><div class="sub">${esc(m.first)} ${esc(m.last)} | Member #: ${m.id}</div></div></div>
+    <div class="ar-top">
+      <section class="card"><h2>Authorization Information</h2>
+        <div class="tscroll"><table><thead><tr><th>Auth ID</th><th>Client Program</th><th>Plan Code</th><th>Plan Option</th><th>Status</th><th>Expires</th></tr></thead>
+        <tbody><tr><td>${a.id}</td><td>${esc(p.label)}</td><td>${esc(m.plan)}</td><td></td><td>Open</td><td>12/31/2027</td></tr></tbody></table></div>
+      </section>
+      <section class="card"><h2>Benefit Summary</h2>
+        <div class="bs-bar"><i style="width:${b.allowance ? (b.used / b.allowance) * 100 : 0}%"></i></div>
+        <div class="bs"><div><b class="o">${b.allowance}</b><br><span>Plan Allowance</span></div><div><b class="g">${b.used}</b><br><span>Used</span></div><div><b class="o">${b.pending}</b><br><span>Pending</span></div></div>
+      </section>
+    </div>
+    <section class="card" style="padding:22px 38px 28px">
+      <div class="svc-title">Available Services for ${esc(m.first)} ${esc(m.last)} in ${esc(f.zip)} <button class="link" data-addr type="button">(change service address)</button></div>
+      ${openIHSPC ? `<div class="alert warn newwrap">${ICONS.info}<div>This member has an open In-Home Support Personal Care referral (#${openIHSPC.id}). Recovery at Home hours apply first: when you submit this referral, the personal care referral goes on hold and resumes when Recovery at Home ends. ${nb("pause", "Discovery")}</div></div>` : ""}
+      <div class="filters">
+        <div class="fld"><label class="float" for="catSel">Service Category</label><select id="catSel"><option>All Categories</option><option>${esc(svc.category)}</option></select></div>
+        <div class="fld"><label class="float" for="svcSearch" ${f.svc ? "" : "hidden"}>Search For Services</label>
+          <input class="big ${f.svcOpen ? "focus" : ""}" id="svcSearch" placeholder="Search For Services" value="${f.svc ? esc(svc.name) : ""}" autocomplete="off" readonly>
+          ${f.svcOpen ? `<div class="opts" role="listbox"><button type="button" role="option" data-pick-svc>${esc(svc.name)}<small>${esc(svc.desc)}</small></button></div>` : ""}
+        </div>
+      </div>
+      ${f.svc ? `
+        <hr class="d">
+        <div class="ssd"><h3 style="margin:0 0 22px">Selected Service Details</h3>
+          <div class="ssd-grid"><div><b>Service ID</b><span>${svc.id}</span></div><div><b>Service Name</b><span>${esc(svc.name)}</span></div><div><b>Points</b><span>1 per hour</span></div><div><b>Status</b><span>Active</span></div><div style="grid-column:span 1"><b>Description</b><span>${esc(svc.desc)}</span></div></div>
+        </div>
+        <hr class="d">
+        <h2 style="font-size:21px;font-weight:600;margin:6px 0 18px">Service Questions</h2>
+        ${svc.sdqs.map((k) => sdqField(k, f)).join("")}
+        <div class="q newwrap"><label for="narrAdd">Referral narrative ${nb("narrative")}</label>${narrField("narrAdd", svc, f.narr)}</div>
+        <hr class="d">
+        <h2 style="font-size:21px;font-weight:600;margin:6px 0 14px">Order Details</h2>
+        <div class="order">
+          <div><div style="font-weight:600;margin-bottom:10px">Quantity</div>
+            <div class="qty"><button type="button" data-qty="-1" aria-label="Decrease quantity">−</button><input id="qty" inputmode="numeric" value="${f.qty ?? ""}" aria-label="Quantity"><button type="button" data-qty="1" aria-label="Increase quantity">+</button></div></div>
+          <div class="tp"><b>Total Points</b><span class="num">${f.qty || 0}</span></div>
+        </div>
+        <div class="alert info newwrap" style="margin-top:20px">${ICONS.info}<div>${exp} ${nb("expiry")}</div></div>
+        ${f.error ? `<div class="alert warn">${ICONS.info}<div>${esc(f.error)}</div></div>` : ""}
+        <div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn btn-primary" id="addToCart" type="button" ${formValid(svc, f) ? "" : "disabled"}>Add to Cart</button></div>
+      ` : ""}
+    </section>
+  </div>`;
+}
+
+const NARR_MAX = 250;
+const NARR_POINTER = "Providers - please review Service Detail Questions for care guidance.";
+const narrPrefix = (svc) => (svc.sdqs.length ? `${NARR_POINTER}\n` : "");
+function narrField(id, svc, val) {
+  const room = NARR_MAX - narrPrefix(svc).length;
+  return `${svc.sdqs.length ? `<div class="narr" style="min-height:0;margin-bottom:6px;color:var(--ink-2)">${esc(NARR_POINTER)}</div>` : ""}<textarea id="${id}" maxlength="${room}" aria-describedby="${id}-c">${esc(val)}</textarea><div id="${id}-c" class="help" style="color:var(--ink-2);font-size:13px;text-align:right">${(val || "").length}/${room}</div>`;
+}
+const narrBody = (svc, narr) => (narr.startsWith(NARR_POINTER) ? narr.slice(narrPrefix(svc).length) : narr);
+function previewExpiry(p, f) {
+  const t = CONFIG.today;
+  if (p.expiry === "yearEnd") return `This referral will expire on <b>${fmt(yearEnd(t))}</b>, the end of the plan year. Hours don't roll over.`;
+  if (p.expiry === "quarterEnd") return `This referral will expire on <b>${fmt(quarterEnd(t))}</b>, the end of ${quarterOf(t)}. Hours don't roll over to the next quarter.`;
+  if (p.expiry === "submitPlus30") return `This referral will expire on <b>${fmt(addDays(t, 30))}</b>, 30 days after submission (day one is tomorrow).`;
+  return `This referral will expire on <b>${fmt(addDays(t, 30))}</b>, 30 days after submission. When the confirmed discharge date is recorded, it moves to 30 days after discharge (day one is the day after discharge).`;
+}
+
+function sdqField(key, f) {
+  const def = CONFIG.sdqs[key];
+  if (def.group) return pointPersonFields(f);
+  return questionHTML(key, def, f.answers[key], f);
+}
+function questionHTML(key, def, val, f) {
+  const id = `q-${key}`;
+  const req = def.required ? `<span class="req">*</span>` : "";
+  let control = "";
+  if (def.type === "Text") control = `<input type="text" id="${id}" data-ans="${key}" value="${esc(val || "")}" placeholder="Enter your answer">`;
+  else if (def.type === "Date") control = `<input type="date" id="${id}" data-ans="${key}" value="${esc(val || "")}">`;
+  else if (def.type === "DropDown") control = `<select id="${id}" data-ans="${key}"><option value=""></option>${def.options.map((o) => `<option ${val === o ? "selected" : ""}>${esc(o)}</option>`).join("")}</select>`;
+  else if (def.type === "Multiple") {
+    const items = CONFIG.lists[def.list];
+    const sel = val || [];
+    control = `<div class="ms"><button type="button" class="ms-box" id="${id}" data-ms="${key}" aria-expanded="${f.msOpen === key}">${sel.length ? esc(sel.join(", ")) : "&nbsp;"}</button>
+      ${f.msOpen === key ? `<div class="ms-list">${items.map(([t, sub]) => `<label><input type="checkbox" data-msitem="${key}" value="${esc(t)}" ${sel.includes(t) ? "checked" : ""}><span>${esc(t)}${sub ? `<small>${esc(sub)}</small>` : ""}</span></label>`).join("")}</div>` : ""}</div>`;
+  }
+  const minErr = def.min && val && val.length > 0 && val.length < def.min ? `<div class="err">Select at least ${def.min}.</div>` : "";
+  return `<div class="q"><label for="${id}">${esc(def.q)}${req}${def.rule ? nb("adlMin") : def.ssbci ? nb("ssbci") : nb(def.assumed ? "sdqAssumed" : "sdq", def.assumed ? "Assumed" : "")}</label>${control}${def.help ? `<div class="help">${esc(def.help)}</div>` : ""}${minErr}</div>`;
+}
+function pointPersonFields(f) {
+  const block = (n) => CONFIG.pointPerson.map((pp) => questionHTML(`pp${n}_${pp.k}`, { q: pp.q.replace("{n}", n), type: pp.type, options: pp.options, required: n === 1 && pp.req1, help: n === 1 ? pp.help1 : "" }, f.answers[`pp${n}_${pp.k}`], f)).join("");
+  return `${block(1)}
+    ${f.morePP ? `${block(2)}${block(3)}` : `<p style="margin:0 0 20px"><button class="link" data-more-pp type="button">Show questions for point person 2 and 3 (optional)</button></p>`}`;
+}
+function formValid(svc, f) {
+  if (!f.qty || f.qty < 1) return false;
+  for (const k of svc.sdqs) {
+    if (k === "pp") { for (const pp of CONFIG.pointPerson) if (pp.req1 && !f.answers[`pp1_${pp.k}`]) return false; continue; }
+    const d = CONFIG.sdqs[k]; const v = f.answers[k];
+    if (d.required && (!v || (Array.isArray(v) && !v.length))) return false;
+    if (d.min && (!v || v.length < d.min)) return false;
+  }
+  return true;
+}
+
+function closingNotice() {
+  const lines = [];
+  const progs = new Set();
+  S.cart.forEach((it) => { if (!CONFIG.programs[it.program].failPrior || progs.has(`${it.member}:${it.program}`)) return; progs.add(`${it.member}:${it.program}`);
+    member(it.member).referrals.filter((r) => r.program === it.program && OPEN.has(r.status)).forEach((r) =>
+      lines.push(`Submitting will close referral #${r.id} (${esc(CONFIG.services[CONFIG.programs[r.program].service].name)}, created ${fmt(r.received)}) as Eligibility Failed. Its unused hours expire.`)); });
+  return lines.length ? `<div class="alert info newwrap" style="margin-top:20px">${ICONS.info}<div>${lines.join("<br>")} ${nb("readmit")}</div></div>` : "";
+}
+function cartView() {
+  const groups = {};
+  S.cart.forEach((it) => { (groups[it.auth] ||= []).push(it); });
+  const total = S.cart.reduce((s, i) => s + i.qty, 0);
+  const m = S.cart[0] && member(S.cart[0].member);
+  return `<div class="narrow">
+    <div class="pagehead"><button class="back" data-back="${m ? m.id : ""}" aria-label="Back">${ICONS.back}</button>
+      <div><h1>Referrals Summary</h1><div class="sub">${m ? `${esc(m.first)} ${esc(m.last)} | ` : ""}Items: ${total}</div></div></div>
+    ${S.cart.length ? `<section class="card" style="padding:0;overflow:hidden">${Object.entries(groups).map(([authId, items]) => { const p = CONFIG.programs[items[0].program]; const b = balance(member(items[0].member), authOf(member(items[0].member), Number(authId)));
+      return `<div class="tscroll"><table class="cart-tbl"><thead><tr><th>Service</th><th class="c">Quantity</th><th class="c">Points Each</th><th class="c">Total Points</th><th class="c">Actions</th></tr></thead><tbody>
+      ${items.map((it) => `<tr><td><b>${esc(CONFIG.services[p.service].name)}</b><div style="color:var(--ink-2);font-size:13px">Added: ${fmt(CONFIG.today)}</div></td>
+        <td class="c num">${it.qty}</td><td class="c num">1.00 pts</td><td class="c num"><b>${it.qty.toFixed(2)} pts</b></td>
+        <td class="c"><button class="iconbtn" data-sdqview="${it.key}" aria-label="Review SDQ answers" title="Review SDQs">${ICONS.eye}</button><button class="iconbtn" data-remove="${it.key}" aria-label="Remove item">${ICONS.trash}</button></td></tr>`).join("")}
+      </tbody></table></div>`; }).join("")}</section>
+      ${closingNotice()}
+      <section class="card" style="margin-top:28px"><h2 style="margin-bottom:10px">Service Address</h2><div>${esc(S.cart[0].addr)}<br>${esc(S.cart[0].city)}, ${esc(S.cart[0].state)} ${esc(S.cart[0].zip)}</div></section>
+      <div class="cart-tot"><h3>Total Points: ${total.toFixed(2)}</h3><div class="btns"><button class="btn btn-danger" id="clearCart" type="button">Clear Cart</button><button class="btn btn-outline" data-back="${m.id}" type="button">Continue Shopping</button><button class="btn btn-primary" id="checkout" type="button">Checkout</button></div></div>`
+    : `<section class="card"><p style="margin:0">Your cart is empty. Open a member, pick a benefit tile and choose Add Referral.</p></section>`}
+  </div>`;
+}
+
+/* ------------------------------ behaviour ------------------------------ */
+function startAdd(m, authId) {
+  S.form = { svc: false, svcOpen: false, answers: {}, narr: "", qty: null, zip: m.zip, addr: m.addr, city: m.city, state: m.state, msOpen: null, morePP: false, error: "" };
+  go({ name: "add", id: m.id, auth: authId });
+}
+function onAddReferral(m, authId) {
+  const a = authOf(m, authId);
+  const p = CONFIG.programs[a.program];
+  const b = balance(m, a);
+  if (!p.topUp || b.remaining >= p.hours) return startAdd(m, authId);
+  dialog(`<h2>Does this member need a new post-discharge referral? ${nb("topUp")}</h2>
+    <div class="body"><p style="margin-top:4px">${esc(m.first)} ${esc(m.last)} has <b>${b.remaining} of ${p.hours} hours</b> left on ${esc(p.label)}.</p>
+    <p>If the member needs a new post-discharge referral, their hours go back to <b>${p.hours}</b>. Leftover hours from the earlier discharge don't add on top.</p></div>
+    <div class="acts">${b.remaining > 0 ? `<button class="btn btn-text" data-tu="no" type="button">No, use remaining ${b.remaining} hours</button>` : ""}<button class="btn btn-primary" data-tu="yes" type="button">Yes, new discharge</button></div>`, (el) => {
+    el.querySelector('[data-tu="yes"]').onclick = () => { a.allowance += p.hours - b.remaining; a.topUps++; closeDialog(); toast(`Hours topped up to ${p.hours} for this new discharge.`); startAdd(m, authId); };
+    el.querySelector('[data-tu="no"]') && (el.querySelector('[data-tu="no"]').onclick = () => { closeDialog(); startAdd(m, authId); });
+  });
+}
+
+function refMenu(btn) {
+  closeMenus();
+  const m = member(S.route.id);
+  const r = m.referrals.find((x) => x.id === Number(btn.dataset.ref));
+  const p = CONFIG.programs[r.program];
+  const isOpen = OPEN.has(r.status);
+  const items = btn.dataset.menu === "add"
+    ? [["note", "Add Note"], ["doc", "Add Document"],
+       ...(p.expiry === "dischargePlus30" && isOpen ? [["discharge", `Discharge date ${nb("discharge")}`]] : []),
+       ["narr", `Edit Referral Narrative ${nb("narrative")}`]]
+    : [["notes", "View Notes"], ["docs", "View Documents"], ["sdq", "View SDQ"], ["track", "Copy Tracking Link"]];
+  const menu = document.createElement("div");
+  menu.className = "menu"; menu.setAttribute("role", "menu");
+  menu.innerHTML = items.map(([k, t]) => `<button type="button" role="menuitem" data-act="${k}">${t}</button>`).join("");
+  document.body.appendChild(menu);
+  const rc = btn.getBoundingClientRect();
+  menu.style.top = `${rc.bottom + window.scrollY + 4}px`;
+  menu.style.left = `${Math.max(8, Math.min(rc.left + window.scrollX, document.documentElement.clientWidth - 240))}px`;
+  menu.querySelectorAll("[data-act]").forEach((b) => b.onclick = () => { closeMenus(); refAction(m, r, b.dataset.act); });
+}
+
+function refAction(m, r, act) {
+  const svc = CONFIG.services[CONFIG.programs[r.program].service];
+  if (act === "note") dialog(`<h2>Add Note to Referral</h2><div class="body"><div class="q"><label for="noteType">Note Type<span class="req">*</span></label><select id="noteType"><option value=""></option>${NOTE_TYPES.map((x) => `<option>${esc(x)}</option>`).join("")}</select></div><div class="q"><label for="noteText">Note</label><textarea id="noteText"></textarea></div></div><div class="acts"><button class="btn btn-text" data-x type="button">Cancel</button><button class="btn btn-primary" id="saveNote" type="button">Save Note</button></div>`, (el) => {
+    el.querySelector("[data-x]").onclick = closeDialog;
+    el.querySelector("#saveNote").onclick = () => { const t = el.querySelector("#noteText").value.trim(), ty = el.querySelector("#noteType").value; if (!t || !ty) return; r.notes.push({ t, ty, d: CONFIG.today }); closeDialog(); toast("Note added."); render(); };
+  });
+  if (act === "doc") dialog(`<h2>Add Document</h2><div class="body"><p style="margin-top:0">Proof of POA / TPA, a discharge summary or authorization paperwork. Documents are visible to the THB coordinator.</p><div class="q"><label for="docFile">File</label><input type="file" id="docFile"></div><p class="help" style="color:var(--ink-2);font-size:13px">Training mock: the file stays on this device and only its name is shown.</p></div><div class="acts"><button class="btn btn-text" data-x type="button">Cancel</button><button class="btn btn-primary" id="saveDoc" type="button">Upload</button></div>`, (el) => {
+    el.querySelector("[data-x]").onclick = closeDialog;
+    el.querySelector("#saveDoc").onclick = () => { const f = el.querySelector("#docFile").files[0]; r.docs.push(f ? f.name : "discharge-summary.pdf"); closeDialog(); toast("Document uploaded."); S.expanded = r.id; render(); };
+  });
+  if (act === "discharge") {
+    const preview = (v) => { if (!v) return { html: "", ok: false, warn: false };
+      const next = computeExpiry({ ...r, discharge: v }); const cur = r.expires;
+      if (v > CONFIG.today) return { html: `<div class="alert warn">${ICONS.info}<div>The discharge date can't be in the future.</div></div>`, ok: false };
+      if (next < CONFIG.today) return { html: `<div class="alert warn">${ICONS.info}<div>This date would make the referral already expired. Contact THB.</div></div>`, ok: false };
+      const base = `<div class="alert info">${ICONS.info}<div>Expiration will change from <b>${fmt(cur)}</b> to <b>${fmt(next)}</b>.</div></div>`;
+      if (cur && next < cur) return { html: base + `<div class="alert warn">${ICONS.info}<div>This moves the expiration earlier than it is today. Save only if the member was discharged before the referral was created.</div></div>`, ok: true, warn: true };
+      return { html: base, ok: true, warn: false }; };
+    dialog(`<h2>Discharge date ${nb("discharge")}</h2><div class="body"><p style="margin-top:0">Record the date the member was discharged to home. The referral expires 30 days after it.</p><div class="q"><label for="dDate">Discharged to home<span class="req">*</span></label><input type="date" id="dDate" max="${CONFIG.today}" value="${esc(r.discharge || "")}"></div><div id="dPrev"></div></div><div class="acts"><button class="btn btn-text" data-x type="button">Cancel</button><button class="btn btn-primary" id="saveD" type="button" disabled>Save</button></div>`, (el) => {
+      el.querySelector("[data-x]").onclick = closeDialog;
+      const inp = el.querySelector("#dDate"), btn = el.querySelector("#saveD");
+      const upd = () => { const pv = preview(inp.value); el.querySelector("#dPrev").innerHTML = pv.html; btn.disabled = !pv.ok; btn.textContent = pv.warn ? "Save anyway" : "Save"; };
+      inp.oninput = inp.onchange = upd; upd();
+      btn.onclick = () => { const v = inp.value; if (!preview(v).ok) return; r.discharge = v; r.expires = computeExpiry(r); refreshHold(m, r); closeDialog(); toast(`Discharge date saved. Referral expires ${fmt(r.expires)}.`); S.expanded = r.id; render(); };
+    });
+  }
+  if (act === "narr") { S.expanded = r.id; S.editNarr = r.id; render(); $("#narrInput") && $("#narrInput").focus(); bindNarr(); }
+  if (act === "notes") dialog(`<h2>Notes - Referral #${r.id}</h2><div class="body">${r.notes.length ? r.notes.map((n) => `<p><b>${fmt(n.d)}</b> ${n.ty ? `<i>${esc(n.ty)}</i>: ` : ""}${esc(n.t)}</p>`).join("") : "<p>No notes yet.</p>"}</div><div class="acts"><button class="btn btn-primary" data-x type="button">Close</button></div>`, (el) => el.querySelector("[data-x]").onclick = closeDialog);
+  if (act === "docs") dialog(`<h2>Documents - Referral #${r.id}</h2><div class="body">${r.docs.length ? `<ul>${r.docs.map((d) => `<li>${esc(d)}</li>`).join("")}</ul>` : "<p>No documents yet.</p>"}</div><div class="acts"><button class="btn btn-primary" data-x type="button">Close</button></div>`, (el) => el.querySelector("[data-x]").onclick = closeDialog);
+  if (act === "sdq") showSdq(svc, r.answers, `SDQ Answers - ${svc.name}`);
+  if (act === "track") {
+    const url = `${CONFIG.trackingBase}TEST-${r.id}`;
+    const done = () => toast("Tracking link copied. Members and families can open it without logging in.", "info");
+    try { navigator.clipboard.writeText(url).then(done, () => showLink(url)); } catch { showLink(url); }
+  }
+}
+function bindNarr() { const t = $("#narrInput"); if (t) t.oninput = () => { $("#narrInput-c").textContent = `${t.value.length}/${t.maxLength}`; }; }
+function showLink(url) { dialog(`<h2>Tracking link</h2><div class="body"><p>Copy this link:</p><input class="big" style="width:100%;height:44px;border:1px solid #ccc;border-radius:4px;padding:0 10px" value="${esc(url)}" readonly onfocus="this.select()"></div><div class="acts"><button class="btn btn-primary" data-x type="button">Done</button></div>`, (el) => el.querySelector("[data-x]").onclick = closeDialog); }
+function showSdq(svc, answers, title) {
+  const rows = [];
+  svc.sdqs.forEach((k) => {
+    if (k === "pp") { [1, 2, 3].forEach((n) => CONFIG.pointPerson.forEach((pp) => { const v = answers[`pp${n}_${pp.k}`]; if (v) rows.push([pp.q.replace("{n}", n), v]); })); return; }
+    const v = answers[k]; if (v && (!Array.isArray(v) || v.length)) rows.push([CONFIG.sdqs[k].q, Array.isArray(v) ? v.join(", ") : CONFIG.sdqs[k].type === "Date" ? fmt(v) : v]);
+  });
+  dialog(`<h2>${esc(title)}</h2><div class="body">${rows.length ? rows.map(([q, a]) => `<div style="margin-bottom:12px"><div style="color:var(--ink-2);font-size:13.5px;font-weight:500">${esc(q)}</div><div>${esc(a)}</div></div>`).join("") : '<p style="color:var(--ink-2)">No answers recorded.</p>'}</div><div class="acts"><button class="btn btn-primary" data-x type="button">Close</button></div>`, (el) => el.querySelector("[data-x]").onclick = closeDialog);
+}
+function refreshHold(m, rah) {
+  if (!CONFIG.programs[rah.program].pausesIHSPC || !rah.expires) return;
+  m.referrals.forEach((x) => { if (x.status === "On Hold") x.holdUntil = addDays(rah.expires, 1); });
+}
+
+function addToCart() {
+  const m = member(S.route.id);
+  const a = authOf(m, S.route.auth);
+  const b = balance(m, a);
+  const f = S.form;
+  const inCart = S.cart.filter((i) => i.auth === a.id).reduce((s, i) => s + i.qty, 0);
+  if (f.qty > b.remaining - inCart) { f.error = `Insufficient points: this referral needs ${f.qty} hours and ${b.remaining - inCart} are available.`; return render(); }
+  S.cart.push({ key: `${Date.now()}`, member: m.id, auth: a.id, program: a.program, qty: f.qty, answers: structuredClone(f.answers), narr: f.narr, addr: f.addr, city: f.city, state: f.state, zip: f.zip });
+  toast("Added to cart.");
+  go({ name: "cart" });
+}
+
+function checkoutErrors() {
+  const errs = [];
+  S.cart.forEach((it) => {
+    const m = member(it.member); const p = CONFIG.programs[it.program];
+    const same = m.referrals.filter((r) => r.program === it.program);
+    if (p.onePer === "quarter") {
+      const hit = same.find((r) => OPEN.has(r.status) && quarterOf(r.received) === quarterOf(CONFIG.today));
+      if (hit) errs.push(`Auth ${it.auth}: Eligibility fail. Companion Care allows one referral per member per calendar quarter. Referral #${hit.id} is already open for ${quarterOf(CONFIG.today)}.`);
+    }
+    if (p.onePer === "year") {
+      const hit = same.find((r) => OPEN.has(r.status) && r.received.slice(0, 4) === CONFIG.today.slice(0, 4));
+      if (hit) errs.push(`Auth ${it.auth}: Eligibility fail. ${p.label} allows one referral per member per year on this plan. Referral #${hit.id} is already open for ${CONFIG.today.slice(0, 4)}.`);
+    }
+    if (p.oncePerDx && it.answers.dx) {
+      const hit = same.find((r) => r.answers.dx === it.answers.dx && r.received.slice(0, 4) === CONFIG.today.slice(0, 4));
+      if (hit) errs.push(`Auth ${it.auth}: Recovery at Home allows one referral per qualifying diagnosis per year. "${it.answers.dx.split(": ").pop()}" was already used on referral #${hit.id} in ${CONFIG.today.slice(0, 4)}.`);
+    }
+  });
+  return errs;
+}
+function doCheckout() {
+  dialog(`<h2>Confirm referrals?</h2><div class="body"><p style="margin-top:4px">You're about to submit ${S.cart.length} referral${S.cart.length > 1 ? "s" : ""} for ${S.cart.reduce((s, i) => s + i.qty, 0)} hours. THB will contact the member or their point person to confirm interest before any provider outreach.</p></div><div class="acts"><button class="btn btn-text" data-x type="button">Cancel</button><button class="btn btn-primary" id="confirmCo" type="button">Confirm</button></div>`, (el) => {
+    el.querySelector("[data-x]").onclick = closeDialog;
+    el.querySelector("#confirmCo").onclick = () => {
+      const errs = checkoutErrors();
+      if (errs.length) { closeDialog(); toast(`Checkout failed:\n${errs.join("\n")}`, "err"); return; }
+      let lastMember, lastAuth; const failed = [];
+      S.cart.forEach((it) => {
+        const m = member(it.member); const a = authOf(m, it.auth); const p = CONFIG.programs[it.program];
+        const r = newReferral(m, a, CONFIG.today, it.qty, it.answers);
+        const svcN = CONFIG.services[p.service];
+        r.narrative = it.narr || svcN.sdqs.length ? narrPrefix(svcN) + (it.narr || "") : ""; r.expires = computeExpiry(r);
+        if (p.failPrior) m.referrals.forEach((x) => { if (x.program === it.program && OPEN.has(x.status)) { x.expiredHours = Math.max(0, x.hours - x.used); x.status = "Eligibility Failed"; x.closeReason = `Closed on readmission: new referral #${r.id}`; failed.push(x.id); } });
+        m.referrals.push(r);
+        if (p.pausesIHSPC) m.referrals.forEach((x) => { if (CONFIG.programs[x.program].service === "IHSPC" && OPEN.has(x.status) && x.status !== "On Hold") { x.status = "On Hold"; x.holdUntil = "rah"; } });
+        lastMember = m; lastAuth = a.id; S.expanded = r.id;
+      });
+      S.cart = []; closeDialog(); toast(failed.length ? `Referrals submitted successfully. Referral #${failed.join(", #")} closed as Eligibility Failed.` : "Referrals submitted successfully");
+      S.tile[lastMember.id] = lastAuth;
+      go({ name: "member", id: lastMember.id });
+    };
+  });
+}
+
+function bind() {
+  const app = $("#app");
+  app.querySelectorAll("[data-open]").forEach((b) => b.onclick = () => { S.search = ""; go({ name: "member", id: b.dataset.open }); });
+  const sf = $("#searchForm");
+  if (sf) { sf.onsubmit = (e) => { e.preventDefault(); S.search = $("#memberSearch").value; const exact = S.members.find((m) => m.id === S.search.trim().toUpperCase()); if (exact) { S.search = ""; go({ name: "member", id: exact.id }); } else render(); }; }
+  app.querySelectorAll("[data-tile]").forEach((b) => b.onclick = () => { S.tile[S.route.id] = Number(b.dataset.tile); S.expanded = null; render(); });
+  app.querySelectorAll("[data-add-ref]").forEach((b) => b.onclick = () => onAddReferral(member(S.route.id), Number(b.dataset.addRef)));
+  app.querySelectorAll("tr[data-expand]").forEach((tr) => tr.onclick = (e) => { if (e.target.closest("[data-menu]")) return; const id = Number(tr.dataset.expand); S.expanded = S.expanded === id ? null : id; S.editNarr = null; render(); });
+  app.querySelectorAll("[data-menu]").forEach((b) => b.onclick = (e) => { e.stopPropagation(); refMenu(b); });
+  app.querySelectorAll("[data-discharge]").forEach((b) => b.onclick = (e) => { e.stopPropagation(); const m = member(S.route.id); refAction(m, m.referrals.find((r) => r.id === Number(b.dataset.discharge)), "discharge"); });
+  app.querySelectorAll("[data-edit-narr]").forEach((b) => b.onclick = (e) => { e.stopPropagation(); S.editNarr = Number(b.dataset.editNarr); render(); $("#narrInput").focus(); bindNarr(); });
+  app.querySelectorAll("[data-cancel-narr]").forEach((b) => b.onclick = () => { S.editNarr = null; render(); });
+  app.querySelectorAll("[data-save-narr]").forEach((b) => b.onclick = () => { const m = member(S.route.id); const r = m.referrals.find((x) => x.id === Number(b.dataset.saveNarr)); const sv = CONFIG.services[CONFIG.programs[r.program].service]; r.narrative = narrPrefix(sv) + $("#narrInput").value; S.editNarr = null; toast("Referral narrative updated!"); render(); });
+  app.querySelectorAll("[data-edit-contact]").forEach((b) => b.onclick = () => { S.editing = `${S.route.id}:${b.dataset.editContact}`; render(); const i = $(`#ed-${b.dataset.editContact}`); i && i.focus(); });
+  app.querySelectorAll("[data-cancel-contact]").forEach((b) => b.onclick = () => { S.editing = null; render(); });
+  app.querySelectorAll("[data-save-contact]").forEach((b) => b.onclick = () => { const k = b.dataset.saveContact; member(S.route.id)[k] = $(`#ed-${k}`).value.trim(); S.editing = null; toast("Member contact updated."); render(); });
+  app.querySelectorAll("[data-back]").forEach((b) => b.onclick = () => b.dataset.back ? go({ name: "member", id: b.dataset.back }) : go({ name: "home" }));
+
+  if (S.route.name === "add") {
+    const f = S.form;
+    const svcIn = $("#svcSearch");
+    svcIn.onclick = () => { f.svcOpen = !f.svcOpen; render(); };
+    const pick = app.querySelector("[data-pick-svc]");
+    if (pick) pick.onclick = () => { f.svc = true; f.svcOpen = false; render(); };
+    app.querySelectorAll("[data-ans]").forEach((el) => el.oninput = el.onchange = () => { f.answers[el.dataset.ans] = el.value; f.error = ""; refreshValidity(); });
+    app.querySelectorAll("[data-ans]").forEach((el) => { if (el.tagName === "SELECT") el.onchange = () => { f.answers[el.dataset.ans] = el.value; f.error = ""; render(); }; });
+    app.querySelectorAll("[data-ms]").forEach((b) => b.onclick = () => { f.msOpen = f.msOpen === b.dataset.ms ? null : b.dataset.ms; render(); const l = app.querySelector(".ms-list"); l && l.querySelector("input")?.focus({ preventScroll: true }); });
+    app.querySelectorAll("[data-msitem]").forEach((cb) => cb.onchange = () => {
+      const k = cb.dataset.msitem; const cur = new Set(f.answers[k] || []);
+      cb.checked ? cur.add(cb.value) : cur.delete(cb.value);
+      f.answers[k] = [...cur]; const y = window.scrollY; const st = app.querySelector(".ms-list").scrollTop;
+      render(); window.scrollTo(0, y); const l = app.querySelector(".ms-list"); if (l) l.scrollTop = st;
+    });
+    const more = app.querySelector("[data-more-pp]"); if (more) more.onclick = () => { f.morePP = true; render(); };
+    app.querySelectorAll("[data-qty]").forEach((b) => b.onclick = () => { f.qty = Math.max(1, (f.qty || 0) + Number(b.dataset.qty)); f.error = ""; render(); });
+    const na = $("#narrAdd"); if (na) na.oninput = () => { f.narr = na.value; $("#narrAdd-c").textContent = `${na.value.length}/${na.maxLength}`; };
+    // Training: typed hours register as you type (Total Points, Add to Cart and the guided Next update live), and leaving the box
+    // re-renders only when an error message has to clear, so a click on Add to Cart right after typing isn't swallowed by a re-render.
+    const q = $("#qty");
+    if (q) q.oninput = () => { const v = parseInt(q.value, 10); f.qty = Number.isFinite(v) && v > 0 ? v : null; const tp = app.querySelector(".tp .num"); if (tp) tp.textContent = f.qty || 0; refreshValidity(); };
+    if (q) q.onchange = () => { const v = parseInt(q.value, 10); f.qty = Number.isFinite(v) && v > 0 ? v : null; if (f.error) { f.error = ""; render(); } else refreshValidity(); };
+    const atc = $("#addToCart"); if (atc) atc.onclick = addToCart;
+    app.querySelector("[data-addr]").onclick = () => addressDialog();
+  }
+  if (S.route.name === "cart") {
+    app.querySelectorAll("[data-remove]").forEach((b) => b.onclick = () => { S.cart = S.cart.filter((i) => i.key !== b.dataset.remove); render(); });
+    app.querySelectorAll("[data-sdqview]").forEach((b) => b.onclick = () => { const it = S.cart.find((i) => i.key === b.dataset.sdqview); const svc = CONFIG.services[CONFIG.programs[it.program].service]; showSdq(svc, it.answers, `SDQ Answers - ${svc.name}`); });
+    const cc = $("#clearCart"); if (cc) cc.onclick = () => { S.cart = []; toast("Cart cleared.", "info"); render(); };
+    const co = $("#checkout"); if (co) co.onclick = doCheckout;
+  }
+}
+function refreshValidity() {
+  const m = member(S.route.id); const a = authOf(m, S.route.auth);
+  const svc = CONFIG.services[CONFIG.programs[a.program].service];
+  const btn = $("#addToCart"); if (btn) btn.disabled = !formValid(svc, S.form);
+}
+function addressDialog() {
+  const f = S.form;
+  dialog(`<h2>Change Service Address</h2><div class="body"><p style="margin-top:0;color:var(--ink-2)">Use the discharge-to address: where care will take place.</p>
+    <div class="q"><label for="a1">Street Address</label><input type="text" id="a1" value="${esc(f.addr)}"></div>
+    <div class="q"><label for="a2">Apt, Suite, Unit, etc.</label><input type="text" id="a2"></div>
+    <div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:10px">
+      <div class="q"><label for="a3">City</label><input type="text" id="a3" value="${esc(f.city)}"></div>
+      <div class="q"><label for="a4">State</label><input type="text" id="a4" value="${esc(f.state)}"></div>
+      <div class="q"><label for="a5">Zip Code</label><input type="text" id="a5" value="${esc(f.zip)}"></div></div></div>
+    <div class="acts"><button class="btn btn-text" data-x type="button">Cancel</button><button class="btn btn-primary" id="saveAddr" type="button">Save</button></div>`, (el) => {
+    el.querySelector("[data-x]").onclick = closeDialog;
+    el.querySelector("#saveAddr").onclick = () => {
+      const z = el.querySelector("#a5").value.trim();
+      if (!/^\d{5}$/.test(z)) { toast("Invalid zip code", "err"); return; }
+      const apt = el.querySelector("#a2").value.trim();
+      f.addr = el.querySelector("#a1").value.trim() + (apt ? `, ${apt}` : ""); f.city = el.querySelector("#a3").value.trim(); f.state = el.querySelector("#a4").value.trim(); f.zip = z;
+      closeDialog(); toast("Service address updated"); render();
+    };
+  });
+}
+
+/* ------------------------------ training guide ------------------------------ */
+const SCENARIOS = [
+  { t: "Refer a member to Recovery at Home", who: "TEST-1001", tile: "RAH60",
+    why: "Member has personal care and Recovery at Home on the same plan. Recovery at Home hours come first.",
+    steps: ["Search TEST-1001 and open the member.", "Select the Recovery at Home tile, then Add Referral.", "Pick the service and answer the questions: point person, care needed date, a qualifying diagnosis, support needs.", "Enter 60 hours, Add to Cart, then Checkout and Confirm.", "Back on the member page, the personal care referral now shows On Hold.", "Expand the new referral and choose Add > Discharge date. The dialog shows the new expiration (discharge + 30 days) before you save."] },
+  { t: "A second discharge in the same year", who: "TEST-1002", tile: "PD12",
+    why: "Group post-discharge gives 12 hours per discharge. The member used all 12 in January.",
+    steps: ["Open TEST-1002 and select In-Home Support Post-Discharge.", "Note Remaining is 0. Choose Add Referral.", "Answer Yes, new discharge. Hours go back to 12.", "Complete the questions and submit 12 hours. The referral expires 30 days after today."] },
+  { t: "Readmission during an open window", who: "TEST-1005", tile: "PD12",
+    why: "Aetna's rule: a readmission closes the open referral as eligibility fail, and a new referral is required.",
+    steps: ["Open TEST-1005 and select In-Home Support Post-Discharge. The open referral has 7 unused hours, and Remaining is 0.", "Choose Add Referral and answer Yes, new discharge. Hours go back to 12.", "Complete the questions and add 12 hours to the cart. The cart says the open referral will close as Eligibility Failed and its unused hours expire.", "Checkout and Confirm. The old referral shows Eligibility Failed, and its 7 unused hours don't come back."] },
+  { t: "Companion care: one referral per quarter", who: "TEST-1003", tile: "CC40",
+    why: "Companion care is 40 hours per calendar quarter and expires at quarter end.",
+    steps: ["Open TEST-1003 and select Companion Care. The open Q1 referral expires 3/31/2027.", "Choose Add Referral, add a few hours and check out.", "Checkout fails: only one Companion Care referral per quarter. Try again from April 1."] },
+  { t: "Recovery at Home: once per diagnosis", who: "TEST-1004", tile: "RAH60",
+    why: "60 hours per qualifying diagnosis per year. This member already had a pneumonia (J18.9) referral in February.",
+    steps: ["Open TEST-1004 and select Recovery at Home. Answer Yes, new discharge.", "Choose diagnosis J18.9 and check out. Checkout fails and names the diagnosis.", "Remove the cart item, start again with a different diagnosis such as S72 (fracture of femur), and it goes through."] },
+  { t: "Keep the referral up to date", who: "TEST-1001", tile: "IHSPC80",
+    why: "Everyday actions on an existing referral.",
+    steps: ["Open TEST-1001, select In-Home Support Personal Care and expand the referral.", "Edit the Referral Narrative (250 characters).", "Add > Add Document to attach POA paperwork.", "View > Copy Tracking Link to share status with the family.", "In Overview, add the member's email address."] },
+];
+function openGuide() {
+  const el = document.createElement("aside");
+  el.className = "drawer"; el.id = "drawer"; el.setAttribute("aria-label", "Training scenarios");
+  el.innerHTML = `<header><h2>Training scenarios</h2><button class="iconbtn" id="closeGuide" aria-label="Close">${ICONS.x}</button></header>
+    <div class="dbody">
+      <div class="legend">Today in this mockup is <b>${fmt(CONFIG.today)}</b>. Hours and points are the same thing for these programs. Purple <b>New feature for 2027</b> tags mark what's new; turn them off with "Show new features for 2027" before recording training.</div>
+      ${SCENARIOS.map((s, i) => `<div class="scn"><h3>${esc(s.t)}</h3><p>${esc(s.why)}</p><ol>${s.steps.map((x) => `<li>${esc(x)}</li>`).join("")}</ol>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span class="meta">Member ${s.who}</span><button class="btn btn-primary btn-sm" data-scn="${i}" type="button">Start</button></div></div>`).join("")}
+    </div>`;
+  document.body.appendChild(el);
+  $("#closeGuide").onclick = () => el.remove();
+  el.querySelectorAll("[data-scn]").forEach((b) => b.onclick = () => {
+    const s = SCENARIOS[Number(b.dataset.scn)]; const m = member(s.who);
+    S.tile[m.id] = m.auths.find((a) => a.program === s.tile).id; S.expanded = null;
+    if (window.innerWidth < 900) el.remove();
+    go({ name: "member", id: m.id });
+  });
+}
+
+$("#logoBtn").onclick = () => go({ name: "home" });
+$("#cartBtn").onclick = () => go({ name: "cart" });
+
+S = buildState();
+render();
+
+/* Added by the training team: Benefits Hub notes have a required Note Type that the SME mock leaves out. */
+const NOTE_TYPES = ["Visit Scheduled Within 1 Week", "Visit Scheduled Within 2 Weeks", "Visit Scheduled Within 1 Month", "Member Outreach in Progress (Contact Attempts)", "Member Declined Services", "Unable to Contact Member", "Unable to Staff", "Provider Outreach - Sent Email", "Provider Outreach - Left Message", "Provider Outreach - Sent Text", "Member Request to Delay Services", "Status Change", "General", "Escalation"];
+
+/* Added by the training team: the SME mock has no "create" scenario for these two benefits. */
+SCENARIOS.push(
+  { t: "Create a Personal Care referral", who: "TEST-1002", tile: "IHSPC40",
+    why: "Personal Care is help with activities of daily living at home, by the hour. This member has no Personal Care referral yet.",
+    steps: ["Search TEST-1002 and select In-Home Support Personal Care.", "Choose Add Referral and select the Personal Care service.", "Answer the questions: best number, point person, and at least two ADLs. IADLs and care interest are optional.", "Add the hours to the cart, then Checkout and Confirm.", "The new referral expires on 12/31/2027, the end of the plan year."] },
+  { t: "Create a Companion Care referral", who: "TEST-1006", tile: "CC40",
+    why: "Companion Care is for members who live in a partner facility, up to 40 hours per calendar quarter. This member has no Companion Care referral yet.",
+    steps: ["Search TEST-1006 and select Companion Care.", "Choose Add Referral and select the Companion Care service.", "Answer the six facility questions and choose at least one SSBCI chronic condition. Every question is required.", "Add the hours to the cart, then Checkout and Confirm.", "The new referral expires on 3/31/2027, the end of Q1 2027."] }
+);
+
+/* ---- hooks used by the training shell (aetna/engine/guide.js). Not part of the Benefits Hub screens. ---- */
+window.TM = {
+  get S() { return S; }, set S(v) { S = v; },
+  CONFIG, SCENARIOS, OPEN,
+  go: typeof go === "function" ? go : undefined,
+  render: typeof render === "function" ? render : undefined,
+  member: typeof member === "function" ? member : undefined,
+  authOf: typeof authOf === "function" ? authOf : undefined,
+  balance: typeof balance === "function" ? balance : undefined,
+  startAdd: typeof startAdd === "function" ? startAdd : undefined,
+  addToCart: typeof addToCart === "function" ? addToCart : undefined,
+  doCheckout: typeof doCheckout === "function" ? doCheckout : undefined,
+  onAddReferral: typeof onAddReferral === "function" ? onAddReferral : undefined,
+  refAction: typeof refAction === "function" ? refAction : undefined,
+  closeDialog: typeof closeDialog === "function" ? closeDialog : undefined,
+  formValid: typeof formValid === "function" ? formValid : undefined,
+  naBoth: typeof naBoth === "function" ? naBoth : undefined,
+  fmt: typeof fmt === "function" ? fmt : undefined,
+  esc: typeof esc === "function" ? esc : undefined,
+  refreshValidity: typeof refreshValidity === "function" ? refreshValidity : undefined,
+  reset() { S = buildState(); closeDialog(); closeMenus(); render(); },
+  startScenario(i) { S = buildState(); closeDialog(); const s = SCENARIOS[i]; const m = member(s.who); S.tile[m.id] = m.auths.find((a) => a.program === s.tile).id; go({ name: "member", id: m.id }); },
+};
+</script>
+
+</body></html>

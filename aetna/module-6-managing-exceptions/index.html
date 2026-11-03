@@ -328,7 +328,7 @@ var RECOGNIZE_STEP = { t:'step',
 var TROUBLESHOOT_CATEGORIES = [
   { title:"Verify and search", au:'02b_troubleshoot_verify.mp3', items:[
       "Confirm the member's identity — name, address, and date of birth.",
-      "Confirm the benefit type and program first \u2014 Personal Care, Post Discharge In Home Support, or Social Needs Companion.",
+      "Confirm the benefit first \u2014 Personal Care, Post-Discharge, Recovery at Home, or Companion Care.",
       "Check all referrals — not just the first result."
   ]},
   { title:"Read before you escalate", au:'02b_troubleshoot_read.mp3', items:[
@@ -360,8 +360,10 @@ var ZDACCESS_STEP = { t:'step',
 
 var BRANCH_STEP = { t:'step',
   h:"You'll fill out the Member Support Form",
-  sub:"This covers the most common exceptions — missed service visits, referral or authorization issues, benefit access, and system issues.",
-  visual:'shot', img:'assets/img/ticket-new.png', url:ZD_URL, wide:true, vhCap:46, imgAspect:0.97,
+  sub:"This covers the most common exceptions — missed service visits, referral or authorization issues, benefit access, and system issues. Click the Issue Type field to see its choices.",
+  visual:'shot', img:'assets/img/zd-form.png', img2:'assets/img/zd-form-options.png', sideReveal:true, url:ZD_URL, wide:true, vhCap:60, imgAspect:1.735,
+  hotspot:{ left:6.25, top:46.8, width:81.25, height:3.1, tag:'Click Issue Type', tagLeft:44, tagTop:41.2 },
+  caption:"Issue Type decides which team gets your ticket, so match the action you need. Ticket Submitted By tells whoever picks it up who to expect follow-up from: the member, you as case manager, or leadership.",
   au:'03_branch.mp3' };
 
 var SUPPORT_FORM_STEP = { t:'formfill',
@@ -411,7 +413,7 @@ var AFTERSUBMIT_STEP = { t:'step',
 var TIP_STEP = { t:'tip',
   scenario:"A member calls to say their scheduled Personal Care visit didn't happen today.",
   prompt:"What's the right move?",
-  reveal:"Log a support ticket with the details — that's it. A missed visit, a referral issue, or a benefit access problem all work the same way: submit the ticket with the right Issue Type and you're done. Only email your THB Account Coordinator with the ticket number if the situation is urgent and needs faster attention — that's the exception, not the norm.",
+  reveal:"Log a support ticket with the details — that's it. A missed visit, a referral issue, or a benefit access problem all work the same way: submit the ticket with the right Issue Type and you're done. Only email your account manager with the ticket number if the situation is urgent and needs faster attention — that's the exception, not the norm.",
   au:'07a_tip_prompt.mp3', auReveal:'07b_tip_reveal.mp3' };
 
 var TRYIT_STEP = { t:'tryit', au:'08_tryit.mp3',
@@ -548,7 +550,7 @@ function visual(s, opts){
     var capPx = s.wide ? 760 : 520;
     if(s.vhCap && s.imgAspect){ b.style.maxWidth = 'min('+capPx+'px, calc(' + s.vhCap + 'vh / ' + s.imgAspect + '))'; }
     var showAlt = opts.showAlt;
-    var imgSrc = (showAlt && s.img2) ? s.img2 : s.img;
+    var imgSrc = (showAlt && s.img2 && !s.sideReveal) ? s.img2 : s.img;
     b.innerHTML = urlBar(s.url) + '<div class="body"><img src="'+imgSrc+'" alt="" class="shot-img">'+'<button type="button" class="expand-btn" aria-label="Enlarge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>'+'</div>';
     var expandBtn = b.querySelector('.expand-btn'); if(expandBtn){ expandBtn.onclick=function(){ var curImg=b.querySelector('.shot-img'); openZoom(curImg?curImg.src:imgSrc, s.h||''); }; }
     if(s.hotspot && !showAlt){
@@ -599,7 +601,7 @@ function visual(s, opts){
       '<div class="afterresult-card"><h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Most tickets <span class="pill">Default</span></h5>'+
       '<p>Once you hit submit, you\'re done. The ticket routes automatically based on the Issue Type you selected — no email or follow-up needed from you.</p></div>'+
       '<div class="afterresult-card rare"><h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22V3"/></svg>Need to escalate? <span class="pill">Urgent only</span></h5>'+
-      '<p>Selecting the Issue Type routes your ticket to the internal department who\'ll assist you — that\'s normally all it takes. If the ticket is <b>urgent</b>, send a quick email to your THB Account Coordinator with the ticket number so they can help move it along faster.</p></div>';
+      '<p>Selecting the Issue Type routes your ticket to the internal team that will assist you — that\'s normally all it takes. If the ticket is <b>urgent</b>, send a quick email to your account manager with the ticket number so they can help move it along faster.</p></div>';
     return b6;
   }
   if(s.visual==='troubleshoot'){
@@ -634,6 +636,19 @@ function visual(s, opts){
   }
 }
 
+function addSidePane(s, vwrap){
+  if(vwrap.querySelector('.sidepane')) return;
+  vwrap.style.display='flex'; vwrap.style.gap='28px'; vwrap.style.alignItems='flex-start'; vwrap.style.flexWrap='wrap';
+  var br=vwrap.querySelector('.browser'); if(br){ br.style.flex='0 0 auto'; br.style.width='100%'; }
+  var pane=el('div','sidepane'); pane.style.flex='1 1 340px'; pane.style.minWidth='300px';
+  var im=el('img'); im.src=s.img2; im.alt='';
+  im.style.cssText='display:block;width:auto;max-width:100%;max-height:50vh;border-radius:12px;border:1px solid var(--sand);background:#fff;cursor:zoom-in;';
+  im.onclick=function(){ openZoom(s.img2, 'Issue Type and Ticket Submitted By'); };
+  pane.appendChild(im);
+  var cap=vwrap.querySelector('.capnote'); if(cap){ cap.style.display='flex'; cap.style.marginTop='12px'; pane.appendChild(cap); }
+  vwrap.appendChild(pane);
+}
+
 function expandStep(s, vwrap){
   if(answered[i]) return;
   answered[i] = true;
@@ -642,6 +657,7 @@ function expandStep(s, vwrap){
   var tag = vwrap.querySelector('.hotspot-tag');
   if(hbtn) hbtn.remove();
   if(tag) tag.remove();
+  if(s.sideReveal){ addSidePane(s, vwrap); next.disabled=false; return; }
   if(img){
     img.style.opacity='0';
     setTimeout(function(){
@@ -669,7 +685,7 @@ function render(){
       '<div class="cover-badge"><img src="../assets/img/bee-icon.png" alt="" style="width:20px;height:20px;flex:none;">Benefits Hub</div>'+
       '<h1 class="hl">Managing Common Exceptions and Escalations</h1>'+
       '<p class="sub">Not every issue can be resolved inside Benefits Hub. In the next few minutes, you\'ll learn how to recognize when to escalate, submit a support ticket, and understand how tickets get routed once you submit.</p>'+
-      '<div class="cover-meta"><div><b>~4 minutes</b><span>self-paced</span></div></div>'+
+      '<div class="cover-meta"><div><b>~10 minutes</b><span>self-paced</span></div></div>'+
       '</div>';
     stage.appendChild(d);
     play(s.au);
@@ -696,6 +712,7 @@ function render(){
         cap.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>'+s.caption+'</span>';
         vwrap.appendChild(cap);
       }
+      if(s.sideReveal && expanded) addSidePane(s, vwrap);
       next.disabled = !expanded;
     } else {
       vwrap.appendChild(visual(s));
@@ -888,7 +905,7 @@ function render(){
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>All set</div>'+
       '<h1 class="hl">You\'re ready to manage exceptions and escalations.</h1>'+
-      '<p class="sub">You now know how to recognize when to escalate, submit a support ticket, and understand how tickets get routed once you submit. Head to the Knowledge Check next — you\'ll walk through a full scenario, take a short quiz, and earn your certificate of completion.</p>'+
+      '<p class="sub">You now know how to recognize when to escalate, submit a support ticket, and understand how tickets get routed once you submit. Head to the Knowledge Check next — you\'ll handle four scenarios, one for each benefit, take a short quiz, and earn your certificate of completion.</p>'+
       '</div>';
     stage.appendChild(d3);
     next.disabled = false;
@@ -896,7 +913,7 @@ function render(){
   }
 }
 
-function finish(){ window.location.href='../../Begin-Training.html'; }
+function finish(){ window.location.href='../Begin-Training.html'; }
 
 function revealTip(s,wrap,btn){
   if(answered[i]) return;
