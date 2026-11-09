@@ -4,10 +4,18 @@
    care interest (optional), narrative (optional). `say` = narration script, `sub` = on-screen caption. */
 (function () {
   var K = GuideKit({
-    member: 'TEST-1006', program: 'CC40', qty: 8,
+    member: 'TEST-1006', program: 'CC40', qty: 40,
     groups: [['facility', 'facilityContact'], ['facilityPhone'], ['prefDates', 'prefTimes'], ['facilityRules'], ['ssbci']]
   });
-  var S = K.S, MID = K.MID, Q2 = 4;
+  var S = K.S, MID = K.MID;
+  /* a second referral in the same quarter: the first one used the whole 40-point allotment, so Add to Cart is refused */
+  function blocked(H) { var f = S(H).form; return !!(f && /Insufficient points/.test(f.error || '')); }
+  function startSecond(H) {
+    if (!K.newRef(H)) K.submit(H);
+    S(H).cart = []; if (S(H).route.name !== 'member') H.openMember(MID); H.selectTile(MID, 'CC40');
+    K.begin(H); S(H).form.svc = true; K.fill(H, K.GROUPS.length); H.TM.render();
+  }
+  function errBox(H, doc) { return Array.prototype.slice.call(doc.querySelectorAll('.alert.warn')).filter(function (e) { return /Insufficient points/.test(e.textContent); })[0] || doc.querySelector('#addToCart'); }
 
   window.GUIDE_CONFIG = {
     engine: '../engine/bh-mock.html',
@@ -111,13 +119,12 @@
         enter: function (H) { K.ensureForm(H, 4); },
         target: '#narrAdd', tag: 'Optional' },
 
-      { id: 'hours', au: 'cc_11_hours.mp3',
-        h: 'Enter the hours',
-        sub: 'Enter the number of <b>hours</b> for this referral, up to the 40 hours remaining. For these Aetna programs <b>1 point = 1 hour</b>. Read the note below: the referral expires at the end of the quarter, 3/31/2027, and hours don\'t roll over to the next quarter.',
-        say: 'Under Order Details, enter the hours for this referral, up to the forty remaining. One point equals one hour. Read the note under the quantity: this referral expires at the end of the quarter, and hours don\'t roll over to the next one. So if a member has hours left on the last day of the quarter, they don\'t carry forward.',
-        enter: function (H) { K.ensureForm(H, 4); delete S(H).form.qty; H.TM.render(); },
-        target: '#qty', tag: 'Enter the hours',
-        done: function (H) { var f = S(H).form; return !!(f && f.qty >= 1); } },
+      { id: 'hours', au: 'cc_11_hours.mp3', info: true,
+        h: 'Check the order details',
+        sub: 'Under <b>Order Details</b>, <b>Quantity</b> is <b>1</b> and <b>Total Points</b> is <b>40</b>. Every Aetna referral is one item that costs the full allotment, so this referral covers the member\'s 40 hours for the quarter. There is nothing to type. Read the note below: the referral expires at the end of the quarter, 3/31/2027, and hours don\'t roll over to the next quarter.',
+        say: 'Look at Order Details. The quantity is one, and total points is forty. Every Aetna referral is one item that costs the full allotment, so this referral covers the member\'s forty hours for the quarter, and there\'s nothing to type. Read the note under the order details: this referral expires at the end of the quarter, and hours don\'t roll over to the next one.',
+        enter: function (H) { K.ensureForm(H, 4); },
+        target: function (H, doc) { return doc.querySelector('.order'); }, tag: '1 item, 40 points' },
 
       { id: 'cart', au: 'cc_12_cart.mp3',
         h: 'Add it to the cart',
@@ -152,38 +159,30 @@
         h: 'Try a second referral this quarter',
         sub: 'Companion Care allows one referral per member per calendar quarter. To see what happens when you try for a second one, select <b>Add Referral</b> again.',
         say: 'Now the quarter rule. A member can have only one companion care referral per calendar quarter. Click Add Referral again, to see what happens if you try for a second.',
-        enter: function (H) { K.ensureFirstDone(H, Q2); S(H).expanded = null; H.TM.render(); },
+        enter: function (H) { if (!K.newRef(H)) K.submit(H); if (S(H).route.name !== 'member') H.openMember(MID); H.selectTile(MID, 'CC40'); S(H).expanded = null; H.TM.render(); },
         target: '[data-add-ref]', tag: 'Select Add Referral',
         done: function (H) { return H.route().name === 'add'; } },
 
       { id: 'second-cart', au: 'cc_17_second_cart.mp3',
-        h: 'Add it to the cart',
-        sub: 'We filled in the questions and a few hours for you. Select <b>Add to Cart</b>.',
-        say: 'We\'ve filled in the questions and a few hours for you. Click Add to Cart.',
-        enter: function (H) { K.startSecond(H, Q2); },
+        h: 'Try to add it to the cart',
+        sub: 'We filled in the questions for you. Notice <b>Total Points</b> is 40 again. Select <b>Add to Cart</b>.',
+        say: 'We\'ve filled in the questions for you. Notice the total points: forty again. Click Add to Cart.',
+        enter: function (H) { if (!(H.route().name === 'add' && S(H).form && S(H).form.svc)) startSecond(H); },
         target: '#addToCart', tag: 'Select Add to Cart',
-        done: function (H) { return H.route().name === 'cart'; } },
-
-      { id: 'second-checkout', au: 'cc_18_second_checkout.mp3',
-        h: 'Try to check out',
-        sub: 'Select <b>Checkout</b>, then <b>Confirm</b>.',
-        say: 'Try to check out. Click Checkout, then Confirm.',
-        enter: function (H) { var c = S(H).cart; if (!(H.route().name === 'cart' && c.length === 1 && c[0].qty === Q2)) K.secondInCart(H, Q2); },
-        target: K.confirmTarget, tag: K.confirmTag,
-        done: K.checkoutFailed },
+        done: blocked },
 
       { id: 'second-read', au: 'cc_19_second_read.mp3', info: true,
         h: 'Read the message',
-        sub: 'Checkout failed with an <b>Eligibility fail</b> message: <b>Companion Care allows one referral per member per calendar quarter.</b> It names the referral that is already open for Q1 2027. The new item stays in the cart, so you can remove it. A new referral can be created from April 1.',
-        say: 'Checkout fails with an eligibility fail message. It says companion care allows one referral per member, per calendar quarter, and it names the referral that\'s already open for this quarter. The new item stays in your cart, so you can remove it. A new companion care referral can be created starting April first, when the next quarter begins.',
-        enter: function (H) { var c = S(H).cart; if (!(H.route().name === 'cart' && c.length === 1 && c[0].qty === Q2)) K.secondInCart(H, Q2); if (!H.q('.toast.err')) { H.TM.doCheckout(); H.q('#confirmCo').click(); } },
-        target: function (H, doc) { return doc.querySelector('.toast.err') || doc.querySelector('table'); }, tag: 'Checkout failed' }
+        sub: 'Benefits Hub stops it: <b>Insufficient points: this referral costs 40 points and 0 are available.</b> The first referral already used the full 40 points for Q1 2027. A new Companion Care referral can be created from April 1, when the next quarter begins.',
+        say: 'There\'s the message: insufficient points. The first referral already used the member\'s full forty points for this quarter, so there\'s nothing left for a second one. That\'s the one referral per quarter rule in action. A new companion care referral can be created starting April first, when the next quarter begins.',
+        enter: function (H) { if (!blocked(H)) { startSecond(H); H.TM.addToCart(); } },
+        target: errBox, tag: 'Insufficient points' }
     ],
 
     outro: {
       eyebrow: 'All set',
       title: 'You created a Companion Care referral.',
-      sub: 'You searched for the member, answered the six facility questions and the SSBCI condition, chose the hours, and checked out. You also saw Benefits Hub stop a second Companion Care referral in the same quarter.',
+      sub: 'You searched for the member, answered the six facility questions and the SSBCI condition, added the referral for the full allotment, and checked out. You also saw Benefits Hub stop a second Companion Care referral in the same quarter.',
       links: [{ href: '../resources/Adding a Referral - Job Aid.pdf', label: 'Job aid: Adding a Referral' },{ href: '../resources/Aetna Benefits at a Glance - Job Aid.pdf', label: 'Job aid: Aetna Benefits at a Glance' }],
       au: 'cc_20_outro.mp3',
       say: 'You\'ve created a companion care referral, answered all six facility questions and the S-S-B-C-I condition, and seen Benefits Hub stop a second referral in the same quarter. The Adding a Referral job aid and the benefits at a glance sheet are linked here. Next, managing a referral once it exists.'

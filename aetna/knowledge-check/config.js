@@ -6,7 +6,7 @@
   var contact = ['bestNumber', 'pp1_name', 'pp1_rel', 'pp1_phi'], dates = ['hospital', 'anticipatedDischarge', 'careNeeded'];
   var R = GuideKit({ member: 'TEST-1001', program: 'RAH60', qty: 60, groups: [contact, dates, ['dx'], ['supportNeeds']] });
   var B = GuideKit({ member: 'TEST-1005', program: 'PD12', qty: 12, groups: [contact, dates, ['conditions'], ['supportNeeds']] });
-  var P = GuideKit({ member: 'TEST-1002', program: 'IHSPC40', qty: 20, groups: [contact, ['adlNeeds']] });
+  var P = GuideKit({ member: 'TEST-1002', program: 'IHSPC80', qty: 80, groups: [contact, ['adlNeeds']] });
   var C = GuideKit({ member: 'TEST-1006', program: 'CC40', qty: 8, groups: [['facility', 'facilityContact'], ['facilityPhone'], ['prefDates', 'prefTimes'], ['facilityRules'], ['ssbci']] });
   var S = R.S;
 
@@ -39,13 +39,13 @@
         if (a1.value === m.addr) return a1; if (a3.value === m.city) return a3; if (a4.value === m.state) return a4; if (a5.value === m.zip) return a5; return doc.querySelector('#saveAddr'); }
       return doc.querySelector('[data-addr]'); };
   }
-  /* pointer for "fill the rest, set hours, add to cart, check out" */
+  /* pointer for "add to cart, check out" (Aetna: one item at the full allotment, nothing to type) */
   function finishTarget(H, doc) {
     var r = H.route(), f = H.form();
     if (r.name === 'cart') return doc.querySelector('#confirmCo') || doc.querySelector('#checkout');
     if (r.name === 'add' && f && f.qty >= 1) return doc.querySelector('#addToCart');
-    return doc.querySelector('#qty'); }
-  function finishTag(H) { var r = H.route(), f = H.form(); if (r.name === 'cart') return H.q('#confirmCo') ? 'Select Confirm' : 'Select Checkout'; if (r.name === 'add' && f && f.qty >= 1) return 'Select Add to Cart'; return 'Enter the hours'; }
+    return doc.querySelector('#addToCart'); }
+  function finishTag(H) { var r = H.route(), f = H.form(); if (r.name === 'cart') return H.q('#confirmCo') ? 'Select Confirm' : 'Select Checkout'; if (r.name === 'add' && f && f.qty >= 1) return 'Select Add to Cart'; return 'Select Add to Cart'; }
 
   /* the Recovery at Home referral, created for the learner and backdated so a discharge date can be entered after it */
   function ensureRah(H) {
@@ -94,7 +94,7 @@
       say: 'Question six. How many activities of daily living must be selected on a personal care referral?' },
     { eyebrow: 'Companion Care', q: 'Which statement about Companion Care is true?',
       opts: ['A member can have one referral per month, and the facility questions are optional.', 'The facility questions are required, but the SSBCI condition is optional.', 'A member can have several referrals in a quarter if the hours add up to 40 or fewer.', 'A member can have one referral per calendar quarter. Every facility question is required, and at least one SSBCI chronic condition must be chosen.'], ok: 3,
-      explain: 'Companion Care allows one referral per member per calendar quarter, and a second one fails at checkout. All six facility questions are required open text, and at least one SSBCI condition must be chosen.',
+      explain: 'Companion Care allows one referral per member per calendar quarter, and that referral uses the full 40-point allotment, so a second one is stopped. All six facility questions are required open text, and at least one SSBCI condition must be chosen.',
       say: 'Question seven. Which statement about companion care is true?' },
     { eyebrow: 'Service address', q: 'Care will take place at a relative\'s home, not the address on file. When and how do you set that address?',
       opts: ['After checkout, by editing the referral.', 'By updating the address in the member\'s Overview.', 'On Add Referral, select (change service address) and enter it before you add to cart.', 'In the referral narrative.'], ok: 2,
@@ -164,10 +164,10 @@
         done: function (H) { var f = H.form(); return !!(f && f.svc && /^Pneumonia/.test(f.answers.dx || '')); } },
 
       { id: 's1-submit', blind: true, label: 'Scenario 1 of 4 · Task 3 of 4', kicker: 'Scenario 1 · Recovery at Home', au: 'kc_05_s1_submit.mp3',
-        h: 'Set the hours and submit',
-        sub: 'Enter the full <b>60</b> hours, add to cart, check out, and confirm.',
-        say: 'Set the hours to the full allowance, which is sixty. Then add the referral to the cart, check out, and confirm.',
-        enter: function (H) { R.ensureForm(H, 3); delete S(H).form.qty; H.TM.render(); },
+        h: 'Add to cart and submit',
+        sub: 'Check the order details (one item, <b>60</b> points), then add to cart, check out, and confirm.',
+        say: 'Check the order details. It\'s one item for the full sixty points. Then add the referral to the cart, check out, and confirm.',
+        enter: function (H) { R.ensureForm(H, 3); },
         target: finishTarget, tag: finishTag,
         done: function (H) { var r = R.newRef(H); return R.submittedDone(H) && !!r && r.hours === 60; } },
 
@@ -190,9 +190,9 @@
 
       { id: 's2-submit', blind: true, label: 'Scenario 2 of 4 · Task 2 of 2', kicker: 'Scenario 2 · Post-Discharge', au: 'kc_08_s2_submit.mp3',
         h: 'Submit the new referral',
-        sub: 'The questions are filled in for you. Enter <b>12</b> hours, add to cart, and read the cart notice. Then check out and confirm.',
-        say: 'The questions are filled in, so go straight to the hours. Enter twelve, then add the referral to the cart. Read the cart carefully before you check out, because there\'s something in there worth noticing. Then check out and confirm.',
-        enter: function (H) { B.ensureForm(H, 3); delete S(H).form.qty; H.TM.render(); },
+        sub: 'The questions are filled in for you. Add to cart, and read the cart notice. Then check out and confirm.',
+        say: 'The questions are filled in, so go straight to the cart. Add the referral to the cart, and read the cart carefully before you check out, because there\'s something in there worth noticing. Then check out and confirm.',
+        enter: function (H) { B.ensureForm(H, 3); },
         target: finishTarget, tag: finishTag,
         done: B.submittedDone },
 
@@ -203,7 +203,7 @@
         say: 'Scenario three. This member needs help with bathing and dressing. Find the member, and start a referral for the benefit that fits. Stop when you reach the Add Referral page.',
         enter: function (H) { H.TM.reset(); H.TM.go({ name: 'home' }); },
         target: startTarget(P, 'In-Home Support Personal Care'), tag: startTag(P),
-        done: function (H) { var r = H.route(); return r.name === 'add' && r.id === P.MID && r.auth === H.authId(P.MID, 'IHSPC40'); } },
+        done: function (H) { var r = H.route(); return r.name === 'add' && r.id === P.MID && r.auth === H.authId(P.MID, 'IHSPC80'); } },
 
       { id: 's3-address', blind: true, label: 'Scenario 3 of 4 · Task 2 of 3', kicker: 'Scenario 3 · Personal Care', au: 'kc_10_s3_address.mp3',
         h: 'Set where care will take place',
@@ -215,12 +215,12 @@
 
       { id: 's3-submit', blind: true, label: 'Scenario 3 of 4 · Task 3 of 3', kicker: 'Scenario 3 · Personal Care', au: 'kc_11_s3_submit.mp3',
         h: 'Answer the support needs and submit',
-        sub: 'The contact questions are filled in. Choose the service, then select the activities of daily living she needs help with. Then enter <b>20</b> hours, add to cart, check out, and confirm.',
-        say: 'Now choose the service, and select the activities of daily living she needs help with. The contact questions are filled in. Then enter twenty hours, add to the cart, check out, and confirm.',
-        enter: function (H) { P.ensureAdd(H, false); P.fill(H, 0); delete S(H).form.answers.adlNeeds; delete S(H).form.qty; H.TM.render(); },
+        sub: 'The contact questions are filled in. Choose the service, then select the activities of daily living she needs help with. Then add to cart, check out, and confirm.',
+        say: 'Now choose the service, and select the activities of daily living she needs help with. The contact questions are filled in. Then add the referral to the cart, check out, and confirm.',
+        enter: function (H) { P.ensureAdd(H, false); P.fill(H, 0); delete S(H).form.answers.adlNeeds; H.TM.render(); },
         target: function (H, doc) { var f = H.form(), r = H.route(); if (r.name === 'add' && !f.svc) return P.svcTarget(H); if (r.name === 'add' && !(f.answers.adlNeeds && f.answers.adlNeeds.length >= 2)) return doc.querySelector('#q-adlNeeds'); return finishTarget(H, doc); },
         tag: function (H) { var f = H.form(), r = H.route(); if (r.name === 'add' && !f.svc) return P.svcTag('Personal Care')(H); if (r.name === 'add' && !(f.answers.adlNeeds && f.answers.adlNeeds.length >= 2)) return 'Select the ADLs'; return finishTag(H); },
-        done: function (H) { var r = P.newRef(H); return P.submittedDone(H) && !!r && r.hours === 20 && has(r.answers.adlNeeds, 'Bathing & personal hygiene') && has(r.answers.adlNeeds, 'Dressing & grooming'); } },
+        done: function (H) { var r = P.newRef(H); return P.submittedDone(H) && !!r && r.hours === 80 && has(r.answers.adlNeeds, 'Bathing & personal hygiene') && has(r.answers.adlNeeds, 'Dressing & grooming'); } },
 
       /* ---------- Scenario 4: Companion Care ---------- */
       { id: 's4-start', blind: true, label: 'Scenario 4 of 4 · Task 1 of 3', kicker: 'Scenario 4 · Companion Care', au: 'kc_12_s4_start.mp3',
@@ -240,12 +240,12 @@
         done: function (H) { var a = H.form().answers; return C.answered(H, ['facility', 'facilityContact', 'facilityPhone', 'prefDates', 'prefTimes', 'facilityRules']) && has(a.ssbci, 'Dementia'); } },
 
       { id: 's4-submit', blind: true, label: 'Scenario 4 of 4 · Task 3 of 3', kicker: 'Scenario 4 · Companion Care', au: 'kc_14_s4_submit.mp3',
-        h: 'Set the hours and submit',
-        sub: 'Enter <b>8</b> hours, add to cart, check out, and confirm.',
-        say: 'Enter eight hours, add the referral to the cart, check out, and confirm.',
-        enter: function (H) { C.ensureForm(H, 5); delete S(H).form.qty; H.TM.render(); },
+        h: 'Add to cart and submit',
+        sub: 'Check the order details (one item, <b>40</b> points), then add to cart, check out, and confirm.',
+        say: 'Check the order details. It\'s one item for the full forty points. Add the referral to the cart, check out, and confirm.',
+        enter: function (H) { C.ensureForm(H, 5); },
         target: finishTarget, tag: finishTag,
-        done: function (H) { var r = C.newRef(H); return C.submittedDone(H) && !!r && r.hours === 8; } },
+        done: function (H) { var r = C.newRef(H); return C.submittedDone(H) && !!r && r.hours === 40; } },
 
       /* ---------- quiz ---------- */
       { t: 'intro', eyebrow: 'Knowledge check', h: 'Nice work on the scenarios',

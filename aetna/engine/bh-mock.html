@@ -284,7 +284,7 @@ body.notes .newwrap { outline: 2px dashed #b99be9; outline-offset: 4px; border-r
 /* =====================================================================================
    TRAINING DATA. Everything below is invented for training. Edit this block to change
    programs, hours, questions or members; the screens read from it.
-   Hours: for Aetna 2027 programs 1 point = 1 hour, so BH's point fields show hours.
+   Points: Aetna referrals are one item that costs the full allotment (an 80-hour program = 80 points at checkout). UAT-confirmed 11/2026.
    ===================================================================================== */
 const CONFIG = {
   today: "2027-03-10",
@@ -373,12 +373,12 @@ const CONFIG = {
       referrals: [["IHSPC80", "2027-01-12", "Accepted By Provider", 80, 18, { provider: "Sample Home Care Co." }]] },
     { id: "TEST-1002", first: "Testmember", last: "Beta", dob: "1951-09-15", phone: "555-0102", mobile: "", email: "beta@example.test", lang: "English",
       addr: "202 Sample Street", city: "Mocktown", state: "OH", zip: "00002", plan: "H0000-801-0000001", planType: "Group (Plan Sponsor)",
-      programs: ["IHSPC40", "PD12"],
+      programs: ["IHSPC80", "PD12"],
       referrals: [["PD12", "2027-01-20", "Completed", 12, 12, { provider: "Sample Home Care Co.", discharge: "2027-01-19" }]] },
     { id: "TEST-1003", first: "Testmember", last: "Gamma", dob: "1940-12-30", phone: "555-0103", mobile: "", email: "", lang: "Spanish",
       addr: "303 Partner Facility Rd, Rm 12", city: "Faketon", state: "FL", zip: "00003", plan: "H0000-020", planType: "Individual I-SNP",
       programs: ["CC40"],
-      referrals: [["CC40", "2027-01-05", "Accepted By Provider", 20, 12, { provider: "Sample Companions LLC", facility: "Sample Partner Facility" }]] },
+      referrals: [["CC40", "2027-01-05", "Accepted By Provider", 40, 12, { provider: "Sample Companions LLC", facility: "Sample Partner Facility" }]] },
     { id: "TEST-1004", first: "Testmember", last: "Delta", dob: "1955-06-21", phone: "555-0104", mobile: "555-0114", email: "", lang: "English",
       addr: "404 Demo Avenue", city: "Testville", state: "PA", zip: "00004", plan: "H3959-088", planType: "Individual D-SNP",
       programs: ["RAH60"],
@@ -704,7 +704,7 @@ function addView(m, authId) {
       ${f.svc ? `
         <hr class="d">
         <div class="ssd"><h3 style="margin:0 0 22px">Selected Service Details</h3>
-          <div class="ssd-grid"><div><b>Service ID</b><span>${svc.id}</span></div><div><b>Service Name</b><span>${esc(svc.name)}</span></div><div><b>Points</b><span>1 per hour</span></div><div><b>Status</b><span>Active</span></div><div style="grid-column:span 1"><b>Description</b><span>${esc(svc.desc)}</span></div></div>
+          <div class="ssd-grid"><div><b>Service ID</b><span>${svc.id}</span></div><div><b>Service Name</b><span>${esc(svc.name)}</span></div><div><b>Points</b><span>${f.qty} per referral (full allotment)</span></div><div><b>Status</b><span>Active</span></div><div style="grid-column:span 1"><b>Description</b><span>${esc(svc.desc)}</span></div></div>
         </div>
         <hr class="d">
         <h2 style="font-size:21px;font-weight:600;margin:6px 0 18px">Service Questions</h2>
@@ -714,7 +714,7 @@ function addView(m, authId) {
         <h2 style="font-size:21px;font-weight:600;margin:6px 0 14px">Order Details</h2>
         <div class="order">
           <div><div style="font-weight:600;margin-bottom:10px">Quantity</div>
-            <div class="qty"><button type="button" data-qty="-1" aria-label="Decrease quantity">−</button><input id="qty" inputmode="numeric" value="${f.qty ?? ""}" aria-label="Quantity"><button type="button" data-qty="1" aria-label="Increase quantity">+</button></div></div>
+            <div class="qty"><input id="qty" value="1" readonly aria-label="Quantity" title="One referral for the full allotment"></div></div>
           <div class="tp"><b>Total Points</b><span class="num">${f.qty || 0}</span></div>
         </div>
         <div class="alert info newwrap" style="margin-top:20px">${ICONS.info}<div>${exp} ${nb("expiry")}</div></div>
@@ -793,11 +793,11 @@ function cartView() {
   const m = S.cart[0] && member(S.cart[0].member);
   return `<div class="narrow">
     <div class="pagehead"><button class="back" data-back="${m ? m.id : ""}" aria-label="Back">${ICONS.back}</button>
-      <div><h1>Referrals Summary</h1><div class="sub">${m ? `${esc(m.first)} ${esc(m.last)} | ` : ""}Items: ${total}</div></div></div>
+      <div><h1>Referrals Summary</h1><div class="sub">${m ? `${esc(m.first)} ${esc(m.last)} | ` : ""}Items: ${S.cart.length}</div></div></div>
     ${S.cart.length ? `<section class="card" style="padding:0;overflow:hidden">${Object.entries(groups).map(([authId, items]) => { const p = CONFIG.programs[items[0].program]; const b = balance(member(items[0].member), authOf(member(items[0].member), Number(authId)));
       return `<div class="tscroll"><table class="cart-tbl"><thead><tr><th>Service</th><th class="c">Quantity</th><th class="c">Points Each</th><th class="c">Total Points</th><th class="c">Actions</th></tr></thead><tbody>
       ${items.map((it) => `<tr><td><b>${esc(CONFIG.services[p.service].name)}</b><div style="color:var(--ink-2);font-size:13px">Added: ${fmt(CONFIG.today)}</div></td>
-        <td class="c num">${it.qty}</td><td class="c num">1.00 pts</td><td class="c num"><b>${it.qty.toFixed(2)} pts</b></td>
+        <td class="c num">1</td><td class="c num">${it.qty.toFixed(2)} pts</td><td class="c num"><b>${it.qty.toFixed(2)} pts</b></td>
         <td class="c"><button class="iconbtn" data-sdqview="${it.key}" aria-label="Review SDQ answers" title="Review SDQs">${ICONS.eye}</button><button class="iconbtn" data-remove="${it.key}" aria-label="Remove item">${ICONS.trash}</button></td></tr>`).join("")}
       </tbody></table></div>`; }).join("")}</section>
       ${closingNotice()}
@@ -808,8 +808,9 @@ function cartView() {
 }
 
 /* ------------------------------ behaviour ------------------------------ */
+function itemCost(m, authId) { const a = authOf(m, authId); const p = CONFIG.programs[a.program]; const r = balance(m, a).remaining; return r > 0 && r < p.hours ? r : p.hours; }
 function startAdd(m, authId) {
-  S.form = { svc: false, svcOpen: false, answers: {}, narr: "", qty: null, zip: m.zip, addr: m.addr, city: m.city, state: m.state, msOpen: null, morePP: false, error: "" };
+  S.form = { svc: false, svcOpen: false, answers: {}, narr: "", qty: itemCost(m, authId), zip: m.zip, addr: m.addr, city: m.city, state: m.state, msOpen: null, morePP: false, error: "" };
   go({ name: "add", id: m.id, auth: authId });
 }
 function onAddReferral(m, authId) {
@@ -904,7 +905,7 @@ function addToCart() {
   const b = balance(m, a);
   const f = S.form;
   const inCart = S.cart.filter((i) => i.auth === a.id).reduce((s, i) => s + i.qty, 0);
-  if (f.qty > b.remaining - inCart) { f.error = `Insufficient points: this referral needs ${f.qty} hours and ${b.remaining - inCart} are available.`; return render(); }
+  if (f.qty > b.remaining - inCart) { f.error = `Insufficient points: this referral costs ${f.qty} points and ${b.remaining - inCart} are available.`; return render(); }
   S.cart.push({ key: `${Date.now()}`, member: m.id, auth: a.id, program: a.program, qty: f.qty, answers: structuredClone(f.answers), narr: f.narr, addr: f.addr, city: f.city, state: f.state, zip: f.zip });
   toast("Added to cart.");
   go({ name: "cart" });
@@ -931,7 +932,7 @@ function checkoutErrors() {
   return errs;
 }
 function doCheckout() {
-  dialog(`<h2>Confirm referrals?</h2><div class="body"><p style="margin-top:4px">You're about to submit ${S.cart.length} referral${S.cart.length > 1 ? "s" : ""} for ${S.cart.reduce((s, i) => s + i.qty, 0)} hours. THB will contact the member or their point person to confirm interest before any provider outreach.</p></div><div class="acts"><button class="btn btn-text" data-x type="button">Cancel</button><button class="btn btn-primary" id="confirmCo" type="button">Confirm</button></div>`, (el) => {
+  dialog(`<h2>Confirm referrals?</h2><div class="body"><p style="margin-top:4px">You're about to submit ${S.cart.length} referral${S.cart.length > 1 ? "s" : ""} for ${S.cart.reduce((s, i) => s + i.qty, 0)} points. THB will contact the member or their point person to confirm interest before any provider outreach.</p></div><div class="acts"><button class="btn btn-text" data-x type="button">Cancel</button><button class="btn btn-primary" id="confirmCo" type="button">Confirm</button></div>`, (el) => {
     el.querySelector("[data-x]").onclick = closeDialog;
     el.querySelector("#confirmCo").onclick = () => {
       const errs = checkoutErrors();
@@ -988,13 +989,8 @@ function bind() {
       render(); window.scrollTo(0, y); const l = app.querySelector(".ms-list"); if (l) l.scrollTop = st;
     });
     const more = app.querySelector("[data-more-pp]"); if (more) more.onclick = () => { f.morePP = true; render(); };
-    app.querySelectorAll("[data-qty]").forEach((b) => b.onclick = () => { f.qty = Math.max(1, (f.qty || 0) + Number(b.dataset.qty)); f.error = ""; render(); });
     const na = $("#narrAdd"); if (na) na.oninput = () => { f.narr = na.value; $("#narrAdd-c").textContent = `${na.value.length}/${na.maxLength}`; };
-    // Training: typed hours register as you type (Total Points, Add to Cart and the guided Next update live), and leaving the box
-    // re-renders only when an error message has to clear, so a click on Add to Cart right after typing isn't swallowed by a re-render.
-    const q = $("#qty");
-    if (q) q.oninput = () => { const v = parseInt(q.value, 10); f.qty = Number.isFinite(v) && v > 0 ? v : null; const tp = app.querySelector(".tp .num"); if (tp) tp.textContent = f.qty || 0; refreshValidity(); };
-    if (q) q.onchange = () => { const v = parseInt(q.value, 10); f.qty = Number.isFinite(v) && v > 0 ? v : null; if (f.error) { f.error = ""; render(); } else refreshValidity(); };
+    // Aetna: quantity is always 1 item that costs the full allotment, so there is nothing to type here.
     const atc = $("#addToCart"); if (atc) atc.onclick = addToCart;
     app.querySelector("[data-addr]").onclick = () => addressDialog();
   }
@@ -1035,16 +1031,16 @@ function addressDialog() {
 const SCENARIOS = [
   { t: "Refer a member to Recovery at Home", who: "TEST-1001", tile: "RAH60",
     why: "Member has personal care and Recovery at Home on the same plan. Recovery at Home hours come first.",
-    steps: ["Search TEST-1001 and open the member.", "Select the Recovery at Home tile, then Add Referral.", "Pick the service and answer the questions: point person, care needed date, a qualifying diagnosis, support needs.", "Enter 60 hours, Add to Cart, then Checkout and Confirm.", "Back on the member page, the personal care referral now shows On Hold.", "Expand the new referral and choose Add > Discharge date. The dialog shows the new expiration (discharge + 30 days) before you save."] },
+    steps: ["Search TEST-1001 and open the member.", "Select the Recovery at Home tile, then Add Referral.", "Pick the service and answer the questions: point person, care needed date, a qualifying diagnosis, support needs.", "Add to Cart (one item for the full 60 points), then Checkout and Confirm.", "Back on the member page, the personal care referral now shows On Hold.", "Expand the new referral and choose Add > Discharge date. The dialog shows the new expiration (discharge + 30 days) before you save."] },
   { t: "A second discharge in the same year", who: "TEST-1002", tile: "PD12",
     why: "Group post-discharge gives 12 hours per discharge. The member used all 12 in January.",
-    steps: ["Open TEST-1002 and select In-Home Support Post-Discharge.", "Note Remaining is 0. Choose Add Referral.", "Answer Yes, new discharge. Hours go back to 12.", "Complete the questions and submit 12 hours. The referral expires 30 days after today."] },
+    steps: ["Open TEST-1002 and select In-Home Support Post-Discharge.", "Note Remaining is 0. Choose Add Referral.", "Answer Yes, new discharge. Hours go back to 12.", "Complete the questions and submit the referral (one item, 12 points). It expires 30 days after today."] },
   { t: "Readmission during an open window", who: "TEST-1005", tile: "PD12",
     why: "Aetna's rule: a readmission closes the open referral as eligibility fail, and a new referral is required.",
-    steps: ["Open TEST-1005 and select In-Home Support Post-Discharge. The open referral has 7 unused hours, and Remaining is 0.", "Choose Add Referral and answer Yes, new discharge. Hours go back to 12.", "Complete the questions and add 12 hours to the cart. The cart says the open referral will close as Eligibility Failed and its unused hours expire.", "Checkout and Confirm. The old referral shows Eligibility Failed, and its 7 unused hours don't come back."] },
+    steps: ["Open TEST-1005 and select In-Home Support Post-Discharge. The open referral has 7 unused hours, and Remaining is 0.", "Choose Add Referral and answer Yes, new discharge. Hours go back to 12.", "Complete the questions and add the referral to the cart. The cart says the open referral will close as Eligibility Failed and its unused hours expire.", "Checkout and Confirm. The old referral shows Eligibility Failed, and its 7 unused hours don't come back."] },
   { t: "Companion care: one referral per quarter", who: "TEST-1003", tile: "CC40",
     why: "Companion care is 40 hours per calendar quarter and expires at quarter end.",
-    steps: ["Open TEST-1003 and select Companion Care. The open Q1 referral expires 3/31/2027.", "Choose Add Referral, add a few hours and check out.", "Checkout fails: only one Companion Care referral per quarter. Try again from April 1."] },
+    steps: ["Open TEST-1003 and select Companion Care. The open Q1 referral expires 3/31/2027.", "Choose Add Referral, answer the questions, and select Add to Cart.", "Benefits Hub stops it with Insufficient points: the Q1 referral already used the full 40-point allotment. One Companion Care referral per quarter; try again from April 1."] },
   { t: "Recovery at Home: once per diagnosis", who: "TEST-1004", tile: "RAH60",
     why: "60 hours per qualifying diagnosis per year. This member already had a pneumonia (J18.9) referral in February.",
     steps: ["Open TEST-1004 and select Recovery at Home. Answer Yes, new discharge.", "Choose diagnosis J18.9 and check out. Checkout fails and names the diagnosis.", "Remove the cart item, start again with a different diagnosis such as S72 (fracture of femur), and it goes through."] },
@@ -1082,12 +1078,12 @@ const NOTE_TYPES = ["Visit Scheduled Within 1 Week", "Visit Scheduled Within 2 W
 
 /* Added by the training team: the SME mock has no "create" scenario for these two benefits. */
 SCENARIOS.push(
-  { t: "Create a Personal Care referral", who: "TEST-1002", tile: "IHSPC40",
-    why: "Personal Care is help with activities of daily living at home, by the hour. This member has no Personal Care referral yet.",
-    steps: ["Search TEST-1002 and select In-Home Support Personal Care.", "Choose Add Referral and select the Personal Care service.", "Answer the questions: best number, point person, and at least two ADLs. IADLs and care interest are optional.", "Add the hours to the cart, then Checkout and Confirm.", "The new referral expires on 12/31/2027, the end of the plan year."] },
+  { t: "Create a Personal Care referral", who: "TEST-1002", tile: "IHSPC80",
+    why: "Personal Care is help with activities of daily living at home, 80 hours for the year on this plan. This member has no Personal Care referral yet.",
+    steps: ["Search TEST-1002 and select In-Home Support Personal Care.", "Choose Add Referral and select the Personal Care service.", "Answer the questions: best number, point person, and at least two ADLs. IADLs and care interest are optional.", "Add to Cart (one item for the full allotment), then Checkout and Confirm.", "The new referral expires on 12/31/2027, the end of the plan year."] },
   { t: "Create a Companion Care referral", who: "TEST-1006", tile: "CC40",
     why: "Companion Care is for members who live in a partner facility, up to 40 hours per calendar quarter. This member has no Companion Care referral yet.",
-    steps: ["Search TEST-1006 and select Companion Care.", "Choose Add Referral and select the Companion Care service.", "Answer the six facility questions and choose at least one SSBCI chronic condition. Every question is required.", "Add the hours to the cart, then Checkout and Confirm.", "The new referral expires on 3/31/2027, the end of Q1 2027."] }
+    steps: ["Search TEST-1006 and select Companion Care.", "Choose Add Referral and select the Companion Care service.", "Answer the six facility questions and choose at least one SSBCI chronic condition. Every question is required.", "Add to Cart (one item for the full allotment), then Checkout and Confirm.", "The new referral expires on 3/31/2027, the end of Q1 2027."] }
 );
 
 /* ---- hooks used by the training shell (aetna/engine/guide.js). Not part of the Benefits Hub screens. ---- */

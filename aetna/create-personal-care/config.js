@@ -1,12 +1,20 @@
-/* Personal Care: create the referral. Member TEST-1002 (IHSPC40, no Personal Care referral yet).
+/* Personal Care: create the referral. Member TEST-1002 (IHSPC80, no Personal Care referral yet).
    Questions follow the final SME mock: best number, point person(s), support needs (ADLs, at least 2; IADLs optional),
    care interest, narrative. `say` = narration script, `sub` = on-screen caption. */
 (function () {
   var K = GuideKit({
-    member: 'TEST-1002', program: 'IHSPC40', qty: 20,
+    member: 'TEST-1002', program: 'IHSPC80', qty: 80,
     groups: [['bestNumber', 'pp1_name', 'pp1_rel', 'pp1_phi'], ['adlNeeds']]
   });
-  var S = K.S, MID = K.MID, Q2 = 5;
+  var S = K.S, MID = K.MID;
+  /* a second referral in the same year: the first one used the whole 80-point allotment, so Add to Cart is refused */
+  function blocked(H) { var f = S(H).form; return !!(f && /Insufficient points/.test(f.error || '')); }
+  function startSecond(H) {
+    if (!K.newRef(H)) K.submit(H);
+    S(H).cart = []; if (S(H).route.name !== 'member') H.openMember(MID); H.selectTile(MID, 'IHSPC80');
+    K.begin(H); S(H).form.svc = true; K.fill(H, K.GROUPS.length); H.TM.render();
+  }
+  function errBox(H, doc) { return Array.prototype.slice.call(doc.querySelectorAll('.alert.warn')).filter(function (e) { return /Insufficient points/.test(e.textContent); })[0] || doc.querySelector('#addToCart'); }
 
   window.GUIDE_CONFIG = {
     engine: '../engine/bh-mock.html',
@@ -17,10 +25,10 @@
     cover: {
       badge: 'Benefits Hub',
       title: 'Create a Personal Care Referral',
-      sub: 'Personal Care gives a member help with activities of daily living at home, by the hour. In this module you will create one for a training member, from search to checkout, on the real Benefits Hub screens.',
+      sub: 'Personal Care gives a member help with activities of daily living at home, with a yearly allotment of hours. In this module you will create one for a training member, from search to checkout, on the real Benefits Hub screens.',
       meta: [['~12 minutes', 'self-paced'], ['One per year', 'per member, per plan']],
       au: 'pc_00_cover.mp3',
-      say: 'Personal care gives a member help with everyday activities at home, by the hour. Compared with Recovery at Home and post-discharge, it\'s simpler, because it isn\'t tied to a hospital stay. In this module, you\'ll create a personal care referral, and then see the one rule that catches people out: a member gets one personal care referral per year, per plan. You\'ll use a training member, so nothing here is real.'
+      say: 'Personal care gives a member help with everyday activities at home, from a yearly allotment of hours. Compared with Recovery at Home and post-discharge, it\'s simpler, because it isn\'t tied to a hospital stay. In this module, you\'ll create a personal care referral, and then see the one rule that catches people out: a member gets one personal care referral per year, per plan. You\'ll use a training member, so nothing here is real.'
     },
 
     steps: [
@@ -42,8 +50,8 @@
 
       { id: 'auth', au: 'pc_03_auth.mp3',
         h: 'Check the authorization, then add a referral',
-        sub: 'On this plan the <b>Plan Allowance</b> is 40 hours. Nothing is <b>Used</b> or <b>Pending</b>, so all 40 are <b>Remaining</b>. Personal Care allows one referral per member per year, per plan, and this member has none yet. Select <b>Add Referral</b>.',
-        say: 'Below the tile is the authorization. On this plan, the allowance is forty hours, and none are used or pending, so all forty are available. This member doesn\'t have a personal care referral yet, and that matters, because personal care allows only one referral per member, per year, per plan. So you want to get this one right. Click Add Referral.',
+        sub: 'On this plan the <b>Plan Allowance</b> is 80 hours. Nothing is <b>Used</b> or <b>Pending</b>, so all 80 are <b>Remaining</b>. Personal Care allows one referral per member per year, per plan, and this member has none yet. Select <b>Add Referral</b>.',
+        say: 'Below the tile is the authorization. On this plan, the allowance is eighty hours, and none are used or pending, so all eighty are available. This member doesn\'t have a personal care referral yet, and that matters, because personal care allows only one referral per member, per year, per plan. So you want to get this one right. Click Add Referral.',
         enter: function (H) { K.ensureMember(H, true); },
         target: '[data-add-ref]', tag: 'Select Add Referral',
         done: function (H) { return H.route().name === 'add'; } },
@@ -94,13 +102,12 @@
         enter: function (H) { K.ensureForm(H, 1); },
         target: '#narrAdd', tag: 'Optional' },
 
-      { id: 'hours', au: 'pc_09_hours.mp3',
-        h: 'Enter the hours',
-        sub: 'Enter the number of <b>hours</b> for this referral, up to the 40 hours remaining. For these Aetna programs <b>1 point = 1 hour</b>. Read the note below: the referral expires at the end of the plan year, and hours don\'t roll over.',
-        say: 'Under Order Details, enter the number of hours for this referral, up to the forty remaining. If you enter too many, Benefits Hub tells you how many are available. Remember, one point equals one hour. Read the note under the quantity too: this referral expires at the end of the plan year, December thirty-first, and unused hours don\'t roll over. So this is a yearly pool, and it\'s worth thinking about how the hours will be used.',
-        enter: function (H) { K.ensureForm(H, 1); delete S(H).form.qty; H.TM.render(); },
-        target: '#qty', tag: 'Enter the hours',
-        done: function (H) { var f = S(H).form; return !!(f && f.qty >= 1); } },
+      { id: 'hours', au: 'pc_09_hours.mp3', info: true,
+        h: 'Check the order details',
+        sub: 'Under <b>Order Details</b>, <b>Quantity</b> is <b>1</b> and <b>Total Points</b> is <b>80</b>. Every Aetna referral is one item that costs the full allotment, so this one referral covers the member\'s 80 hours for the year. There is nothing to type. Read the note below: the referral expires at the end of the plan year, and hours don\'t roll over.',
+        say: 'Look at Order Details. The quantity is one, and total points is eighty. Every Aetna referral works like a gift card: the member has eighty hours to spend this year, and this one referral uses all eighty. So there\'s nothing for you to type, and this is the member\'s one personal care referral for the year. Read the note under the order details too: it expires at the end of the plan year, December thirty-first, and unused hours don\'t roll over.',
+        enter: function (H) { K.ensureForm(H, 1); },
+        target: function (H, doc) { return doc.querySelector('.order'); }, tag: '1 item, 80 points' },
 
       { id: 'cart', au: 'pc_10_cart.mp3',
         h: 'Add it to the cart',
@@ -136,38 +143,30 @@
         h: 'Try a second referral this year',
         sub: 'Personal Care allows one referral per member per year, per plan. To see what happens when you try for a second one, select <b>Add Referral</b> again.',
         say: 'Now let\'s test the rule we mentioned. Personal care allows one referral per member, per year, per plan. Click Add Referral again, and see what happens when you try for a second.',
-        enter: function (H) { K.ensureFirstDone(H, Q2); S(H).expanded = null; H.TM.render(); },
+        enter: function (H) { if (!K.newRef(H)) K.submit(H); if (S(H).route.name !== 'member') H.openMember(MID); H.selectTile(MID, 'IHSPC80'); S(H).expanded = null; H.TM.render(); },
         target: '[data-add-ref]', tag: 'Select Add Referral',
         done: function (H) { return H.route().name === 'add'; } },
 
       { id: 'second-cart', au: 'pc_15_second_cart.mp3',
-        h: 'Add it to the cart',
-        sub: 'We filled in the questions and a few hours for you. Select <b>Add to Cart</b>.',
-        say: 'This time we\'ve filled in the questions and a few hours for you. Click Add to Cart.',
-        enter: function (H) { K.startSecond(H, Q2); },
+        h: 'Try to add it to the cart',
+        sub: 'We filled in the questions for you. Notice <b>Total Points</b> is 80 again. Select <b>Add to Cart</b>.',
+        say: 'This time we\'ve filled in the questions for you. Notice the total points: eighty again. Click Add to Cart.',
+        enter: function (H) { if (!(H.route().name === 'add' && S(H).form && S(H).form.svc)) startSecond(H); },
         target: '#addToCart', tag: 'Select Add to Cart',
-        done: function (H) { return H.route().name === 'cart'; } },
-
-      { id: 'second-checkout', au: 'pc_16_second_checkout.mp3',
-        h: 'Try to check out',
-        sub: 'Select <b>Checkout</b>, then <b>Confirm</b>.',
-        say: 'Now try to check out. Click Checkout, then Confirm.',
-        enter: function (H) { var c = S(H).cart; if (!(H.route().name === 'cart' && c.length === 1 && c[0].qty === Q2)) K.secondInCart(H, Q2); },
-        target: K.confirmTarget, tag: K.confirmTag,
-        done: K.checkoutFailed },
+        done: blocked },
 
       { id: 'second-read', au: 'pc_17_second_read.mp3', info: true,
         h: 'Read the message',
-        sub: 'Checkout failed with an <b>Eligibility fail</b> message: <b>In-Home Support Personal Care allows one referral per member per year on this plan.</b> It names the referral that is already open. The new item stays in the cart, so you can remove it.',
-        say: 'There\'s the message. Checkout failed with an eligibility fail, saying personal care allows one referral per member, per year, on this plan, and it names the referral that\'s already open. The new item stays in your cart, so you can remove it. It helps to recognize this message. If you ever see it, it means a personal care referral already exists this year, so look at the existing referral first.',
-        enter: function (H) { var c = S(H).cart; if (!(H.route().name === 'cart' && c.length === 1 && c[0].qty === Q2)) K.secondInCart(H, Q2); if (!H.q('.toast.err')) { H.TM.doCheckout(); H.q('#confirmCo').click(); } },
-        target: function (H, doc) { return doc.querySelector('.toast.err') || doc.querySelector('table'); }, tag: 'Checkout failed' }
+        sub: 'Benefits Hub stops it: <b>Insufficient points: this referral costs 80 points and 0 are available.</b> The first referral already used the member\'s full 80 points for the year. That is the one-referral-per-year rule in action.',
+        say: 'There\'s the message: insufficient points. The first referral already used the member\'s full eighty points for the year, so there\'s nothing left for a second one. That\'s the one referral per year rule in action. If you ever see this on a personal care referral, look at the existing referral first.',
+        enter: function (H) { if (!blocked(H)) { startSecond(H); H.TM.addToCart(); } },
+        target: errBox, tag: 'Insufficient points' }
     ],
 
     outro: {
       eyebrow: 'All set',
       title: 'You created a Personal Care referral.',
-      sub: 'You searched for the member, chose the benefit, answered the questions including at least two ADLs, chose the hours, and checked out. You also saw Benefits Hub stop a second Personal Care referral in the same year.',
+      sub: 'You searched for the member, chose the benefit, answered the questions including at least two ADLs, added the referral for the full allotment, and checked out. You also saw Benefits Hub stop a second Personal Care referral in the same year.',
       links: [{ href: '../resources/Adding a Referral - Job Aid.pdf', label: 'Job aid: Adding a Referral' },{ href: '../resources/Aetna Benefits at a Glance - Job Aid.pdf', label: 'Job aid: Aetna Benefits at a Glance' }],
       au: 'pc_18_outro.mp3',
       say: 'You\'ve created a personal care referral, including the at-least-two A-D-Ls rule, and you\'ve seen Benefits Hub block a second one in the same year. The Adding a Referral job aid and the benefits at a glance sheet are linked here. Next, companion care.'
