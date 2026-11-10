@@ -1,4 +1,4 @@
-# Ultimate Benefits Hub Training: Narration Scripts
+# Ultimate Health Plan Benefits Hub Training: Narration Scripts
 
 Record each clip in ElevenLabs (same voice profile as the other partners), then run the usual two-pass loudnorm
 (I=-20.2 LUFS, TP=-1.5 dBTP, LRA=11, 128 kbps / 44.1 kHz / mono MP3) and drop the file in that module's
@@ -12,7 +12,7 @@ the script says "the sign-in page you bookmarked".
 ## Module 2: Accessing Benefits Hub and Signing In (`module-2-signing-in/assets/audio/`)
 
 **01_cover.mp3**
-Welcome. In this module, you'll get set up to sign in to Benefits Hub, the place where you'll look up Ultimate members and manage their Companion Care referrals. It only takes a few steps, and by the end you'll know exactly what to expect on your first login.
+Welcome. In this module, you'll get set up to sign in to Benefits Hub, the place where you'll look up Ultimate Health Plan members and manage their Companion Care referrals. It only takes a few steps, and by the end you'll know exactly what to expect on your first login.
 
 **02_step1_signin.mp3**
 Your account team sends you an email and a password. Go to the Benefits Hub sign-in page, and bookmark it right away, because you'll come back to it every day. Enter your email and password, then select Sign In.
@@ -49,7 +49,7 @@ That's everything you need to sign in with confidence. Once your credentials arr
 Now that you're signed in, let's find a member. In this module, you'll search, explore a member's landing page, and learn to read their benefit tile.
 
 **02_step1.mp3**
-The fastest way to find a member is by their Member ID. For Ultimate, that's the letters U L followed by seven digits. Type it into the search bar and press Enter. Don't have the ID handy? There's another way. Tap Advanced Search to take a look.
+The fastest way to find a member is by their Member ID. For Ultimate Health Plan, that's the letters U L followed by seven digits. Type it into the search bar and press Enter. Don't have the ID handy? There's another way. Tap Advanced Search to take a look.
 
 **03_step1_advsearch.mp3**
 Advanced Search lets you look someone up with their first name, last name, and date of birth. Fill in all three and select Search. It's a solid backup any time the ID doesn't turn anything up.
@@ -64,7 +64,7 @@ The Overview holds the member's basics: name, address, date of birth, phone, and
 Recent Activity shows the latest authorization, referrals, and notes. If a member calls to follow up, glance here first to see what's changed.
 
 **07_step3.mp3**
-Scroll down and you'll find the Benefits section. Ultimate members have a single benefit tile, In-Home Support Services, Companionship. Select it, and you'll see the authorization dates and every referral under it. Use the enlarge button to look closer.
+Scroll down and you'll find the Benefits section. Ultimate Health Plan members have a single benefit tile, I H S S, Companionship. Select it, and you'll see the authorization dates and every referral under it. Use the enlarge button to look closer.
 
 **08_practice_search.mp3**
 Your turn. A member calls but doesn't have their ID. Use Advanced Search with their first name, last name, and date of birth to find them.
@@ -101,7 +101,7 @@ Referral started. Select Next to move on and find the service.
 Now for the service. Begin with the category, then search for the service you need.
 
 **06_step2_search.mp3**
-For Ultimate, the category is In Home Support, and the service is Companion Care. Open the search box and pick it from the list.
+For Ultimate Health Plan, the category is In Home Support, and the service is Companion Care. Open the search box and pick it from the list.
 
 **07_step2_selected.mp3**
 Take a moment to check the service details, and make sure the status says Active.
@@ -110,7 +110,7 @@ Take a moment to check the service details, and make sure the status says Active
 One more thing to watch. If the member will receive care somewhere other than the address on file, like a relative's home, select change service address and enter the right location. It only applies to this referral. The address on their profile stays as is.
 
 **09_step3.mp3**
-Now set the quantity. For Ultimate, you always enter a quantity of one. One unit is thirty points, which is the member's full thirty-hour benefit. Use the plus button to enter one, then select Add to Cart.
+Now set the quantity. For Ultimate Health Plan, you always enter a quantity of one. One unit is thirty points, which is the member's full thirty-hour benefit. Use the plus button to enter one, then select Add to Cart.
 
 **10_step3_added.mp3**
 It's in the cart. Select Next to review it.
@@ -122,7 +122,7 @@ Almost done. Select the cart icon at the top of the screen to review what you've
 Your cart shows the member's name. Select it to open the full summary.
 
 **13_step4_summary.mp3**
-Here's the summary. Check the quantity and total, and look closely at the service address. Once you check out, that address can't be edited. Fixing it means a support ticket and starting a new referral, so make sure it's right. Then select Checkout.
+Here's the summary. Check the quantity and total, and look closely at the service address. If it isn't right, go back to the previous screen and use change service address before you check out. Once you check out, that address can't be edited. Fixing it means a support ticket and starting a new referral, so make sure it's right. Then select Checkout.
 
 **14_step4_confirm.mp3**
 One final confirmation. If everything looks right, select Confirm to submit the referral.
@@ -180,10 +180,10 @@ View Notes shows every note on the referral in one table, so you can see the ful
 View Documents shows any files a provider has attached, like an invoice or a receipt.
 
 **14_addnote_viewsdq.mp3**
-View SDQ shows the answers to any service detail questions entered when a referral was created. Ultimate's Companion Care doesn't use them, so it comes up empty here. You may see answers on other plans.
+View SDQ shows the answers to any service detail questions entered when a referral was created. Ultimate Health Plan's Companion Care doesn't use them, so it comes up empty here. You may see answers on other plans.
 
 **15_encsummary.mp3**
-Now, the balance. Above the encounter list, the Encounter Summary shows how many hours are allowed, how many are used, and how many remain on this referral. For Ultimate, the benefit is thirty hours a year. Below that, Key Dates tracks the referral's history, from when it was received to when it was accepted.
+Now, the balance. Above the encounter list, the Encounter Summary shows how many hours are allowed, how many are used, and how many remain on this referral. For Ultimate Health Plan, the benefit is thirty hours a year. Below that, Key Dates tracks the referral's history, from when it was received to when it was accepted.
 
 **16_encounters.mp3**
 Last piece: encounters. An encounter is created each time a provider completes a visit. Select the encounter row to open it.
@@ -244,7 +244,7 @@ Let's test it. A member calls to say their Companion Care visit didn't happen to
 Submit a support ticket with the details and the right issue type. That's it. A missed visit, a referral issue, and a benefit access problem all work the same way.
 
 **15_tryit.mp3**
-Ready for the real thing? Use the button to open Ultimate's actual support form and explore it. Only submit a ticket when you have a real issue.
+Ready for the real thing? Use the button to open Ultimate Health Plan's actual support form and explore it. Only submit a ticket when you have a real issue.
 
 **16_outro.mp3**
 You now know how to troubleshoot first, recognize what needs escalating, and submit a ticket that gets results. One more module to go: a full walkthrough, and a quiz to earn your certificate.
@@ -290,4 +290,4 @@ You passed. Great work. Your certificate is ready.
 Not quite this time, but you're close. Review the questions you missed, and try again. You've got this.
 
 **12_certificate.mp3**
-Congratulations. You've completed Ultimate Benefits Hub training. Print your certificate or save it as a PDF. Keep the resource library bookmarked, and come back to any module whenever you need a refresher. Thank you for working with The Helper Bees.
+Congratulations. You've completed Ultimate Health Plan Benefits Hub training. Print your certificate or save it as a PDF. Keep the resource library bookmarked, and come back to any module whenever you need a refresher. Thank you for working with The Helper Bees.

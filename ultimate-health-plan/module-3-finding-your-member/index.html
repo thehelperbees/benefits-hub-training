@@ -298,9 +298,9 @@ var SCREENS = [
   { t:'step', n:3, of:5,
     kicker:"Step 3",
     h:"The benefit tile & authorizations",
-    sub:"Below Overview, you'll see the member's Benefits section. Ultimate members have a single In-Home Support Services (Companionship) tile — select it to see the authorization details and referral history.",
+    sub:"Below Overview, you'll see the member's Benefits section. Ultimate Health Plan members have a single IHSS (Companionship) tile — select it to see the authorization details and referral history.",
     visual:'shot', img:'assets/img/benefit-tile.png',
-    url:'ultimatebenefits.thehelperbees.com/member/UL1234567', wide:true, vhCap:42, imgAspect:0.4698,
+    url:'ultimatebenefits.thehelperbees.com/member/UL1234567', wide:true, vhCap:42, imgAspect:0.4511,
     caption:"Use the enlarge button to look closer at the authorization numbers.",
     au:'07_step3.mp3' },
 
@@ -313,7 +313,7 @@ var SCREENS = [
       {label:'8/4/1956', correct:false},
       {label:'12/31/2026', correct:false}
     ],
-    explain:"This In-Home Support Services (Companionship) benefit expires 12/31/2027 — that's the Expires field on the tile, separate from the Effective date (9/29/2026)." },
+    explain:"This IHSS (Companionship) benefit expires 12/31/2027 — that's the Expires field on the tile, separate from the Effective date (9/29/2026)." },
 
   { t:'outro', au:'12_outro.mp3' }
 ];
@@ -681,7 +681,7 @@ function render(){
       '<div class="wrap">'+
       '<div class="eyebrow"><span class="dot"></span>One more check</div>'+
       '<h1 class="hl">Verify member benefit details</h1>'+
-      '<p class="sub">Take a look at the member\'s In-Home Support Services (Companionship) benefit tile.</p>'+
+      '<p class="sub">Take a look at the member\'s IHSS (Companionship) benefit tile.</p>'+
       '<div class="browser wide">'+
         urlBar('ultimatebenefits.thehelperbees.com/member/UL1234567') +
         topbar() +
@@ -690,9 +690,9 @@ function render(){
           '<div class="mock-member-sub">Member #: UL1234567</div>'+
           '<div class="mock-section-title">Benefits</div>'+
           '<div class="mock-tilegrid">'+
-            '<div class="mock-tile active"><div class="mock-tile-icon">'+ICON_STORE_M3+'</div><div>In-Home Support Services (Companionship)</div></div>'+
+            '<div class="mock-tile active"><div class="mock-tile-icon">'+ICON_STORE_M3+'</div><div>IHSS (Companionship)</div></div>'+
           '</div>'+
-          '<div class="mock-result" style="margin-top:14px;"><div class="mock-result-name">Authorizations for In-Home Support Services (Companionship)</div>'+
+          '<div class="mock-result" style="margin-top:14px;"><div class="mock-result-name">Authorizations for IHSS (Companionship)</div>'+
             '<div class="mock-result-grid" style="margin-top:10px;">'+
               '<div><span>Effective</span><b>9/29/2026</b></div>'+
               '<div><span>Expires</span><b>12/31/2027</b></div>'+
@@ -703,7 +703,7 @@ function render(){
               '<div><span>Remaining</span><b>0.00</b></div>'+
             '</div>'+
           '</div>'+
-          '<div class="mock-result" style="margin-top:14px;"><div class="mock-result-name">Referrals for In-Home Support Services (Companionship) (1)</div>'+
+          '<div class="mock-result" style="margin-top:14px;"><div class="mock-result-name">Referrals for IHSS (Companionship) (1)</div>'+
             '<table class="mock-reftbl"><tr><th>Received</th><th>Status</th><th>Service</th><th>Provider</th><th>Notes</th><th>Encounters</th><th>Points Used</th></tr>'+
             '<tr><td>10/1/2026</td><td><span class="mock-pill">Accepted By Provider</span></td><td>Companion Care</td><td>Test Provider</td><td>1</td><td>1</td><td>0.00</td></tr></table>'+
           '</div>'+

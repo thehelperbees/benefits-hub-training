@@ -475,7 +475,7 @@ var SCREENS = [
 
   { t:'overview', render:'overview', au:'02_overview.mp3',
     h:'Here\'s what your referral page looks like',
-    sub:'Here\'s the referral on file for In-Home Support Services (Companionship). There\'s a lot here, so let\'s break it down one piece at a time.' },
+    sub:'Here\'s the referral on file for IHSS (Companionship). There\'s a lot here, so let\'s break it down one piece at a time.' },
 
   { t:'section', mode:'status', key:'status', n:1, of:6, au:'03_status.mp3', auReveal:'04_status_reveal.mp3',
     h:'Understand the status',
@@ -806,11 +806,11 @@ function renderCard(vwrap, mode){
       '</div>'
     : '';
 
-  /* View SDQ reveal — Ultimate: Companion Care does not require extra questions in this example */
+  /* View SDQ reveal — Ultimate Health Plan: Companion Care does not require extra questions in this example */
   var sdqPanelHtml = sdqVisible
     ? '<div class="pm-revealpanel" style="margin-top:10px;"><h6>Service Detail Questions</h6>'+
-      '<p style="margin:0;font-size:11.5px;line-height:1.5;color:#3C5A4D;">Ultimate referrals don\'t use Service Detail Questions, so there\'s nothing to show here.</p>'+
-      '<div class="infonote" style="margin-top:10px;">'+ICON_INFO+'<span>Some plans&rsquo; services ask extra questions when the referral is created, and their answers show up here. Ultimate&rsquo;s Companion Care doesn&rsquo;t, so an empty result is expected.</span></div>'+
+      '<p style="margin:0;font-size:11.5px;line-height:1.5;color:#3C5A4D;">Ultimate Health Plan referrals don\'t use Service Detail Questions, so there\'s nothing to show here.</p>'+
+      '<div class="infonote" style="margin-top:10px;">'+ICON_INFO+'<span>Some plans&rsquo; services ask extra questions when the referral is created, and their answers show up here. Ultimate Health Plan&rsquo;s Companion Care doesn&rsquo;t, so an empty result is expected.</span></div>'+
       '</div>'
     : '';
 
@@ -850,7 +850,7 @@ function renderCard(vwrap, mode){
   var encSummaryInner = '<div class="pm-encbox" style="margin-top:14px;">'+
     '<div><b>30.00 hrs</b><span>Allowed</span></div><div><b>5.00 hrs</b><span>Used</span></div><div><b>25.00 hrs</b><span>Remaining</span></div>'+
     '</div>'+
-    (readOnly?'':infoToggle('encsummary', 'What do Allowed / Used / Remaining mean?', '<b>Allowed</b> is the total hours available on this referral — for Ultimate, that\'s the 30-hour annual companionship benefit. <b>Used</b> is how many hours completed visits have logged so far. <b>Remaining</b> is what\'s left — once it hits zero, the member has used their hours for the year.')) +
+    (readOnly?'':infoToggle('encsummary', 'What do Allowed / Used / Remaining mean?', '<b>Allowed</b> is the total hours available on this referral — for Ultimate Health Plan, that\'s the 30-hour annual companionship benefit. <b>Used</b> is how many hours completed visits have logged so far. <b>Remaining</b> is what\'s left — once it hits zero, the member has used their hours for the year.')) +
     '<div class="pm-dl" style="margin-top:14px;">'+
     '<div><span>Date Received</span><b>10/1/2026</b></div>'+
     '<div><span>Date Assigned</span><b>10/1/2026</b></div>'+
@@ -889,7 +889,7 @@ function renderCard(vwrap, mode){
      height that was otherwise forcing an unwanted scrollbar. */
   var showTopRow = (mode==='overview'||mode==='review');
   var topRowHtml = !showTopRow ? '' : (
-    '<div class="pm-section-title" style="margin-top:0;">Referrals for In-Home Support Services (Companionship)</div>'+
+    '<div class="pm-section-title" style="margin-top:0;">Referrals for IHSS (Companionship)</div>'+
     '<table class="pm-reftable" style="margin-bottom:0;"><tr><th>Received</th><th>Status</th><th>Service</th><th>Provider</th><th>Notes</th><th>Encounters</th><th>Points Used</th><th>Action</th></tr>'+
     '<tr><td>10/1/2026</td><td><span class="pm-badge-status"><i></i>Accepted By Provider</span></td>'+
     '<td>Companion Care</td><td>Test Provider</td><td>'+(noteDone?1:0)+'</td><td>1</td><td>0.00</td>'+
