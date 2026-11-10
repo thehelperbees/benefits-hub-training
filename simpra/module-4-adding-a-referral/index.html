@@ -357,7 +357,7 @@ var SCREENS = [
   { t:'step', n:3, of:4,
     kicker:"Step 3",
     h:"Set your quantity and add to cart",
-    sub:"Enter the member's full annual allotment, in visits, as your quantity, then select Add to Cart.",
+    sub:"Enter the number of visits to request for this service, then select Add to Cart.",
     render:'step3',
     au:'09_step3.mp3', auAdded:'10_step3_added.mp3' },
 
@@ -377,8 +377,8 @@ var SERVICE_OPTIONS = [
   "Companion Care", "Virtual Companion"
 ];
 var SERVICE_DATA = {
-  "Companion Care": {id:"78", points:1.00, desc:"Companions are available to spend time and help with tasks like planning appointments, meal preparation, social activities, and exercise"},
-  "Virtual Companion": {id:"83", points:1.00, desc:"Connect with a companion by phone or video"}
+  "Companion Care": {id:"25457", points:1.00, desc:"Companions are available to spend time and help with tasks like planning appointments, meal preparation, social activities, and exercise"},
+  "Virtual Companion": {id:"25458", points:1.00, desc:"Connect with a companion by phone or video"}
 };
 var PLAN_ALLOWANCE = 25; // this training member's annual visits (1 point = 1 visit)
 
@@ -499,7 +499,7 @@ function renderStep1(vwrap){
       '</div>'+
       '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Pending</b> reflects visits already reserved by other referrals against this same authorization — it does not mean a referral hasn\'t been entered yet.</span></div>'+
       (done
-        ? '<div class="pm-toast">'+ICON_CHECK+'<span>Referral started for Companion Care — select Next to search for a service.</span></div>'
+        ? '<div class="pm-toast">'+ICON_CHECK+'<span>Referral started for Companion Care — select Next. On the next screen, check the service address before you choose a service.</span></div>'
         : '<div class="pm-nofound">No referrals found for Companion Care benefit.</div>')+
       '</div>';
   }
@@ -559,11 +559,12 @@ function renderStep2(vwrap){
   var fieldsHtml =
     '<div class="pm-section-title">Available Services for Test Member1 in '+currentServiceZip()+' <span class="pm-link" id="pmChangeAddrLink">(change service address)</span></div>'+
     (altAddr ? '<div class="infonote" style="margin-bottom:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>New zip code appears above — services now reflect <b>'+currentServiceZip()+'</b> instead of the member\'s address on file.</span></div>' : '')+
+    (!altAddr ? '<div class="infonote" style="margin-bottom:12px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Check the service address first.</b> Services are matched to the zip code shown above. If the member is receiving care somewhere other than their address on file — staying with family, temporary housing, and so on — select <b>(change service address)</b> now, before you choose a service. This is the only place to change it: the address can\'t be edited at checkout.</span></div>' : '')+
     '<div class="pm-fieldrow">'+
       '<div class="pm-field"><label>Service Category</label><div class="box">All Categories</div></div>'+
       '<div class="pm-field"><label>Search For Services</label>'+searchBoxHtml+dropdownHtml+'</div>'+
     '</div>'+
-    (!altAddr ? '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>If the member is receiving care somewhere other than their address on file — staying with family, temporary housing, and so on — select <b>(change service address)</b> above to set a different location for just this referral. Their address on file won\'t change.</span></div>' : '');
+    '';
 
   var serviceCardHtml = '';
   if(selected){
@@ -682,7 +683,7 @@ function renderStep3(vwrap){
     '</div>'+
     '<button class="pm-cart-btn'+(qty>=1&&!added?' pm-hot':'')+'" style="position:relative;" id="pmAddCartBtn" '+(qty<1?'disabled':'')+'>Add to Cart'+(qty>=1&&!added?hotTag('Click to add to cart'):'')+'</button>'+
     (added ? '<div class="pm-toast">'+ICON_CHECK+'<span>'+selectedService+' added to cart</span></div>' : '')+
-    ((qty>=1 && qty!==PLAN_ALLOWANCE) ? '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Quick check: this member\'s annual allotment is <b>'+PLAN_ALLOWANCE+' visits</b>. All of a member\'s annual visits belong in one referral, entered as visits (not hours) — adjust the quantity so it matches '+PLAN_ALLOWANCE+'.</span></div>' : '');
+    ((qty>=1 && qty!==PLAN_ALLOWANCE) ? '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Quick check: this member\'s annual allotment is <b>'+PLAN_ALLOWANCE+' visits</b>, shared across Companion Care and Virtual Companion. If this is the only service the member needs, request all '+PLAN_ALLOWANCE+'; if you\'re splitting between services, make sure the visits across both add up to '+PLAN_ALLOWANCE+'.</span></div>' : '');
 
   var frame = browserFrame('simprabenefits.thehelperbees.com/referral/add', inner);
   vwrap.innerHTML=''; vwrap.appendChild(frame);
@@ -734,7 +735,7 @@ function renderStep4(vwrap){
       innerBody += '<table class="pm-summarytable"><tr><th>Service</th><th>Qty</th><th>Pts Each</th><th>Total</th><th>Actions</th></tr>'+
         '<tr><td>'+selectedService+'<br><span style="color:#999;font-size:9.5px;">Added: 10/6/2026</span></td><td>'+qty+'</td><td>'+svc.points.toFixed(2)+'</td><td>'+lineTotal+'</td><td class="trash">🗑</td></tr>'+
         '</table>'+
-        '<div class="pm-addr-card flag"><h5>Service Address <span class="pm-link" id="pmEditAddrLink">(edit)</span></h5><p>'+currentServiceAddrLines()+'</p></div>'+
+        '<div class="pm-addr-card flag"><h5>Service Address</h5><p>'+currentServiceAddrLines()+'</p></div>'+
         '<div class="pm-bottomrow"><div class="pm-total-label">Total Points: '+lineTotal+'</div>'+
         '<div class="pm-btnrow"><button class="pm-btn-outline danger" id="pmClearCartBtn">Clear Cart</button><button class="pm-btn-outline">Continue Shopping</button><button class="pm-btn-checkout'+(!confirming?' pm-hot':'')+'" style="position:relative;" id="pmCheckoutBtn">Checkout'+(!confirming?hotTag('Click to checkout'):'')+'</button></div></div>';
     } else {
@@ -749,19 +750,6 @@ function renderStep4(vwrap){
   } else if(done){
     modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal"><p>Thank you. Your referrals have been submitted.</p>'+
       '<div class="pm-modal-btns"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="pmContinueBtn">Continue'+hotTag('Click to continue')+'</button></div></div></div>';
-  } else if(answered['s2_altAddrModal']){
-    var curAddr = answered['s2_altAddr'] || {};
-    modalHtml = '<div class="pm-modal-overlay"><div class="pm-modal addr-modal"><h5>Change Service Address</h5>'+
-      '<div class="infonote" style="margin-bottom:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>This updates the address for this referral only — the member\'s address on file won\'t change.</span></div>'+
-      '<div class="pm-addrfield" style="margin-bottom:10px;"><label>Street Address *</label><input type="text" id="pmAltStreet" placeholder="123 Mary Poppins St" value="'+(curAddr.street||'')+'"></div>'+
-      '<div class="pm-addrfield" style="margin-bottom:10px;"><label>Apt, Suite, Unit, etc.</label><input type="text" id="pmAltApt" placeholder="" value="'+(curAddr.apt||'')+'"></div>'+
-      '<div class="pm-addrform-row">'+
-        '<div class="pm-addrfield"><label>City *</label><input type="text" id="pmAltCity" placeholder="San Diego" value="'+(curAddr.city||'')+'"></div>'+
-        '<div class="pm-addrfield" style="max-width:70px;"><label>State *</label><input type="text" id="pmAltState" placeholder="CA" maxlength="2" value="'+(curAddr.state||'')+'"></div>'+
-        '<div class="pm-addrfield zip"><label>Zip Code *</label><input type="text" id="pmAltZip" placeholder="92007" value="'+(curAddr.zip||'')+'"></div>'+
-      '</div>'+
-      '<div class="pm-modal-btns" style="margin-top:16px;"><button class="pm-btn-checkout" id="pmAltSaveBtn">Save</button><button class="pm-btn-outline" id="pmAltCancelBtn">Cancel</button></div>'+
-      '</div></div>';
   }
 
   var frame = browserFrame(summaryOpen ? 'simprabenefits.thehelperbees.com/referral/cart' : 'simprabenefits.thehelperbees.com/referral/add',
@@ -772,37 +760,16 @@ function renderStep4(vwrap){
 
   if(summaryOpen && !done){
     var addrNote=el('div','infonote');
-    addrNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Before you check out, be sure to verify the <b>Service Address</b> shown above — this is where the referral will route to, and it determines which provider services that zip code. Take a minute to review this screen. When you\'re ready, select <b>Checkout</b> to submit.</span>';
+    addrNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Before you check out, be sure to verify the <b>Service Address</b> shown above — this is where the referral will route to, and it determines which provider services that zip code. If it\'s wrong, don\'t try to fix it here — use the back arrow to return to the Add Referral screen and select <b>(change service address)</b>. When the address is right, select <b>Checkout</b> to submit.</span>';
     vwrap.appendChild(addrNote);
     if(currentAltAddr()){
       var altNote=el('div','infonote');
-      altNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>You\'re using an <b>alternative service address</b> for this referral — only one is allowed per checkout, and the member\'s address on file stays unchanged. Once you check out, this address can\'t be edited. To change it afterward, you\'d need to submit a Zendesk ticket (not guaranteed) or close this referral and create a new one with the correct address.</span>';
+      altNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>You\'re using an <b>alternative service address</b> for this referral — only one is allowed per checkout, and the member\'s address on file stays unchanged. It can\'t be edited at checkout — to change it before you submit, use the back arrow to return to the Add Referral screen. Once you check out, it\'s locked. To change it afterward, you\'d need to submit a Zendesk ticket (not guaranteed) or close this referral and create a new one with the correct address.</span>';
       vwrap.appendChild(altNote);
     }
     var cartNote=el('div','infonote');
     cartNote.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Checkout submits every item in the cart at once.</b> Before you confirm, make sure everything listed is still needed — there\'s no way to submit just one item at a time.</span>';
     vwrap.appendChild(cartNote);
-  }
-
-  var editAddrLink = vwrap.querySelector('#pmEditAddrLink');
-  if(editAddrLink){
-    editAddrLink.onclick=function(){ answered['s2_altAddrModal']=true; renderStep4(vwrap); };
-  }
-  var altCancelBtn4 = vwrap.querySelector('#pmAltCancelBtn');
-  if(altCancelBtn4){ altCancelBtn4.onclick=function(){ answered['s2_altAddrModal']=false; renderStep4(vwrap); }; }
-  var altSaveBtn4 = vwrap.querySelector('#pmAltSaveBtn');
-  if(altSaveBtn4){
-    altSaveBtn4.onclick=function(){
-      var street=document.getElementById('pmAltStreet').value.trim();
-      var apt=document.getElementById('pmAltApt').value.trim();
-      var city=document.getElementById('pmAltCity').value.trim();
-      var state=document.getElementById('pmAltState').value.trim();
-      var zip=document.getElementById('pmAltZip').value.trim();
-      if(!street || !city || !state || !zip) return;
-      answered['s2_altAddr'] = {street:street, apt:apt, city:city, state:state.toUpperCase(), zip:zip};
-      answered['s2_altAddrModal']=false;
-      renderStep4(vwrap);
-    };
   }
 
   var cartIcon = vwrap.querySelector('#pmCartIcon');
@@ -912,7 +879,7 @@ function render(){
     }
     if(s.render==='step3'){
       var note3=el('div','infonote');
-      note3.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>One referral for the whole year — enter visits, not hours.</b> 1 point = 1 visit, and each visit is up to two hours. Use the member\'s full annual allotment at checkout: 30 visits for ISNP members, 25 visits for DSNP and IESNP members. Companion Care and Virtual Companion are separate services, so choose the one that fits what the member needs.</span>';
+      note3.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Enter visits, not hours.</b> 1 point = 1 visit, and each visit is up to two hours. Request all the visits the member plans to use up front — providers accept a larger referral sooner, and the member doesn\'t have to use them all at once. The visits are shared between Companion Care and Virtual Companion, so if the member wants both, split them between the two services (for example, 15 Companion Care and 10 Virtual Companion for 25 visits) and add each to the cart. Allotments are 30 visits for ISNP members and 25 for DSNP and IESNP members.</span>';
       d2.querySelector('.wrap.wide[style]').appendChild(note3);
       var note3b=el('div','infonote');
       note3b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Before you add to cart.</b> Complete the Service Questions, then confirm the quantity reflects the visits allotted for this referral. Visits do not roll over, so the allotment resets at the end of the plan year.</span>';

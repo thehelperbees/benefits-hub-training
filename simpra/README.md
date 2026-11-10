@@ -22,3 +22,8 @@ Source: Training & Quality request LA-2026-10-06-1073 (Simpra 2027) plus tester 
   (the Play button hides itself when a clip is missing)
 - Recapture benefit-tile.png on a tester with no pending referral so it matches Module 4/5 numbers
 - Confirm Companion Care service-task list and Source value (placeholders in Modules 5 and 7)
+
+## Update 2026-11-10
+- Module 4: change-service-address callout moved to the start of Add Referral; "(edit)" removed from checkout; quantity guidance reworded (request visits up front, split across Companion Care / Virtual Companion).
+- Module 7 quiz/story and the Adding a Referral job aid, FAQ, and Quick Tips PDFs updated to match.
+- Narration clips to re-record: M4 04_step1_added, 05_step2, 07_step2_selected, 08_step2_altaddr, 09_step3, 10_step3_added, 13_step4_summary.
