@@ -14,7 +14,7 @@ differs from the generic training in `/shared/`:
 Module 1 (`shared/module-1-why-benefits-hub/`) is reused as-is.
 
 ## Still to do
-- Recapture benefit-tile.png and the Standard service screen once the tester has an allowance (10) and Standard points (1.00) set - the tile shows dashes for Plan Allowance/Used/Pending/Remaining today
+- benefit-tile.png now shows the tester's 10-cleaning allowance (recaptured Nov 2026). The Standard service screen may still be worth recapturing once Standard points (1.00) are set.
 - Narration: `assets/audio/` folders are empty; scripts to be written and recorded
   (the Play button hides itself when a clip is missing)
 - Confirm whether non-copay service variants exist (services are named '... - Copay')
