@@ -624,7 +624,7 @@ var SCREENS = [
       {label:"How many items are in a different member's cart.", correct:false},
       {label:"The benefit tile's color — tiles must be highlighted green to check out.", correct:false}
     ],
-    explain:"Always confirm the service address before checking out — it's what determines which provider services that zip code."},
+    explain:"Always confirm the service address before checking out — it's what determines which provider services that zip code. If it's wrong, you can't fix it at checkout: go back to the Add Referral screen and use (change service address)."},
 
   { t:'quiz', qtype:'mc', graded:true, stepLabel:'Question 4 of 8',
     eyebrow:'Understanding Benefits, Balances, Referrals, and Notes', visual:'status-action',
@@ -1312,7 +1312,7 @@ function renderChapterSubmit(vwrap){
         '<table class="pm-notestable" style="margin-bottom:14px;"><tr><th>Service</th><th>Qty</th><th>Total</th></tr>'+
         '<tr><td>In-Home Safety Assessment</td><td>'+qty+'</td><td>'+totalPoints.toFixed(2)+'</td></tr></table>'+
         '<div class="pm-addr-card"><h5>Service Address</h5><p>123 Bee Hive Avenue<br>Eastover, SC 29044</p></div>'+
-        '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Double-check the <b>service address</b> above before confirming — it determines which provider this referral routes to.</span></div>'+
+        '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Double-check the <b>service address</b> above before confirming — it determines which provider this referral routes to. If it&rsquo;s wrong, go back to the Add Referral screen and use <b>(change service address)</b>; it can&rsquo;t be edited here.</span></div>'+
         '<div class="pm-modal-btns" style="margin-top:16px;"><button class="pm-btn-checkout pm-hot" style="position:relative;" id="storyConfirmSubmit">Confirm'+storyHotTag('Click to confirm')+'</button>'+
         '<button class="pm-btn-outline" id="storyCloseModal">Close</button></div>'+
         '</div></div>';
