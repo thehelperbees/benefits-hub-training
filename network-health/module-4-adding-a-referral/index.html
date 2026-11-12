@@ -388,9 +388,9 @@ var BENEFITS = {
         step2note:"<b>Homemaking has no Service Questions.</b> Its 120.00 points equal the member's full 120-hour allotment for the year, so you keep the quantity at 1.",
         qtyNote:"Homemaking is a single 120-point service, which equals the member's full 120-hour allotment. Leave the quantity at 1 and add it to the cart."},
   transport: {key:'transport', tile:'Non-Emergency Transportation', auth:9, category:'All Categories', allow:9999, allowStr:'9999.00',
-        options:["Private Pay Stretcher Van Ride","Private Pay Wheelchair Van Ride","Private Pay Medical Sedan Ride"], maxQty:99, rideForm:true,
+        options:["Private Pay Stretcher Van Ride","Private Pay Wheelchair Van Ride","Private Pay Medical Sedan Ride"], maxQty:1, rideForm:true,
         step2note:"<b>Ride services ask required Service Questions</b> — the ride date (allow one business day for booking), pick up location, where the member will be standing, destination, pick up time, and the member's mobile number. Choose the vehicle that fits the member's mobility needs.",
-        qtyNote:"Each ride is one point. Enter the number of rides for this request, then add it to the cart. Remember each service type is its own referral."}
+        qtyNote:"Each ride is one point, and the quantity is limited to 1 per order. That keeps a ride from being duplicated by raising the quantity, so each leg of a trip is its own referral. Leave the quantity at 1 and add it to the cart."}
 };
 var CUR = 'ihs';
 function B(){ return BENEFITS[CUR]; }
