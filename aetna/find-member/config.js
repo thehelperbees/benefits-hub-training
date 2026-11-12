@@ -59,17 +59,17 @@
 
       { id: 'tiles', au: 'fm_05_tiles.mp3', info: true,
         h: 'See the benefit tiles',
-        sub: 'Each <b>tile</b> is one benefit the member is eligible for. This member has two: <b>In-Home Support Personal Care</b> and <b>Recovery at Home</b>. Aetna has four benefits in all, and a member does not have all four.',
+        sub: 'Each <b>tile</b> is one benefit the member is eligible for. This member has two: <b>Personal Care</b> and <b>Recovery at Home</b>. Aetna has four benefits in all, and a member does not have all four.',
         say: 'Now the heart of this page: the benefit tiles. Each tile is one benefit this member is eligible for. This member has two, personal care and Recovery at Home. Aetna has four benefits in all: personal care, post-discharge, Recovery at Home, and companion care. But a member won\'t have all four, so you only see the tiles that apply to the person in front of you.',
         enter: function (H) { memberPage(H, null); },
         target: function (H, doc) { var t = doc.querySelector('.tile'); return t ? t.parentElement : null; }, tag: 'Benefit tiles' },
 
       { id: 'tile-pc', au: 'fm_06_tilepc.mp3',
         h: 'Open the Personal Care tile',
-        sub: 'Select the <b>In-Home Support Personal Care</b> tile to see that benefit\'s authorization.',
+        sub: 'Select the <b>Personal Care</b> tile to see that benefit\'s authorization.',
         say: 'Let\'s open one. Click the personal care tile. When you select a tile, everything below it changes to show that benefit\'s authorization and its referrals.',
         enter: function (H) { memberPage(H, null); },
-        target: '.tile[title="In-Home Support Personal Care"]', tag: 'Select this benefit',
+        target: '.tile[title="Personal Care"]', tag: 'Select this benefit',
         done: function (H) { return S(H).tile[MID] === H.authId(MID, PC); } },
 
       { id: 'auth', au: 'fm_07_auth.mp3', info: true,

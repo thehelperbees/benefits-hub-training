@@ -73,10 +73,10 @@
       /* ---------------- Part 1: read a referral ---------------- */
       { id: 'tile', au: 'mr_01_tile.mp3', kicker: 'Part 1 · Read a referral',
         h: 'Open the Personal Care benefit',
-        sub: 'Start with a member who already has a Personal Care referral. This is <b>TEST-1001</b>. Select the <b>In-Home Support Personal Care</b> tile.',
+        sub: 'Start with a member who already has a Personal Care referral. This is <b>TEST-1001</b>. Select the <b>Personal Care</b> tile.',
         say: 'Let\'s start with a member who already has a personal care referral. Click the personal care tile.',
         enter: function (H) { freshPC(H, false, false); },
-        target: '.tile[title="In-Home Support Personal Care"]', tag: 'Select this benefit',
+        target: '.tile[title="Personal Care"]', tag: 'Select this benefit',
         done: function (H) { return S(H).tile[MID] === H.authId(MID, PC); } },
 
       { id: 'expand', au: 'mr_02_expand.mp3', kicker: 'Part 1 · Read a referral',

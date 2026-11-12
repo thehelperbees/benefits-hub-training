@@ -4,7 +4,7 @@
    Post Discharge - No Conditions follows the same steps (per the SME), so it is covered in the intro and outro, not a third example.
    `say` = narration script, `sub` = on-screen caption. */
 (function () {
-  var groups = [['bestNumber', 'pp1_name', 'pp1_rel', 'pp1_phi'], ['hospital', 'anticipatedDischarge', 'careNeeded'], ['conditions'], ['supportNeeds']];
+  var groups = [['bestNumber', 'pp1_name', 'pp1_rel', 'pp1_phi'], ['hospital', 'anticipatedDischarge', 'careNeeded'], ['dxPd', 'conditions'], ['supportNeeds']];
   var A = GuideKit({ member: 'TEST-1002', program: 'PD12', qty: 12, groups: groups });
   var B = GuideKit({ member: 'TEST-1005', program: 'PD12', qty: 12, groups: groups });
   var S = A.S, TILE = 'In-Home Support Post-Discharge';
@@ -71,10 +71,10 @@
 
       { id: 'service', au: 'pd_05_service.mp3',
         h: 'Choose the service',
-        sub: 'Select the <b>Search For Services</b> field, then choose <b>In-Home Support - Post-Discharge</b>.',
-        say: 'Now choose the service. Click the search box, and select in-home support, post-discharge.',
+        sub: 'Select the <b>Search For Services</b> field, then choose <b>Post Discharge</b>.',
+        say: 'Now choose the service. Click the search box, and select Post Discharge.',
         enter: function (H) { A.ensureAdd(H, false); },
-        target: A.svcTarget, tag: A.svcTag('Post-Discharge'),
+        target: A.svcTarget, tag: A.svcTag('Post Discharge'),
         done: function (H) { return !!(H.form() && H.form().svc); } },
 
       { id: 'contact', au: 'pd_06_contact.mp3',
@@ -93,18 +93,26 @@
         target: '#q-careNeeded', tag: 'Required date',
         done: function (H) { return A.answered(H, ['careNeeded']); } },
 
+      { id: 'dx', au: 'pd_07b_dx.mp3',
+        h: 'Qualifying diagnosis: choose N/A',
+        sub: 'The <b>qualifying diagnosis</b> question is required. A Post-Discharge referral is based on chronic conditions, not a diagnosis, so choose the first option, <b>N/A - no qualifying diagnosis</b>.',
+        say: 'Next is the qualifying diagnosis, and it\'s required. Those diagnoses are for Recovery at Home referrals. A post-discharge referral is based on the member\'s chronic conditions instead, so choose the first option: N-A, no qualifying diagnosis.',
+        enter: function (H) { A.ensureForm(H, 1); A.clear(H, ['dxPd', 'conditions']); },
+        target: '#q-dxPd', tag: 'Choose N/A',
+        done: function (H) { return H.form().answers.dxPd === 'N/A - no qualifying diagnosis'; } },
+
       { id: 'conditions', au: 'pd_08_conditions.mp3',
         h: 'Qualifying chronic conditions',
-        sub: 'Open the <b>qualifying chronic conditions</b> list and select all that apply. This question is required, so choose at least one.',
-        say: 'Now the qualifying chronic conditions. Open the list and select everything that applies to this member. This one is required, so choose at least one. These answers help give the provider a picture of the member\'s situation.',
-        enter: function (H) { A.ensureForm(H, 1); A.clear(H, ['conditions']); },
+        sub: 'Open the <b>qualifying chronic conditions</b> list and select all that apply. This question is required, so choose at least one condition. Skip the N/A option at the top: it is only for Recovery at Home referrals. Diagnosis and chronic conditions are both required, and only one of them can be N/A. Never choose N/A for both.',
+        say: 'Now the qualifying chronic conditions. Open the list and select everything that applies to this member. This one is required, so choose at least one condition. Skip the N-A option at the top of the list, because that one is only for Recovery at Home referrals. Remember, both of these questions are required, and only one of them can be N-A. Since the diagnosis is N-A, at least one real chronic condition has to be chosen here.',
+        enter: function (H) { A.ensureForm(H, 1); var a = H.form().answers; a.dxPd = 'N/A - no qualifying diagnosis'; A.clear(H, ['conditions']); },
         target: '#q-conditions', tag: 'Open and choose',
-        done: function (H) { return A.answered(H, ['conditions']); } },
+        done: function (H) { var v = H.form().answers.conditions; return !!v && v.some(function (c) { return !/^N\/A/.test(c); }); } },
 
       { id: 'support', au: 'pd_09_support.mp3',
         h: 'Support needs',
-        sub: 'Open <b>Support needs</b> and select at least one. The list covers ADLs (daily living) and IADLs (household tasks). <b>Care interest confirmed with member?</b> is optional.',
-        say: 'Then support needs. Choose at least one from the list, which covers personal tasks like bathing and dressing, and household help like meals and laundry. Pick what this member will actually need. The care interest question is optional.',
+        sub: 'Open <b>Support needs</b> and select at least one. The list covers ADLs (daily living) and IADLs (household tasks). <b>Care interest confirmed with member?</b> and <b>Notes for the THB coordinator</b> are optional.',
+        say: 'Then support needs. Choose at least one from the list, which covers personal tasks like bathing and dressing, and household help like meal preparation and medication reminders. Pick what this member will actually need. The last two questions, care interest and notes for the Helper Bees coordinator, are optional.',
         enter: function (H) { A.ensureForm(H, 2); A.clear(H, ['supportNeeds']); },
         target: '#q-supportNeeds', tag: 'Open and choose',
         done: function (H) { return A.answered(H, ['supportNeeds']); } },

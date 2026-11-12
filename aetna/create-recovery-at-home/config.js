@@ -4,6 +4,7 @@
    Every fact below comes from the SME mockup (Aetna Benefits Hub Training Mock). */
 (function () {
   var MID = 'TEST-1001', RAH = 'RAH60', PC = 'IHSPC80';
+  var CNA = 'N/A - no qualifying chronic condition (choose this one only when referring against a Recovery at Home Diagnosis instead)';
 
   /* ---- state helpers: put the embedded app into the state a step expects (used when the learner goes Back) ---- */
   function S(H) { return H.TM.S; }
@@ -22,7 +23,7 @@
     function put(k, v) { if (!a[k] || (Array.isArray(a[k]) && !a[k].length)) a[k] = v; }
     if (upTo >= 1) { put('bestNumber', '555-0111'); put('pp1_name', 'Pat Sample'); put('pp1_rel', 'Point of Contact (POC) / family'); put('pp1_phi', 'Yes - PHI may be shared'); }
     if (upTo >= 2) { put('hospital', 'Sample Regional Hospital'); put('anticipatedDischarge', '2027-03-11'); put('careNeeded', '2027-03-12'); }
-    if (upTo >= 3) { put('dx', dx[0]); }
+    if (upTo >= 3) { put('dx', dx[1]); put('conditions', [CNA]); }   /* dx[0] is the N/A option */
     if (upTo >= 4) { put('supportNeeds', ['ADL: Bathing & personal hygiene']); }
     if (upTo >= 5 && !f.qty) f.qty = 60;
     f.error = ''; H.TM.render();
@@ -65,7 +66,7 @@
 
       { id: 'tile', au: 'rah4_02_tile.mp3',
         h: 'Open the Recovery at Home benefit',
-        sub: 'This member has two benefits: In-Home Support Personal Care and Recovery at Home. Select the <b>Recovery at Home</b> tile.',
+        sub: 'This member has two benefits: Personal Care and Recovery at Home. Select the <b>Recovery at Home</b> tile.',
         say: 'This member has two benefits on their plan, personal care and Recovery at Home. Each has its own tile, and you always create a referral from the tile for the benefit you want. Here we want Recovery at Home, so click that tile.',
         enter: function (H) { ensureMember(H, false); },
         target: '.tile[title="Recovery at Home"]', tag: 'Select this benefit',
@@ -107,12 +108,12 @@
 
       { id: 'service', au: 'rah4_05_service.mp3',
         h: 'Choose the service',
-        sub: 'Select the <b>Search For Services</b> field, then choose <b>Recovery at Home</b>.',
+        sub: 'Select the <b>Search For Services</b> field. This benefit offers two services, <b>Recovery at home - Aetna</b> and <b>Post Discharge</b>. Choose <b>Recovery at home - Aetna</b>.',
         say: 'Now choose the service. Click the Search For Services box, and pick Recovery at Home from the list. As soon as you do, the service questions appear below, and those questions are how the Helper Bees get what they need to arrange care for this member.',
         enter: function (H) { ensureAdd(H, false); },
-        target: function (H) { return H.form() && H.form().svcOpen ? H.q('[data-pick-svc]') : H.q('#svcSearch'); },
-        tag: function (H) { return H.form() && H.form().svcOpen ? 'Select Recovery at Home' : 'Select to search'; },
-        done: function (H) { return !!(H.form() && H.form().svc); } },
+        target: function (H) { return H.form() && H.form().svcOpen ? H.q('[data-pick-svc="RAH"]') : H.q('#svcSearch'); },
+        tag: function (H) { return H.form() && H.form().svcOpen ? 'Select Recovery at home - Aetna' : 'Select to search'; },
+        done: function (H) { var f = H.form(); return !!(f && f.svc && f.svc !== 'PD'); } },
 
       { id: 'contact', au: 'rah4_06_contact.mp3',
         h: 'Who should THB work with?',
@@ -133,16 +134,24 @@
 
       { id: 'dx', au: 'rah4_08_dx.mp3',
         h: 'Qualifying diagnosis',
-        sub: 'Choose the <b>qualifying diagnosis</b> for this referral. Recovery at Home allows one referral per qualifying diagnosis, per member, per year. You already chose Recovery at Home from the tile, so there is no N/A option here.',
-        say: 'Next, the qualifying diagnosis. Pick the diagnosis that applies from the list. Recovery at Home allows one referral per qualifying diagnosis, per member, per year, so this choice matters. If the member has already had a referral for that diagnosis this year, checkout will stop you. You\'ll notice there\'s no chronic conditions question and no N-A option here. That\'s because you already chose Recovery at Home when you selected the tile.',
+        sub: 'Choose the <b>qualifying diagnosis</b> for this referral. Recovery at Home allows one referral per qualifying diagnosis, per member, per year. The first option, <b>N/A</b>, is not for a Recovery at Home referral.',
+        say: 'Next, the qualifying diagnosis. Pick the diagnosis that applies from the list. Recovery at Home allows one referral per qualifying diagnosis, per member, per year, so this choice matters. If the member has already had a referral for that diagnosis this year, checkout will stop you. You\'ll see an N-A option at the top of the list. That\'s not for a Recovery at Home referral, because a Recovery at Home referral is always for a qualifying diagnosis.',
         enter: function (H) { ensureForm(H, 2); delete S(H).form.answers.dx; H.TM.render(); },
-        target: '#q-dx', tag: 'Choose the diagnosis',
-        done: function (H) { return has(H, ['dx']); } },
+        target: '#q-dx', tag: function (H) { return /^N\/A/.test(S(H).form.answers.dx || '') ? 'Choose a diagnosis, not N/A' : 'Choose the diagnosis'; },
+        done: function (H) { var v = S(H).form.answers.dx; return !!v && !/^N\/A/.test(v); } },
+
+      { id: 'conditions', au: 'rah4_08b_conditions.mp3',
+        h: 'Chronic conditions: choose N/A',
+        sub: 'The <b>qualifying chronic condition(s)</b> question is required too. Because this referral is for a Recovery at Home diagnosis, open the list and choose the first option, <b>N/A - no qualifying chronic condition</b>. Remember: diagnosis and chronic conditions are both required, and only one of them can be N/A. Never choose N/A for both.',
+        say: 'The next question asks for qualifying chronic conditions, and it\'s required. Chronic conditions are what a post-discharge referral is based on. This referral is based on the diagnosis you just picked, so open the list and choose the first option: N-A, no qualifying chronic condition. The option itself says to choose it when you\'re referring against a Recovery at Home diagnosis, which is exactly what you\'re doing. One rule to remember: both of these questions are required, and only one of them can be N-A. A referral always needs either a qualifying diagnosis or at least one chronic condition, so never choose N-A for both.',
+        enter: function (H) { ensureForm(H, 2); var a = S(H).form.answers; if (!a.dx || /^N\/A/.test(a.dx)) a.dx = H.sdqOptions('dx')[1]; delete a.conditions; H.TM.render(); },
+        target: '#q-conditions', tag: function (H) { return S(H).form.msOpen === 'conditions' ? 'Choose N/A' : 'Open the list'; },
+        done: function (H) { var v = S(H).form.answers.conditions; return !!v && v.indexOf(CNA) !== -1; } },
 
       { id: 'support', au: 'rah4_09_support.mp3',
         h: 'Support needs',
-        sub: 'Open <b>Support needs</b> and select at least one. The list covers ADLs (daily living) and IADLs (household tasks). <b>Care interest confirmed with member?</b> is optional.',
-        say: 'Now the support needs. Open the list and choose at least one. The options include activities of daily living, like bathing and dressing, and household help, like meals and laundry. Pick what this member will really need, because providers are pointed to these answers for care guidance. The care interest question below is optional.',
+        sub: 'Open <b>Support needs</b> and select at least one. The list covers ADLs (daily living) and IADLs (household tasks). <b>Care interest confirmed with member?</b> and <b>Notes for the THB coordinator</b> are optional.',
+        say: 'Now the support needs. Open the list and choose at least one. The options include activities of daily living, like bathing and dressing, and household help, like meal preparation and medication reminders. Pick what this member will really need, because providers are pointed to these answers for care guidance. The last two questions are optional: whether care interest is confirmed with the member, and notes for the Helper Bees coordinator. Use the notes for anything that helps the first visit go smoothly, like language needs or the best way to reach the member.',
         enter: function (H) { ensureForm(H, 3); delete S(H).form.answers.supportNeeds; H.TM.render(); },
         target: '#q-supportNeeds', tag: 'Open and choose',
         done: function (H) { return has(H, ['supportNeeds']); } },
@@ -196,10 +205,10 @@
 
       { id: 'pc-tile', au: 'rah4_15_pctile.mp3',
         h: 'Check the Personal Care benefit',
-        sub: 'Select the <b>In-Home Support Personal Care</b> tile to see what happened to that referral.',
+        sub: 'Select the <b>Personal Care</b> tile to see what happened to that referral.',
         say: 'Now let\'s see what that referral did to the member\'s personal care. Click the personal care tile.',
         enter: function (H) { ensureSubmitted(H); H.selectTile(MID, RAH); },
-        target: '.tile[title="In-Home Support Personal Care"]', tag: 'Select this benefit',
+        target: '.tile[title="Personal Care"]', tag: 'Select this benefit',
         done: function (H) { return S(H).tile[MID] === authSel(H, PC); } },
 
       { id: 'pc-hold', au: 'rah4_16_pchold.mp3', info: true,

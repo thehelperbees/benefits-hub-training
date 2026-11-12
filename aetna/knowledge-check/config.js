@@ -3,10 +3,11 @@
    Tasks are "blind": no pointer until the learner asks for a hint. Forms are partly filled in so the test is about decisions, not typing.
    `say` = narration script. */
 (function () {
+  function pcSecondaryOk(a) { var s = a.secondaryNeeds; return !!(s && s.some(function (x) { return x !== a.primaryNeed; })); }
   var contact = ['bestNumber', 'pp1_name', 'pp1_rel', 'pp1_phi'], dates = ['hospital', 'anticipatedDischarge', 'careNeeded'];
-  var R = GuideKit({ member: 'TEST-1001', program: 'RAH60', qty: 60, groups: [contact, dates, ['dx'], ['supportNeeds']] });
-  var B = GuideKit({ member: 'TEST-1005', program: 'PD12', qty: 12, groups: [contact, dates, ['conditions'], ['supportNeeds']] });
-  var P = GuideKit({ member: 'TEST-1002', program: 'IHSPC80', qty: 80, groups: [contact, ['adlNeeds']] });
+  var R = GuideKit({ member: 'TEST-1001', program: 'RAH60', qty: 60, groups: [contact, dates, ['dx', 'conditions'], ['supportNeeds']] });
+  var B = GuideKit({ member: 'TEST-1005', program: 'PD12', qty: 12, groups: [contact, dates, ['dxPd', 'conditions'], ['supportNeeds']] });
+  var P = GuideKit({ member: 'TEST-1002', program: 'IHSPC80', qty: 80, groups: [contact, ['primaryNeed', 'secondaryNeeds']] });
   var C = GuideKit({ member: 'TEST-1006', program: 'CC40', qty: 8, groups: [['facility', 'facilityContact'], ['facilityPhone'], ['prefDates', 'prefTimes'], ['facilityRules'], ['ssbci']] });
   var S = R.S;
 
@@ -88,10 +89,10 @@
       opts: ['It stays open next to the new one.', 'You must close it yourself before you submit.', 'It is marked Completed, and the unused hours return to the member.', 'Benefits Hub closes it as Eligibility Failed. Its unused hours expire.'], ok: 3,
       explain: 'You do not close the old referral. The cart warns you, and when you submit, Benefits Hub closes it as Eligibility Failed. Its unused hours expire and do not go back to the member.',
       say: 'Question five. A member is readmitted while a post-discharge referral is still open. You submit the new referral. What happens to the old one?' },
-    { eyebrow: 'Personal Care', q: 'How many activities of daily living (ADLs) must be selected on a Personal Care referral?',
-      opts: ['At least two. Benefits Hub will not let you continue with fewer.', 'At least one.', 'All six.', 'None. ADLs are optional.'], ok: 0,
-      explain: 'Personal Care requires help with at least two ADLs. The list of instrumental ADLs is optional.',
-      say: 'Question six. How many activities of daily living must be selected on a personal care referral?' },
+    { eyebrow: 'Personal Care', q: 'What does a Personal Care referral require for support needs?',
+      opts: ['A primary support need and at least one different secondary need.', 'At least one ADL. Everything else is optional.', 'All six ADLs.', 'Nothing. Support needs are optional.'], ok: 0,
+      explain: 'Personal Care asks for one primary support need and at least one secondary need, which must be different from the primary. So every Personal Care referral records at least two different needs.',
+      say: 'Question six. What does a personal care referral require for support needs?' },
     { eyebrow: 'Companion Care', q: 'Which statement about Companion Care is true?',
       opts: ['A member can have one referral per month, and the facility questions are optional.', 'The facility questions are required, but the SSBCI condition is optional.', 'A member can have several referrals in a quarter if the hours add up to 40 or fewer.', 'A member can have one referral per calendar quarter. Every facility question is required, and at least one SSBCI chronic condition must be chosen.'], ok: 3,
       explain: 'Companion Care allows one referral per member per calendar quarter, and that referral uses the full 40-point allotment, so a second one is stopped. All six facility questions are required open text, and at least one SSBCI condition must be chosen.',
@@ -104,10 +105,10 @@
       opts: ['The provider is notified.', 'The note is recorded on the referral, but it does not alert The Helper Bees. If something needs action, submit a Zendesk ticket.', 'The Helper Bees are alerted right away.', 'The referral is escalated automatically.'], ok: 1,
       explain: 'Notes record information within the referral. Adding a note does not alert The Helper Bees. If something needs action, submit a Zendesk ticket.',
       say: 'Question nine. You add a note to a referral because a provider has not responded. What happens?' },
-    { eyebrow: 'Referral narrative', q: 'Which statement about the referral narrative is true?',
-      opts: ['Case managers can write it on Add Referral and edit it later, up to 250 characters.', 'Only The Helper Bees staff can write it.', 'It can only be edited before the referral is checked out.', 'It has no character limit.'], ok: 0,
-      explain: 'Case managers can write the narrative on Add Referral and edit it later with the pencil on the referral, up to 250 characters. When the service has questions, Benefits Hub adds a first line pointing providers to them.',
-      say: 'Question ten. Which statement about the referral narrative is true?' }
+    { eyebrow: 'Recovery at Home & Post-Discharge', q: 'On a Recovery at Home or Post-Discharge referral, the qualifying diagnosis and the chronic conditions questions both offer an N/A option. Which is correct?',
+      opts: ['Choose N/A for both when you are not sure.', 'Both questions are required, and only one can be N/A. Choose a real diagnosis or at least one real chronic condition.', 'Only the diagnosis question is required.', 'Leave both blank and explain in the narrative.'], ok: 1,
+      explain: 'Both questions are required, and a referral must be based on something real: a qualifying diagnosis (Recovery at Home service) or at least one chronic condition (Post Discharge service). Choose N/A for one of them, never for both.',
+      say: 'Question ten. Which statement about the diagnosis and chronic conditions questions is correct?' }
   ];
   var quizScreens = Q.map(function (q, n) {
     return { t: 'quiz', eyebrow: q.eyebrow, q: q.q, opts: q.opts.map(function (o, k) { return { label: o, correct: k === q.ok }; }), explain: q.explain };   // questions read on screen (no narration clip per question)
@@ -160,8 +161,8 @@
         say: 'Choose the service, and then choose the qualifying diagnosis, which here is pneumonia. We\'ve filled in the other questions for you, so you can focus on those two.',
         enter: function (H) { R.ensureAdd(H, false); R.fill(H, 3); delete S(H).form.answers.dx; H.TM.render(); },
         target: function (H, doc) { return !(H.form() && H.form().svc) ? R.svcTarget(H) : doc.querySelector('#q-dx'); },
-        tag: function (H) { return !(H.form() && H.form().svc) ? R.svcTag('Recovery at Home')(H) : 'Choose the diagnosis'; },
-        done: function (H) { var f = H.form(); return !!(f && f.svc && /^Pneumonia/.test(f.answers.dx || '')); } },
+        tag: function (H) { return !(H.form() && H.form().svc) ? R.svcTag('Recovery at home - Aetna')(H) : 'Choose the diagnosis'; },
+        done: function (H) { var f = H.form(); return !!(f && f.svc && f.svc !== 'PD' && /^Pneumonia/.test(f.answers.dx || '')); } },
 
       { id: 's1-submit', blind: true, label: 'Scenario 1 of 4 · Task 3 of 4', kicker: 'Scenario 1 · Recovery at Home', au: 'kc_05_s1_submit.mp3',
         h: 'Add to cart and submit',
@@ -202,7 +203,7 @@
         sub: '<b>TEST-1002</b> needs help with <b>bathing</b> and <b>dressing</b>. Find the member and start a referral for the benefit that fits. Stop when you reach the Add Referral page.',
         say: 'Scenario three. This member needs help with bathing and dressing. Find the member, and start a referral for the benefit that fits. Stop when you reach the Add Referral page.',
         enter: function (H) { H.TM.reset(); H.TM.go({ name: 'home' }); },
-        target: startTarget(P, 'In-Home Support Personal Care'), tag: startTag(P),
+        target: startTarget(P, 'Personal Care'), tag: startTag(P),
         done: function (H) { var r = H.route(); return r.name === 'add' && r.id === P.MID && r.auth === H.authId(P.MID, 'IHSPC80'); } },
 
       { id: 's3-address', blind: true, label: 'Scenario 3 of 4 · Task 2 of 3', kicker: 'Scenario 3 · Personal Care', au: 'kc_10_s3_address.mp3',
@@ -215,12 +216,12 @@
 
       { id: 's3-submit', blind: true, label: 'Scenario 3 of 4 · Task 3 of 3', kicker: 'Scenario 3 · Personal Care', au: 'kc_11_s3_submit.mp3',
         h: 'Answer the support needs and submit',
-        sub: 'The contact questions are filled in. Choose the service, then select the activities of daily living she needs help with. Then add to cart, check out, and confirm.',
-        say: 'Now choose the service, and select the activities of daily living she needs help with. The contact questions are filled in. Then add the referral to the cart, check out, and confirm.',
-        enter: function (H) { P.ensureAdd(H, false); P.fill(H, 0); delete S(H).form.answers.adlNeeds; H.TM.render(); },
-        target: function (H, doc) { var f = H.form(), r = H.route(); if (r.name === 'add' && !f.svc) return P.svcTarget(H); if (r.name === 'add' && !(f.answers.adlNeeds && f.answers.adlNeeds.length >= 2)) return doc.querySelector('#q-adlNeeds'); return finishTarget(H, doc); },
-        tag: function (H) { var f = H.form(), r = H.route(); if (r.name === 'add' && !f.svc) return P.svcTag('Personal Care')(H); if (r.name === 'add' && !(f.answers.adlNeeds && f.answers.adlNeeds.length >= 2)) return 'Select the ADLs'; return finishTag(H); },
-        done: function (H) { var r = P.newRef(H); return P.submittedDone(H) && !!r && r.hours === 80 && has(r.answers.adlNeeds, 'Bathing & personal hygiene') && has(r.answers.adlNeeds, 'Dressing & grooming'); } },
+        sub: 'The contact questions are filled in. Choose the service, then record her support needs: <b>bathing</b> as the primary need and <b>dressing</b> as a secondary need. Then add to cart, check out, and confirm.',
+        say: 'Now choose the service, and record her support needs: bathing as the primary need, and dressing as a secondary need. The contact questions are filled in. Then add the referral to the cart, check out, and confirm.',
+        enter: function (H) { P.ensureAdd(H, false); P.fill(H, 0); delete S(H).form.answers.primaryNeed; delete S(H).form.answers.secondaryNeeds; H.TM.render(); },
+        target: function (H, doc) { var f = H.form(), r = H.route(); if (r.name === 'add' && !f.svc) return P.svcTarget(H); if (r.name === 'add' && !f.answers.primaryNeed) return doc.querySelector('#q-primaryNeed'); if (r.name === 'add' && !pcSecondaryOk(f.answers)) return doc.querySelector('#q-secondaryNeeds'); return finishTarget(H, doc); },
+        tag: function (H) { var f = H.form(), r = H.route(); if (r.name === 'add' && !f.svc) return P.svcTag('Personal Care')(H); if (r.name === 'add' && !f.answers.primaryNeed) return 'Choose the primary need'; if (r.name === 'add' && !pcSecondaryOk(f.answers)) return 'Choose a secondary need'; return finishTag(H); },
+        done: function (H) { var r = P.newRef(H); if (!(P.submittedDone(H) && r && r.hours === 80)) return false; var all = [r.answers.primaryNeed].concat(r.answers.secondaryNeeds || []); return has(all, 'ADL: Bathing & personal hygiene') && has(all, 'ADL: Dressing & grooming'); } },
 
       /* ---------- Scenario 4: Companion Care ---------- */
       { id: 's4-start', blind: true, label: 'Scenario 4 of 4 · Task 1 of 3', kicker: 'Scenario 4 · Companion Care', au: 'kc_12_s4_start.mp3',

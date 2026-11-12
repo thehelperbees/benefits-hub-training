@@ -17,11 +17,14 @@ window.GuideKit = function (o) {
       prefDates: 'Any weekday next week', prefTimes: 'Mornings between 9 and 11 AM', facilityRules: 'Visitors check in at the front desk. Visiting hours are 9 AM to 5 PM.'
     };
     if (map[key] !== undefined) return map[key];
-    if (key === 'conditions') return first('conditions', 1);
+    if (key === 'conditions') return [L.conditions[H.TM.CONFIG.programs[PROG].oncePerDx ? 0 : 1][0]];   /* [0] is the N/A option: Recovery at Home picks it; Post-Discharge picks a real condition */
     if (key === 'supportNeeds') return first('support', 1);
     if (key === 'adlNeeds') return first('adl', 2);
     if (key === 'ssbci') return first('ssbci', 1);
-    if (key === 'dx') return H.TM.CONFIG.sdqs.dx.options[0];
+    if (key === 'dx') return H.TM.CONFIG.sdqs.dx.options[1];       /* [0] is N/A */
+    if (key === 'dxPd') return H.TM.CONFIG.sdqs.dxPd.options[0];   /* Post Discharge: N/A - no qualifying diagnosis */
+    if (key === 'primaryNeed') return L.pcNeeds[0][0];
+    if (key === 'secondaryNeeds') return [L.pcNeeds[1][0]];
     return undefined;
   };
 

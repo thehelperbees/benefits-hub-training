@@ -293,32 +293,37 @@ const CONFIG = {
 
   // One tile per program on a member's plan. expiry: yearEnd | quarterEnd | submitPlus30 | dischargePlus30
   programs: {
-    IHSPC80: { label: "In-Home Support Personal Care", code: "Aetna-2027_IHSPC_80", hours: 80, period: "Yearly", expiry: "yearEnd", onePer: "year", service: "IHSPC", icon: "home" },
-    IHSPC40: { label: "In-Home Support Personal Care", code: "Aetna-2027_Group_IHSPC_40", hours: 40, period: "Yearly", expiry: "yearEnd", onePer: "year", service: "IHSPC", icon: "home" },
+    IHSPC80: { label: "Personal Care", code: "Aetna-2027_IHSPC_80", hours: 80, period: "Yearly", expiry: "yearEnd", onePer: "year", service: "IHSPC", icon: "home" },
+    IHSPC40: { label: "Personal Care", code: "Aetna-2027_Group_IHSPC_40", hours: 40, period: "Yearly", expiry: "yearEnd", onePer: "year", service: "IHSPC", icon: "home" },
     PD12:    { label: "In-Home Support Post-Discharge", code: "Aetna-2027_Group_PD_12", hours: 12, period: "Per discharge", expiry: "submitPlus30", topUp: true, failPrior: true, service: "PD", icon: "hospital" },
-    RAH60:   { label: "Recovery at Home", code: "Aetna-2027_RAH_60", hours: 60, period: "Per qualifying diagnosis", expiry: "dischargePlus30", topUp: true, failPrior: true, oncePerDx: true, pausesIHSPC: true, service: "RAH", icon: "heart" },
+    RAH60:   { label: "Recovery at Home", code: "Aetna-2027_RAH_60", hours: 60, period: "Per qualifying diagnosis", expiry: "dischargePlus30", topUp: true, failPrior: true, oncePerDx: true, pausesIHSPC: true, service: "RAH", services: ["RAH", "PD"], icon: "heart" },
     CC40:    { label: "Companion Care", code: "Aetna-Longevity-2027_Companion_40q", hours: 40, period: "Quarterly", expiry: "quarterEnd", onePer: "quarter", service: "CC", icon: "people" },
   },
 
   services: {
-    IHSPC: { id: 4101, name: "In-Home Support - Personal Care", category: "In-Home Support", desc: "Help with activities of daily living at home, by the hour", sdqs: ["bestNumber", "pp", "adlNeeds", "iadlNeeds", "careInterest"] },
-    PD:    { id: 4102, name: "In-Home Support - Post-Discharge", category: "In-Home Support", desc: "In-home help in the 30 days after a hospital or facility discharge", sdqs: ["bestNumber", "pp", "hospital", "anticipatedDischarge", "careNeeded", "conditions", "supportNeeds", "careInterest"] },
-    RAH:   { id: 4103, name: "Recovery at Home", category: "In-Home Support", desc: "In-home help after an acute inpatient stay for a qualifying diagnosis", sdqs: ["bestNumber", "pp", "hospital", "anticipatedDischarge", "careNeeded", "dx", "supportNeeds", "careInterest"] },
-    CC:    { id: 4104, name: "Companion Care", category: "Companionship", desc: "A certified companion for members living in a partner facility", sdqs: ["facility", "facilityContact", "facilityPhone", "prefDates", "prefTimes", "facilityRules", "ssbci", "careInterest"] },
+    // UAT (Nov 2026): names, IDs, categories, descriptions and question lists match UAT. RAH service ID/description not yet captured (assumed).
+    IHSPC: { id: 25803, name: "Personal Care", category: "In Home Support", desc: "Assistance with bathing, dressing, walking, feeding, and light housekeeping", sdqs: ["bestNumber", "pp", "primaryNeed", "secondaryNeeds", "careInterest", "notes"], pp1Order: ["name", "rel", "phi", "email", "time", "mobile"] },
+    PD:    { id: 25795, name: "Post Discharge", category: "In Home Support", desc: "In home support services for members who will be discharged from an acute hospital stay. Members have allotted service hours to assist with daily living.", sdqs: ["bestNumber", "pp", "hospital", "anticipatedDischarge", "careNeeded", "dxPd", "conditions", "supportNeeds", "careInterest", "notes"] },
+    RAH:   { id: 25794, name: "Recovery at home - Aetna", category: "In Home Support", desc: "In home support services for members recovering at home after an acute inpatient stay for a qualifying diagnosis.", sdqs: ["bestNumber", "pp", "hospital", "anticipatedDischarge", "careNeeded", "dx", "conditions", "supportNeeds", "careInterest", "notes"] },
+    CC:    { id: 25804, name: "Companion Care", category: "Companionship", desc: "Companions are available to spend time and help with tasks like planning appointments.", sdqs: ["facility", "facilityContact", "facilityPhone", "prefDates", "prefTimes", "facilityRules", "ssbci"] },
   },
 
   // Service detail questions. type: Text | DropDown | Multiple | Date (the types BH renders today)
   sdqs: {
-    bestNumber: { q: "Best number to reach member", type: "Text", required: true, help: "Mobile if the member has one. The phone on the member record comes from Aetna's eligibility file." },
+    bestNumber: { q: "Best number to reach member", type: "Text", required: true },
     pp: { group: true },
     hospital: { q: "Current hospital / facility", type: "Text" },
-    anticipatedDischarge: { q: "Anticipated discharge date (may change)", type: "Date", help: "For planning only. The confirmed discharge date is recorded on the referral after the member goes home." },
-    careNeeded: { q: "Date care is needed", type: "Date", required: true, help: "May differ from the discharge date. THB schedules the first visit for this date." },
+    anticipatedDischarge: { q: "Anticipated discharge date (may change)", type: "Date" },
+    careNeeded: { q: "Date care is needed", type: "Date", required: true },
     dx: { q: "Qualifying diagnosis - Recovery at Home (one per referral)", type: "DropDown", required: true,
-      options: ["Pneumonia: J09 Influenza due to identified novel influenza virus", "Pneumonia: J12 Viral pneumonia, not elsewhere classified", "Pneumonia: J13 Pneumonia due to Streptococcus pneumoniae", "Pneumonia: J14 Pneumonia due to Haemophilus influenzae", "Pneumonia: J15 Bacterial pneumonia, not elsewhere classified", "Pneumonia: J18.9 Pneumonia, unspecified organism", "Urologic: N30 Cystitis", "Urologic: N31 Neuromuscular dysfunction of bladder", "Urologic: N32 Other disorders of bladder", "Urologic: N34 Urethritis and urethral syndrome", "Urologic: N35 Urethral stricture", "Urologic: N39.0 Urinary tract infection, site not specified", "Urologic: N39.3 Stress incontinence", "Fracture: S32 Fracture of lumbar spine and pelvis", "Fracture: S42 Fracture of shoulder and upper arm", "Fracture: S52 Fracture of forearm", "Fracture: S62 Fracture at wrist and hand level", "Fracture: S72 Fracture of femur", "Fracture: S82 Fracture of lower leg including ankle", "Neurologic: G90 Disorders of autonomic nervous system", "Neurologic: G91 Hydrocephalus", "Neurologic: G93 Other disorders of brain", "Neurologic: G96 Other disorders of central nervous system", "Neurologic: G99 Other disorders of nervous system in diseases classified elsewhere", "MSK: M95.0 Acquired deformity of nose", "MSK: M95.2 Other acquired deformity of head", "MSK: M95.3 Other acquired deformity of neck", "MSK: M95.8 Other specified acquired deformities", "MSK: M95.9 Acquired deformity, unspecified", "CHF: I50.2 Systolic (congestive) heart failure", "CHF: I50.21 Acute systolic (congestive) heart failure", "CHF: I50.22 Chronic systolic (congestive) heart failure", "CHF: I50.23 Acute on chronic systolic (congestive) heart failure", "CHF: I50.9 Heart failure, unspecified"],
-      help: "Recovery at Home allows one referral per qualifying diagnosis, per member, per year." },
-    conditions: { q: "Qualifying chronic condition(s) (select all that apply)", type: "Multiple", required: true, list: "conditions" },
+      options: ["N/A - No qualifying Recovery at Home diagnosis", "Pneumonia: J09 Influenza due to identified novel influenza virus", "Pneumonia: J12 Viral pneumonia, not elsewhere classified", "Pneumonia: J13 Pneumonia due to Streptococcus pneumoniae", "Pneumonia: J14 Pneumonia due to Haemophilus influenzae", "Pneumonia: J15 Bacterial pneumonia, not elsewhere classified", "Pneumonia: J18.9 Pneumonia, unspecified organism", "Urologic: N30 Cystitis", "Urologic: N31 Neuromuscular dysfunction of bladder", "Urologic: N32 Other disorders of bladder", "Urologic: N34 Urethritis and urethral syndrome", "Urologic: N35 Urethral stricture", "Urologic: N39.0 Urinary tract infection, site not specified", "Urologic: N39.3 Stress incontinence", "Fracture: S32 Fracture of lumbar spine and pelvis", "Fracture: S42 Fracture of forearm", "Fracture: S62 Fracture of wrist and hand level", "Fracture: S72 Fracture of femur", "Fracture: S82 Fracture of lower leg including ankle", "Neurologic: G90 Disorders of autonomic nervous system", "Neurologic: G91 Hydrocephalus", "Neurologic: G93 Other disorders of brain", "Neurologic: G96 Other disorders of central nervous system", "Neurologic: G99 Other disorders of nervous system in diseases classified elsewhere", "MSK: M95.0 Acquired deformity of nose", "MSK: M95.2 Other acquired deformity of head", "MSK: M95.3 Other acquired deformity of neck", "MSK: M95.8 Other specified acquired deformities", "MSK: M95.9 Acquired deformity, unspecified", "CHF: I50.2 Systolic (congestive) heart failure", "CHF: I50.21 Acute systolic (congestive) heart failure", "CHF: I50.22 Chronic systolic (congestive) heart failure", "CHF: I50.23 Acute on chronic systolic (congestive) heart failure", "CHF: I50.9 Heart failure, unspecified"] },
+    dxPd: { q: "Qualifying diagnosis - (one per referral)", type: "DropDown", required: true,
+      options: ["N/A - no qualifying diagnosis", "Pneumonia: J09 Influenza due to identified novel influenza virus", "Pneumonia: J12 Viral pneumonia, not elsewhere classified", "Pneumonia: J13 Pneumonia due to Streptococcus pneumoniae", "Pneumonia: J14 Pneumonia due to Haemophilus influenzae", "Pneumonia: J15 Bacterial pneumonia, not elsewhere classified", "Pneumonia: J18.9 Pneumonia, unspecified organism", "Urologic: N30 Cystitis", "Urologic: N31 Neuromuscular dysfunction of bladder", "Urologic: N32 Other disorders of bladder", "Urologic: N34 Urethritis and urethral syndrome", "Urologic: N35 Urethral stricture", "Urologic: N39.0 Urinary tract infection, site not specified", "Urologic: N39.3 Stress incontinence", "Fracture: S32 Fracture of lumbar spine and pelvis", "Fracture: S42 Fracture of forearm", "Fracture: S62 Fracture of wrist and hand level", "Fracture: S72 Fracture of femur", "Fracture: S82 Fracture of lower leg including ankle", "Neurologic: G90 Disorders of autonomic nervous system", "Neurologic: G91 Hydrocephalus", "Neurologic: G93 Other disorders of brain", "Neurologic: G96 Other disorders of central nervous system", "Neurologic: G99 Other disorders of nervous system in diseases classified elsewhere", "MSK: M95.0 Acquired deformity of nose", "MSK: M95.2 Other acquired deformity of head", "MSK: M95.3 Other acquired deformity of neck", "MSK: M95.8 Other specified acquired deformities", "MSK: M95.9 Acquired deformity, unspecified", "CHF: I50.2 Systolic (congestive) heart failure", "CHF: I50.21 Acute systolic (congestive) heart failure", "CHF: I50.22 Chronic systolic (congestive) heart failure", "CHF: I50.23 Acute on chronic systolic (congestive) heart failure", "CHF: I50.9 Heart failure, unspecified"] },
+    conditions: { q: "Qualifying chronic condition(s) (Aetna 26-condition list — select all that apply)", type: "Multiple", required: true, list: "conditions" },
     supportNeeds: { q: "Support needs (select at least one)", type: "Multiple", required: true, list: "support" },
+    primaryNeed: { q: "Please choose the primary support need:", type: "DropDown", required: true, options: ["ADL: Bathing & personal hygiene", "ADL: Dressing & grooming", "ADL: Toileting & continence", "ADL: Transfer assistance (bed / chair)", "ADL: Ambulation & mobility", "ADL: Feeding assistance", "IADL: Meal preparation", "IADL: Medication reminders"] },
+    secondaryNeeds: { q: "Please choose at least 1 secondary support need (must be different from primary selection):", type: "Multiple", required: true, list: "pcNeeds", notPrimary: true },
+    notes: { q: "Notes for the THB coordinator (Language needs, mobility considerations, contact constraints, anything that helps land the first visit faster)", type: "Text" },
     adlNeeds: { q: "Support needs - activities of daily living (select at least two)", type: "Multiple", required: true, list: "adl", min: 2, rule: true, help: "Personal Care requires help with at least two ADLs." },
     iadlNeeds: { q: "Support needs - instrumental ADLs & other support (select all that apply)", type: "Multiple", list: "iadl" },
     careInterest: { q: "Care interest confirmed with member?", type: "DropDown", options: ["Yes - member expressed interest", "Not yet - please confirm on outreach", "Speaking with POA / POC only"] },
@@ -326,9 +331,9 @@ const CONFIG = {
     facilityContact: { q: "Who should the Provider contact at the facility to coordinate scheduling? (Name and role/title)", type: "Text", required: true },
     facilityPhone: { q: "Please provide the direct phone number and email address for the facility POC.", type: "Text", required: true },
     prefDates: { q: "Please list the preferred date(s) for the Provider to perform the service. If multiple dates are acceptable, please include all options.", type: "Text", required: true },
-    prefTimes: { q: "Please specify the preferred time(s) or time window(s) for the Provider to visit the facility (e.g., \"Morning between 8-10 AM\" or \"Afternoons after 1 PM\").", type: "Text", required: true },
-    facilityRules: { q: "Does the facility have any specific scheduling rules or restrictions the Provider should be aware of? (visiting hours, check-in procedures, security protocols)", type: "Text", required: true },
-    ssbci: { q: "SSBCI chronic condition(s) (select at least one)", type: "Multiple", required: true, list: "ssbci", ssbci: true },
+    prefTimes: { q: "Please specify the preferred time(s) or time window(s) for the Provider to visit the facility (e.g., “Morning between 8–10 AM” or “Afternoons after 1 PM”).", type: "Text", required: true },
+    facilityRules: { q: "Does the facility have any specific scheduling rules or restrictions the Provider should be aware of? (visiting hours, check-in procedures, security protocols).", type: "Text", required: true },
+    ssbci: { q: "SSBCI – Companion Care Chronic Conditions (must select at least one):", type: "Multiple", required: true, list: "ssbci", ssbci: true },
   },
 
   pointPerson: [
@@ -342,23 +347,10 @@ const CONFIG = {
   ],
 
   lists: {
-    conditions: [
-      ["Anemia"], ["Autoimmune disorders", "Limited to: dermatomyositis; polyarteritis nodosa; polymyalgia rheumatica; polymyositis; psoriasis; psoriatic arthritis; rheumatoid arthritis; scleroderma; systemic lupus erythematosus"], ["Cancer"],
-      ["Cardiovascular disorders", "Limited to: cardiac arrhythmias; coronary artery disease; peripheral vascular disease; valvular heart disease"], ["Chronic alcohol use disorder and other substance use disorders (SUDs)"],
-      ["Chronic and disabling mental health conditions", "Limited to: anxiety disorders; eating disorders; bipolar disorders; major depressive disorders; paranoid disorder; PTSD; schizophrenia; schizoaffective disorder"],
-      ["Chronic conditions that impair vision, hearing (deafness), taste, touch and smell"], ["Chronic gastrointestinal disease", "Limited to: chronic liver disease; hepatitis B; hepatitis C; irritable bowel syndrome; inflammatory bowel disease; NAFLD; pancreatitis"],
-      ["Chronic heart failure"], ["Chronic kidney disease (CKD)", "Limited to: CKD not requiring dialysis; CKD requiring dialysis / ESRD"],
-      ["Chronic lung disorders", "Limited to: asthma; chronic bronchitis; COPD; cystic fibrosis; emphysema; pulmonary fibrosis; pulmonary hypertension"], ["Chronic pain"],
-      ["Conditions associated with cognitive impairment", "Limited to: Alzheimer's disease; disabling mental illness associated with cognitive impairment; intellectual and developmental disabilities; mild cognitive impairment; traumatic brain injuries"],
-      ["Conditions that require continued therapy services to maintain or retain functioning"], ["Conditions with functional challenges requiring similar services", "Limited to: arthritis; limb loss; paralysis; spinal cord injuries; stroke"],
-      ["Dementia"], ["Diabetes mellitus"], ["HIV/AIDS"], ["Hyperlipidemia"], ["Hypertension"], ["Immunodeficiency and immunosuppressive disorders"],
-      ["Neurologic disorders", "Limited to: ALS; chronic fatigue syndrome; epilepsy; extensive paralysis; fibromyalgia; Huntington's disease; MS; Parkinson's disease; polyneuropathy; spinal cord injuries; spinal stenosis; stroke-related neurologic deficit"],
-      ["Overweight, obesity, and metabolic syndrome"], ["Post-organ transplantation care"],
-      ["Severe hematologic disorders", "Limited to: aplastic anemia; chronic venous thromboembolic disorder; hemophilia; immune thrombocytopenic purpura; myelodysplastic syndrome; sickle-cell disease (excluding trait)"], ["Stroke"],
-    ],
-    support: [["ADL: Bathing & personal hygiene"], ["ADL: Dressing & grooming"], ["ADL: Toileting & continence"], ["ADL: Transfer assistance (bed / chair)"], ["ADL: Ambulation & mobility"], ["ADL: Feeding assistance"],
-      ["IADL: Meal preparation"], ["IADL: Medication reminders"], ["IADL: Light housekeeping"], ["IADL: Laundry"], ["IADL: Errands & shopping"], ["IADL: Transportation assistance"], ["IADL: Companion care & supervision"], ["IADL: In-home safety assessment"], ["Other (describe in referral notes)"]],
-    ssbci: [["Chronic alcohol use disorder and other substance use disorders (SUDs)"], ["Chronic and disabling mental health conditions"], ["Chronic heart failure"], ["Chronic kidney disease"], ["Chronic lung disorders"], ["Dementia"], ["Neurologic disorders"]],
+    conditions: [["N/A - no qualifying chronic condition (choose this one only when referring against a Recovery at Home Diagnosis instead)"], ["Anemia"], ["Autoimmune disorders"], ["Cancer"], ["Cardiovascular disorders"], ["Chronic alcohol use disorder and other substance use disorders (SUDs)"], ["Chronic and disabling mental health conditions"], ["Chronic conditions that impair vision, hearing (deafness), taste, touch and smell"], ["Chronic gastrointestinal disease"], ["Chronic heart failure"], ["Chronic kidney disease (CKD)"], ["Chronic lung disorders"], ["Chronic pain"], ["Conditions associated with cognitive impairment"], ["Conditions that require continued therapy services to maintain or retain functioning"], ["Conditions with functional challenges requiring similar services"], ["Dementia"], ["Diabetes mellitus"], ["HIV/AIDS"], ["Hyperlipidemia"], ["Hypertension"], ["Immunodeficiency and immunosuppressive disorders"], ["Neurologic disorders"], ["Overweight, obesity, and metabolic syndrome"], ["Post-organ transplantation care"], ["Severe hematologic disorders"], ["Stroke"]],
+    support: [["ADL: Bathing & personal hygiene"], ["ADL: Dressing & grooming"], ["ADL: Toileting & continence"], ["ADL: Transfer assistance (bed / chair)"], ["ADL: Ambulation & mobility"], ["ADL: Feeding assistance"], ["IADL: Meal preparation"], ["IADL: Medication reminders"], ["IADL: Light housekeeping"]],
+    pcNeeds: [["ADL: Bathing & personal hygiene"], ["ADL: Dressing & grooming"], ["ADL: Toileting & continence"], ["ADL: Transfer assistance (bed / chair)"], ["ADL: Ambulation & mobility"], ["ADL: Feeding assistance"], ["IADL: Meal preparation"], ["IADL: Medication reminders"]],
+    ssbci: [["Chronic Alcohol use disorder and other substance use disorders (SUDs)"], ["Chronic and disabling mental health conditions"], ["Chronic heart failure"], ["Chronic kidney disease"], ["Chronic lung disorders"], ["Dementia"], ["Neurologic disorders"]],
     iadl: [["Meal preparation"], ["Medication reminders"], ["Light housekeeping"], ["Laundry"], ["Errands & shopping"], ["Transportation assistance"], ["Companion care & supervision"], ["In-home safety assessment"], ["Other (describe in referral narrative)"]],
     adl: [["Bathing & personal hygiene"], ["Dressing & grooming"], ["Toileting & continence"], ["Transfer assistance (bed / chair)"], ["Ambulation & mobility"], ["Feeding assistance"]],
   },
@@ -611,7 +603,7 @@ function authSection(m, a) {
 function referralsTable(m, refs) {
   return `<div class="tscroll"><table>
     <thead><tr><th>Received</th><th>Status</th><th>Service</th><th>Provider</th><th class="c">Notes</th><th class="c">Encounters</th><th class="c">Points Used</th><th class="c">Expires ${nb("expiry")}</th><th class="c">Action</th><th></th></tr></thead>
-    <tbody>${refs.map((r) => { const open = S.expanded === r.id; const svc = CONFIG.services[CONFIG.programs[r.program].service];
+    <tbody>${refs.map((r) => { const open = S.expanded === r.id; const svc = svcOfRef(r);
       return `<tr class="click" data-expand="${r.id}">
         <td>${fmt(r.received)}</td><td>${chip(r.status)}${r.status === "On Hold" ? nb("pause", "Discovery") : ""}</td><td>${esc(svc.name)}</td><td>${esc(r.provider)}</td>
         <td class="c">${r.notes.length}</td><td class="c">${r.used ? Math.ceil(r.used / 3) : 0}</td><td class="c num">${r.used.toFixed(2)}</td>
@@ -673,9 +665,9 @@ function expanded(m, r) {
 function addView(m, authId) {
   const a = authOf(m, authId);
   const p = CONFIG.programs[a.program];
-  const svc = CONFIG.services[p.service];
-  const b = balance(m, a);
   const f = S.form;
+  const svc = CONFIG.services[svcKey(p, f && f.svc)];
+  const b = balance(m, a);
   const openIHSPC = p.pausesIHSPC && m.referrals.find((r) => CONFIG.programs[r.program].service === "IHSPC" && OPEN.has(r.status) && r.status !== "On Hold");
   const exp = previewExpiry(p, f);
   return `<div class="narrow">
@@ -693,18 +685,18 @@ function addView(m, authId) {
     </div>
     <section class="card" style="padding:22px 38px 28px">
       <div class="svc-title">Available Services for ${esc(m.first)} ${esc(m.last)} in ${esc(f.zip)} <button class="link" data-addr type="button">(change service address)</button></div>
-      ${openIHSPC ? `<div class="alert warn newwrap">${ICONS.info}<div>This member has an open In-Home Support Personal Care referral (#${openIHSPC.id}). Recovery at Home hours apply first: when you submit this referral, the personal care referral goes on hold and resumes when Recovery at Home ends. ${nb("pause", "Discovery")}</div></div>` : ""}
+      ${openIHSPC ? `<div class="alert warn newwrap">${ICONS.info}<div>This member has an open Personal Care referral (#${openIHSPC.id}). Recovery at Home hours apply first: when you submit this referral, the personal care referral goes on hold and resumes when Recovery at Home ends. ${nb("pause", "Discovery")}</div></div>` : ""}
       <div class="filters">
         <div class="fld"><label class="float" for="catSel">Service Category</label><select id="catSel"><option>All Categories</option><option>${esc(svc.category)}</option></select></div>
         <div class="fld"><label class="float" for="svcSearch" ${f.svc ? "" : "hidden"}>Search For Services</label>
           <input class="big ${f.svcOpen ? "focus" : ""}" id="svcSearch" placeholder="Search For Services" value="${f.svc ? esc(svc.name) : ""}" autocomplete="off" readonly>
-          ${f.svcOpen ? `<div class="opts" role="listbox"><button type="button" role="option" data-pick-svc>${esc(svc.name)}<small>${esc(svc.desc)}</small></button></div>` : ""}
+          ${f.svcOpen ? `<div class="opts" role="listbox">${(p.services || [p.service]).map((k) => `<button type="button" role="option" data-pick-svc="${k}">${esc(CONFIG.services[k].name)}<small>${esc(CONFIG.services[k].desc)}</small></button>`).join("")}</div>` : ""}
         </div>
       </div>
       ${f.svc ? `
         <hr class="d">
         <div class="ssd"><h3 style="margin:0 0 22px">Selected Service Details</h3>
-          <div class="ssd-grid"><div><b>Service ID</b><span>${svc.id}</span></div><div><b>Service Name</b><span>${esc(svc.name)}</span></div><div><b>Points</b><span>${f.qty} per referral (full allotment)</span></div><div><b>Status</b><span>Active</span></div><div style="grid-column:span 1"><b>Description</b><span>${esc(svc.desc)}</span></div></div>
+          <div class="ssd-grid"><div><b>Service ID</b><span>${svc.id}</span></div><div><b>Service Name</b><span>${esc(svc.name)}</span></div><div><b>Points</b><span>${(f.unit || f.qty).toFixed(2)}</span></div><div><b>Status</b><span>Active</span></div><div style="grid-column:span 1"><b>Description</b><span>${esc(svc.desc)}</span></div></div>
         </div>
         <hr class="d">
         <h2 style="font-size:21px;font-weight:600;margin:6px 0 18px">Service Questions</h2>
@@ -714,7 +706,7 @@ function addView(m, authId) {
         <h2 style="font-size:21px;font-weight:600;margin:6px 0 14px">Order Details</h2>
         <div class="order">
           <div><div style="font-weight:600;margin-bottom:10px">Quantity</div>
-            <div class="qty"><input id="qty" value="1" readonly aria-label="Quantity" title="One referral for the full allotment"></div></div>
+            <div class="qty"><button type="button" data-qty="-1" aria-label="Decrease quantity">−</button><input id="qty" value="${f.n || 1}" readonly aria-label="Quantity"><button type="button" data-qty="1" aria-label="Increase quantity">+</button></div></div>
           <div class="tp"><b>Total Points</b><span class="num">${f.qty || 0}</span></div>
         </div>
         <div class="alert info newwrap" style="margin-top:20px">${ICONS.info}<div>${exp} ${nb("expiry")}</div></div>
@@ -763,7 +755,9 @@ function questionHTML(key, def, val, f) {
   return `<div class="q"><label for="${id}">${esc(def.q)}${req}${def.rule ? nb("adlMin") : def.ssbci ? nb("ssbci") : nb(def.assumed ? "sdqAssumed" : "sdq", def.assumed ? "Assumed" : "")}</label>${control}${def.help ? `<div class="help">${esc(def.help)}</div>` : ""}${minErr}</div>`;
 }
 function pointPersonFields(f) {
-  const block = (n) => CONFIG.pointPerson.map((pp) => questionHTML(`pp${n}_${pp.k}`, { q: pp.q.replace("{n}", n), type: pp.type, options: pp.options, required: n === 1 && pp.req1, help: n === 1 ? pp.help1 : "" }, f.answers[`pp${n}_${pp.k}`], f)).join("");
+  const svcNow = (() => { try { const a = authOf(member(S.route.id), S.route.auth); return CONFIG.services[svcKey(CONFIG.programs[a.program], f.svc)]; } catch (e) { return null; } })();
+  const order = (n) => { let L = CONFIG.pointPerson.filter((pp) => !(n === 1 && pp.k === "home")); if (n === 1 && svcNow && svcNow.pp1Order) L = svcNow.pp1Order.map((k) => L.find((pp) => pp.k === k)).filter(Boolean); return L; };
+  const block = (n) => order(n).map((pp) => questionHTML(`pp${n}_${pp.k}`, { q: pp.q.replace("{n}", n), type: pp.type, options: pp.options, required: n === 1 && pp.req1, help: n === 1 ? pp.help1 : "" }, f.answers[`pp${n}_${pp.k}`], f)).join("");
   return `${block(1)}
     ${f.morePP ? `${block(2)}${block(3)}` : `<p style="margin:0 0 20px"><button class="link" data-more-pp type="button">Show questions for point person 2 and 3 (optional)</button></p>`}`;
 }
@@ -772,6 +766,7 @@ function formValid(svc, f) {
   for (const k of svc.sdqs) {
     if (k === "pp") { for (const pp of CONFIG.pointPerson) if (pp.req1 && !f.answers[`pp1_${pp.k}`]) return false; continue; }
     const d = CONFIG.sdqs[k]; const v = f.answers[k];
+    if (d.notPrimary && Array.isArray(v) && !v.some((x) => x !== f.answers.primaryNeed)) return false;
     if (d.required && (!v || (Array.isArray(v) && !v.length))) return false;
     if (d.min && (!v || v.length < d.min)) return false;
   }
@@ -783,7 +778,7 @@ function closingNotice() {
   const progs = new Set();
   S.cart.forEach((it) => { if (!CONFIG.programs[it.program].failPrior || progs.has(`${it.member}:${it.program}`)) return; progs.add(`${it.member}:${it.program}`);
     member(it.member).referrals.filter((r) => r.program === it.program && OPEN.has(r.status)).forEach((r) =>
-      lines.push(`Submitting will close referral #${r.id} (${esc(CONFIG.services[CONFIG.programs[r.program].service].name)}, created ${fmt(r.received)}) as Eligibility Failed. Its unused hours expire.`)); });
+      lines.push(`Submitting will close referral #${r.id} (${esc(svcOfRef(r).name)}, created ${fmt(r.received)}) as Eligibility Failed. Its unused hours expire.`)); });
   return lines.length ? `<div class="alert info newwrap" style="margin-top:20px">${ICONS.info}<div>${lines.join("<br>")} ${nb("readmit")}</div></div>` : "";
 }
 function cartView() {
@@ -796,8 +791,8 @@ function cartView() {
       <div><h1>Referrals Summary</h1><div class="sub">${m ? `${esc(m.first)} ${esc(m.last)} | ` : ""}Items: ${S.cart.length}</div></div></div>
     ${S.cart.length ? `<section class="card" style="padding:0;overflow:hidden">${Object.entries(groups).map(([authId, items]) => { const p = CONFIG.programs[items[0].program]; const b = balance(member(items[0].member), authOf(member(items[0].member), Number(authId)));
       return `<div class="tscroll"><table class="cart-tbl"><thead><tr><th>Service</th><th class="c">Quantity</th><th class="c">Points Each</th><th class="c">Total Points</th><th class="c">Actions</th></tr></thead><tbody>
-      ${items.map((it) => `<tr><td><b>${esc(CONFIG.services[p.service].name)}</b><div style="color:var(--ink-2);font-size:13px">Added: ${fmt(CONFIG.today)}</div></td>
-        <td class="c num">1</td><td class="c num">${it.qty.toFixed(2)} pts</td><td class="c num"><b>${it.qty.toFixed(2)} pts</b></td>
+      ${items.map((it) => `<tr><td><b>${esc(CONFIG.services[it.svc || p.service].name)}</b><div style="color:var(--ink-2);font-size:13px">Added: ${fmt(CONFIG.today)}</div></td>
+        <td class="c num">${it.qty / (it.unit || it.qty) || 1}</td><td class="c num">${(it.unit || it.qty).toFixed(2)} pts</td><td class="c num"><b>${it.qty.toFixed(2)} pts</b></td>
         <td class="c"><button class="iconbtn" data-sdqview="${it.key}" aria-label="Review SDQ answers" title="Review SDQs">${ICONS.eye}</button><button class="iconbtn" data-remove="${it.key}" aria-label="Remove item">${ICONS.trash}</button></td></tr>`).join("")}
       </tbody></table></div>`; }).join("")}</section>
       ${closingNotice()}
@@ -808,6 +803,8 @@ function cartView() {
 }
 
 /* ------------------------------ behaviour ------------------------------ */
+function svcKey(p, chosen) { return typeof chosen === "string" ? chosen : p.service; }
+function svcOfRef(r) { return CONFIG.services[r.svc || CONFIG.programs[r.program].service]; }
 function itemCost(m, authId) { const a = authOf(m, authId); const p = CONFIG.programs[a.program]; const r = balance(m, a).remaining; return r > 0 && r < p.hours ? r : p.hours; }
 function startAdd(m, authId) {
   S.form = { svc: false, svcOpen: false, answers: {}, narr: "", qty: itemCost(m, authId), zip: m.zip, addr: m.addr, city: m.city, state: m.state, msOpen: null, morePP: false, error: "" };
@@ -849,7 +846,7 @@ function refMenu(btn) {
 }
 
 function refAction(m, r, act) {
-  const svc = CONFIG.services[CONFIG.programs[r.program].service];
+  const svc = svcOfRef(r);
   if (act === "note") dialog(`<h2>Add Note to Referral</h2><div class="body"><div class="q"><label for="noteType">Note Type<span class="req">*</span></label><select id="noteType"><option value=""></option>${NOTE_TYPES.map((x) => `<option>${esc(x)}</option>`).join("")}</select></div><div class="q"><label for="noteText">Note</label><textarea id="noteText"></textarea></div></div><div class="acts"><button class="btn btn-text" data-x type="button">Cancel</button><button class="btn btn-primary" id="saveNote" type="button">Save Note</button></div>`, (el) => {
     el.querySelector("[data-x]").onclick = closeDialog;
     el.querySelector("#saveNote").onclick = () => { const t = el.querySelector("#noteText").value.trim(), ty = el.querySelector("#noteType").value; if (!t || !ty) return; r.notes.push({ t, ty, d: CONFIG.today }); closeDialog(); toast("Note added."); render(); };
@@ -906,7 +903,7 @@ function addToCart() {
   const f = S.form;
   const inCart = S.cart.filter((i) => i.auth === a.id).reduce((s, i) => s + i.qty, 0);
   if (f.qty > b.remaining - inCart) { f.error = `Insufficient points: this referral costs ${f.qty} points and ${b.remaining - inCart} are available.`; return render(); }
-  S.cart.push({ key: `${Date.now()}`, member: m.id, auth: a.id, program: a.program, qty: f.qty, answers: structuredClone(f.answers), narr: f.narr, addr: f.addr, city: f.city, state: f.state, zip: f.zip });
+  S.cart.push({ key: `${Date.now()}`, member: m.id, auth: a.id, program: a.program, svc: svcKey(CONFIG.programs[a.program], f.svc), qty: f.qty, unit: f.unit || f.qty, answers: structuredClone(f.answers), narr: f.narr, addr: f.addr, city: f.city, state: f.state, zip: f.zip });
   toast("Added to cart.");
   go({ name: "cart" });
 }
@@ -924,7 +921,7 @@ function checkoutErrors() {
       const hit = same.find((r) => OPEN.has(r.status) && r.received.slice(0, 4) === CONFIG.today.slice(0, 4));
       if (hit) errs.push(`Auth ${it.auth}: Eligibility fail. ${p.label} allows one referral per member per year on this plan. Referral #${hit.id} is already open for ${CONFIG.today.slice(0, 4)}.`);
     }
-    if (p.oncePerDx && it.answers.dx) {
+    if (p.oncePerDx && it.answers.dx && !/^N\/A/.test(it.answers.dx)) {
       const hit = same.find((r) => r.answers.dx === it.answers.dx && r.received.slice(0, 4) === CONFIG.today.slice(0, 4));
       if (hit) errs.push(`Auth ${it.auth}: Recovery at Home allows one referral per qualifying diagnosis per year. "${it.answers.dx.split(": ").pop()}" was already used on referral #${hit.id} in ${CONFIG.today.slice(0, 4)}.`);
     }
@@ -941,7 +938,7 @@ function doCheckout() {
       S.cart.forEach((it) => {
         const m = member(it.member); const a = authOf(m, it.auth); const p = CONFIG.programs[it.program];
         const r = newReferral(m, a, CONFIG.today, it.qty, it.answers);
-        const svcN = CONFIG.services[p.service];
+        const svcN = CONFIG.services[it.svc || p.service]; r.svc = it.svc;
         r.narrative = it.narr || svcN.sdqs.length ? narrPrefix(svcN) + (it.narr || "") : ""; r.expires = computeExpiry(r);
         if (p.failPrior) m.referrals.forEach((x) => { if (x.program === it.program && OPEN.has(x.status)) { x.expiredHours = Math.max(0, x.hours - x.used); x.status = "Eligibility Failed"; x.closeReason = `Closed on readmission: new referral #${r.id}`; failed.push(x.id); } });
         m.referrals.push(r);
@@ -967,7 +964,7 @@ function bind() {
   app.querySelectorAll("[data-discharge]").forEach((b) => b.onclick = (e) => { e.stopPropagation(); const m = member(S.route.id); refAction(m, m.referrals.find((r) => r.id === Number(b.dataset.discharge)), "discharge"); });
   app.querySelectorAll("[data-edit-narr]").forEach((b) => b.onclick = (e) => { e.stopPropagation(); S.editNarr = Number(b.dataset.editNarr); render(); $("#narrInput").focus(); bindNarr(); });
   app.querySelectorAll("[data-cancel-narr]").forEach((b) => b.onclick = () => { S.editNarr = null; render(); });
-  app.querySelectorAll("[data-save-narr]").forEach((b) => b.onclick = () => { const m = member(S.route.id); const r = m.referrals.find((x) => x.id === Number(b.dataset.saveNarr)); const sv = CONFIG.services[CONFIG.programs[r.program].service]; r.narrative = narrPrefix(sv) + $("#narrInput").value; S.editNarr = null; toast("Referral narrative updated!"); render(); });
+  app.querySelectorAll("[data-save-narr]").forEach((b) => b.onclick = () => { const m = member(S.route.id); const r = m.referrals.find((x) => x.id === Number(b.dataset.saveNarr)); const sv = svcOfRef(r); r.narrative = narrPrefix(sv) + $("#narrInput").value; S.editNarr = null; toast("Referral narrative updated!"); render(); });
   app.querySelectorAll("[data-edit-contact]").forEach((b) => b.onclick = () => { S.editing = `${S.route.id}:${b.dataset.editContact}`; render(); const i = $(`#ed-${b.dataset.editContact}`); i && i.focus(); });
   app.querySelectorAll("[data-cancel-contact]").forEach((b) => b.onclick = () => { S.editing = null; render(); });
   app.querySelectorAll("[data-save-contact]").forEach((b) => b.onclick = () => { const k = b.dataset.saveContact; member(S.route.id)[k] = $(`#ed-${k}`).value.trim(); S.editing = null; toast("Member contact updated."); render(); });
@@ -977,8 +974,7 @@ function bind() {
     const f = S.form;
     const svcIn = $("#svcSearch");
     svcIn.onclick = () => { f.svcOpen = !f.svcOpen; render(); };
-    const pick = app.querySelector("[data-pick-svc]");
-    if (pick) pick.onclick = () => { f.svc = true; f.svcOpen = false; render(); };
+    app.querySelectorAll("[data-pick-svc]").forEach((pick) => pick.onclick = () => { const k = pick.dataset.pickSvc; const pr = CONFIG.programs[authOf(member(S.route.id), S.route.auth).program]; if (f.svc && svcKey(pr, f.svc) !== k) f.answers = {}; f.svc = (pr.services && pr.services.length > 1) ? k : true; f.svcOpen = false; render(); });
     app.querySelectorAll("[data-ans]").forEach((el) => el.oninput = el.onchange = () => { f.answers[el.dataset.ans] = el.value; f.error = ""; refreshValidity(); });
     app.querySelectorAll("[data-ans]").forEach((el) => { if (el.tagName === "SELECT") el.onchange = () => { f.answers[el.dataset.ans] = el.value; f.error = ""; render(); }; });
     app.querySelectorAll("[data-ms]").forEach((b) => b.onclick = () => { f.msOpen = f.msOpen === b.dataset.ms ? null : b.dataset.ms; render(); const l = app.querySelector(".ms-list"); l && l.querySelector("input")?.focus({ preventScroll: true }); });
@@ -990,20 +986,21 @@ function bind() {
     });
     const more = app.querySelector("[data-more-pp]"); if (more) more.onclick = () => { f.morePP = true; render(); };
     const na = $("#narrAdd"); if (na) na.oninput = () => { f.narr = na.value; $("#narrAdd-c").textContent = `${na.value.length}/${na.maxLength}`; };
-    // Aetna: quantity is always 1 item that costs the full allotment, so there is nothing to type here.
+    // Aetna: each item costs the full allotment. - / + change how many items (UAT shows them); one is the norm.
+    app.querySelectorAll("[data-qty]").forEach((bt) => bt.onclick = () => { f.unit = f.unit || f.qty; f.n = Math.max(1, (f.n || 1) + Number(bt.dataset.qty)); f.qty = f.n * f.unit; f.error = ""; render(); });
     const atc = $("#addToCart"); if (atc) atc.onclick = addToCart;
     app.querySelector("[data-addr]").onclick = () => addressDialog();
   }
   if (S.route.name === "cart") {
     app.querySelectorAll("[data-remove]").forEach((b) => b.onclick = () => { S.cart = S.cart.filter((i) => i.key !== b.dataset.remove); render(); });
-    app.querySelectorAll("[data-sdqview]").forEach((b) => b.onclick = () => { const it = S.cart.find((i) => i.key === b.dataset.sdqview); const svc = CONFIG.services[CONFIG.programs[it.program].service]; showSdq(svc, it.answers, `SDQ Answers - ${svc.name}`); });
+    app.querySelectorAll("[data-sdqview]").forEach((b) => b.onclick = () => { const it = S.cart.find((i) => i.key === b.dataset.sdqview); const svc = CONFIG.services[it.svc || CONFIG.programs[it.program].service]; showSdq(svc, it.answers, `SDQ Answers - ${svc.name}`); });
     const cc = $("#clearCart"); if (cc) cc.onclick = () => { S.cart = []; toast("Cart cleared.", "info"); render(); };
     const co = $("#checkout"); if (co) co.onclick = doCheckout;
   }
 }
 function refreshValidity() {
   const m = member(S.route.id); const a = authOf(m, S.route.auth);
-  const svc = CONFIG.services[CONFIG.programs[a.program].service];
+  const svc = CONFIG.services[svcKey(CONFIG.programs[a.program], S.form && S.form.svc)];
   const btn = $("#addToCart"); if (btn) btn.disabled = !formValid(svc, S.form);
 }
 function addressDialog() {
@@ -1031,7 +1028,7 @@ function addressDialog() {
 const SCENARIOS = [
   { t: "Refer a member to Recovery at Home", who: "TEST-1001", tile: "RAH60",
     why: "Member has personal care and Recovery at Home on the same plan. Recovery at Home hours come first.",
-    steps: ["Search TEST-1001 and open the member.", "Select the Recovery at Home tile, then Add Referral.", "Pick the service and answer the questions: point person, care needed date, a qualifying diagnosis, support needs.", "Add to Cart (one item for the full 60 points), then Checkout and Confirm.", "Back on the member page, the personal care referral now shows On Hold.", "Expand the new referral and choose Add > Discharge date. The dialog shows the new expiration (discharge + 30 days) before you save."] },
+    steps: ["Search TEST-1001 and open the member.", "Select the Recovery at Home tile, then Add Referral.", "Pick the Recovery at Home service and answer the questions: point person, care needed date, a qualifying diagnosis, N/A for chronic conditions, support needs.", "Add to Cart (one item for the full 60 points), then Checkout and Confirm.", "Back on the member page, the personal care referral now shows On Hold.", "Expand the new referral and choose Add > Discharge date. The dialog shows the new expiration (discharge + 30 days) before you save."] },
   { t: "A second discharge in the same year", who: "TEST-1002", tile: "PD12",
     why: "Group post-discharge gives 12 hours per discharge. The member used all 12 in January.",
     steps: ["Open TEST-1002 and select In-Home Support Post-Discharge.", "Note Remaining is 0. Choose Add Referral.", "Answer Yes, new discharge. Hours go back to 12.", "Complete the questions and submit the referral (one item, 12 points). It expires 30 days after today."] },
@@ -1046,7 +1043,7 @@ const SCENARIOS = [
     steps: ["Open TEST-1004 and select Recovery at Home. Answer Yes, new discharge.", "Choose diagnosis J18.9 and check out. Checkout fails and names the diagnosis.", "Remove the cart item, start again with a different diagnosis such as S72 (fracture of femur), and it goes through."] },
   { t: "Keep the referral up to date", who: "TEST-1001", tile: "IHSPC80",
     why: "Everyday actions on an existing referral.",
-    steps: ["Open TEST-1001, select In-Home Support Personal Care and expand the referral.", "Edit the Referral Narrative (250 characters).", "Add > Add Document to attach POA paperwork.", "View > Copy Tracking Link to share status with the family.", "In Overview, add the member's email address."] },
+    steps: ["Open TEST-1001, select Personal Care and expand the referral.", "Edit the Referral Narrative (250 characters).", "Add > Add Document to attach POA paperwork.", "View > Copy Tracking Link to share status with the family.", "In Overview, add the member's email address."] },
 ];
 function openGuide() {
   const el = document.createElement("aside");
@@ -1080,7 +1077,7 @@ const NOTE_TYPES = ["Visit Scheduled Within 1 Week", "Visit Scheduled Within 2 W
 SCENARIOS.push(
   { t: "Create a Personal Care referral", who: "TEST-1002", tile: "IHSPC80",
     why: "Personal Care is help with activities of daily living at home, 80 hours for the year on this plan. This member has no Personal Care referral yet.",
-    steps: ["Search TEST-1002 and select In-Home Support Personal Care.", "Choose Add Referral and select the Personal Care service.", "Answer the questions: best number, point person, and at least two ADLs. IADLs and care interest are optional.", "Add to Cart (one item for the full allotment), then Checkout and Confirm.", "The new referral expires on 12/31/2027, the end of the plan year."] },
+    steps: ["Search TEST-1002 and select Personal Care.", "Choose Add Referral and select the Personal Care service.", "Answer the questions: best number, point person, a primary support need and at least one different secondary need. Care interest and notes are optional.", "Add to Cart (one item for the full allotment), then Checkout and Confirm.", "The new referral expires on 12/31/2027, the end of the plan year."] },
   { t: "Create a Companion Care referral", who: "TEST-1006", tile: "CC40",
     why: "Companion Care is for members who live in a partner facility, up to 40 hours per calendar quarter. This member has no Companion Care referral yet.",
     steps: ["Search TEST-1006 and select Companion Care.", "Choose Add Referral and select the Companion Care service.", "Answer the six facility questions and choose at least one SSBCI chronic condition. Every question is required.", "Add to Cart (one item for the full allotment), then Checkout and Confirm.", "The new referral expires on 3/31/2027, the end of Q1 2027."] }

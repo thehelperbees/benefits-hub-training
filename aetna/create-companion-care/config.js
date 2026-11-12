@@ -1,7 +1,7 @@
 /* Companion Care: create the referral. Member TEST-1006 (CC40, no Companion Care referral yet).
    Added by the training team: the SME mock's other Companion Care member (TEST-1003) already has an open referral.
    Questions follow the final SME mock: six required open-text facility questions + required SSBCI condition (at least one of 7),
-   care interest (optional), narrative (optional). `say` = narration script, `sub` = on-screen caption. */
+   narrative (optional). No care interest question (UAT, Nov 2026). `say` = narration script, `sub` = on-screen caption. */
 (function () {
   var K = GuideKit({
     member: 'TEST-1006', program: 'CC40', qty: 40,
@@ -106,16 +106,16 @@
 
       { id: 'ssbci', au: 'cc_09_ssbci.mp3',
         h: 'SSBCI chronic conditions',
-        sub: 'Companion Care is an SSBCI benefit, so choose the member\'s <b>SSBCI chronic condition(s)</b>. This question is required: select at least one of the seven.',
+        sub: 'Companion Care is an SSBCI benefit, so choose the member\'s <b>SSBCI – Companion Care Chronic Conditions</b>. This question is required: select at least one of the seven.',
         say: 'Last of the required questions: the S-S-B-C-I chronic conditions. Companion care is an S-S-B-C-I benefit, so you record at least one qualifying chronic condition for the member. Open the list and select at least one. The seven choices are chronic alcohol use disorder and other substance use disorders, chronic and disabling mental health conditions, chronic heart failure, chronic kidney disease, chronic lung disorders, dementia, and neurologic disorders.',
         enter: function (H) { K.ensureForm(H, 3); K.clear(H, ['ssbci']); },
         target: '#q-ssbci', tag: 'Open and choose',
         done: function (H) { return K.answered(H, ['ssbci']); } },
 
       { id: 'optional', au: 'cc_10_optional.mp3', info: true,
-        h: 'Optional: care interest and narrative',
-        sub: '<b>Care interest confirmed with member?</b> is optional. So is the <b>referral narrative</b>, up to 250 characters. Because Companion Care has service questions, Benefits Hub adds a first line telling providers to review them, and it counts toward the 250.',
-        say: 'Two questions are left, and both are optional: care interest, and the referral narrative. The narrative can be up to two hundred fifty characters, and Benefits Hub adds a first line asking providers to review your answers, which counts toward the limit. Use the narrative for anything else the provider should know. You can edit it later.',
+        h: 'Optional: the referral narrative',
+        sub: 'That was the last service question. The <b>referral narrative</b> is optional, up to 250 characters. Because Companion Care has service questions, Benefits Hub adds a first line telling providers to review them, and it counts toward the 250.',
+        say: 'That was the last service question. The referral narrative is optional, and it can be up to two hundred fifty characters. Benefits Hub adds a first line asking providers to review your answers, which counts toward the limit. Use the narrative for anything else the provider should know. You can edit it later.',
         enter: function (H) { K.ensureForm(H, 4); },
         target: '#narrAdd', tag: 'Optional' },
 

@@ -1,10 +1,10 @@
 /* Personal Care: create the referral. Member TEST-1002 (IHSPC80, no Personal Care referral yet).
-   Questions follow the final SME mock: best number, point person(s), support needs (ADLs, at least 2; IADLs optional),
+   Questions follow the final SME mock: best number, point person(s), support needs (primary need + at least one different secondary need, per UAT Nov 2026),
    care interest, narrative. `say` = narration script, `sub` = on-screen caption. */
 (function () {
   var K = GuideKit({
     member: 'TEST-1002', program: 'IHSPC80', qty: 80,
-    groups: [['bestNumber', 'pp1_name', 'pp1_rel', 'pp1_phi'], ['adlNeeds']]
+    groups: [['bestNumber', 'pp1_name', 'pp1_rel', 'pp1_phi'], ['primaryNeed', 'secondaryNeeds']]
   });
   var S = K.S, MID = K.MID;
   /* a second referral in the same year: the first one used the whole 80-point allotment, so Add to Cart is refused */
@@ -42,10 +42,10 @@
 
       { id: 'tile', au: 'pc_02_tile.mp3',
         h: 'Open the Personal Care benefit',
-        sub: 'This member has two benefits: In-Home Support Personal Care and In-Home Support Post-Discharge. Select the <b>In-Home Support Personal Care</b> tile.',
+        sub: 'This member has two benefits: Personal Care and In-Home Support Post-Discharge. Select the <b>Personal Care</b> tile.',
         say: 'This member has personal care and post-discharge. Click the personal care tile, since that\'s the benefit we\'re setting up.',
         enter: function (H) { K.ensureMember(H, false); },
-        target: '.tile[title="In-Home Support Personal Care"]', tag: 'Select this benefit',
+        target: '.tile[title="Personal Care"]', tag: 'Select this benefit',
         done: function (H) { return S(H).tile[MID] === H.authId(MID, K.PROG); } },
 
       { id: 'auth', au: 'pc_03_auth.mp3',
@@ -65,8 +65,8 @@
 
       { id: 'service', au: 'pc_04_service.mp3',
         h: 'Choose the service',
-        sub: 'Select the <b>Search For Services</b> field, then choose <b>In-Home Support - Personal Care</b>.',
-        say: 'Click Search For Services, and choose in-home support, personal care.',
+        sub: 'Select the <b>Search For Services</b> field, then choose <b>Personal Care</b>.',
+        say: 'Click Search For Services, and choose Personal Care.',
         enter: function (H) { K.ensureAdd(H, false); },
         target: K.svcTarget, tag: K.svcTag('Personal Care'),
         done: function (H) { return !!(H.form() && H.form().svc); } },
@@ -74,31 +74,32 @@
       { id: 'contact', au: 'pc_05_contact.mp3',
         h: 'Who should THB work with?',
         sub: 'Under <b>Service Questions</b>, enter the <b>best number to reach the member</b> and <b>point person 1</b>: name, relationship to the member, and whether PHI can be shared with them. Optional fields can be left blank, and you can add point persons 2 and 3 if the member has them.',
-        say: 'These questions tell the Helper Bees who to work with. Enter the best number to reach the member, and a mobile is best, since the phone on file comes from Aetna\'s eligibility file. Then complete point person one: name, relationship, and whether health information can be shared with them. Email, other phone numbers, and best time to reach are optional, and you can add more point persons if the member has them.',
+        say: 'These questions tell the Helper Bees who to work with. Enter the best number to reach the member, and a mobile is best, since the phone on file comes from Aetna\'s eligibility file. Then complete point person one: name, relationship, and whether health information can be shared with them. Email, best time to reach, and mobile are optional, and you can add more point persons if the member has them.',
         enter: function (H) { K.ensureForm(H, -1); },
         target: function (H) { return K.missing(H, ['bestNumber', 'pp1_name', 'pp1_rel', 'pp1_phi']); }, tag: 'Answer this question',
         done: function (H) { return K.answered(H, ['bestNumber', 'pp1_name', 'pp1_rel', 'pp1_phi']); } },
 
       { id: 'adl', au: 'pc_06_adl.mp3',
-        h: 'Support needs: activities of daily living',
-        sub: 'Open the first <b>Support needs</b> list and select <b>at least two</b> activities of daily living (ADLs). Personal Care requires help with at least two, and Benefits Hub will not let you continue with fewer.',
-        say: 'Now the support needs, which is where personal care has a rule of its own. The first list is activities of daily living, or A-D-Ls: bathing and personal hygiene, dressing and grooming, toileting and continence, transfer assistance, ambulation and mobility, and feeding assistance. Select at least two. Personal care requires help with two or more, and Benefits Hub won\'t let you continue with fewer.',
-        enter: function (H) { K.ensureForm(H, 0); K.clear(H, ['adlNeeds']); },
-        target: '#q-adlNeeds',
-        tag: function (H) { var a = S(H).form.answers.adlNeeds; return a && a.length === 1 ? 'Select at least one more' : 'Open and choose'; },
-        done: function (H) { var a = S(H).form.answers.adlNeeds; return !!(a && a.length >= 2); } },
+        h: 'Support needs: the primary need',
+        sub: 'Under <b>Please choose the primary support need</b>, choose the one the member needs help with most. The choices are the six activities of daily living (ADLs), plus meal preparation and medication reminders.',
+        say: 'Now the support needs, which is where personal care has a rule of its own. First, choose the member\'s primary support need, the one they need help with most. The choices are the six activities of daily living, or A-D-Ls: bathing and personal hygiene, dressing and grooming, toileting and continence, transfer assistance, ambulation and mobility, and feeding assistance. There are also two household tasks: meal preparation and medication reminders. This one is required.',
+        enter: function (H) { K.ensureForm(H, 0); K.clear(H, ['primaryNeed', 'secondaryNeeds']); },
+        target: '#q-primaryNeed', tag: 'Choose the primary need',
+        done: function (H) { return !!S(H).form.answers.primaryNeed; } },
 
-      { id: 'iadl', au: 'pc_07_iadl.mp3', info: true,
-        h: 'Optional: other support and care interest',
-        sub: 'The second <b>Support needs</b> list covers instrumental ADLs, like meal preparation, medication reminders, light housekeeping, and laundry. Choose any that apply. <b>Care interest confirmed with member?</b> is optional too. If you choose "Other," describe it in the referral narrative.',
-        say: 'The second list is for other support, called I-A-D-Ls. These are things like meal preparation, medication reminders, light housekeeping, laundry, errands, and transportation help. Choose any that apply, but it\'s optional. If none of the choices fit, pick Other, and describe it in the referral narrative, which is next. The care interest question is optional too.',
-        enter: function (H) { K.ensureForm(H, 1); },
-        target: '#q-iadlNeeds', tag: 'Optional' },
+      { id: 'iadl', au: 'pc_07_iadl.mp3',
+        h: 'Support needs: at least one secondary need',
+        sub: 'Then open <b>Please choose at least 1 secondary support need</b> and select one or more. A secondary need <b>must be different from the primary one</b>. <b>Care interest confirmed with member?</b> and <b>Notes for the THB coordinator</b> are optional.',
+        say: 'Next, choose at least one secondary support need from the same list. It has to be different from the primary need you just picked. So personal care always records at least two different needs: one primary, and one or more secondary. Benefits Hub won\'t let you add the referral to the cart without both. The last two questions are optional: whether care interest is confirmed, and notes for the Helper Bees coordinator, like language needs or the best way to reach the member.',
+        enter: function (H) { K.ensureForm(H, 0); var a = S(H).form.answers; if (!a.primaryNeed) a.primaryNeed = H.TM.CONFIG.lists.pcNeeds[0][0]; K.clear(H, ['secondaryNeeds']); },
+        target: '#q-secondaryNeeds',
+        tag: function (H) { var a = S(H).form.answers, s = a.secondaryNeeds; return s && s.length && !s.some(function (x) { return x !== a.primaryNeed; }) ? 'Choose a different need' : 'Open and choose'; },
+        done: function (H) { var a = S(H).form.answers, s = a.secondaryNeeds; return !!(s && s.some(function (x) { return x !== a.primaryNeed; })); } },
 
       { id: 'narrative', au: 'pc_08_narrative.mp3', info: true,
         h: 'Add a referral narrative (optional)',
         sub: 'You can write a <b>referral narrative</b> of up to 250 characters. Because Personal Care has service questions, Benefits Hub adds a first line telling providers to review them. That line counts toward the 250, so the counter stops lower. You can edit the narrative after the referral is created.',
-        say: 'The referral narrative is optional, up to two hundred fifty characters. It\'s the place to explain anything the questions don\'t capture, like the details of an Other support need. Benefits Hub adds a first line asking providers to review the service questions, and that counts toward your two hundred fifty. You can edit it anytime after the referral is created.',
+        say: 'The referral narrative is optional, up to two hundred fifty characters. It\'s the place to explain anything the questions don\'t capture, for providers to read. Benefits Hub adds a first line asking providers to review the service questions, and that counts toward your two hundred fifty. You can edit it anytime after the referral is created.',
         enter: function (H) { K.ensureForm(H, 1); },
         target: '#narrAdd', tag: 'Optional' },
 
@@ -166,10 +167,10 @@
     outro: {
       eyebrow: 'All set',
       title: 'You created a Personal Care referral.',
-      sub: 'You searched for the member, chose the benefit, answered the questions including at least two ADLs, added the referral for the full allotment, and checked out. You also saw Benefits Hub stop a second Personal Care referral in the same year.',
+      sub: 'You searched for the member, chose the benefit, answered the questions including a primary and a secondary support need, added the referral for the full allotment, and checked out. You also saw Benefits Hub stop a second Personal Care referral in the same year.',
       links: [{ href: '../resources/Adding a Referral - Job Aid.pdf', label: 'Job aid: Adding a Referral' },{ href: '../resources/Aetna Benefits at a Glance - Job Aid.pdf', label: 'Job aid: Aetna Benefits at a Glance' }],
       au: 'pc_18_outro.mp3',
-      say: 'You\'ve created a personal care referral, including the at-least-two A-D-Ls rule, and you\'ve seen Benefits Hub block a second one in the same year. The Adding a Referral job aid and the benefits at a glance sheet are linked here. Next, companion care.'
+      say: 'You\'ve created a personal care referral, with a primary and at least one different secondary support need, and you\'ve seen Benefits Hub block a second one in the same year. The Adding a Referral job aid and the benefits at a glance sheet are linked here. Next, companion care.'
     }
   };
 })();
