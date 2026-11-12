@@ -482,7 +482,7 @@ function renderStep1(vwrap){
   }).join('') + '</div>';
   tileHtml += '<div class="pm-hint">'+(opened?'Tile selected — see authorization below':'Click the highlighted tile to select it')+'</div>';
   if(opened || answered['s1_assessNote']){
-    tileHtml += '<div class="infonote" style="margin-top:12px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Initial IHS Assessment</b> is a separate one-point benefit. You will see Add Referral on that tile as well, but leave it alone — the Helper Bees team creates the assessment referral once your post-discharge referral comes in. Create your referrals from <b>Post Discharge Support</b> only.</span></div>';
+    tileHtml += '<div class="infonote" style="margin-top:12px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Initial IHS Assessment</b> is a separate one-point benefit. You will see Add Referral on that tile as well, but leave it alone — the Helper Bees team creates the assessment referral and assigns the provider once your post-discharge referral comes in. Create your referrals from <b>Post Discharge Support</b> only.</span></div>';
   }
 
   var authHtml = '';
@@ -501,6 +501,7 @@ function renderStep1(vwrap){
       '<button class="pm-btn-dark'+(addBtnHot?' pm-hot':'')+'" style="position:relative;" id="pmAddReferralBtn">Add Referral'+(addBtnHot?hotTag('Click to add referral'):'')+'</button>'+
       '</div>'+
       '<div class="infonote" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Pending</b> reflects hours already reserved by other referrals against this same authorization — it does not mean a referral hasn\'t been entered yet.</span></div>'+
+      '<div class="infonote" style="margin-top:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>The 20 hours are per benefit year.</b> This is the member\'s one allotment for the year — another discharge in the same year does not create another 20 hours.</span></div>'+
       '<div class="pm-nofound">No referrals found for Post Discharge Support benefit.</div>'+
       '</div>';
   }
