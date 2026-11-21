@@ -249,6 +249,10 @@
   .pm-btn-outline.danger{color:#C0392B;border-color:#f0c4c4;}
 
   .pm-svcdetail{background:#fff;border:1.5px solid #eee;border-radius:10px;padding:12px 14px;margin-top:10px;}
+  .pm-addrfield{display:flex;flex-direction:column;gap:4px;}
+  .pm-addrfield label{font-size:12.5px;color:#888;font-weight:500;}
+  .pm-addrfield .req{color:#C2185B;font-weight:800;}
+  .pm-addrfield select{border:1.5px solid #ddd;border-radius:8px;padding:9px 11px;font-size:12.5px;color:#333;font-family:inherit;background:#fff;max-width:340px;}
   .pm-svcdetail h5{margin:0 0 8px;font-size:12.5px;font-weight:800;color:#1a1a1a;}
   /* checkout — matching Creating and Submitting a Referral's real cart/address/summary */
   .pm-summarytable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:10px;}
@@ -1216,7 +1220,7 @@ var SUBMIT_SERVICES = [
 
 var ICON_EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
 function storyEsc(v){ return String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
-function storyCanAdd(){ return (story.qty||0)===3; }
+function storyCanAdd(){ return (story.qty||0)===3 && story.sdq==='Yes'; }
 
 function renderChapterSubmit(vwrap){
   var normTyped = (story.memberIdTyped||'').replace(/\s+/g,'').toUpperCase();
@@ -1289,7 +1293,8 @@ function renderChapterSubmit(vwrap){
       (addedToCart ?
         '<div style="margin-top:10px;font-size:11px;color:#1E7A46;font-weight:800;">&#10003; Added to cart — Quantity: '+qty+'</div>'
         :
-        '<div class="infonote" style="margin-top:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Companion Care has no Service Questions to answer. It is <b>43.00 points per hour</b>, so enter <b>3</b> for the 3 hours requested.</span></div>'+
+        '<div class="infonote" style="margin-top:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Companion Care is authorized in quarterly allotments. In the live system you also answer the facility scheduling questions; here, just enter <b>3</b> as the quantity for the 3 hours allotted (43.00 points per hour), then answer the confirmation question.</span></div>'+
+        '<div class="pm-addrfield" style="margin-top:10px;"><label>I confirm that I have updated the quantity below to the hours allotted for this referral. <span class="req">*</span></label><select id="storySdq"><option value=""></option><option value="Yes"'+(story.sdq==='Yes'?' selected':'')+'>Yes</option></select></div>'+
         '<div style="margin-top:6px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">'+
         '<div class="pm-qty"><button type="button" id="storyQtyMinus" '+(qty<=1?'disabled':'')+'>&minus;</button>'+
           '<input type="text" id="storyQtyInput" inputmode="numeric" placeholder="0" value="'+(qty?qty:'')+'">'+
@@ -1376,6 +1381,8 @@ function renderChapterSubmit(vwrap){
   }
   var phoneEl = vwrap.querySelector('#storyPhone');
   if(phoneEl){ phoneEl.oninput=function(){ story.phone=phoneEl.value; storySync(); }; }
+  var sdqEl = vwrap.querySelector('#storySdq');
+  if(sdqEl){ sdqEl.onchange=function(){ story.sdq=sdqEl.value; storySync(); }; }
   var confEl = vwrap.querySelector('#storyConfirm');
   if(confEl){ confEl.onchange=function(){ story.confirm=confEl.value; storySync(); }; }
   var qtyEl = vwrap.querySelector('#storyQtyInput');
